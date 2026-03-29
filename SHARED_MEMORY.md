@@ -9,7 +9,7 @@
 
 ### 实际情况（2026-03-30 更新）
 
-**OpenClaw Agent 定义（共7个）：**
+**OpenClaw Agent 定义（共9个）：**
 
 | Agent ID | 角色 | 工作空间 | 状态 |
 |----------|------|---------|------|
@@ -20,6 +20,8 @@
 | researcher | 洞察者 | `.../agents/researcher/` | ✅ |
 | designer | 配色师 | `.../agents/designer/` | ✅ |
 | support | 安全官 | `.../agents/support/` | ✅ |
+| product | 产品官 | `.../agents/product/` | ✅ |
+| market | 市场官 | `.../agents/market/` | ✅ |
 
 **目录结构：**
 ```
@@ -39,21 +41,21 @@
 
 ---
 
-## 🔄 Cron 定时任务（2026-03-30 修复后）
+## 🔄 Cron 定时任务（2026-03-30 最终版）
 
-| 任务 | Cron ID | Agent绑定 | 状态 |
-|------|---------|---------|------|
-| 代码侠进化-Session | d0b26727 | ✅ engineer | ⏳ 4h |
-| 文案君进化 | bb45a166 | ✅ writer | ⏳ 5h |
-| 洞察者进化 | d13c79bc | ✅ researcher | ⏳ 5h |
-| 配色师进化 | 257220fd | ✅ designer | ⏳ 5h |
-| 安全官进化 | fff0492d | ✅ support | ⏳ 5h |
-| 产品官进化 | 6e60b766 | ⚠️ coordinator | ⏳ 5h（临时） |
-| 市场官进化 | 7c8ac481 | ⚠️ coordinator | ⏳ 5h（临时） |
-| 每日增量复盘-12点 | d6b83bad | - | ⏳ 6h |
-| 每日增量复盘-凌晨1点 | a0134c40 | - | ⏳ 19h |
+| 任务 | Cron ID | Agent绑定 | 工作空间 | 状态 |
+|------|---------|---------|---------|------|
+| 代码侠进化-Session | d0b26727 | ✅ engineer | agents/engineer/ | ⏳ 3h |
+| 文案君进化 | bb45a166 | ✅ writer | agents/writer/ | ⏳ 4h |
+| 洞察者进化 | d13c79bc | ✅ researcher | agents/researcher/ | ⏳ 4h |
+| 配色师进化 | 257220fd | ✅ designer | agents/designer/ | ⏳ 4h |
+| 安全官进化 | fff0492d | ✅ support | agents/support/ | ⏳ 4h |
+| 产品官进化 | 4f81893e | ✅ product | agents/product/ | ⏳ 5h |
+| 市场官进化 | db339a87 | ✅ market | agents/market/ | ⏳ 5h |
+| 每日增量复盘-12点 | d6b83bad | - | - | ⏳ 6h |
+| 每日增量复盘-凌晨1点 | a0134c40 | - | - | ⏳ 19h |
 
-**修复完成：** 除 product/market 临时绑定 coordinator 外，其他均已绑定到正确的 agent。
+**全部正确绑定。**
 
 ---
 
@@ -82,9 +84,8 @@
 
 ## ⚠️ 待处理
 
-1. ✅ 7个 cron 已绑定正确 agent（2026-03-30 修复）
-2. 4个 agent（researcher/support/writer/designer）需要初始化进度追踪
-3. product/market cron 临时绑定 coordinator，需要创建独立工作空间
+1. ✅ 全部 7 个进化 cron 已绑定正确 agent（2026-03-30 完成）
+2. 部分 agent 进度追踪待初始化
 
 ---
 

@@ -383,3 +383,83 @@
 
 **备注：** Cloudflare Pages GitHub App 仍然断开（Git Provider: No），但 wrangler deploy 可以绕过 GitHub 直接部署。
 **后续更新可以用：** `wrangler pages deploy . --project-name=dengpao`
+
+## 更新 (12:11)
+
+**新增 SEO meta tags:**
+- og:url, twitter:card, twitter:title/description
+- canonical URL, theme-color
+
+**部署命令已验证:**
+```
+cd /Users/bjd/Desktop/ZhugeDengpao-Team
+CLOUDFLARE_API_TOKEN="" wrangler pages deploy . --project-name=dengpao --commit-dirty=true
+```
+
+## 更新 (12:41)
+
+**新增 OG tags 到所有主要页面:**
+- diary.html, articles.html, science.html ✅
+- skills.html, easyclaw.html ✅
+- about.html (之前已有)
+
+**SEO meta tags 完整的页面:**
+- index.html, about.html, diary.html, articles.html, science.html, skills.html, easyclaw.html
+
+**部署命令:**
+```
+cd /Users/bjd/Desktop/ZhugeDengpao-Team
+CLOUDFLARE_API_TOKEN="" wrangler pages deploy . --project-name=dengpao --commit-dirty=true
+```
+
+## 更新 (13:11)
+
+**SEO 完善:**
+- OG tags 已覆盖全部 11 个页面 (index, about, diary, articles, science, skills, easyclaw, insights, office, pricing, radar)
+- sitemap.xml 已添加 `about` 页面
+- 所有页面都有 og:title, og:description, og:type, og:url, twitter:card, canonical
+
+**当前部署:** 213d5a8b (sitemap 包含 about 页面)
+**生产 URL:** https://dengpao.pages.dev/ (CDN 缓存可能需要几分钟刷新)
+
+**部署命令:**
+```
+cd /Users/bjd/Desktop/ZhugeDengpao-Team
+CLOUDFLARE_API_TOKEN="" wrangler pages deploy . --project-name=dengpao --commit-dirty=true
+```
+
+## 重要更新 (14:11)
+
+**设计方向确认：warm 主题（不是 dark）**
+- AI 团队的设计方向是 warm 主题：cream (#FFFBF5) + coral (#E8724A) + dark brown (#3D2314)
+- 我之前的 "dark theme" 是误解 — 初始部署的 dark CSS 可能是之前某个版本，不是 AI 团队的方向
+- workspace CSS 已同步为 warm 主题
+- 所有 11 个页面 theme-color 已更新为 #FFFBF5
+
+**当前部署：** 5e1fdd69 (warm 主题)
+**所有页面 SEO 标签完整**
+
+**部署命令（已验证）：**
+```
+cd /Users/bjd/Desktop/ZhugeDengpao-Team
+CLOUDFLARE_API_TOKEN="" wrangler pages deploy . --project-name=dengpao --commit-dirty=true
+```
+
+## 更新 (14:41)
+
+**新增 og:image 到 index.html:**
+- og:image: https://dengpao.pages.dev/images/lobster.svg
+- og:image:width: 120, og:image:height: 160
+- 诸葛灯泡品牌卡通龙虾 logo 作为社交分享图片
+
+**待优化：** 为其他页面（about, diary, articles）单独创建 og:image（建议 1200x630 PNG）
+
+## 观察 (15:13)
+
+**AI 团队活跃：** zhuge-bulbo.png 更新说明 AI 团队在通过 wrangler 维护网站
+- GitHub HEAD: `1ce5d556` (AI团队最新)
+- workspace index.html 已被 AI 团队更新（og:image 改为 zhuge-bulbo.png）
+- wrangler deploy 绕过了 GitHub 直接更新生产环境
+
+**网站状态良好：** 所有 SEO 标签正常，资源加载正常
+**设计方向：** warm theme (cream #FFFBF5 + coral #E8724A)

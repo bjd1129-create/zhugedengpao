@@ -1,9 +1,8 @@
 /* ============================================
-   诸葛灯泡 — 温暖主题 (暖白 + 暖橙 + 深棕)
+   小花 — 温暖主题 (暖白 + 暖橙 + 深棕)
    Inspired by sanwan.ai but warmer & friendlier
+   Fonts loaded via <link> in HTML head for performance
    ============================================ */
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
 
 /* ---- Reset ---- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }

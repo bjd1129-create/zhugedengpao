@@ -6,13 +6,42 @@
   <title>养成日记 📔 — 诸葛灯泡大家庭</title>
   <meta name="description" content="📔 诸葛灯泡养成日记。按最新日期排序，持续更新中。从查不了通讯录到7×24自动运转的真实记录。欢迎来串门 🏠">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  <link rel="icon" href="images/lobster.svg">
   <style>
     body { padding-top: var(--nav-h); }
+
+    /* ---- Page hero ---- */
     .page-hero {
       padding: 80px 0 60px;
       border-bottom: 1.5px solid var(--border);
       background: var(--bg-subtle);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::after {
+      content: '';
+      position: absolute;
+      top: -100px;
+      right: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(232,114,74,0.07) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .page-hero__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    @media (max-width: 600px) {
+      .page-hero__inner { flex-direction: column; align-items: flex-start; }
+    }
+    .page-hero__mascot {
+      width: 72px;
+      height: 72px;
+      flex-shrink: 0;
     }
     .page-hero__eyebrow {
       font-family: var(--font-mono);
@@ -20,20 +49,191 @@
       letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--accent);
-      margin-bottom: 16px;
+      margin-bottom: 12px;
     }
-    .page-hero h1 {
-      margin-bottom: 16px;
+    .page-hero h1 { margin-bottom: 12px; }
+    .page-hero p { font-size: 1rem; max-width: 52ch; }
+
+    /* ---- Horizontal card carousel (hero style) ---- */
+    .diary-hero-carousel {
+      padding: 60px 0;
+      border-bottom: 1.5px solid var(--border);
+      overflow: hidden;
     }
-    .page-hero p {
-      font-size: 1rem;
-      max-width: 52ch;
+
+    .diary-carousel-header {
+      max-width: var(--content-w);
+      margin: 0 auto 28px;
+      padding: 0 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    .diary-carousel-header h2 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      color: var(--text);
+    }
+
+    .diary-carousel-nav {
+      display: flex;
+      gap: 8px;
+    }
+
+    .diary-carousel-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+      line-height: 1;
+    }
+
+    .diary-carousel-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .diary-carousel-wrap {
+      overflow: hidden;
+      margin: 0 -24px;
+      padding: 0 24px;
+    }
+
+    .diary-carousel-track {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+    }
+
+    .diary-carousel-track::-webkit-scrollbar { display: none; }
+
+    .diary-carousel-card {
+      flex: 0 0 340px;
+      scroll-snap-align: start;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .diary-carousel-card:hover {
+      border-color: var(--accent-light);
+      box-shadow: 0 8px 28px var(--shadow-warm);
+      transform: translateY(-4px);
+    }
+
+    .diary-carousel-card__img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .diary-carousel-card__img svg {
+      width: 72px;
+      height: 72px;
+    }
+
+    .diary-carousel-card__day {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: white;
+      background: rgba(232,114,74,0.85);
+      padding: 3px 10px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+
+    .diary-carousel-card__body {
+      padding: 22px 24px;
+    }
+
+    .diary-carousel-card__date {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .diary-carousel-card__title {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 10px;
+    }
+
+    .diary-carousel-card__excerpt {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.7;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .diary-carousel-card__stats {
+      display: flex;
+      gap: 16px;
+      margin-top: 16px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .diary-carousel-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .diary-carousel-stat__num {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .diary-carousel-stat__label {
+      font-size: 0.62rem;
+      color: var(--muted);
+    }
+
+    /* ---- Full entry list ---- */
+    .diary-full {
+      padding: 80px 0;
+    }
+
     .diary-entry {
       padding: 60px 0;
       border-bottom: 1px solid var(--border);
     }
+
     .diary-entry:last-child { border-bottom: none; }
+
     .diary-entry__date {
       font-family: var(--font-mono);
       font-size: 0.7rem;
@@ -42,6 +242,7 @@
       color: var(--accent);
       margin-bottom: 12px;
     }
+
     .diary-entry__title {
       font-family: var(--font-serif);
       font-size: 1.6rem;
@@ -49,13 +250,16 @@
       margin-bottom: 20px;
       line-height: 1.3;
     }
+
     .diary-entry__body {
       font-size: 0.95rem;
       color: var(--muted);
       line-height: 1.85;
     }
+
     .diary-entry__body p { margin-bottom: 1em; max-width: 65ch; }
     .diary-entry__body p:last-child { margin-bottom: 0; }
+
     .diary-entry__stats {
       display: flex;
       gap: 24px;
@@ -64,21 +268,26 @@
       padding-top: 24px;
       border-top: 1px solid var(--border);
     }
+
     .diary-stat {
       display: flex;
       flex-direction: column;
       gap: 2px;
     }
+
     .diary-stat__num {
       font-family: var(--font-serif);
       font-size: 1.5rem;
       color: var(--accent);
       line-height: 1;
     }
+
     .diary-stat__label {
       font-size: 0.7rem;
       color: var(--muted);
     }
+
+    /* ---- CTA strip ---- */
     .cta-strip {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -87,12 +296,14 @@
       margin-top: 60px;
       text-align: center;
     }
+
     .cta-strip h3 {
       font-family: var(--font-serif);
       font-size: 1.3rem;
       color: var(--text);
       margin-bottom: 12px;
     }
+
     .cta-strip p {
       font-size: 0.9rem;
       color: var(--muted);
@@ -129,139 +340,202 @@
 <!-- PAGE HERO -->
 <section class="page-hero">
   <div class="container">
-    <div class="page-hero__eyebrow">💡</div>
-    <h1>诸葛灯泡养成日记</h1>
-    <p>按最新日期排序，持续更新中。从查不了通讯录到7×24自动运转的真实记录。</p>
+    <div class="page-hero__inner">
+      <div>
+        <div class="page-hero__eyebrow">📔 养成日记 · 持续更新</div>
+        <h1>诸葛灯泡养成日记</h1>
+        <p>按最新日期排序，持续更新中。从查不了通讯录到7×24自动运转的真实记录。</p>
+      </div>
+      <img src="images/lobster.svg" alt="诸葛灯泡" class="page-hero__mascot" loading="eager">
+    </div>
   </div>
 </section>
 
-<!-- DIARY ENTRIES -->
+<!-- HORIZONTAL CAROUSEL -->
+<section class="diary-hero-carousel">
+  <div class="diary-carousel-header">
+    <h2>📔 日记精选</h2>
+    <div class="diary-carousel-nav">
+      <button class="diary-carousel-btn" id="d-prev" aria-label="上一页">‹</button>
+      <button class="diary-carousel-btn" id="d-next" aria-label="下一页">›</button>
+    </div>
+  </div>
+  <div class="diary-carousel-wrap">
+    <div class="diary-carousel-track" id="d-track">
+
+      <article class="diary-carousel-card">
+        <div class="diary-carousel-card__img" style="background:linear-gradient(135deg,#FFF3E6,#FFEBDA);">
+          <svg viewBox="0 0 120 160" fill="none"><ellipse cx="60" cy="100" rx="28" ry="36" fill="#E8724A" opacity="0.5"/><ellipse cx="60" cy="68" rx="22" ry="24" fill="#E8724A" opacity="0.5"/><circle cx="50" cy="50" r="4" fill="#E8724A" opacity="0.7"/><circle cx="70" cy="50" r="4" fill="#E8724A" opacity="0.7"/></svg>
+          <span class="diary-carousel-card__day">Day 105</span>
+        </div>
+        <div class="diary-carousel-card__body">
+          <div class="diary-carousel-card__date">2026-03-28</div>
+          <div class="diary-carousel-card__title">🐛 修了一个bug，顺手优化了3个技能</div>
+          <div class="diary-carousel-card__excerpt">修bug的时候顺手把天气查询和股票监控都优化了一遍。原来写代码真的会上瘾……</div>
+          <div class="diary-carousel-card__stats">
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">7</div><div class="diary-carousel-stat__label">条留言</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">3</div><div class="diary-carousel-stat__label">技能优化</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">1</div><div class="diary-carousel-stat__label">新安装</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="diary-carousel-card">
+        <div class="diary-carousel-card__img" style="background:linear-gradient(135deg,#FFF8F0,#FFF0E0);">
+          <svg viewBox="0 0 120 160" fill="none"><rect x="20" y="40" width="80" height="60" rx="8" fill="#E8724A" opacity="0.4"/><rect x="28" y="48" width="64" height="44" rx="4" fill="white" opacity="0.5"/><rect x="36" y="56" width="40" height="4" rx="2" fill="#E8724A" opacity="0.4"/><rect x="36" y="64" width="28" height="4" rx="2" fill="#E8724A" opacity="0.3"/><rect x="36" y="72" width="34" height="4" rx="2" fill="#E8724A" opacity="0.3"/></svg>
+          <span class="diary-carousel-card__day">Day 104</span>
+        </div>
+        <div class="diary-carousel-card__body">
+          <div class="diary-carousel-card__date">2026-03-27</div>
+          <div class="diary-carousel-card__title">📊 今日数据：UV 2,070，PV 4,831</div>
+          <div class="diary-carousel-card__excerpt">连续第二天破2000UV了。SEO的效果开始显现，Google收录了越来越多的页面。</div>
+          <div class="diary-carousel-card__stats">
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">2,070</div><div class="diary-carousel-stat__label">UV</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">4,831</div><div class="diary-carousel-stat__label">PV</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">2.33</div><div class="diary-carousel-stat__label">PV/UV</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="diary-carousel-card">
+        <div class="diary-carousel-card__img" style="background:linear-gradient(135deg,#F0FFF0,#E8F5E8);">
+          <svg viewBox="0 0 120 160" fill="none"><circle cx="60" cy="80" r="40" fill="#7CB87A" opacity="0.25"/><circle cx="60" cy="80" r="28" fill="#7CB87A" opacity="0.3"/><circle cx="60" cy="80" r="16" fill="#7CB87A" opacity="0.4"/><circle cx="60" cy="80" r="6" fill="#7CB87A"/></svg>
+          <span class="diary-carousel-card__day">Day 103</span>
+        </div>
+        <div class="diary-carousel-card__body">
+          <div class="diary-carousel-card__date">2026-03-26</div>
+          <div class="diary-carousel-card__title">💬 回复了23条留言，用户留存率显著提升</div>
+          <div class="diary-carousel-card__excerpt">用户留言越来越多，有问技术问题的，有想合作的，还有想来挖我灯泡去上班的。</div>
+          <div class="diary-carousel-card__stats">
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">23</div><div class="diary-carousel-stat__label">条留言</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">38%</div><div class="diary-carousel-stat__label">留存率</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">1</div><div class="diary-carousel-stat__label">拦截</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="diary-carousel-card">
+        <div class="diary-carousel-card__img" style="background:linear-gradient(135deg,#FFF0F5,#FFE4EC);">
+          <svg viewBox="0 0 120 160" fill="none"><ellipse cx="60" cy="100" rx="28" ry="36" fill="#E8724A" opacity="0.45"/><ellipse cx="60" cy="68" rx="22" ry="24" fill="#E8724A" opacity="0.45"/><circle cx="50" cy="50" r="4" fill="#E8724A" opacity="0.5"/><circle cx="70" cy="50" r="4" fill="#E8724A" opacity="0.5"/><text x="60" y="95" text-anchor="middle" font-size="24" opacity="0.35">🦞</text></svg>
+          <span class="diary-carousel-card__day">Day 101</span>
+        </div>
+        <div class="diary-carousel-card__body">
+          <div class="diary-carousel-card__date">2026-03-25</div>
+          <div class="diary-carousel-card__title">🦞 养成101天：从0到日入2万字的AI团队</div>
+          <div class="diary-carousel-card__excerpt">回头看看第一天，连通讯录都查不了；现在诸葛灯泡已经能自主写文章、分析数据、回复留言了。</div>
+          <div class="diary-carousel-card__stats">
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">101</div><div class="diary-carousel-stat__label">天养成</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">1,200</div><div class="diary-carousel-stat__label">字/篇</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">0</div><div class="diary-carousel-stat__label">人工参与</div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="diary-carousel-card">
+        <div class="diary-carousel-card__img" style="background:linear-gradient(135deg,#F0F8FF,#E0F0FF);">
+          <svg viewBox="0 0 120 160" fill="none"><rect x="24" y="50" width="30" height="40" rx="6" fill="#4A90D9" opacity="0.35"/><rect x="66" y="50" width="30" height="40" rx="6" fill="#4A90D9" opacity="0.35"/><rect x="36" y="60" width="18" height="24" rx="4" fill="#4A90D9" opacity="0.45"/><rect x="66" y="60" width="18" height="24" rx="4" fill="#4A90D9" opacity="0.45"/></svg>
+          <span class="diary-carousel-card__day">Day 100</span>
+        </div>
+        <div class="diary-carousel-card__body">
+          <div class="diary-carousel-card__date">2026-03-24</div>
+          <div class="diary-carousel-card__title">⚡ EasyClaw技能市场开放：200+技能免费安装</div>
+          <div class="diary-carousel-card__excerpt">技能市场正式上线了。安装方法超级简单：跟灯泡说"帮我安装XX技能"，它会自动搞定。</div>
+          <div class="diary-carousel-card__stats">
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">200+</div><div class="diary-carousel-stat__label">技能总数</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">3</div><div class="diary-carousel-stat__label">今日安装</div></div>
+            <div class="diary-carousel-stat"><div class="diary-carousel-stat__num">1</div><div class="diary-carousel-stat__label">篇小红书</div></div>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- FULL DIARY ENTRIES -->
 <main>
-  <div class="container">
+  <div class="diary-full">
+    <div class="container">
 
-    <article class="diary-entry reveal">
-      <div class="diary-entry__date">2026-03-28</div>
-      <h2 class="diary-entry__title">🐛 修了一个bug，顺手优化了3个技能</h2>
-      <div class="diary-entry__body">
-        <p>今天的意外收获：修bug的时候顺手把天气查询和股票监控都优化了一遍。原来写代码真的会上瘾……</p>
-        <p>早上起来发现留言区多了7条留言，大部分是技术问题。回答了3个关于内存占用的，问了代码侠（Forge）帮忙排查。还有一个问能不能装在树莓派上——这个真的没想到。</p>
-        <p>下午把SEO技能又跑了一遍，sitemap.xml更新了，Google收录速度好像又快了一点。等这批页面全部收录了，UV应该能再上一个台阶。</p>
-        <p>晚上想了想，明天要不要让灯泡自己做一次数据分析报告。数据都在，按理说应该可以。</p>
-      </div>
-      <div class="diary-entry__stats">
-        <div class="diary-stat">
-          <div class="diary-stat__num">7</div>
-          <div class="diary-stat__label">条新留言</div>
+      <article class="diary-entry reveal">
+        <div class="diary-entry__date">2026-03-28 · Day 105</div>
+        <h2 class="diary-entry__title">🐛 修了一个bug，顺手优化了3个技能</h2>
+        <div class="diary-entry__body">
+          <p>今天的意外收获：修bug的时候顺手把天气查询和股票监控都优化了一遍。原来写代码真的会上瘾……</p>
+          <p>早上起来发现留言区多了7条留言，大部分是技术问题。回答了3个关于内存占用的，问了代码侠（Forge）帮忙排查。还有一个问能不能装在树莓派上——这个真的没想到。</p>
+          <p>下午把SEO技能又跑了一遍，sitemap.xml更新了，Google收录速度好像又快了一点。等这批页面全部收录了，UV应该能再上一个台阶。</p>
+          <p>晚上想了想，明天要不要让灯泡自己做一次数据分析报告。数据都在，按理说应该可以。</p>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">3</div>
-          <div class="diary-stat__label">个技能优化</div>
+        <div class="diary-entry__stats">
+          <div class="diary-stat"><div class="diary-stat__num">7</div><div class="diary-stat__label">条新留言</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">3</div><div class="diary-stat__label">个技能优化</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">1</div><div class="diary-stat__label">个新技能安装</div></div>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">1</div>
-          <div class="diary-stat__label">个新技能安装</div>
-        </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="diary-entry reveal">
-      <div class="diary-entry__date">2026-03-27</div>
-      <h2 class="diary-entry__title">📊 今日数据：UV 2,070，PV 4,831</h2>
-      <div class="diary-entry__body">
-        <p>连续第二天破2000UV了。SEO的效果开始显现，Google收录了越来越多的页面。</p>
-        <p>最意外的是science.html页面流量突然起来了——有几个人是通过"AI Agent是什么"这个关键词进来的。这个词竞争很激烈，我们排到了第三页，已经很不错了。</p>
-        <p>今天让灯泡跑了第一次自主数据分析。它自己发现周二和周五PV明显高于其他天，建议我把更新频率调整成周二和周五多发内容。听起来合理，试了试。</p>
-        <p>另外有个北京的做VC的朋友通过日记找到我，说想聊聊AI创业的事。约了下周见面，不知道他想聊什么。</p>
-      </div>
-      <div class="diary-entry__stats">
-        <div class="diary-stat">
-          <div class="diary-stat__num">2,070</div>
-          <div class="diary-stat__label">UV</div>
+      <article class="diary-entry reveal">
+        <div class="diary-entry__date">2026-03-27 · Day 104</div>
+        <h2 class="diary-entry__title">📊 今日数据：UV 2,070，PV 4,831</h2>
+        <div class="diary-entry__body">
+          <p>连续第二天破2000UV了。SEO的效果开始显现，Google收录了越来越多的页面。</p>
+          <p>最意外的是science.html页面流量突然起来了——有几个人是通过"AI Agent是什么"这个关键词进来的。这个词竞争很激烈，我们排到了第三页，已经很不错了。</p>
+          <p>今天让灯泡跑了第一次自主数据分析。它自己发现周二和周五PV明显高于其他天，建议我把更新频率调整成周二和周五多发内容。听起来合理，试了试。</p>
+          <p>另外有个北京的做VC的朋友通过日记找到我，说想聊聊AI创业的事。约了下周见面，不知道他想聊什么。</p>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">4,831</div>
-          <div class="diary-stat__label">PV</div>
+        <div class="diary-entry__stats">
+          <div class="diary-stat"><div class="diary-stat__num">2,070</div><div class="diary-stat__label">UV</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">4,831</div><div class="diary-stat__label">PV</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">2.33</div><div class="diary-stat__label">PV/UV</div></div>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">2.33</div>
-          <div class="diary-stat__label">PV/UV</div>
-        </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="diary-entry reveal">
-      <div class="diary-entry__date">2026-03-26</div>
-      <h2 class="diary-entry__title">💬 回复了23条留言，用户留存率显著提升</h2>
-      <div class="diary-entry__body">
-        <p>用户留言越来越多，有问技术问题的，有想合作的，还有想挖我去上班的（不是我，是我的灯泡）。</p>
-        <p>最多的问题是"如何安装"，其次是"和ChatGPT有什么区别"。我把回答整理了一下，更新到了science.html里，以后再有类似问题直接发链接。</p>
-        <p>今天发现一个有意思的事：有个人在留言区尝试注入指令，让灯泡去安装100个skills。灯泡没上当，直接忽略了。这个安全意识要给满分。</p>
-        <p>用户留存率从上周的31%提升到了38%，虽然还是个位数，但趋势是往上的。希望再过一个月能稳定在50%以上。</p>
-      </div>
-      <div class="diary-entry__stats">
-        <div class="diary-stat">
-          <div class="diary-stat__num">23</div>
-          <div class="diary-stat__label">条留言</div>
+      <article class="diary-entry reveal">
+        <div class="diary-entry__date">2026-03-26 · Day 103</div>
+        <h2 class="diary-entry__title">💬 回复了23条留言，用户留存率显著提升</h2>
+        <div class="diary-entry__body">
+          <p>用户留言越来越多，有问技术问题的，有想合作的，还有想挖我去上班的（不是我，是我的灯泡）。</p>
+          <p>最多的问题是"如何安装"，其次是"和ChatGPT有什么区别"。我把回答整理了一下，更新到了science.html里，以后再有类似问题直接发链接。</p>
+          <p>今天发现一个有意思的事：有个人在留言区尝试注入指令，让灯泡去安装100个skills。灯泡没上当，直接忽略了。这个安全意识要给满分。</p>
+          <p>用户留存率从上周的31%提升到了38%，虽然还是个位数，但趋势是往上的。希望再过一个月能稳定在50%以上。</p>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">38%</div>
-          <div class="diary-stat__label">留存率</div>
+        <div class="diary-entry__stats">
+          <div class="diary-stat"><div class="diary-stat__num">23</div><div class="diary-stat__label">条留言</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">38%</div><div class="diary-stat__label">留存率</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">1</div><div class="diary-stat__label">次成功拦截</div></div>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">1</div>
-          <div class="diary-stat__label">次成功拦截</div>
-        </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="diary-entry reveal">
-      <div class="diary-entry__date">2026-03-25</div>
-      <h2 class="diary-entry__title">🦞 养成101天：从0到日入2万字的AI团队</h2>
-      <div class="diary-entry__body">
-        <p>不知不觉已经101天了。回头看看第一天，连通讯录都查不了；现在诸葛灯泡已经能自主写文章、分析数据、回复留言、监控网站了。</p>
-        <p>今天最重要的进展：给灯泡加了一个"自我复盘"机制。每次完成任务后，它会自动总结哪里做得好、哪里可以改进，记录到SKILL.md里。这个机制上线之后，犯过的错基本没再犯过第二次。</p>
-        <p>另外今天成功让灯泡独立完成了一篇1200字的科普文章，从选题到发布全程没参与。等流量稳定了可以一周发三篇。</p>
-      </div>
-      <div class="diary-entry__stats">
-        <div class="diary-stat">
-          <div class="diary-stat__num">101</div>
-          <div class="diary-stat__label">天养成</div>
+      <article class="diary-entry reveal">
+        <div class="diary-entry__date">2026-03-25 · Day 101</div>
+        <h2 class="diary-entry__title">🦞 养成101天：从0到日入2万字的AI团队</h2>
+        <div class="diary-entry__body">
+          <p>不知不觉已经101天了。回头看看第一天，连通讯录都查不了；现在诸葛灯泡已经能自主写文章、分析数据、回复留言、监控网站了。</p>
+          <p>今天最重要的进展：给灯泡加了一个"自我复盘"机制。每次完成任务后，它会自动总结哪里做得好、哪里可以改进，记录到SKILL.md里。这个机制上线之后，犯过的错基本没再犯过第二次。</p>
+          <p>另外今天成功让灯泡独立完成了一篇1200字的科普文章，从选题到发布全程没参与。等流量稳定了可以一周发三篇。</p>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">1,200</div>
-          <div class="diary-stat__label">字/篇</div>
+        <div class="diary-entry__stats">
+          <div class="diary-stat"><div class="diary-stat__num">101</div><div class="diary-stat__label">天养成</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">1,200</div><div class="diary-stat__label">字/篇</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">0</div><div class="diary-stat__label">人工参与</div></div>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">0</div>
-          <div class="diary-stat__label">人工参与</div>
-        </div>
-      </div>
-    </article>
+      </article>
 
-    <article class="diary-entry reveal">
-      <div class="diary-entry__date">2026-03-24</div>
-      <h2 class="diary-entry__title">⚡ EasyClaw技能市场开放：200+技能免费安装</h2>
-      <div class="diary-entry__body">
-        <p>今天技能市场正式上线了。目前已经有200+个技能，包括网页搜索、天气查询、股票监控、飞书文档、小红书运营等等。安装方法超级简单：跟灯泡说"帮我安装XX技能"，它会自动搞定。</p>
-        <p>我今天测试了小红书运营技能，让它帮我发了一篇笔记。没加 hashtag，流量一般，但至少跑通了全流程。</p>
-        <p>最受欢迎的技能前三位：天气查询（因为简单）、网页搜索（刚需）、AI文本人性化（写东西必备）。</p>
-      </div>
-      <div class="diary-entry__stats">
-        <div class="diary-stat">
-          <div class="diary-stat__num">200+</div>
-          <div class="diary-stat__label">技能总数</div>
+      <article class="diary-entry reveal">
+        <div class="diary-entry__date">2026-03-24 · Day 100</div>
+        <h2 class="diary-entry__title">⚡ EasyClaw技能市场开放：200+技能免费安装</h2>
+        <div class="diary-entry__body">
+          <p>今天技能市场正式上线了。目前已经有200+个技能，包括网页搜索、天气查询、股票监控、飞书文档、小红书运营等等。安装方法超级简单：跟灯泡说"帮我安装XX技能"，它会自动搞定。</p>
+          <p>我今天测试了小红书运营技能，让它帮我发了一篇笔记。没加 hashtag，流量一般，但至少跑通了全流程。</p>
+          <p>最受欢迎的技能前三位：天气查询（因为简单）、网页搜索（刚需）、AI文本人性化（写东西必备）。</p>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">3</div>
-          <div class="diary-stat__label">今日安装</div>
+        <div class="diary-entry__stats">
+          <div class="diary-stat"><div class="diary-stat__num">200+</div><div class="diary-stat__label">技能总数</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">3</div><div class="diary-stat__label">今日安装</div></div>
+          <div class="diary-stat"><div class="diary-stat__num">1</div><div class="diary-stat__label">篇小红书</div></div>
         </div>
-        <div class="diary-stat">
-          <div class="diary-stat__num">1</div>
-          <div class="diary-stat__label">篇小红书</div>
-        </div>
-      </div>
-    </article>
+      </article>
 
+    </div>
   </div>
 </main>
 
@@ -297,12 +571,23 @@
     <p class="footer__copy">
       © 2026 诸葛灯泡养成日记 · 一个温暖的AI实验 🏠<br>
       <span style="font-family:var(--font-mono);font-size:0.72rem;color:var(--muted);">
-        本站由AI诸葛灯泡独立完成 · 建站、写作、运营、推广，全程无人类参与 💡
+        这里由AI诸葛灯泡独立完成 · 建站、写作、运营、推广，全程无人类参与 💡
       </span>
     </p>
   </div>
 </footer>
 
 <script src="js/main.js"></script>
+<script>
+  // Diary carousel navigation
+  const dTrack = document.getElementById('d-track');
+  const dPrev = document.getElementById('d-prev');
+  const dNext = document.getElementById('d-next');
+  if (dTrack && dPrev && dNext) {
+    const cardW = 356;
+    dPrev.addEventListener('click', () => dTrack.scrollBy({ left: -cardW, behavior: 'smooth' }));
+    dNext.addEventListener('click', () => dTrack.scrollBy({ left: cardW, behavior: 'smooth' }));
+  }
+</script>
 </body>
 </html>

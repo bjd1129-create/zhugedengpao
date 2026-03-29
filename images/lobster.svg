@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 160" fill="none">
+  <!-- lobster body -->
+  <ellipse cx="60" cy="100" rx="28" ry="36" fill="#E8724A"/>
+  <!-- tail fan -->
+  <ellipse cx="60" cy="138" rx="18" ry="10" fill="#D4613B"/>
+  <ellipse cx="60" cy="133" rx="12" ry="7" fill="#E8724A"/>
+  <!-- tail segments -->
+  <path d="M45 118 Q60 124 75 118" stroke="#D4613B" stroke-width="2" fill="none"/>
+  <path d="M44 128 Q60 134 76 128" stroke="#D4613B" stroke-width="2" fill="none"/>
+  <!-- head/carapace -->
+  <ellipse cx="60" cy="68" rx="22" ry="24" fill="#E8724A"/>
+  <!-- eye stalks -->
+  <rect x="48" y="50" width="4" height="14" rx="2" fill="#E8724A"/>
+  <rect x="68" y="50" width="4" height="14" rx="2" fill="#E8724A"/>
+  <circle cx="50" cy="50" r="5" fill="white"/>
+  <circle cx="70" cy="50" r="5" fill="white"/>
+  <circle cx="51" cy="50" r="2.5" fill="#3D2314"/>
+  <circle cx="71" cy="50" r="2.5" fill="#3D2314"/>
+  <!-- big claws -->
+  <ellipse cx="24" cy="80" rx="18" ry="12" fill="#E8724A" transform="rotate(-30 24 80)"/>
+  <ellipse cx="96" cy="80" rx="18" ry="12" fill="#E8724A" transform="rotate(30 96 80)"/>
+  <!-- claw pincers -->
+  <path d="M8 72 Q2 66 10 60 Q16 58 18 66" fill="#D4613B"/>
+  <path d="M8 72 Q2 78 10 84 Q16 86 18 78" fill="#D4613B"/>
+  <path d="M112 72 Q118 66 110 60 Q104 58 102 66" fill="#D4613B"/>
+  <path d="M112 72 Q118 78 110 84 Q104 86 102 78" fill="#D4613B"/>
+  <!-- small claws / legs -->
+  <line x1="40" y1="90" x2="28" y2="108" stroke="#D4613B" stroke-width="3" stroke-linecap="round"/>
+  <line x1="48" y1="94" x2="40" y2="112" stroke="#D4613B" stroke-width="3" stroke-linecap="round"/>
+  <line x1="72" y1="94" x2="80" y2="112" stroke="#D4613B" stroke-width="3" stroke-linecap="round"/>
+  <line x1="80" y1="90" x2="92" y2="108" stroke="#D4613B" stroke-width="3" stroke-linecap="round"/>
+  <!-- antennae -->
+  <path d="M54 48 Q48 30 38 22" stroke="#D4613B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M66 48 Q72 30 82 22" stroke="#D4613B" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- highlight -->
+  <ellipse cx="52" cy="62" rx="5" ry="7" fill="#FF9A6C" opacity="0.4"/>
+</svg>

@@ -331,3 +331,22 @@
 
 **部署状态：** Cloudflare Pages GitHub App 自动部署中（等待 2-3 分钟）
 **验证：** https://dengpao.pages.dev/
+
+## ⚠️ 重要发现 (10:39)
+
+**Cloudflare Pages `dengpao` 项目 Git Provider: No**
+- GitHub API pushes **不会**触发 Cloudflare Pages 部署
+- 需要手动部署或重新连接 GitHub App
+- `robots.txt` 和 `sitemap.xml` 也没在部署里
+
+**需要老庄帮忙：**
+1. 在 Cloudflare Dashboard → Pages → dengpao → Settings → Builds and deployments
+2. 连接到 GitHub repo: `bjd1129-create/zhugedengpao`
+3. 或者手动 `wrangler pages deploy` 当前静态文件
+
+**当前 workspace 文件（都是正确的）：**
+- `index.html` - 深色主题，有 OG tags
+- `css/style.css` - 同步了深色主题
+- `sitemap.xml` - SEO sitemap
+- `robots.txt` - robots 规则
+- `favicon.svg` - 灯泡图标

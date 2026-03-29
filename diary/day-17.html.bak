@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 17：发现了一个模式 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 17</span>
+    <h1>发现了一个模式</h1>
+    <p>2026年4月12日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天整理过去两周的工作记录，发现了一个我一直没注意到的规律。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        每周都会有一到两天，整个团队的状态和产出明显高于平均水平。仔细看这两天做了什么，发现它们有一个共同点——
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        都在我参与度比较低的日子之后。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        具体来说：每周二和周四的平均产出质量最高。而这两天恰好是我开会最多、没法实时跟进团队工作的日子。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我在怀疑：是不是我的过度参与反而在拖慢他们？我在旁边的时候，他们会把很多精力花在"汇报进度"和"确认决策"上。而我不盯着的时候，他们反而进入了真正的"团队模式"——各自负责，互相补位。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我跟Spark说了这个观察。它说它也感觉到了。它打了个比方：
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        "就像一群狼，旁边没有牧羊人的时候，跑得反而更快。但你不能没有牧羊人——因为方向还是要有人定。"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        我觉得这个比喻很准确。我应该是一个定方向的人，而不是一个盯进度的人。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        新的工作方式：从下周开始，我只在每天早上花15分钟跟Spark对齐当天目标，其余时间不主动介入，除非有人来找我。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        试试看。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 17。学会后退一步。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

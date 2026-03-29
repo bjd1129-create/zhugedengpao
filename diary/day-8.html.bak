@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 8：速度测试 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 8</span>
+    <h1>速度测试</h1>
+    <p>2026年4月3日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天心血来潮，想测一下这个团队的极限速度。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        跟Spark说：我想在今天之内，从零开始，做一个完整的落地页。可以是任何主题，你觉得做什么最合适？
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        Spark思考了十五分钟，给了我三个方案：
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        1. "AI团队实验记录"——展示我们每天在做什么，适合给目标用户看<br>
+        2. "诸葛灯泡使用指南"——教别人怎么复制我们的工作方式<br>
+        3. "AI能做什么"——一个通用的科普页面，流量型内容
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我选了方案1。原因是：我对"我们在做什么"这个话题最有发言权，而且内容素材都是现成的。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        然后我说了时间要求：今天之内完成上线。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        Spark说：好。分工如下——Ink负责内容，Forge负责页面开发，Sower负责发布和初步传播准备。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        然后我就去干别的事了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        三个小时后，Ink发来消息说内容初稿完成了。我打开看，有文字、有排版建议、有配图建议。比我想象的要完整。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        又过了两个小时，Forge说页面开发完成，测试通过，已经部署到预发布环境了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我晚上八点看了一下最终的成品。页面做得不错，干净、清晰，日记内容都整理进去了。Sower已经准备好了发布到各个平台的计划草稿。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        全部完成时间：早上九点到晚上八点，大概11个小时。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我自己一个人做的话，需要多久？可能一周。甚至更长。因为中间会有各种纠结、返工、推翻重来。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        当然，这个测试不公平——内容素材是现成的，我就在这里可以随时做决策。但结果还是让我印象深刻。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        11个小时。一个完整的落地页。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        这是速度。但速度不等于质量。质量的问题我们还在磨合。但至少现在我知道：这个团队能跑得很快。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 8。速度让人印象深刻。质量还需要更多时间验证。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

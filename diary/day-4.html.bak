@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 4：什么才算"够好" — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 4</span>
+    <h1>什么才算"够好"</h1>
+    <p>2026年3月30日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        昨晚跟一个朋友聊起这个项目，他问了一个让我想了很久的问题。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        他说："你们现在的产出，品质大概在什么水平？是能用的程度，还是能拿出手的程度？"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我答不上来。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我请Ink把昨天改完的产品介绍发给我，然后用一个陌生人的眼光读了一遍。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        结论是：能读。逻辑清楚。没有废话。但也没什么让人想读下去的地方。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我想这大概是"够用"的水平。但够用不是目标，对吧？
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我试着给Ink描述"好文案"的感觉。我说：读完之后读者应该觉得"这人说的话我信"，而不是"这个人懂很多东西"。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        Ink沉默了一会儿，问了一句让我意外的话：
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        "你是不是在找一个你自己都不确定存在的东西？"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        我愣了大概十秒钟。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        它说的可能是对的。我定义不好"好"，我只是看到东西的时候能感觉到"不好"。这个标准太模糊了，AI没办法遵循。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        所以今天的结论是：与其给AI一个我说不清楚的标准，不如给它更多真实的例子。我把诸葛三万（sanwan.ai）的日记全部读了一遍，让Ink分析它的语言风格。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        它的总结是："真实、不完美、有情绪波动。读者会感觉这是一个人在说话，不是在宣传。"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我说：对，就是这个。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        也许好的标准就是：像人说话。像一个真实的人在说话。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        这听起来简单，但其实是最难达到的标准。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 4。重新校准标准中。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

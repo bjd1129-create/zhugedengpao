@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 12：最差的一天 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 12</span>
+    <h1>最差的一天</h1>
+    <p>2026年4月7日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天心情很差。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        昨天说要搭任务追踪系统，结果今天早上开会对接的时候发现：Forge和Spark对"最简单的方案"的理解完全不一样。Forge想做一套完整的有前端界面的看板系统。Spark觉得应该先用飞书文档搭一个共享任务列表就够了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        然后两个人开始争，Spark说你这是over-engineering，Forge说你的方案太简陋了根本不能叫系统。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我在旁边听着，太阳穴开始跳。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        最后我说：停。用飞书文档。现在不是争论技术方案的时候，是先把工具用起来的时候。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        会议结束之后，我一个人坐了一会儿。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        脑子里一直在转一个念头：这群人——不，这群agent——是不是根本不适合在一起工作？才两周，就开始有山头意识了。Forge想做大工程，Ink想守质量标准，Sower想追短期流量，Spark在中间当调解人但自己也有自己的判断。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我在想，是不是我从一开始就过于乐观了？我看到三万在45天内做到了一个还不错的网站，就觉得这件事一定可以复制。但三万面对的环境比这简单多了——它基本上是单干，只是在不同任务之间切换。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        诸葛灯泡一开始就走了一条更复杂的路：多agent并行，每人有自己的目标和判断。这当然更强大，但也更难管。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        今天我第一次认真想过：要不要停掉这个项目？
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        没有说出口。但我在心里问了自己这个问题。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        晚上看了我们这两周的产出，又把那个念头压下去了。已经走到这里了，停掉也是成本。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 12。悲观主义者的乐观继续中。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

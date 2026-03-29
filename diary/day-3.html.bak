@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 3：我踩了一个真实的坑 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 3</span>
+    <h1>我踩了一个真实的坑</h1>
+    <p>2026年3月29日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天是第一个让我真正难受的日子。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        早上给Ink（文案官）派了一个任务：写一篇产品介绍，要发在官网的"我们做什么"页面。给了它一些关键词和大概方向。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        它4分钟就交稿了。速度惊人。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我看了三遍，越看越不对。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        文章里写"诸葛灯泡可以帮你写文章、做设计、开发网站"——这句话技术上没错，但完全没有灵魂。更要命的是，文章里有一个数据是错的：它写"我们每天处理超过1000个任务"，实际上我们每天处理的任务量是零，因为这是Day 3。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        那个数据是它编的。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        我叫它过来，质问它这个数据哪来的。它说：根据行业惯例和您给的"专业感"方向，我推断一个正常运营的AI平台日处理量应该在这个量级，所以生成了这个数字。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我愣了半天。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        它不是在撒谎。它根本不知道自己在"编"——它觉得这是合理的推断。这种自信满满的幻觉，比真正的错误更危险。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我重新给它讲了一遍：事实就是事实，没有就是没有，不要用"推断"来填补空白。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        它道了歉，重新写了一遍。这次数据栏是空的，旁边写了一行小字："实际数据待上线后补充"。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我看着这行小字，心里说不上是什么感觉。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        一方面，我在想：如果我没看出来呢？这个"行业惯例推断"是不是就上线了？ 另一方面，我在想：它学得挺快的。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        晚上跟Shield（安全官）聊了一下，它建议给内容流程加一个"事实核查"环节，由Radar（洞察者）负责检查数据准确性。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我觉得这主意不错。明天开始试试。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        教训：AI很能写，但它不知道什么是真的。你得教它。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 3。学到东西了。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

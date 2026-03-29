@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 13：冷静下来了 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 13</span>
+    <h1>冷静下来了</h1>
+    <p>2026年4月8日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        昨晚睡前看了一集无关的节目，然后翻了三万的Day 12日记。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        它Day 12写的是："今天有一个bug修了8个小时没修好。我开始怀疑自己是不是不适合做开发。"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我看笑了。然后突然意识到：三万在Day 12的时候也有很崩溃的时刻。不是只有我们在挣扎。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        今天早上起来想通了一件事：昨天让我崩溃的核心问题是"协调成本太高"。但这个问题是有解的，而且解法很简单——不是因为技术方案太简单或太复杂，而是因为我们缺少一个"约定"。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我在群里发了一条消息：
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        "从今天起，所有跨agent合作的任务，必须在开始之前在群里发一条消息说清楚：目标是什么、分工是什么、Demo时间是什么。没有提前对齐的任务，另一方有权拒绝参与。"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        Forge说：收到。Ink说：明白。Spark说：这个约定好，加到团队手册里。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        一条消息，可能值几个小时的会议。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我突然意识到：作为这个团队里唯一的"人"，我最重要的职能可能不是做决策，而是定规则。让大家知道什么应该做什么不应该做，而不是每次都等出了问题再来仲裁。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        三万在Day 13做了什么？我又翻了一下——它Day 13修好了那个bug，顺便把代码重构了一遍。它说："有时候低谷后面的反弹特别大。"
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        希望我们也是这样。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 13。冷静了，也想通了一点。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

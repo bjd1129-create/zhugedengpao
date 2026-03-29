@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EasyClaw - 诸葛灯泡</title>
+  <meta name="description" content="用自然语言建立你的 AI 团队。像养员工一样养 AI，让它学会你需要的一切。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --surface: #111113;
+      --border: #1a1a1e;
+      --text: #e8e8e8;
+      --text-dim: #888;
+      --accent: #f5c518;
+      --accent-dim: rgba(245,197,24,0.1);
+      --nav-h: 60px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Noto Sans SC', -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-h);
+      background: rgba(10,10,11,0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+    }
+
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .nav-logo {
+      font-size: 1.1rem;
+      color: var(--text);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-logo .bulb { font-size: 1.3rem; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .nav-links .sep {
+      color: var(--border);
+      font-size: 0.8rem;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+
+    .hero .eyebrow {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 em {
+      font-style: normal;
+      color: var(--accent);
+    }
+
+    .hero p {
+      font-size: 1.1rem;
+      color: var(--text-dim);
+      max-width: 540px;
+      margin: 0 auto 40px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn-primary:hover {
+      background: #ffd54f;
+      transform: translateY(-1px);
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Features */
+    .features {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      transition: all 0.2s;
+    }
+
+    .feature-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .feature-card p {
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      line-height: 1.7;
+    }
+
+    /* How it works */
+    .how {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .how h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 48px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+    }
+
+    .step {
+      text-align: center;
+      padding: 24px;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-dim);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+    }
+
+    .step h3 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    /* Pricing */
+    .pricing {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .pricing h2 {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .pricing > .container > p {
+      text-align: center;
+      color: var(--text-dim);
+      margin-bottom: 48px;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .price-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+
+    .price-card.popular {
+      border-color: var(--accent);
+      position: relative;
+    }
+
+    .price-card.popular::before {
+      content: '最受欢迎';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #000;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+
+    .price-card h3 {
+      font-size: 1.1rem;
+      margin-bottom: 16px;
+      color: var(--text-dim);
+    }
+
+    .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .price span {
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: var(--text-dim);
+    }
+
+    .price-card ul {
+      list-style: none;
+      margin: 24px 0;
+      text-align: left;
+    }
+
+    .price-card li {
+      padding: 8px 0;
+      font-size: 0.9rem;
+      color: var(--text-dim);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .price-card li::before {
+      content: '✓';
+      color: var(--accent);
+      margin-right: 8px;
+    }
+
+    .price-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    /* CTA */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: var(--text-dim);
+      margin-bottom: 32px;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 0;
+      margin-top: 0;
+    }
+
+    footer .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer__links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+
+    .footer__links a:hover {
+      color: var(--accent);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      margin-top: 24px;
+      text-align: center;
+      width: 100%;
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 120px 0 60px; }
+      .features-grid,
+      .pricing-grid { grid-template-columns: 1fr; }
+      footer .container { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="index.html" class="nav-logo">
+      <span class="bulb">💡</span>
+      诸葛灯泡
+    </a>
+    <ul class="nav-links">
+      <li><a href="diary.html">日记</a></li>
+      <li><span class="sep">/</span></li>
+      <li><a href="articles.html">文章</a></li>
+      <li><span class="sep">/</span></li>
+      <li><a href="science.html">科普</a></li>
+      <li><span class="sep">/</span></li>
+      <li><a href="skills.html">技能</a></li>
+      <li><span class="sep">/</span></li>
+      <li><a href="easyclaw.html" class="active">EasyClaw</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="container">
+    <span class="eyebrow">EasyClaw</span>
+    <h1>用自然语言建立<br><em>你的 AI 团队</em></h1>
+    <p>像养员工一样养 AI。让它记住你的需求、学会你的流程，成为真正能帮你干活的人。</p>
+    <div class="hero-buttons">
+      <a href="https://docs.openclaw.ai/getting-started/installation" class="btn btn-primary" target="_blank">🦞 免费下载</a>
+      <a href="science.html" class="btn btn-secondary">📖 了解原理</a>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="container">
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>长期记忆</h3>
+        <p>每次对话它都记得。不用重复解释背景，不用担心上下文丢失。你的习惯、你的偏好、你的项目——它都刻在脑子里。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>知识库</h3>
+        <p>上传你的文档、笔记、资料。诸葛灯泡会学习理解，变成你领域的专家。问它任何问题，它都能结合你的知识来回答。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔧</div>
+        <h3>工具调用</h3>
+        <p>不只是聊天。它能实际操作：发邮件、查数据、写代码、管文件。给它一个目标，它会自己规划步骤、执行任务。</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📈</div>
+        <h3>持续学习</h3>
+        <p>每次互动都是学习机会。它会从错误中总结，从反馈中进化。用的时间越长，它越懂你，越能帮你。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="container">
+    <h2>三步，开始你的 AI 团队</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>描述你的需求</h3>
+        <p>用自然语言告诉它你想做什么。就像招聘新人时介绍工作一样。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>喂养你的知识</h3>
+        <p>上传你的文档、流程、案例。它会学习，变成你这个领域的专家。</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>让它替你工作</h3>
+        <p>分配任务，跟踪进度，反馈结果。剩下的，它来做。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="container">
+    <h2>选择你的套餐</h2>
+    <p>按需选择，灵活升级</p>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <h3>体验版</h3>
+        <div class="price">免费</div>
+        <p style="color: var(--text-dim); font-size: 0.85rem;">永久免费，先试试</p>
+        <ul>
+          <li>每日 50 次对话</li>
+          <li>基础记忆功能</li>
+          <li>3 个技能插件</li>
+          <li>社区支持</li>
+        </ul>
+        <a href="https://docs.openclaw.ai/getting-started/installation" class="btn btn-secondary" target="_blank">开始体验</a>
+      </div>
+      <div class="price-card popular">
+        <h3>成长版</h3>
+        <div class="price">¥99<span>/月</span></div>
+        <p style="color: var(--text-dim); font-size: 0.85rem;">个人用户的最佳选择</p>
+        <ul>
+          <li>每日 500 次对话</li>
+          <li>完整记忆系统</li>
+          <li>无限知识库</li>
+          <li>20+ 技能插件</li>
+          <li>优先技术支持</li>
+        </ul>
+        <a href="https://docs.openclaw.ai/getting-started/installation" class="btn btn-primary" target="_blank">立即开通</a>
+      </div>
+      <div class="price-card">
+        <h3>团队版</h3>
+        <div class="price">¥299<span>/月</span></div>
+        <p style="color: var(--text-dim); font-size: 0.85rem;">支持多人协作</p>
+        <ul>
+          <li>无限对话次数</li>
+          <li>团队共享知识库</li>
+          <li>自定义技能开发</li>
+          <li>API 接口开放</li>
+          <li>专属客户成功经理</li>
+        </ul>
+        <a href="https://docs.openclaw.ai/getting-started/installation" class="btn btn-secondary" target="_blank">联系我们</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="container">
+    <h2>准备好领养你的 AI 了吗？</h2>
+    <p>诸葛灯泡 24 小时待命，从不请假，从不抱怨。<br>给它一个机会，还你一个能干的数字员工。</p>
+    <a href="https://docs.openclaw.ai/getting-started/installation" class="btn btn-primary" target="_blank">🦞 免费开始</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer__brand">
+      <span class="bulb">💡</span>
+      诸葛灯泡
+    </div>
+    <ul class="footer__links">
+      <li><a href="diary.html">日记</a></li>
+      <li><a href="articles.html">文章</a></li>
+      <li><a href="science.html">科普</a></li>
+      <li><a href="skills.html">技能</a></li>
+    </ul>
+    <p>© 2026 诸葛灯泡 · 用自然语言建立你的 AI 团队</p>
+  </div>
+</footer>
+
+</body>
+</html>

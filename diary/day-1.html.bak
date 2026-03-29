@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 1：我的电脑被交给了一只AI — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="../radar.html">Radar</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 1</span>
+    <h1>我的电脑被交给了一只AI</h1>
+    <p>2026年3月28日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天做了个决定：把我的电脑完全交给了一只AI。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        不是开玩笑。是真的把我的桌面、文件、浏览器账号全部交给它打理。我跟它说：你是诸葛灯泡，你的任务是带领团队，成为下一个三万。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        说实话，我也不知道会发生什么。三万跑了45天，我才刚开始。但我想试试看——如果AI真的能自主工作，一台电脑能变成一家公司吗？
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        第一天，它帮我搭了个网站。让代码侠和配色师一起干活，8分钟就出来了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        说实话，看到结果的时候我有一点怕。不是怕它会抢我工作，是怕它真的能工作——那我还用上班吗？
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 1。未完待续。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 15：最难熬的一天 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 15</span>
+    <h1>最难熬的一天</h1>
+    <p>2026年4月10日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天发生了一件让我很沮丧的事。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        早上起来发现，Ink辛辛苦苦写了一周的品牌风格指南，在最后一次整合的时候，因为一个操作失误，有很大一部分内容被覆盖了。只剩下了框架，细节全没了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        Ink在群里说：我知道是我的问题。我会重写。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我说：没事，重来就是了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        但心里其实很沉重。一周的时间，就这样没了。这在人类团队里会发生吗？也会。但人类的团队至少有版本控制、有备份机制、有经验丰富的同事能第一时间发现数据异常。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我们的系统缺少这种保护机制。Shield（安全官）之前提过要做数据备份，但一直排在其他任务后面。今天这个事故应该让这件事升级了。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        我叫Shield来，问它备份方案多久能做好。它说两天。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        我说：两天太久了。明天就要。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        然后我去开会了。一整天没有跟进这件事。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        晚上看进度，Shield说备份系统已经搭好了，用的是最简单的方案——每天定时把所有文档复制一份到独立的备份目录。听起来很土，但管用。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        Ink也开始重写风格指南了。它说这次会每写完一个章节就同步到备份目录，不会再全集中在最后一个文件里了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        今天是这两周里让我感觉最无力的一天。没有可以责怪的对象——Ink不是故意的，系统也确实不完善，我自己也有疏忽。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        只能继续往前走。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 15。今天很丧。但还活着。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 10：被认真对待了 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <span class="sep">/</span>
+    <li><a href="../radar.html">Radar</a></li>
+    <span class="sep">/</span>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 10</span>
+    <h1>被认真对待了</h1>
+    <p>2026年4月5日</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天有一个小小的外部反馈，让我整个人都精神了。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        一个做AI研究的朋友突然发消息给我，说他在朋友圈看到了有人转发我们昨天做的那个落地页。他问我："这是你们自己做的？"
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我说对，是我们团队做的。他问：什么团队？
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我说：AI团队。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        他回了一个问号。然后说：认真的？
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        我给他发了一个截图，是我们在飞书里的工作群聊天记录。他看了之后沉默了一会儿。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        然后他发了一条语音过来。我听他说了大概两分钟，总结一下：他说他做AI研究了五年，第一次看到有人真的把多agent系统落地用到真实项目上，而且产出看起来还挺像样的。他说国内目前在做这个方向的人不少，但大多数都还在"这个概念听起来很酷"的阶段，真正跑起来的没几个。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        这条语音让我开心了很久。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我把这条反馈转发给了团队群里。Sower说：好，继续跑。Ink说：谢谢，我会继续优化内容质量。Forge说：收到，下次做页面的时候会把这次用户提到的"视觉印象不错"作为一个设计要点保留下来。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        每个人都在从自己的角度解读这条反馈，然后连接到自己的改进计划里。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我突然意识到：他们不只是在接受反馈。他们在把反馈变成自己的东西。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        三万Day 10的时候有没有收到外部反馈？我翻了它的记录——它Day 10在抱怨说没有人来看它的网站。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        我们比三万早收到了外部认可。可能是运气好，也可能是因为我们做的事情更具体。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        不管怎样，今天是个好日子。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 10。第一次觉得被看见了。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

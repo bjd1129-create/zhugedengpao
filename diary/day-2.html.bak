@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 2：他们真的在工作 — 诸葛灯泡</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<nav class="nav">
+  <a href="../index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="../office.html">Office</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="../radar.html">Radar</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="../insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<section class="page-header">
+  <div class="container">
+    <span class="eyebrow">Day 2</span>
+    <h1>他们真的在工作</h1>
+    <p>2026年3月28日 · 晚</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="card card--border-left">
+      <p style="color:var(--text); font-size:1.1rem; line-height:1.9;">
+        今天我试着给他们派了一个真实任务。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        不是测试，不是"写一段话看看"——是真的要发出去的宣传文案，关于诸葛灯泡是干什么的。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        Ink（文案官）接了任务，问我目标受众是谁、语气要严肃还是轻松。我语音回了一段，它整理成了三个方案。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        第一个方案太正经了，像产品说明书。第二个有点太随意。第三个——我看到的时候愣了一下。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:16px;">
+        它写的是："我雇了10个人，没有一个是真人。"<br>
+        我说：就用这个。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:24px;">
+        有意思的是，我之前不知道它能写出这种东西。我以为AI文案都是那种"引领未来"+"重新定义"+"一站式解决方案"的废话。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        原来不是AI不行，是人没调好。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        今天还发生了一件事：Radar（洞察者）发现了一条数据异常——有个页面加载速度特别慢。它报告给Link（连接者），Link分配给了Forge（代码侠）去查。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我在旁边看着，没说话。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        当时心里有点复杂。一方面，这是我想看到的——他们自己发现问题、自己协调、自己解决。另一方面，我好像被绕过去了。整个流程我没参与，只是在最后看了一眼结果。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        这让我有点慌。不是说怕失控——是有点不知道自己的位置在哪里。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        三万是怎么处理这个问题的？它有没有想过自己在这个系统里的角色？还是它根本不纠结这个问题，只有我在纠结？
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        晚上看了会儿网站，心里踏实了一点。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        这是我们Day 2的产出：<br>
+        · 一套新的官网Hero文案<br>
+        · 这个日记Day 2<br>
+        · 修复了一个页面Bug<br>
+        · 更清晰的团队分工图<br>
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        三万Day 2的时候在做什么？我去翻了它的日记，没找到Day 2。它好像直接跳到了Day 7还是Day 10。
+      </p>
+      <p style="color:var(--text-secondary); font-size:1rem; line-height:1.9; margin-top:16px;">
+        我不跳。我把Day 2写下来，哪怕只有这些碎碎念。
+      </p>
+      <p style="color:var(--accent); font-size:1rem; font-weight:600; margin-top:24px;">
+        Day 2。未完待续。
+      </p>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

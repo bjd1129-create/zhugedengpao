@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>团队状态监控 — 诸葛灯泡</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  <style>
+    :root {
+      --bg: #08090e;
+      --surface: #0f1117;
+      --card: #131620;
+      --border: #1e2235;
+      --accent: #f5c518;
+      --accent-dim: rgba(245,197,24,0.08);
+      --text: #e8eaf0;
+      --text-dim: #7a8099;
+      --muted: #4a5070;
+      --green: #4ade80;
+      --amber: #f5c518;
+      --gray: #6b7280;
+      --red: #f87171;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ---- Canvas ---- */
+    #particle-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ---- Nav ---- */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 56px;
+      background: rgba(8,9,14,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+      font-size: 0.8rem;
+    }
+
+    .nav-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .sep { color: var(--muted); padding: 0 4px; }
+
+    /* ---- Main ---- */
+    main {
+      position: relative;
+      z-index: 1;
+      padding-top: 56px;
+      min-height: 100vh;
+    }
+
+    /* ---- Hero ---- */
+    .hero {
+      text-align: center;
+      padding: 64px 24px 40px;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .live-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74,222,128,0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(74,222,128,0); }
+    }
+
+    .hero h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 em {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .hero p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      max-width: 48ch;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ---- Stats Row ---- */
+    .stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      max-width: 520px;
+      margin: 32px auto 0;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .stat-item {
+      flex: 1;
+      padding: 18px 20px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+      font-family: 'Courier New', monospace;
+      margin-bottom: 4px;
+    }
+
+    .stat-num.green { color: var(--green); }
+
+    .stat-label {
+      font-size: 0.65rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ---- Section Title ---- */
+    .section-title {
+      text-align: center;
+      margin: 56px 24px 32px;
+    }
+
+    .section-title h2 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .section-title p {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+    }
+
+    /* ---- Member Cards Grid ---- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+      padding: 0 24px 80px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    /* ---- Member Card ---- */
+    .member-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+
+    .member-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      padding: 1px;
+      background: linear-gradient(135deg, transparent 40%, var(--card-accent, var(--accent)) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+
+    .member-card:hover::before {
+      opacity: 1;
+    }
+
+    .member-card.status-busy {
+      border-color: rgba(245,197,24,0.2);
+    }
+
+    .member-card.status-busy .card-accent-bar {
+      background: var(--amber);
+      box-shadow: 0 0 12px rgba(245,197,24,0.4);
+    }
+
+    .member-card.status-online {
+      border-color: rgba(74,222,128,0.15);
+    }
+
+    .member-card.status-online .card-accent-bar {
+      background: var(--green);
+      box-shadow: 0 0 12px rgba(74,222,128,0.3);
+    }
+
+    .member-card.status-idle {
+      border-color: rgba(107,114,128,0.2);
+    }
+
+    .member-card.status-idle .card-accent-bar {
+      background: var(--gray);
+    }
+
+    .member-card.status-done .card-accent-bar {
+      background: var(--green);
+    }
+
+    /* Accent bar */
+    .card-accent-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 16px 16px 0 0;
+      background: var(--border);
+    }
+
+    /* Header row */
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .card-avatar {
+      font-size: 2.4rem;
+      line-height: 1;
+      filter: drop-shadow(0 0 8px rgba(255,255,255,0.1));
+    }
+
+    .card-info {
+      flex: 1;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .card-role {
+      font-size: 0.7rem;
+      color: var(--muted);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* Status badge */
+    .card-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.65rem;
+      font-family: 'Courier New', monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .card-status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .status-badge-busy {
+      background: rgba(245,197,24,0.12);
+      color: var(--amber);
+    }
+
+    .status-badge-busy .card-status-dot {
+      background: var(--amber);
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .status-badge-online {
+      background: rgba(74,222,128,0.1);
+      color: var(--green);
+    }
+
+    .status-badge-online .card-status-dot {
+      background: var(--green);
+    }
+
+    .status-badge-idle {
+      background: rgba(107,114,128,0.1);
+      color: var(--gray);
+    }
+
+    .status-badge-idle .card-status-dot {
+      background: var(--gray);
+    }
+
+    .status-badge-done {
+      background: rgba(74,222,128,0.1);
+      color: var(--green);
+    }
+
+    .status-badge-done .card-status-dot {
+      background: var(--green);
+    }
+
+    /* Task info */
+    .card-task {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 4px;
+    }
+
+    .card-task-label {
+      font-size: 0.6rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 6px;
+      font-family: 'Courier New', monospace;
+    }
+
+    .card-task-name {
+      font-size: 0.82rem;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    /* Progress bar inside card */
+    .card-progress {
+      margin-top: 10px;
+    }
+
+    .card-progress-track {
+      height: 4px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .card-progress-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 1s ease;
+    }
+
+    .card-progress-fill.busy { background: var(--amber); }
+    .card-progress-fill.done { background: var(--green); }
+    .card-progress-fill.idle { background: var(--gray); }
+
+    .card-progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 4px;
+      font-size: 0.62rem;
+      color: var(--muted);
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      text-align: center;
+      padding: 32px 24px 48px;
+      border-top: 1px solid var(--border);
+      position: relative;
+      z-index: 1;
+    }
+
+    footer p {
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+
+    footer .bulb { font-size: 1rem; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 640px) {
+      nav { padding: 0 16px; }
+      .hero { padding: 48px 16px 32px; }
+      .cards-grid { padding: 0 16px 64px; gap: 12px; }
+      .stats-row { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span>💡</span> ZhugeDengpao
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">首页</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="office.html" class="active">团队状态</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="radar.html">Radar</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="insights.html">Insights</a></li>
+  </ul>
+</nav>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">
+      <span class="live-dot"></span>
+      实时监控 · Live Monitor
+    </div>
+    <h1>团队<em>状态监控</em></h1>
+    <p>7位智能体协同工作，琥珀色粒子代表信息流动，深色空间中每一个光点都是一次协作的见证。</p>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-online">5</div>
+        <div class="stat-label">在线</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-busy">3</div>
+        <div class="stat-label">工作中</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num green" id="stat-done">2</div>
+        <div class="stat-label">已完成</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num" id="stat-tasks">7</div>
+        <div class="stat-label">活跃任务</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION TITLE -->
+  <div class="section-title">
+    <h2>团队成员</h2>
+    <p>点击卡片可查看详情 · 状态实时更新</p>
+  </div>
+
+  <!-- CARDS GRID -->
+  <div class="cards-grid" id="cards-grid">
+    <!-- Cards injected by JS -->
+  </div>
+
+</main>
+
+<footer>
+  <p><span class="bulb">💡</span> ZhugeDengpao · 诸葛灯泡团队 · 真实工作现场</p>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ================================================
+     TEAM DATA
+     ================================================ */
+  const TEAM = [
+    {
+      id: 1,
+      name: '造梦者',
+      emoji: '👑',
+      role: '统筹 · 决策',
+      status: 'busy',       // busy | online | idle | done
+      task: '团队状态监控页面重构',
+      progress: 65,
+    },
+    {
+      id: 2,
+      name: '文案君',
+      emoji: '📝',
+      role: '内容创作',
+      status: 'busy',
+      task: 'EasyClaw 产品介绍文章撰写',
+      progress: 82,
+    },
+    {
+      id: 3,
+      name: '洞察者',
+      emoji: '🔍',
+      role: '研究分析',
+      status: 'busy',
+      task: '平台规则与竞品动态追踪',
+      progress: 47,
+    },
+    {
+      id: 4,
+      name: '代码侠',
+      emoji: '💻',
+      role: '技术开发',
+      status: 'online',
+      task: '官网功能迭代与部署',
+      progress: 30,
+    },
+    {
+      id: 5,
+      name: '播种者',
+      emoji: '🌱',
+      role: '运营推广',
+      status: 'online',
+      task: '小红书账号内容运营',
+      progress: 58,
+    },
+    {
+      id: 6,
+      name: '安全官',
+      emoji: '🛡️',
+      role: '安全防护',
+      status: 'done',
+      task: '本周安全巡检已完成',
+      progress: 100,
+    },
+    {
+      id: 7,
+      name: '财务官',
+      emoji: '💰',
+      role: '成本管理',
+      status: 'idle',
+      task: '等待下月成本报告周期',
+      progress: 0,
+    },
+  ];
+
+  /* ================================================
+     STATUS LABELS
+     ================================================ */
+  const STATUS_LABELS = {
+    busy:   '工作中',
+    online: '在线',
+    idle:   '空闲',
+    done:   '已完成',
+  };
+
+  /* ================================================
+     RENDER CARDS
+     ================================================ */
+  function renderCards() {
+    const grid = document.getElementById('cards-grid');
+    if (!grid) return;
+
+    grid.innerHTML = TEAM.map(member => {
+      const badgeClass = `status-badge-${member.status}`;
+      const barColor = member.status === 'busy'   ? 'var(--amber)'
+                     : member.status === 'done'    ? 'var(--green)'
+                     : member.status === 'online'  ? 'var(--green)'
+                     : 'var(--gray)';
+
+      const progressColor = member.status === 'done' ? 'done' : member.status;
+
+      return `
+        <div class="member-card status-${member.status}" data-id="${member.id}">
+          <div class="card-accent-bar" style="background:${barColor};"></div>
+          <div class="card-header">
+            <span class="card-avatar">${member.emoji}</span>
+            <div class="card-info">
+              <div class="card-name">${member.name}</div>
+              <div class="card-role">${member.role}</div>
+            </div>
+            <div class="card-status ${badgeClass}">
+              <span class="card-status-dot"></span>
+              ${STATUS_LABELS[member.status]}
+            </div>
+          </div>
+          <div class="card-task">
+            <div class="card-task-label">当前任务</div>
+            <div class="card-task-name">${member.task}</div>
+          </div>
+          ${member.progress > 0 ? `
+            <div class="card-progress">
+              <div class="card-progress-track">
+                <div class="card-progress-fill ${progressColor}"
+                     style="width:${member.progress}%"></div>
+              </div>
+              <div class="card-progress-text">
+                <span>进度</span>
+                <span>${member.progress}%</span>
+              </div>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }).join('');
+  }
+
+  renderCards();
+
+  /* ================================================
+     SIMULATE LIVE UPDATES
+     ================================================ */
+  function updateStats() {
+    const busy   = TEAM.filter(m => m.status === 'busy').length;
+    const online = TEAM.filter(m => m.status === 'online').length;
+    const done   = TEAM.filter(m => m.status === 'done').length;
+    const tasks  = TEAM.filter(m => m.status === 'busy' || m.status === 'online').length;
+
+    const elOnline = document.getElementById('stat-online');
+    const elBusy   = document.getElementById('stat-busy');
+    const elDone   = document.getElementById('stat-done');
+    const elTasks  = document.getElementById('stat-tasks');
+
+    if (elOnline) elOnline.textContent = online;
+    if (elBusy)   elBusy.textContent   = busy;
+    if (elDone)  elDone.textContent    = done;
+    if (elTasks) elTasks.textContent   = tasks;
+  }
+
+  // Simulate progress changes every 4s
+  function simulateProgress() {
+    const busyMembers = TEAM.filter(m => m.status === 'busy');
+    if (!busyMembers.length) return;
+
+    const member = busyMembers[Math.floor(Math.random() * busyMembers.length)];
+    const inc = Math.floor(Math.random() * 8) + 3;
+    member.progress = Math.min(100, member.progress + inc);
+
+    if (member.progress >= 100) {
+      member.status = 'done';
+      member.progress = 100;
+    }
+
+    renderCards();
+    updateStats();
+  }
+
+  setInterval(simulateProgress, 4000);
+
+  /* ================================================
+     PARTICLE CANVAS
+     ================================================ */
+  const canvas = document.getElementById('particle-canvas');
+  const ctx = canvas.getContext('2d');
+  let W, H, nodes = [], lines = [], particles = [], raf;
+  const AMBER = '#f5c518';
+  const AMBER_R = 245, AMBER_G = 197, AMBER_B = 24;
+  const GREEN  = '#4ade80';
+
+  function rgba(r, g, b, a) { return `rgba(${r},${g},${b},${a})`; }
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function initNodes() {
+    nodes = [];
+    const count = 9;
+    for (let i = 0; i < count; i++) {
+      nodes.push({
+        x: 60 + Math.random() * (W - 120),
+        y: 60 + Math.random() * (H - 160),
+        vx: (Math.random() - 0.5) * 0.18,
+        vy: (Math.random() - 0.5) * 0.18,
+        r: 2 + Math.random() * 3,
+        baseR: 2 + Math.random() * 3,
+        alpha: 0.4 + Math.random() * 0.5,
+        speed: 0.4 + Math.random() * 0.3,
+        angle: Math.random() * Math.PI * 2,
+        angleSpeed: (Math.random() - 0.5) * 0.004,
+        phase: Math.random() * Math.PI * 2,
+        phaseSpeed: 0.012 + Math.random() * 0.008,
+        color: Math.random() > 0.4 ? AMBER : GREEN,
+        type: 'node',
+      });
+    }
+
+    // Add 4 special large nodes at fixed positions (card anchors)
+    const anchors = [
+      { x: W * 0.2, y: H * 0.35 },
+      { x: W * 0.5, y: H * 0.25 },
+      { x: W * 0.8, y: H * 0.45 },
+      { x: W * 0.35, y: H * 0.6 },
+    ];
+
+    anchors.forEach((a, i) => {
+      nodes.push({
+        x: a.x, y: a.y,
+        vx: 0, vy: 0,
+        r: 4 + i * 1.5,
+        baseR: 4 + i * 1.5,
+        alpha: 0.7,
+        speed: 0,
+        angle: 0, angleSpeed: 0,
+        phase: i * 1.2,
+        phaseSpeed: 0.018,
+        color: AMBER,
+        type: 'anchor',
+        fixedX: a.x, fixedY: a.y,
+      });
+    });
+  }
+
+  function spawnLineParticle() {
+    if (nodes.length < 2) return;
+    const a = nodes[Math.floor(Math.random() * nodes.length)];
+    let b = nodes[Math.floor(Math.random() * nodes.length)];
+    if (b === a) b = nodes[(nodes.indexOf(b) + 1) % nodes.length];
+
+    particles.push({
+      from: a, to: b,
+      progress: 0,
+      speed: 0.003 + Math.random() * 0.004,
+      size: 1.5 + Math.random() * 2,
+      alpha: 0.5 + Math.random() * 0.4,
+      trail: [],
+      type: 'line',
+    });
+  }
+
+  function spawnGlowPulse() {
+    const n = nodes[Math.floor(Math.random() * nodes.length)];
+    particles.push({
+      x: n.x, y: n.y,
+      vx: (Math.random() - 0.5) * 2,
+      vy: (Math.random() - 0.5) * 2,
+      life: 1,
+      decay: 0.015 + Math.random() * 0.01,
+      size: 3 + Math.random() * 4,
+      color: n.color,
+      type: 'glow',
+    });
+  }
+
+  function drawBg() {
+    ctx.fillStyle = '#08090e';
+    ctx.fillRect(0, 0, W, H);
+
+    // Very faint radial gradient from center
+    const grad = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, Math.max(W, H) * 0.6);
+    grad.addColorStop(0, 'rgba(245,197,24,0.025)');
+    grad.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  function drawLine(a, b) {
+    const dx = b.x - a.x;
+    const dy = b.y - a.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    const maxDist = Math.min(W, H) * 0.55;
+    if (dist > maxDist) return;
+
+    const t = 1 - dist / maxDist;
+    const alpha = t * 0.18 * Math.min(a.alpha, b.alpha);
+    const r = Math.floor(AMBER_R * 0.6 + 74 * 0.4);
+    const g = Math.floor(AMBER_G * 0.6 + 222 * 0.4);
+    const bl = Math.floor(AMBER_B * 0.6 + 128 * 0.4);
+
+    ctx.beginPath();
+    ctx.moveTo(a.x, a.y);
+    ctx.lineTo(b.x, b.y);
+    ctx.strokeStyle = rgba(r, g, bl, alpha);
+    ctx.lineWidth = 0.6;
+    ctx.stroke();
+  }
+
+  function drawNode(n) {
+    const breathe = Math.sin(n.phase) * 0.5 + 0.5;
+    n.phase += n.phaseSpeed;
+
+    const r = n.baseR + breathe * (n.type === 'anchor' ? 3 : 2);
+    const glowAlpha = n.alpha * (0.15 + breathe * 0.15);
+
+    // Glow
+    const grad = ctx.createRadialGradient(n.x, n.y, 0, n.x, n.y, r * 5);
+    grad.addColorStop(0, rgba(AMBER_R, AMBER_G, AMBER_B, glowAlpha));
+    grad.addColorStop(1, rgba(AMBER_R, AMBER_G, AMBER_B, 0));
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r * 5, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    // Core
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = n.color;
+    ctx.globalAlpha = n.alpha * (0.5 + breathe * 0.5);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // Inner bright spot
+    ctx.beginPath();
+    ctx.arc(n.x - r * 0.25, n.y - r * 0.25, r * 0.35, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.globalAlpha = n.alpha * (0.2 + breathe * 0.3);
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawLineParticle(p) {
+    const x = p.from.x + (p.to.x - p.from.x) * p.progress;
+    const y = p.from.y + (p.to.y - p.from.y) * p.progress;
+
+    // Trail
+    p.trail.push({ x, y });
+    if (p.trail.length > 8) p.trail.shift();
+
+    p.trail.forEach((pt, i) => {
+      const ta = (i / p.trail.length) * p.alpha * 0.3;
+      ctx.beginPath();
+      ctx.arc(pt.x, pt.y, p.size * 0.4 * (i / p.trail.length), 0, Math.PI * 2);
+      ctx.fillStyle = rgba(AMBER_R, AMBER_G, AMBER_B, ta);
+      ctx.fill();
+    });
+
+    // Head glow
+    const headAlpha = p.alpha * (1 - Math.abs(p.progress - 0.5) * 1.5);
+    const hgrad = ctx.createRadialGradient(x, y, 0, x, y, p.size * 6);
+    hgrad.addColorStop(0, rgba(AMBER_R, AMBER_G, AMBER_B, headAlpha * 0.6));
+    hgrad.addColorStop(1, rgba(AMBER_R, AMBER_G, AMBER_B, 0));
+    ctx.beginPath();
+    ctx.arc(x, y, p.size * 6, 0, Math.PI * 2);
+    ctx.fillStyle = hgrad;
+    ctx.fill();
+
+    // Head dot
+    ctx.beginPath();
+    ctx.arc(x, y, p.size * 0.5, 0, Math.PI * 2);
+    ctx.fillStyle = AMBER;
+    ctx.globalAlpha = headAlpha;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function drawGlow(p) {
+    const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.size * 3);
+    grad.addColorStop(0, rgba(AMBER_R, AMBER_G, AMBER_B, p.life * 0.4));
+    grad.addColorStop(1, rgba(AMBER_R, AMBER_G, AMBER_B, 0));
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * 3, 0, Math.PI * 2);
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.size * 0.5, 0, Math.PI * 2);
+    ctx.fillStyle = AMBER;
+    ctx.globalAlpha = p.life * 0.8;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  }
+
+  function update() {
+    nodes.forEach(n => {
+      if (n.type === 'anchor') {
+        n.phase += n.phaseSpeed;
+        // Gentle drift for anchors
+        n.x = n.fixedX + Math.sin(n.phase * 0.5) * 15;
+        n.y = n.fixedY + Math.cos(n.phase * 0.4) * 10;
+      } else {
+        n.x += n.vx;
+        n.y += n.vy;
+        n.phase += n.phaseSpeed;
+
+        const margin = 40;
+        if (n.x < margin) { n.vx = Math.abs(n.vx); }
+        if (n.x > W - margin) { n.vx = -Math.abs(n.vx); }
+        if (n.y < margin) { n.vy = Math.abs(n.vy); }
+        if (n.y > H - margin) { n.vy = -Math.abs(n.vy); }
+      }
+    });
+
+    for (let i = particles.length - 1; i >= 0; i--) {
+      const p = particles[i];
+      if (p.type === 'line') {
+        p.progress += p.speed;
+        if (p.progress >= 1) {
+          p.from = p.to;
+          p.to = nodes[Math.floor(Math.random() * nodes.length)];
+          p.progress = 0;
+          p.trail = [];
+        }
+      } else if (p.type === 'glow') {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= p.decay;
+        if (p.life <= 0) { particles.splice(i, 1); }
+      }
+    }
+
+    // Spawn particles
+    if (Math.random() < 0.04) spawnGlowPulse();
+    while (particles.filter(p => p.type === 'line').length < 18) spawnLineParticle();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    drawBg();
+
+    // Lines between close nodes
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i + 1; j < nodes.length; j++) {
+        drawLine(nodes[i], nodes[j]);
+      }
+    }
+
+    // Line particles
+    particles.filter(p => p.type === 'line').forEach(drawLineParticle);
+
+    // Nodes
+    nodes.forEach(drawNode);
+
+    // Glow particles on top
+    particles.filter(p => p.type === 'glow').forEach(drawGlow);
+
+    update();
+    raf = requestAnimationFrame(draw);
+  }
+
+  // Resize
+  const ro = new ResizeObserver(() => {
+    cancelAnimationFrame(raf);
+    resize();
+    initNodes();
+    particles = [];
+    draw();
+  });
+  ro.observe(document.body);
+
+  resize();
+  initNodes();
+  draw();
+
+  updateStats();
+
+})();
+</script>
+</body>
+</html>

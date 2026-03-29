@@ -4,6 +4,26 @@
     "ceo": {
       "version": "1.1.3",
       "installedAt": 1774707665526
+    },
+    "qwen-image": {
+      "version": "1.0.0",
+      "installedAt": 1774778886411
+    },
+    "bailian-image-gen": {
+      "version": "1.0.1",
+      "installedAt": 1774778970813
+    },
+    "todo-tracker": {
+      "version": "1.0.0",
+      "installedAt": 1774784289674
+    },
+    "openclaw-memory": {
+      "version": "1.0.0",
+      "installedAt": 1774784355622
+    },
+    "clawcrm": {
+      "version": "1.0.7",
+      "installedAt": 1774785133375
     }
   }
 }

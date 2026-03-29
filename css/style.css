@@ -148,6 +148,34 @@ a { color: inherit; text-decoration: none; }
   padding: 0 2px;
 }
 
+/* Hamburger button for mobile */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+.nav-toggle:hover { background: var(--accent-dim); }
+.nav-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
 /* ================================
    LAYOUT
    ================================ */
@@ -2115,7 +2143,25 @@ p + p { margin-top: 1em; }
   }
 
   .nav { padding: 0 20px; }
-  .nav-links { gap: 18px; }
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: rgba(255,251,245,0.98);
+    backdrop-filter: blur(16px);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 16px 20px 24px;
+    border-bottom: 1.5px solid var(--border);
+    box-shadow: 0 8px 24px var(--shadow-warm);
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li { width: 100%; }
+  .nav-links a { width: 100%; padding: 10px 14px; font-size: 1rem; }
   .nav-links .sep { display: none; }
 
   .agent-grid { grid-template-columns: 1fr 1fr; }
@@ -2135,4 +2181,56 @@ p + p { margin-top: 1em; }
 
 @media (max-width: 400px) {
   .agent-grid { grid-template-columns: 1fr; }
+}
+
+/* ====== 移动端增强 ====== */
+@media (max-width: 640px) {
+  /* 防止水平滚动 */
+  body { overflow-x: hidden; }
+  
+  /* 卡片移动端优化 */
+  .card { -webkit-hyphens: auto; hyphens: auto; }
+  
+  /* Hero 文字不要太小 */
+  .hero h1 { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+  
+  /* CTA 按钮移动端更好点击 */
+  .cta-btn { 
+    min-height: 48px;
+    padding: 14px 24px;
+    font-size: 1rem;
+  }
+  
+  /* 新增 CTA 区块移动端 */
+  div[style*="现在就出发"] {
+    padding: 32px 16px !important;
+  }
+  div[style*="现在就出发"] h2 {
+    font-size: 1.3rem !important;
+  }
+  div[style*="现在就出发"] a {
+    padding: 12px 20px !important;
+    font-size: 0.9rem !important;
+  }
+  
+  /* 导航链接更好点击 */
+  .nav-links a { min-height: 44px; display: flex; align-items: center; }
+  
+  /* 图片移动端不超出 */
+  img { max-width: 100%; height: auto; }
+  
+  /* 表格移动端横向滚动 */
+  table { display: block; overflow-x: auto; }
+}
+
+/* ====== 深色模式增强 ====== */
+@media (prefers-color-scheme: dark) {
+  /* 深色模式下增强对比度 */
+  body { background: #1a1008; }
+}
+
+/* ====== 触摸友好 ====== */
+@media (hover: none) and (pointer: coarse) {
+  .nav-links { -webkit-overflow-scrolling: touch; }
+  a, button { min-height: 44px; }
 }

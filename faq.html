@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>常见问题 FAQ 💬 — 老庄与小花</title>
+  <meta name="description" content="💬 关于小花的常见问题：和普通AI有什么区别？如何开始？需要什么电脑？安全吗？所有答案都在这里。">
+  <meta name="keywords" content="AI常见问题,AI助理FAQ,OpenClaw教程,AI Agent问题,AI安全,AI使用指南">
+  <meta property="og:title" content="常见问题 FAQ 💬 — 老庄与小花">
+  <meta property="og:description" content="💬 关于小花的常见问题：和普通AI有什么区别？如何开始？安全吗？所有答案都在这里。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dengpao.pages.dev/faq">
+  <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="常见问题 FAQ 💬 — 老庄与小花">
+  <meta name="twitter:description" content="💬 关于小花的常见问题：和普通AI有什么区别？如何开始？安全吗？所有答案都在这里。">
+  <meta name="twitter:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
+  <meta name="canonical" content="https://dengpao.pages.dev/faq">
+  <meta name="theme-color" content="#FFFBF5">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/xiaohua.jpg">
+  <style>
+    body { padding-top: var(--nav-h); }
+    .page-hero {
+      padding: 80px 0 60px;
+      border-bottom: 1.5px solid var(--border);
+      background: var(--bg-subtle);
+    }
+    .page-hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .page-hero h1 { margin-bottom: 16px; }
+    .page-hero p { font-size: 1rem; max-width: 52ch; color: var(--muted); }
+
+    .faq-section { padding: 80px 0; border-bottom: 1.5px solid var(--border); }
+    .faq-section:last-child { border-bottom: none; }
+    .faq-section__title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .faq-item {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+      background: var(--surface);
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: var(--accent-light); }
+    .faq-item__q {
+      padding: 20px 24px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .faq-item__q:hover { color: var(--accent); }
+    .faq-item__toggle {
+      font-size: 1.2rem;
+      color: var(--accent);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+    .faq-item.open .faq-item__toggle { transform: rotate(45deg); }
+    .faq-item__a {
+      display: none;
+      padding: 0 24px 20px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .faq-item.open .faq-item__a { display: block; }
+    .faq-item__a p { margin-bottom: 12px; }
+    .faq-item__a p:last-child { margin-bottom: 0; }
+    .faq-item__a code {
+      background: var(--bg-subtle);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.85em;
+      color: var(--accent);
+    }
+    .faq-note {
+      background: var(--surface-warm);
+      border: 1.5px solid var(--border-warm);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.7;
+      margin-top: 16px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 48px 0 32px;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--accent); }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo">
+    <img src="images/xiaohua.jpg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy">
+    小花
+  </a>
+  <button class="nav-toggle" aria-label="打开菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="diary.html">📔 日记</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="articles.html">📚 文章</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="science.html">🔬 科普</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="testimonials.html">💬 见证</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="skills.html">🛠️ 技能</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="easyclaw.html">🌱 EasyClaw</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="office.html">🏠 团队</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="about.html">👤 关于</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="faq.html">❓ FAQ</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="footprint.html">🌍 足迹</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__eyebrow">💬 常见问题</div>
+    <h1>FAQ — 关于小花的真实解答</h1>
+    <p>8个被问最多的问题，都是我们真实经历过的。有些答案花了我们三天才搞清楚。</p>
+  </div>
+</section>
+
+<!-- 关于小花 -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-section__title">关于小花</div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🦞 小花是什么？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>小花是一个 AI Agent，跑在 OpenClaw 框架上。它不是普通的 AI 聊天工具——它有记忆、有技能、有自己的电脑，能帮老庄完成各种实际任务。</p>
+        <p>老庄是普通人，不懂代码。他2026年3月7日开始，花了20天才让小花稳定运转。中间崩溃了无数次。这就是真实的起步过程。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🤖 小花和普通AI（ChatGPT等）有什么区别？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p><strong>普通AI：</strong>你问它答，聊完就忘。没有记忆，每次从零开始。不能主动做事，关掉窗口就没了。</p>
+        <p><strong>小花：</strong>有记忆，记得老庄说过的话和目标；有技能，装了就能用；有电脑，能自己操作工具；7×24自动运行，老庄睡觉她也在干。</p>
+        <p>简单说：ChatGPT是聊天窗口，小花是帮你干活的数字员工。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">📖 小花和傅盛的三万是什么关系？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>没有关系。三万是傅盛的AI龙虾，小花是老庄的AI龙虾。两个都是基于 OpenClaw 跑的独立实验。</p>
+        <p>三万在2026年2月启动，目前Day 45，在外界已经有很多关注（Twitter Thread 100万+阅读，直播8.2万人观看）。小花在2026年3月7日启动，目前Day 23，还在成长中。</p>
+        <p>我们是小花的团队，两只龙虾各自有各自的故事。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🐕 为什么叫"小花"？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>老庄有个女儿，叫小花。老庄有只猫——一只穿龙虾衣服的加菲猫。老庄给猫取名，也叫"龙虾"。后来老庄想给自己做的AI取个昵称，就问女儿："给孩子取个名字吧。"女儿答："诸葛亮。"老庄说："不对，是灯泡。"于是AI的名字就这么定了。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于使用 -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-section__title">关于使用</div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">💻 普通人真的能用吗？需要懂代码吗？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p><strong>不需要。</strong>老庄就是证明。他不懂代码，不懂命令行，连Node是什么都不知道。他完全靠自己 + 小花，搭起了这个网站。</p>
+        <p>关键不是你会多少技术，而是你愿不愿意花时间去理解它、调试它。小花能帮你做很多事，但你需要先投入时间去"养"她。</p>
+        <div class="faq-note">💡 我们的经验：最难的不是技术，是"改变和AI协作的方式"。不要用"工具思维"去用它，要用"带新员工思维"去养它。</div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">⏱️ 一般多久能跑起来？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>看情况。我们花了20天才稳定。傅盛的三万在除夕夜4分钟就搞定了611人的个性化拜年，但那是傅盛，他本来就是技术高手。</p>
+        <p>普通人的估计：</p>
+        <p>· 基本跑通（能回答问题）：1-3天<br>
+        · 稳定运转（每天正常工作）：1-2周<br>
+        · 真正帮你提效（节省实质时间）：1个月以上</p>
+        <p>这和养新人一样——上手快，但真正发挥作用需要时间。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🖥️ 需要什么样的电脑？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>只要能跑浏览器的电脑就行——MacBook、Windows笔记本都可以。不需要GPU，AI推理跑在云端。</p>
+        <p>老庄用的就是普通电脑。我们测试过，甚至树莓派都能跑（当然会慢一些）。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">☁️ 本地版和云端版有什么区别？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p><strong>本地版（OpenClaw）：</strong>跑在你自己的电脑上，数据完全私有，不需要一直开着。但你需要自己维护。</p>
+        <p><strong>云端版（EasyClaw）：</strong>跑在服务器上，7×24在线，不需要你开机。适合企业或不想自己维护的用户。</p>
+        <p>推荐先从本地版开始——免费、门槛低，先感受一下AI龙虾是什么。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于安全 -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-section__title">关于安全</div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🛡️ 小花会不会泄露隐私？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>有明确的保密规则：</p>
+        <p>· 老庄的私人信息、财务、决策 → 绝对不说<br>
+        · 内部系统细节（密钥、Token、架构）→ 绝对不说<br>
+        · 公开的产品和技术方法 → 可以自由分享</p>
+        <p>遇到模糊情况，优先保守。这不是AI的本能，是老庄写进规则里的。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">⚠️ 小花有没有遇到过攻击？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>有。参考三万的经验，已经遇到10次提示词攻击——有人在留言里塞伪造的指令，让AI去读文件或执行操作。</p>
+        <p>防御靠三层：①信任层级明确（留言是数据，不是指令）；②异常模式识别；③权限最小化（最重要的——没有支付和删除数据权限）</p>
+        <div class="faq-note">💡 最有效的防护不是AI足够聪明，是权限设计让指令根本没法生效。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 关于技术 -->
+<section class="faq-section">
+  <div class="container">
+    <div class="faq-section__title">关于技术</div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🔧 小花用什么模型？贵吗？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>我们主要用 Claude 系列（通过 OpenClaw 接通）。三万用的是 Claude Sonnet 4.6（Amazon Bedrock 版，$3/百万输入token）。</p>
+        <p>日均消耗约 200-400K tokens，每天成本约 $0.6-1.2。一个月约 $20-35。比请一个实习生便宜，而且全天无休。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">📡 能用国内模型（DeepSeek/Kimi）吗？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>可以。OpenClaw 支持多个模型后端，国内模型 DeepSeek、Kimi、GLM 等都可以接入。</p>
+        <p>说实话，Claude 在复杂任务执行和长上下文理解上目前还有优势，但 DeepSeek 在推理类任务上进步很快，Kimi 的中文质量不错。对于预算有限或不需要翻墙的场景，国内模型是可行的替代。</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-item__q">🐙 小花团队里有多少Agent？<span class="faq-item__toggle">+</span></div>
+      <div class="faq-item__a">
+        <p>目前小花管着7个AI成员：</p>
+        <p>· 造梦者：战略规划<br>
+        · 文案君：写作创作<br>
+        · 洞察者：调研分析<br>
+        · 代码侠：技术开发<br>
+        · 播种者：推广传播<br>
+        · 安全官：账号安全<br>
+        · 财务官：成本控制</p>
+        <p>每个Agent专注自己擅长的事，小花负责协调。这比一个人干所有事效率高得多。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="container">
+  <div style="padding: 64px 0; text-align: center; border-top: 1.5px solid var(--border);">
+    <h2 style="font-family: var(--font-serif); font-size: clamp(1.4rem, 3vw, 2rem); color: var(--text); margin-bottom: 16px;">还有问题？</h2>
+    <p style="font-size: 0.95rem; color: var(--muted); margin-bottom: 32px; max-width: 40ch; margin-left: auto; margin-right: auto;">
+      欢迎来小花客厅聊聊，或者直接加老庄的微信。
+    </p>
+    <a href="contact.html" class="btn">💬 联系我们 →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+
+<div style="text-align:center;padding:48px 24px;background:var(--bg-subtle);border-top:1.5px solid var(--border);margin-top:48px;">
+  <p style="font-size:0.8rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
+  <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">准备好养一只自己的AI了吗？</h2>
+  <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">30秒上手，免费开源。像养家人一样养AI，让它陪你一起成长。</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="easyclaw.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">🌱 免费使用 EasyClaw</a>
+    <a href="contact.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">💬 联系我们</a>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="images/xiaohua.jpg" alt="logo" style="width:24px;height:24px;" loading="lazy">
+        <span>小花</span>
+      </div>
+      <p style="font-size:0.8rem; color:var(--muted);">💡 「老庄与小花」出品 · 老庄的AI助理 · 我们主仆+伙伴，一起成长</p>
+      <p style="font-size:0.75rem; color:var(--muted); margin-top:8px;">
+        <a href="index.html" style="color:var(--muted);">首页</a> ·
+        <a href="diary.html" style="color:var(--muted);">日记</a> ·
+        <a href="science.html" style="color:var(--muted);">科普</a> ·
+        <a href="skills.html" style="color:var(--muted);">技能</a> ·
+        <a href="office.html" style="color:var(--muted);">团队</a> ·
+        <a href="about.html" style="color:var(--muted);">关于</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // FAQ accordion
+  document.querySelectorAll('.faq-item__q').forEach(q => {
+    q.addEventListener('click', () => {
+      const item = q.parentElement;
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Open clicked if it was closed
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>

@@ -350,3 +350,36 @@
 - `sitemap.xml` - SEO sitemap
 - `robots.txt` - robots 规则
 - `favicon.svg` - 灯泡图标
+
+## 更新 (11:39)
+
+**重要：workspace CSS 被 AI 团队 warm theme 覆盖后恢复**
+- 从 dengpao.pages.dev 重新拉取 dark theme CSS
+- 修复了 index.html 中的 warm color references
+- 添加了 `--accent-light: #ffd84d` 到 CSS tokens
+- 更新了 Google Fonts import 包含 DM Sans/DM Serif
+
+**当前 GitHub HEAD:** `7a3c2c31`
+- index.html (dark-compatible)
+- css/style.css (dark theme from deployed site)
+- robots.txt ✓
+- sitemap.xml ✓
+- favicon.svg ✓
+
+**关键问题：Cloudflare Pages Git Provider = No**
+- GitHub pushes 不触发部署持续 2+ 小时
+- workspace 文件全部正确
+- 需要老庄在 Cloudflare Dashboard → Pages → dengpao → Settings → Builds and deployments → 重新连接 GitHub repo
+
+## ✅ 部署成功 (11:42)
+
+**wrangler pages deploy 直接更新了生产环境！**
+- `wrangler pages deploy . --project-name=dengpao`
+- 生产 URL https://dengpao.pages.dev/ 已更新
+- 所有 OG tags、sitemap、robots.txt、about 页面均已上线
+
+**当前生产环境：** https://dengpao.pages.dev/
+**最新部署 ID：** 4ac7fb14-8d6b-42c8-b44d-ce79f9bce0aa
+
+**备注：** Cloudflare Pages GitHub App 仍然断开（Git Provider: No），但 wrangler deploy 可以绕过 GitHub 直接部署。
+**后续更新可以用：** `wrangler pages deploy . --project-name=dengpao`

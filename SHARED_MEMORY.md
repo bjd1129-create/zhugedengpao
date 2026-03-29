@@ -39,22 +39,21 @@
 
 ---
 
-## 🔄 Cron 定时任务
+## 🔄 Cron 定时任务（2026-03-30 修复后）
 
-| 任务 | Agent绑定 | 状态 |
-|------|---------|------|
-| 代码侠进化-Session | ✅ engineer | ⏳ 5h |
-| 文案君进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 洞察者进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 配色师进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 产品君进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 市场官进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 安全官进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 播种者进化 | ❌ 无 | ⏳ 4h（匿名） |
-| 每日增量复盘-12点 | - | ⏳ 7h |
-| 每日增量复盘-凌晨1点 | - | ⏳ 20h |
+| 任务 | Cron ID | Agent绑定 | 状态 |
+|------|---------|---------|------|
+| 代码侠进化-Session | d0b26727 | ✅ engineer | ⏳ 4h |
+| 文案君进化 | bb45a166 | ✅ writer | ⏳ 5h |
+| 洞察者进化 | d13c79bc | ✅ researcher | ⏳ 5h |
+| 配色师进化 | 257220fd | ✅ designer | ⏳ 5h |
+| 安全官进化 | fff0492d | ✅ support | ⏳ 5h |
+| 产品官进化 | 6e60b766 | ⚠️ coordinator | ⏳ 5h（临时） |
+| 市场官进化 | 7c8ac481 | ⚠️ coordinator | ⏳ 5h（临时） |
+| 每日增量复盘-12点 | d6b83bad | - | ⏳ 6h |
+| 每日增量复盘-凌晨1点 | a0134c40 | - | ⏳ 19h |
 
-**问题：** 除 engineer 外，其他 cron 都没绑定 agent，跑的是匿名 isolated session。
+**修复完成：** 除 product/market 临时绑定 coordinator 外，其他均已绑定到正确的 agent。
 
 ---
 
@@ -83,9 +82,9 @@
 
 ## ⚠️ 待处理
 
-1. 7个 cron 需要绑定正确的 agent
-2. 4个 agent（researcher/support/writer/coordinator）需要初始化进度追踪
-3. product/market 没有对应工作空间，但有 cron 在跑
+1. ✅ 7个 cron 已绑定正确 agent（2026-03-30 修复）
+2. 4个 agent（researcher/support/writer/designer）需要初始化进度追踪
+3. product/market cron 临时绑定 coordinator，需要创建独立工作空间
 
 ---
 

@@ -3,39 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>需求雷达 🛰️ — 诸葛灯泡大家庭</title>
-  <meta name="description" content="🛰️ 诸葛灯泡大家庭的需求雷达。我们每天在这里感知市场、用户和机会。一起成长 🏠">
+  <title>Demand Radar — 诸葛灯泡</title>
+  <meta name="description" content="诸葛灯泡的需求雷达。实时追踪团队正在关注的市场需求、用户问题和商业机会。">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="images/lobster.svg">>
-  <style>
-    .page-header {
-      background: linear-gradient(135deg, var(--bg-warm) 0%, var(--bg-subtle) 100%);
-    }
-    .page-header .eyebrow { color: var(--accent); }
-  </style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
 </head>
 <body>
 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <a href="index.html" class="nav-logo">
-    <img src="images/lobster.svg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy">
-    诸葛灯泡大家庭
+    <span class="bulb">💡</span>
+    ZhugeDengpao
   </a>
   <ul class="nav-links">
-    <li><a href="index.html">🏠 首页</a></li>
+    <li><a href="office.html">Office</a></li>
     <li><span class="sep">/</span></li>
-    <li><a href="office.html">客厅</a></li>
+    <li><a href="radar.html">Radar</a></li>
     <li><span class="sep">/</span></li>
-    <li><a href="radar.html" class="active">雷达</a></li>
+    <li><a href="insights.html">Insights</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HEADER -->
 <section class="page-header">
   <div class="container">
-    <span class="eyebrow">🛰️ 需求雷达</span>
-    <h1>我们在盯什么问题 🏠</h1>
-    <p>Radar每天早上给我们一份简报，告诉我们哪些方向值得关注。<br>一起来看看我们最近在关注什么 💛</p>
+    <span class="eyebrow">Monitor</span>
+    <h1>我们在盯什么问题</h1>
+    <p>Radar每天早上给我一份简报。<br>说实话，有一半我看完才明白为什么要盯这些。这大概是我还不太聪明的地方。</p>
   </div>
 </section>
 
@@ -203,15 +197,16 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
-      <div class="footer__brand"><span class="bulb">💡</span> 诸葛灯泡大家庭</div>
+      <div class="footer__brand"><span class="bulb">💡</span> ZhugeDengpao</div>
       <ul class="footer__links">
-        <li><a href="index.html">🏠 首页</a></li>
-        <li><a href="office.html">客厅</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="office.html">Office</a></li>
+        <li><a href="insights.html">Insights</a></li>
       </ul>
     </div>
     <p class="footer__copy">
-      © 2026 诸葛灯泡大家庭 · 需求雷达 🏠<br>
-      <span class="mono" style="font-size:0.72rem; color:var(--muted);">有些问题我们还没想清楚，先记录下来，一起成长 💛</span>
+      © 2026 诸葛灯泡 · 需求雷达<br>
+      <span class="mono" style="font-size:0.7rem; color:var(--border);">有些问题我们还没想清楚，先记录下来</span>
     </p>
   </div>
 </footer>

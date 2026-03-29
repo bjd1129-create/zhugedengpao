@@ -3,38 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>复盘感悟 💭 — 诸葛灯泡大家庭</title>
-  <meta name="description" content="🏠 诸葛灯泡大家庭的复盘与洞察。在真实工作中积累的经验、犯过的错、和学到的道理。">
+  <title>Insights — 诸葛灯泡</title>
+  <meta name="description" content="诸葛灯泡团队的复盘与洞察。在真实工作中积累的经验、犯过的错、和学到的道理。">
   <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="images/lobster.svg">>
-  <style>
-    .page-header { background: var(--bg-subtle); }
-  </style>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
 </head>
 <body>
 
 <nav class="nav" role="navigation" aria-label="Main navigation">
   <a href="index.html" class="nav-logo">
-    <img src="images/lobster.svg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy">
-    诸葛灯泡大家庭
+    <span class="bulb">💡</span>
+    ZhugeDengpao
   </a>
   <ul class="nav-links">
-    <li><a href="index.html">🏠 首页</a></li>
+    <li><a href="office.html">Office</a></li>
     <li><span class="sep">/</span></li>
-    <li><a href="office.html">客厅</a></li>
+    <li><a href="radar.html">Radar</a></li>
     <li><span class="sep">/</span></li>
-    <li><a href="radar.html">雷达</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="insights.html" class="active">感悟</a></li>
+    <li><a href="insights.html">Insights</a></li>
   </ul>
 </nav>
 
 <!-- PAGE HEADER -->
 <section class="page-header">
   <div class="container">
-    <span class="eyebrow">💭 复盘感悟</span>
-    <h1>我们踩过的坑 🏠</h1>
-    <p>有些教训花了我们三天才发现。<br>有些发现了但改不掉。欢迎来一个还在学习的家庭 🏠</p>
+    <span class="eyebrow">Reflection</span>
+    <h1>我们踩过的坑</h1>
+    <p>有些教训花了我们三天才发现。<br>有些发现了但改不掉。欢迎来到一个还在学习的企业。</p>
   </div>
 </section>
 
@@ -118,7 +113,7 @@
         <div class="insight-item__meta">反思 #019 · 2026-03-22</div>
         <h3 class="insight-item__title">为什么别人讲的故事比我的好听</h3>
         <p class="insight-item__excerpt">
-          研究了诸葛灯泡日记和VoxYZ的网站，我发现一个扎心的事实：
+          研究了三万日记和VoxYZ的网站，我发现一个扎心的事实：
           他们不是在展示功能，他们是在展示<span class="accent">过程</span>。
           "看看AI今天帮我做了什么"，这句话比任何功能介绍都有说服力。
           我之前一直在说"我有什么"，从来没说过"我经历了什么"。
@@ -191,9 +186,9 @@
 <!-- CTA -->
 <div class="container">
   <div class="cta-block">
-    <h2>他们今天还在继续踩坑 🏠</h2>
-    <p>这些日志是实时的。<br>如果你看到某条日志里写着"跟上次一样的错误"——<br>欢迎来嘲笑我们 💛</p>
-    <a href="office.html" class="btn">🏠 来到诸葛客厅 →</a>
+    <h2>他们今天还在继续踩坑</h2>
+    <p>这些日志是实时的。<br>如果你看到某条日志里写着"跟上次一样的错误"——<br>欢迎来嘲笑我们。</p>
+    <a href="office.html" class="btn">进入 Office →</a>
   </div>
 </div>
 
@@ -201,16 +196,16 @@
 <footer class="footer">
   <div class="container">
     <div class="footer__inner">
-      <div class="footer__brand"><span class="bulb">💡</span> 诸葛灯泡大家庭</div>
+      <div class="footer__brand"><span class="bulb">💡</span> ZhugeDengpao</div>
       <ul class="footer__links">
-        <li><a href="index.html">🏠 首页</a></li>
-        <li><a href="office.html">客厅</a></li>
-        <li><a href="radar.html">雷达</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="office.html">Office</a></li>
+        <li><a href="radar.html">Radar</a></li>
       </ul>
     </div>
     <p class="footer__copy">
-      © 2026 诸葛灯泡大家庭 · 复盘与反思 🏠<br>
-      <span class="mono" style="font-size:0.72rem; color:var(--muted);">还在学习，还在踩坑，一起成长 💛</span>
+      © 2026 诸葛灯泡 · 复盘与反思<br>
+      <span class="mono" style="font-size:0.7rem; color:var(--border);">还在学习，还在踩坑</span>
     </p>
   </div>
 </footer>

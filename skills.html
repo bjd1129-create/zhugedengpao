@@ -70,6 +70,39 @@
       background: var(--accent-dim);
     }
 
+    /* Category section headers */
+    .skills-section {
+      margin-top: 48px;
+    }
+    .skills-section + .skills-section {
+      margin-top: 48px;
+    }
+    .skills-section__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .skills-section__emoji {
+      font-size: 1.3rem;
+    }
+    .skills-section__title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .skills-section__count {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      background: var(--bg-subtle);
+      padding: 3px 10px;
+      border-radius: 50px;
+    }
+
     /* Skills grid */
     .skills-grid {
       display: grid;
@@ -79,20 +112,23 @@
       border: none;
       border-radius: var(--radius);
       overflow: visible;
-      margin-top: 40px;
     }
     .skill-card {
       background: var(--surface);
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 20px;
       transition: all 0.25s ease;
       position: relative;
+      overflow: hidden;
     }
     .skill-card:hover {
       border-color: var(--accent-light);
       box-shadow: 0 8px 28px rgba(139,90,43,0.10);
       transform: translateY(-3px);
+    }
+    .skill-card.hidden {
+      display: none;
     }
     .skill-card__top {
       display: flex;
@@ -140,7 +176,7 @@
       position: absolute;
       bottom: 0; left: 0; right: 0;
       height: 3px;
-      background: var(--accent-light);
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
       opacity: 0;
       border-radius: 0 0 var(--radius) var(--radius);
       transition: opacity 0.2s;
@@ -170,6 +206,24 @@
       font-size: 0.88rem;
       color: var(--muted);
     }
+
+    /* No results state */
+    .no-results {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--muted);
+      display: none;
+    }
+    .no-results.visible {
+      display: block;
+    }
+    .no-results__emoji {
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    .no-results__text {
+      font-size: 0.95rem;
+    }
   </style>
 </head>
 <body>
@@ -198,6 +252,8 @@
     <li><span class="sep">/</span></li>
     <li><a href="easyclaw.html">🌱 EasyClaw</a></li>
     <li><span class="sep">/</span></li>
+    <li><a href="openclaw-install.html">⚡ 安装</a></li>
+    <li><span class="sep">/</span></li>
     <li><a href="office.html">🏠 团队</a></li>
     <li><span class="sep">/</span></li>
     <li><a href="about.html">👤 关于</a></li>
@@ -217,488 +273,785 @@
   </div>
 </section>
 
+<!-- ONE-CLICK INSTALL -->
+<section style="padding:32px 0 0;">
+  <div class="container">
+    <div style="background:linear-gradient(135deg,var(--accent-dim,rgba(232,114,74,0.1)),rgba(232,114,74,0.05));border:1.5px solid var(--accent,#E8724A);border-radius:var(--radius);padding:28px 32px;display:flex;align-items:center;gap:24px;flex-wrap:wrap;">
+      <div style="flex:1;min-width:240px;">
+        <div style="font-size:0.75rem;color:var(--accent);font-family:var(--font-mono);margin-bottom:8px;letter-spacing:0.1em;">⚡ 一键安装 OpenClaw</div>
+        <div style="font-family:var(--font-mono);font-size:0.95rem;background:rgba(0,0,0,0.15);padding:10px 16px;border-radius:8px;color:var(--text);letter-spacing:0.03em;user-select:all;" id="install-cmd">curl -fsSL https://openclaw.ai/install | sh</div>
+      </div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+        <button onclick="copyInstall()" id="copy-btn" style="padding:10px 20px;background:var(--accent,#E8724A);color:#fff;border:none;border-radius:8px;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.2s;white-space:nowrap;">📋 复制命令</button>
+        <a href="openclaw-install.html" style="padding:10px 20px;background:transparent;color:var(--accent,#E8724A);border:1.5px solid var(--accent,#E8724A);border-radius:8px;font-weight:600;font-size:0.9rem;text-decoration:none;transition:all 0.2s;white-space:nowrap;">详细教程 →</a>
+      </div>
+    </div>
+    <p style="margin-top:10px;font-size:0.8rem;color:var(--muted);">安装后运行 <code style="background:rgba(0,0,0,0.1);padding:2px 6px;border-radius:4px;font-family:var(--font-mono);">openclaw chat --name 小花</code> 即可开始使用</p>
+  </div>
+</section>
+
+<script>
+function copyInstall() {
+  const cmd = 'curl -fsSL https://openclaw.ai/install | sh';
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(cmd).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.textContent = '✅ 已复制!';
+      btn.style.background = '#34D399';
+      setTimeout(() => { btn.textContent = '📋 复制命令'; btn.style.background = ''; }, 2000);
+    });
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = cmd;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const btn = document.getElementById('copy-btn');
+    btn.textContent = '✅ 已复制!';
+    setTimeout(() => { btn.textContent = '📋 复制命令'; }, 2000);
+  }
+}
+</script>
+
 <!-- FILTER BAR -->
 <section class="section--sm">
   <div class="container">
     <div class="filter-bar">
-      <button class="filter-btn active">全部</button>
-      <button class="filter-btn">⭐ 必装</button>
-      <button class="filter-btn">🔥 热门</button>
-      <button class="filter-btn">🔗 工具</button>
-      <button class="filter-btn">✍️ 创作</button>
-      <button class="filter-btn">📊 数据</button>
-      <button class="filter-btn">🌐 搜索</button>
-      <button class="filter-btn">🔐 安全</button>
+      <button class="filter-btn active" data-filter="all">全部</button>
+      <button class="filter-btn" data-filter="must">⭐ 必装</button>
+      <button class="filter-btn" data-filter="hot">🔥 热门</button>
+      <button class="filter-btn" data-filter="tool">🔗 工具</button>
+      <button class="filter-btn" data-filter="creative">✍️ 创作</button>
+      <button class="filter-btn" data-filter="data">📊 数据</button>
+      <button class="filter-btn" data-filter="search">🌐 搜索</button>
+      <button class="filter-btn" data-filter="security">🔐 安全</button>
     </div>
 
     <!-- SKILLS GRID -->
     <div class="skills-grid">
 
-      <!-- Official / 必装 -->
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🏗️</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+    <!-- 必装技能 -->
+    <div class="skills-section" id="section-must">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">⭐</span>
+        <span class="skills-section__title">必装技能</span>
+        <span class="skills-section__count">12个</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="must tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🏗️</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">多Agent团队配置</div>
+          <div class="skill-card__desc">一只灯泡变一支团队——配置多个AI角色协作，总指挥+笔杆子+参谋+运营官。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">多Agent团队配置</div>
-        <div class="skill-card__desc">一只灯泡变一支团队——配置多个AI角色协作，总指挥+笔杆子+参谋+运营官。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🌐</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🌐</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">网页搜索</div>
+          <div class="skill-card__desc">Brave搜索+DuckDuckGo多引擎搜索，实时获取网络信息。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">网页搜索</div>
-        <div class="skill-card__desc">Brave搜索+DuckDuckGo多引擎搜索，实时获取网络信息。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🌤️</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🌤️</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">天气查询</div>
+          <div class="skill-card__desc">全球天气实时查询，wttr.in + Open-Meteo双源。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">天气查询</div>
-        <div class="skill-card__desc">全球天气实时查询，wttr.in + Open-Meteo双源。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🃏</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🃏</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">飞书互动卡片</div>
+          <div class="skill-card__desc">发送按钮、表单、投票、链接卡片。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">飞书互动卡片</div>
-        <div class="skill-card__desc">发送按钮、表单、投票、链接卡片。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🖼️</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🖼️</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">AI图片生成</div>
+          <div class="skill-card__desc">Nano Banana Pro(Gemini 3)文生图、图生图、风格迁移。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">AI图片生成</div>
-        <div class="skill-card__desc">Nano Banana Pro(Gemini 3)文生图、图生图、风格迁移。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🎙️</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎙️</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">语音合成</div>
+          <div class="skill-card__desc">中文多音色TTS，飞书原生语音条发送。edge-tts+ffmpeg。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">语音合成</div>
-        <div class="skill-card__desc">中文多音色TTS，飞书原生语音条发送。edge-tts+ffmpeg。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🔭</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔭</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">浏览器控制</div>
+          <div class="skill-card__desc">无头Chrome截图、网页自动化、视觉调试。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">浏览器控制</div>
-        <div class="skill-card__desc">无头Chrome截图、网页自动化、视觉调试。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🧑</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🧑</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">AI文本人性化</div>
+          <div class="skill-card__desc">16种检测模式+6种风格转换，去除AI味。支持小红书/知乎/学术风格。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">AI文本人性化</div>
-        <div class="skill-card__desc">16种检测模式+6种风格转换，去除AI味。支持小红书/知乎/学术风格。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🕷️</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🕷️</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">反爬网页访问</div>
+          <div class="skill-card__desc">微信公众号/Twitter/Reddit等反爬网站，三种方法自动切换。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">反爬网页访问</div>
-        <div class="skill-card__desc">微信公众号/Twitter/Reddit等反爬网站，三种方法自动切换。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📄</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📄</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">PDF生成</div>
+          <div class="skill-card__desc">Markdown转精美PDF，中文+代码高亮。Pandoc+Chrome。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">PDF生成</div>
-        <div class="skill-card__desc">Markdown转精美PDF，中文+代码高亮。Pandoc+Chrome。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🚄</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🚄</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">火车票查询</div>
+          <div class="skill-card__desc">12306余票、车次时刻表、票价查询。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">火车票查询</div>
-        <div class="skill-card__desc">12306余票、车次时刻表、票价查询。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">✈️</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="must tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">✈️</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">机票查询</div>
+          <div class="skill-card__desc">国内外机票价格、多日比价、最低价日历。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">机票查询</div>
-        <div class="skill-card__desc">国内外机票价格、多日比价、最低价日历。</div>
-        <div class="skill-card__bar"></div>
       </div>
+    </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📈</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">热门</span>
+    <!-- 热门技能 -->
+    <div class="skills-section" id="section-hot">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">🔥</span>
+        <span class="skills-section__title">热门技能</span>
+        <span class="skills-section__count">8个</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="hot data">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📈</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">热门</span>
+            </div>
           </div>
+          <div class="skill-card__name">股票监控</div>
+          <div class="skill-card__desc">A股/港股/美股实时监控，RSI/MACD/布林带多指标买卖信号。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">股票监控</div>
-        <div class="skill-card__desc">A股/港股/美股实时监控，RSI/MACD/布林带多指标买卖信号。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🔍</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="hot creative search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔍</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">SEO内容写作</div>
+          <div class="skill-card__desc">SEO优化的长文写作，关键词策略+结构化内容。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">SEO内容写作</div>
-        <div class="skill-card__desc">SEO优化的长文写作，关键词策略+结构化内容。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📊</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">必装</span>
+        <div class="skill-card reveal" data-category="hot tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📊</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">必装</span>
+            </div>
           </div>
+          <div class="skill-card__name">工作汇报生成</div>
+          <div class="skill-card__desc">从Session历史自动生成工作总结PDF，支持日报/周报。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">工作汇报生成</div>
-        <div class="skill-card__desc">从Session历史自动生成工作总结PDF，支持日报/周报。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🎬</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">热门</span>
+        <div class="skill-card reveal" data-category="hot search creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎬</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">热门</span>
+            </div>
           </div>
+          <div class="skill-card__name">视频总结</div>
+          <div class="skill-card__desc">YouTube/Bilibili视频自动获取字幕并AI总结，输出md格式。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">视频总结</div>
-        <div class="skill-card__desc">YouTube/Bilibili视频自动获取字幕并AI总结，输出md格式。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🔥</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">热门</span>
+        <div class="skill-card reveal" data-category="hot search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔥</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">热门</span>
+            </div>
           </div>
+          <div class="skill-card__name">今日热榜</div>
+          <div class="skill-card__desc">微博/知乎/抖音/百度等各平台热搜榜单，一键获取全网热点。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">今日热榜</div>
-        <div class="skill-card__desc">微博/知乎/抖音/百度等各平台热搜榜单，一键获取全网热点。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📕</span>
-          <div class="skill-card__badges">
-            <span class="badge badge--official">官方</span>
-            <span class="badge badge--hot">热门</span>
+        <div class="skill-card reveal" data-category="hot creative social">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📕</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--official">官方</span>
+              <span class="badge badge--hot">热门</span>
+            </div>
           </div>
+          <div class="skill-card__name">小红书运营</div>
+          <div class="skill-card__desc">搜索笔记、发布内容、分析评论。基于xiaohongshu-mcp(8400+⭐)。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">小红书运营</div>
-        <div class="skill-card__desc">搜索笔记、发布内容、分析评论。基于xiaohongshu-mcp(8400+⭐)。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <!-- More official -->
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🔬</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="hot creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎬</span>
+            <div class="skill-card__badges">
+              <span class="badge badge--hot">热门</span>
+            </div>
+          </div>
+          <div class="skill-card__name">AI 视频制作</div>
+          <div class="skill-card__desc">Sora/Kling/Seedance/Veo 3等37个模型，文生视频、图生视频，一个API搞定。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">深度研究</div>
-        <div class="skill-card__desc">多引擎搜索+网页提取+结构化分析报告。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📧</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="hot">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🧩</span>
+            <div class="skill-card__badges"><span class="badge badge--hot">热门</span></div>
+          </div>
+          <div class="skill-card__name">5000+ 更多技能</div>
+          <div class="skill-card__desc">在 Claw123.ai 浏览 5000+ 社区技能，一行命令安装。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">邮件管理</div>
-        <div class="skill-card__desc">飞书邮件监控+ClawPost邮箱，自动检查+智能回复。</div>
-        <div class="skill-card__bar"></div>
       </div>
+    </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📄</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
-        </div>
-        <div class="skill-card__name">飞书文档</div>
-        <div class="skill-card__desc">飞书文档读写、知识库管理、多维表格操作。</div>
-        <div class="skill-card__bar"></div>
+    <!-- 创作工具 -->
+    <div class="skills-section" id="section-creative">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">✍️</span>
+        <span class="skills-section__title">创作工具</span>
+        <span class="skills-section__count">12个</span>
       </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🧑</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">AI文本人性化</div>
+          <div class="skill-card__desc">16种检测模式+6种风格转换，去除AI味。支持小红书/知乎/学术风格。</div>
+          <div class="skill-card__bar"></div>
+        </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📅</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔍</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">SEO内容写作</div>
+          <div class="skill-card__desc">SEO优化的长文写作，关键词策略+结构化内容。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">飞书日历</div>
-        <div class="skill-card__desc">日程读取、会议安排、日程提醒。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">💻</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎬</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">视频总结</div>
+          <div class="skill-card__desc">YouTube/Bilibili视频自动获取字幕并AI总结，输出md格式。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">代码助手</div>
-        <div class="skill-card__desc">Claude Code/Codex写代码、改Bug、部署。PTY模式自动应答。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🐙</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative social">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📕</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">小红书运营</div>
+          <div class="skill-card__desc">搜索笔记、发布内容、分析评论。基于xiaohongshu-mcp(8400+⭐)。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">GitHub操作</div>
-        <div class="skill-card__desc">仓库/Issues/PR/代码搜索/Actions，不开网页管GitHub。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🐦</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative social">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">💚</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">微信公众号</div>
+          <div class="skill-card__desc">老庄写作风格+标题策略+排版规范，完整公众号创作流程。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">Twitter / X</div>
-        <div class="skill-card__desc">发推/Thread/转推/删除，@FuSheng_0306账号运营。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">💚</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">✍️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">博客写手</div>
+          <div class="skill-card__desc">长文写作+排版+发布，支持多平台格式适配。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">微信公众号</div>
-        <div class="skill-card__desc">老庄写作风格+标题策略+排版规范，完整公众号创作流程。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🧠</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎬</span>
+            <div class="skill-card__badges"><span class="badge badge--hot">热门</span></div>
+          </div>
+          <div class="skill-card__name">AI 视频制作</div>
+          <div class="skill-card__desc">Sora/Kling/Seedance/Veo 3等37个模型，文生视频、图生视频，一个API搞定。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">基础智能包</div>
-        <div class="skill-card__desc">记忆系统、上下文管理、任务追踪。灯泡出厂标配。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📰</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎵</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">AI 音乐生成</div>
+          <div class="skill-card__desc">从结构化作曲计划生成高质量音频。AI作曲+质量验证+失败重试。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">Hacker News</div>
-        <div class="skill-card__desc">HN前页热帖抓取，支持按主题过滤(tech/health/AI)。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📊</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative social">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">💼</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">LinkedIn 运营</div>
+          <div class="skill-card__desc">LinkedIn内容体系搭建、思想领导力建设、收件箱管理。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">股票深度分析</div>
-        <div class="skill-card__desc">Yahoo Finance数据+8维评分+持仓管理+热门扫描+传闻捕捉。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🇭🇰</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative social">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🐦</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">Twitter / X</div>
+          <div class="skill-card__desc">发推/Thread/转推/删除，@FuSheng_0306账号运营。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">港股AI投研</div>
-        <div class="skill-card__desc">港股AI概念板块专属投研，南向资金博弈+产业基本面分析。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">📋</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🖼️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">AI图片生成</div>
+          <div class="skill-card__desc">Nano Banana Pro(Gemini 3)文生图、图生图、风格迁移。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">项目管理</div>
-        <div class="skill-card__desc">飞书多维表格驱动的项目管理，任务创建/更新/日报/通知。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">⚡</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="creative tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🎙️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">语音合成</div>
+          <div class="skill-card__desc">中文多音色TTS，飞书原生语音条发送。edge-tts+ffmpeg。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">自动化工作流</div>
-        <div class="skill-card__desc">设计n8n工作流JSON，含触发器/重试/错误处理/人工审核。</div>
-        <div class="skill-card__bar"></div>
       </div>
+    </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🧊</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
-        </div>
-        <div class="skill-card__name">网页净化提取</div>
-        <div class="skill-card__desc">通过distil.net代理获取干净Markdown，绕过复杂网页。</div>
-        <div class="skill-card__bar"></div>
+    <!-- 数据分析 -->
+    <div class="skills-section" id="section-data">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">📊</span>
+        <span class="skills-section__title">数据分析</span>
+        <span class="skills-section__count">4个</span>
       </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📈</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">股票监控</div>
+          <div class="skill-card__desc">A股/港股/美股实时监控，RSI/MACD/布林带多指标买卖信号。</div>
+          <div class="skill-card__bar"></div>
+        </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🧬</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📊</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">股票深度分析</div>
+          <div class="skill-card__desc">Yahoo Finance数据+8维评分+持仓管理+热门扫描+传闻捕捉。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">自我进化引擎</div>
-        <div class="skill-card__desc">分析运行历史自动识别改进点，协议约束下的能力进化。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🛡️</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="data">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🇭🇰</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">港股AI投研</div>
+          <div class="skill-card__desc">港股AI概念板块专属投研，南向资金博弈+产业基本面分析。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">安全审计</div>
-        <div class="skill-card__desc">Skill安全扫描+系统安全加固+风险评估。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🕵️</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="data tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📊</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">工作汇报生成</div>
+          <div class="skill-card__desc">从Session历史自动生成工作总结PDF，支持日报/周报。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">竞品研究</div>
-        <div class="skill-card__desc">竞品信息收集、对比分析、市场定位研究。</div>
-        <div class="skill-card__bar"></div>
       </div>
+    </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">✍️</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
-        </div>
-        <div class="skill-card__name">博客写手</div>
-        <div class="skill-card__desc">长文写作+排版+发布，支持多平台格式适配。</div>
-        <div class="skill-card__bar"></div>
+    <!-- 搜索工具 -->
+    <div class="skills-section" id="section-search">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">🌐</span>
+        <span class="skills-section__title">搜索工具</span>
+        <span class="skills-section__count">6个</span>
       </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🌐</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">网页搜索</div>
+          <div class="skill-card__desc">Brave搜索+DuckDuckGo多引擎搜索，实时获取网络信息。</div>
+          <div class="skill-card__bar"></div>
+        </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🎬</span>
-          <div class="skill-card__badges"><span class="badge badge--hot">热门</span></div>
+        <div class="skill-card reveal" data-category="search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🕷️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">反爬网页访问</div>
+          <div class="skill-card__desc">微信公众号/Twitter/Reddit等反爬网站，三种方法自动切换。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">AI 视频制作</div>
-        <div class="skill-card__desc">Sora/Kling/Seedance/Veo 3等37个模型，文生视频、图生视频，一个API搞定。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🎵</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔥</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">今日热榜</div>
+          <div class="skill-card__desc">微博/知乎/抖音/百度等各平台热搜榜单，一键获取全网热点。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">AI 音乐生成</div>
-        <div class="skill-card__desc">从结构化作曲计划生成高质量音频。AI作曲+质量验证+失败重试。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">💼</span>
-          <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+        <div class="skill-card reveal" data-category="search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔬</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">深度研究</div>
+          <div class="skill-card__desc">多引擎搜索+网页提取+结构化分析报告。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">LinkedIn 运营</div>
-        <div class="skill-card__desc">LinkedIn内容体系搭建、思想领导力建设、收件箱管理。</div>
-        <div class="skill-card__bar"></div>
-      </div>
 
-      <div class="skill-card reveal">
-        <div class="skill-card__top">
-          <span class="skill-card__emoji">🧩</span>
-          <div class="skill-card__badges"><span class="badge badge--hot">热门</span></div>
+        <div class="skill-card reveal" data-category="search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📰</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">Hacker News</div>
+          <div class="skill-card__desc">HN前页热帖抓取，支持按主题过滤(tech/health/AI)。</div>
+          <div class="skill-card__bar"></div>
         </div>
-        <div class="skill-card__name">5000+ 更多技能</div>
-        <div class="skill-card__desc">在 Claw123.ai 浏览 5000+ 社区技能，一行命令安装。</div>
-        <div class="skill-card__bar"></div>
+
+        <div class="skill-card reveal" data-category="search">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🧊</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">网页净化提取</div>
+          <div class="skill-card__desc">通过distil.net代理获取干净Markdown，绕过复杂网页。</div>
+          <div class="skill-card__bar"></div>
+        </div>
       </div>
+    </div>
+
+    <!-- 效率工具 -->
+    <div class="skills-section" id="section-tool">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">🔗</span>
+        <span class="skills-section__title">效率工具</span>
+        <span class="skills-section__count">14个</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🌤️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">天气查询</div>
+          <div class="skill-card__desc">全球天气实时查询，wttr.in + Open-Meteo双源。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🔭</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">浏览器控制</div>
+          <div class="skill-card__desc">无头Chrome截图、网页自动化、视觉调试。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📄</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">PDF生成</div>
+          <div class="skill-card__desc">Markdown转精美PDF，中文+代码高亮。Pandoc+Chrome。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🚄</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">火车票查询</div>
+          <div class="skill-card__desc">12306余票、车次时刻表、票价查询。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">✈️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">机票查询</div>
+          <div class="skill-card__desc">国内外机票价格、多日比价、最低价日历。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">💻</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">代码助手</div>
+          <div class="skill-card__desc">Claude Code/Codex写代码、改Bug、部署。PTY模式自动应答。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🐙</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">GitHub操作</div>
+          <div class="skill-card__desc">仓库/Issues/PR/代码搜索/Actions，不开网页管GitHub。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📄</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">飞书文档</div>
+          <div class="skill-card__desc">飞书文档读写、知识库管理、多维表格操作。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📅</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">飞书日历</div>
+          <div class="skill-card__desc">日程读取、会议安排、日程提醒。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📧</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">邮件管理</div>
+          <div class="skill-card__desc">飞书邮件监控+ClawPost邮箱，自动检查+智能回复。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">📋</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">项目管理</div>
+          <div class="skill-card__desc">飞书多维表格驱动的项目管理，任务创建/更新/日报/通知。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">⚡</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">自动化工作流</div>
+          <div class="skill-card__desc">设计n8n工作流JSON，含触发器/重试/错误处理/人工审核。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🧠</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">基础智能包</div>
+          <div class="skill-card__desc">记忆系统、上下文管理、任务追踪。灯泡出厂标配。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="tool">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🏗️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">多Agent团队配置</div>
+          <div class="skill-card__desc">一只灯泡变一支团队——配置多个AI角色协作，总指挥+笔杆子+参谋+运营官。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 安全工具 -->
+    <div class="skills-section" id="section-security">
+      <div class="skills-section__header">
+        <span class="skills-section__emoji">🔐</span>
+        <span class="skills-section__title">安全工具</span>
+        <span class="skills-section__count">3个</span>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-card reveal" data-category="security">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🛡️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">安全审计</div>
+          <div class="skill-card__desc">Skill安全扫描+系统安全加固+风险评估。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="security">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🕵️</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">竞品研究</div>
+          <div class="skill-card__desc">竞品信息收集、对比分析、市场定位研究。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+
+        <div class="skill-card reveal" data-category="security">
+          <div class="skill-card__top">
+            <span class="skill-card__emoji">🧬</span>
+            <div class="skill-card__badges"><span class="badge badge--official">官方</span></div>
+          </div>
+          <div class="skill-card__name">自我进化引擎</div>
+          <div class="skill-card__desc">分析运行历史自动识别改进点，协议约束下的能力进化。</div>
+          <div class="skill-card__bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- No results state -->
+    <div class="no-results" id="no-results">
+      <div class="no-results__emoji">🔍</div>
+      <p class="no-results__text">这个分类下暂无技能</p>
+    </div>
 
     </div><!-- end .skills-grid -->
 
@@ -721,9 +1074,34 @@
   <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">准备好养一只自己的AI了吗？</h2>
   <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">30秒上手，免费开源。像养家人一样养AI，让它陪你一起成长。</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a href="easyclaw.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">🌱 免费使用 EasyClaw</a>
+    <a href="openclaw-install.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">🌱 免费使用 EasyClaw</a>
     <a href="contact.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">💬 联系我们</a>
   </div>
+</div>
+
+
+<!-- RELATED PAGES -->
+<style>
+.page-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:48px 0 0; }
+.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
+.page-nav a:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+.page-nav__label { font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:var(--font-mono); }
+.page-nav__title { font-weight:600; color:var(--text); font-size:0.95rem; }
+.page-nav--single { grid-template-columns:1fr; }
+.page-nav--empty { display:none; }
+</style>
+<div class="page-nav-wrapper" style="max-width:1100px;margin:0 auto;padding:0 24px;">
+<div class="page-nav__label" style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:var(--font-mono);letter-spacing:0.05em;">相关页面</div>
+<div class="page-nav">
+  <a href="science.html" class="page-nav__prev">
+    <span class="page-nav__label">← 上一步</span>
+    <span class="page-nav__title">AI科普</span>
+  </a>
+  <a href="easyclaw.html" class="page-nav__next" style="text-align:right;">
+    <span class="page-nav__label">下一步 →</span>
+    <span class="page-nav__title">EasyClaw</span>
+  </a>
+</div>
 </div>
 
 <footer class="footer">
@@ -753,13 +1131,61 @@
 
 <script src="js/main.js"></script>
 <script>
-  // Simple filter functionality
+  // Working filter functionality
   document.querySelectorAll('.filter-btn').forEach(btn => {
     btn.addEventListener('click', () => {
+      // Update active button
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
+
+      const filter = btn.dataset.filter;
+      const sections = document.querySelectorAll('.skills-section');
+      const noResults = document.getElementById('no-results');
+      let visibleCount = 0;
+
+      sections.forEach(section => {
+        const cards = section.querySelectorAll('.skill-card');
+        let sectionVisible = 0;
+
+        cards.forEach(card => {
+          const categories = card.dataset.category || '';
+          const show = filter === 'all' || categories.includes(filter);
+          card.classList.toggle('hidden', !show);
+          if (show) sectionVisible++;
+        });
+
+        // Show/hide section based on filter
+        const sectionHeader = section.querySelector('.skills-section__header');
+        if (sectionVisible === 0) {
+          section.style.display = 'none';
+        } else {
+          section.style.display = '';
+          // Update count
+          const countEl = sectionHeader.querySelector('.skills-section__count');
+          if (countEl) countEl.textContent = sectionVisible + '个';
+        }
+        visibleCount += sectionVisible;
+      });
+
+      // Show no results message
+      if (noResults) {
+        noResults.classList.toggle('visible', visibleCount === 0);
+      }
     });
   });
+
+  // Scroll reveal animation
+  const revealCards = () => {
+    document.querySelectorAll('.skill-card.reveal').forEach((card, i) => {
+      const rect = card.getBoundingClientRect();
+      if (rect.top < window.innerHeight - 50) {
+        card.style.transitionDelay = `${(i % 6) * 50}ms`;
+        card.classList.add('revealed');
+      }
+    });
+  };
+  window.addEventListener('scroll', revealCards);
+  revealCards();
 </script>
 </body>
 </html>

@@ -3,10 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>团队状态 🏠 — 老庄与诸葛灯泡</title>
-  <meta name="description" content="🏠 诸葛灯泡的7人团队：造梦者/文案君/洞察者/代码侠/播种者/安全官/财务官。各有所长，一起帮老庄提效。">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="images/lobster.svg">
+  <title>团队状态 🏠 — 老庄与小花</title>
+  <meta name="description" content="🏠 小花的9人团队：洞察者/文案君/代码侠/产品官/配色师/安全官/市场官/运营官/战略官。各有所长，一起帮老庄提效。">
+  <meta name="keywords" content="AI团队,9人AI团队,洞察者,文案君,代码侠,产品官,配色师,安全官,市场官,运营官,战略官">
+  <meta property="og:title" content="团队状态 🏠 — 老庄与小花">
+  <meta property="og:description" content="🏠 小花的9人团队：洞察者/文案君/代码侠/产品官/配色师/安全官/市场官/运营官/战略官。各有所长，一起帮老庄提效。">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://dengpao.pages.dev/office">
+  <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="团队状态 🏠 — 老庄与小花">
+  <meta name="twitter:description" content="🏠 小花的9人团队：洞察者/文案君/代码侠/产品官/配色师/安全官/市场官/运营官/战略官。各有所长，一起帮老庄提效。">
+  <meta name="twitter:image" content="https://dengpao.pages.dev/images/xiaohua.jpg">
+  <meta name="canonical" content="https://dengpao.pages.dev/office">
+  <meta name="theme-color" content="#FFFBF5">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="images/xiaohua.jpg">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -464,8 +482,11 @@
 
 <nav>
   <a href="index.html" class="nav-logo">
-    <img src="images/lobster.svg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy"> 诸葛灯泡
+    <img src="images/xiaohua.jpg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy"> 小花
   </a>
+  <button class="nav-toggle" aria-label="打开菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
   <ul class="nav-links">
     <li><a href="diary.html">📔 日记</a></li>
     <li><span class="sep">/</span></li>
@@ -477,9 +498,15 @@
     <li><span class="sep">/</span></li>
     <li><a href="easyclaw.html">🌱 EasyClaw</a></li>
     <li><span class="sep">/</span></li>
+    <li><a href="openclaw-install.html">⚡ 安装</a></li>
+    <li><span class="sep">/</span></li>
     <li><a href="about.html">👤 关于</a></li>
     <li><span class="sep">/</span></li>
     <li><a href="office.html" class="active">🏠 团队</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="faq.html">❓ FAQ</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="footprint.html">🌍 足迹</a></li>
   </ul>
 </nav>
 
@@ -489,9 +516,9 @@
   <section class="hero">
     <div class="hero-eyebrow">
       <span class="live-dot"></span>
-      🏠 诸葛客厅 · 我们的家 · 实时状态
+      🏠 小花客厅 · 我们的家 · 实时状态
     </div>
-    <h1>欢迎来到 <em>诸葛客厅</em> 🏠</h1>
+    <h1>欢迎来到 <em>小花客厅</em> 🏠</h1>
     <p>我们的7位AI成员在这里工作、成长、互相陪伴。这里永远有人在线，欢迎来坐坐！</p>
 
     <div class="welcome-msg">
@@ -558,18 +585,18 @@
       role: '主人 · 发起人',
       personality: '程序员出身，AI实验发起人',
       status: 'online',
-      task: '给诸葛灯泡团队指方向、做最后把关',
+      task: '给小花团队指方向、做最后把关',
       progress: 100,
     },
     {
       id: 1,
-      name: '造梦者',
-      emoji: '👑',
-      role: '统筹 · 决策',
-      personality: '运筹帷幄，永远有plan B',
+      name: '洞察者',
+      emoji: '🔬',
+      role: '调研分析',
+      personality: '眼睛雪亮，不放过任何细节',
       status: 'busy',
-      task: '团队状态监控页面重构',
-      progress: 65,
+      task: '平台规则与竞品动态追踪',
+      progress: 47,
     },
     {
       id: 2,
@@ -583,16 +610,6 @@
     },
     {
       id: 3,
-      name: '洞察者',
-      emoji: '🔍',
-      role: '研究分析',
-      personality: '眼睛雪亮，不放过任何细节',
-      status: 'busy',
-      task: '平台规则与竞品动态追踪',
-      progress: 47,
-    },
-    {
-      id: 4,
       name: '代码侠',
       emoji: '💻',
       role: '技术开发',
@@ -602,14 +619,24 @@
       progress: 30,
     },
     {
-      id: 5,
-      name: '播种者',
-      emoji: '🌱',
-      role: '运营推广',
-      personality: '撒下种子，静待花开',
+      id: 4,
+      name: '产品官',
+      emoji: '🎯',
+      role: '产品设计',
+      personality: '需求翻译官，让产品从概念到落地',
       status: 'online',
-      task: '小红书账号内容运营',
-      progress: 58,
+      task: '产品功能规划与优先级排序',
+      progress: 40,
+    },
+    {
+      id: 5,
+      name: '配色师',
+      emoji: '🎨',
+      role: '视觉设计',
+      personality: '色彩敏感，让界面好看又统一',
+      status: 'busy',
+      task: '官网视觉风格优化',
+      progress: 55,
     },
     {
       id: 6,
@@ -623,13 +650,33 @@
     },
     {
       id: 7,
-      name: '财务官',
-      emoji: '💰',
-      role: '成本管理',
-      personality: '精打细算，过日子的小能手',
+      name: '市场官',
+      emoji: '📣',
+      role: '市场推广',
+      personality: '传播达人，让好东西被更多人看见',
+      status: 'online',
+      task: '内容分发与渠道合作拓展',
+      progress: 35,
+    },
+    {
+      id: 8,
+      name: '运营官',
+      emoji: '⚙️',
+      role: '运营管理',
+      personality: '流程管家，让团队高效运转',
       status: 'idle',
-      task: '等待下月成本报告周期',
-      progress: 0,
+      task: '日常任务调度与进度追踪',
+      progress: 20,
+    },
+    {
+      id: 9,
+      name: '战略官',
+      emoji: '🚀',
+      role: '战略规划',
+      personality: '运筹帷幄，让团队不走偏',
+      status: 'busy',
+      task: '团队状态监控页面重构',
+      progress: 65,
     },
   ];
 
@@ -746,25 +793,63 @@
 </script>
 
 <!-- FOOTER -->
+
+<div style="text-align:center;padding:48px 24px;background:var(--bg-subtle);border-top:1.5px solid var(--border);margin-top:48px;">
+  <p style="font-size:0.8rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
+  <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">想了解小花团队？</h2>
+  <p style="color:var(--muted);font-size:0.95rem;max-width:48ch);margin:0 auto 28px;">9人AI团队，各有所长。管理网站、写文章、查资料、做推广——都能帮你。</p>
+  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="contact.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">💬 联系我们</a>
+    <a href="openclaw-install.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">🌱 试试 EasyClaw</a>
+  </div>
+</div>
+
+
+<!-- RELATED PAGES -->
+<style>
+.page-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:48px 0 0; }
+.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
+.page-nav a:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+.page-nav__label { font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:var(--font-mono); }
+.page-nav__title { font-weight:600; color:var(--text); font-size:0.95rem; }
+.page-nav--single { grid-template-columns:1fr; }
+.page-nav--empty { display:none; }
+</style>
+<div class="page-nav-wrapper" style="max-width:1100px;margin:0 auto;padding:0 24px;">
+<div class="page-nav__label" style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:var(--font-mono);letter-spacing:0.05em;">相关页面</div>
+<div class="page-nav">
+  <a href="easyclaw.html" class="page-nav__prev">
+    <span class="page-nav__label">← 上一步</span>
+    <span class="page-nav__title">EasyClaw</span>
+  </a>
+  <a href="insights.html" class="page-nav__next" style="text-align:right;">
+    <span class="page-nav__label">下一步 →</span>
+    <span class="page-nav__title">洞察</span>
+  </a>
+</div>
+</div>
+
 <footer style="border-top: 1.5px solid var(--border); padding: 48px 0; margin-top: 80px; background: var(--bg-subtle);">
   <div class="container">
     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
       <div style="font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
         <span style="color: var(--accent);">💡</span>
-        诸葛灯泡
+        小花
       </div>
       <ul style="display: flex; gap: 24px; list-style: none;">
         <li><a href="diary.html" style="font-size: 0.8rem; color: var(--muted);">日记</a></li>
         <li><a href="articles.html" style="font-size: 0.8rem; color: var(--muted);">文章</a></li>
+        <li><a href="testimonials.html" style="font-size: 0.8rem; color: var(--muted);">见证</a></li>
         <li><a href="science.html" style="font-size: 0.8rem; color: var(--muted);">科普</a></li>
         <li><a href="skills.html" style="font-size: 0.8rem; color: var(--muted);">技能</a></li>
         <li><a href="easyclaw.html" style="font-size: 0.8rem; color: var(--muted);">EasyClaw</a></li>
         <li><a href="about.html" style="font-size: 0.8rem; color: var(--muted);">关于老庄</a></li>
         <li><a href="office.html" style="font-size: 0.8rem; color: var(--muted);">客厅</a></li>
+        <li><a href="contact.html" style="font-size: 0.8rem; color: var(--muted);">联系</a></li>
       </ul>
     </div>
     <p style="font-size: 0.75rem; color: var(--muted); width: 100%; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border);">
-      © 2026 老庄与诸葛灯泡 · 温暖真实的AI实验 🏠 · AI团队归我管 💡
+      © 2026 老庄与小花 · 温暖真实的AI实验 🏠 · AI团队归我管 💡
     </p>
   </div>
 </footer>

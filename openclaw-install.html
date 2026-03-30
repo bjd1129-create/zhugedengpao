@@ -1,0 +1,1318 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenClaw — 一键安装 AI 助手</title>
+  <meta name="description" content="⚡ 30秒安装，即刻拥有你的私人AI助手。无需API Key，国内直连，纯中文界面。一条命令，永久免费。">
+  <meta name="keywords" content="OpenClaw,AI助手,一键安装,免费AI,国内可用,中文AI">
+  <meta property="og:title" content="OpenClaw — 一键安装 AI 助手">
+  <meta property="og:description" content="⚡ 30秒安装，即刻拥有你的私人AI助手。无需API Key，国内直连，纯中文界面。">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#e8e4dc">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/xiaohua.jpg">
+
+  <style>
+    /* ---- Tokens ---- */
+    :root {
+      --blue-deep:   #060D1F;
+      --blue-bg:     #0A1628;
+      --blue-surface:#0F2040;
+      --blue-border: #1A3060;
+      --blue-mid:    #1E4080;
+      --blue-light:  #2A58C0;
+      --blue-glow:   rgba(10,132,255,0.15);
+      --blue-glow2:  rgba(10,132,255,0.08);
+      --accent:      var(--red);
+      --accent-light:#FF8C42;
+      --accent-dim:  rgba(255,107,53,0.12);
+      --accent-glow: rgba(255,107,53,0.25);
+      --text:        #F0F4FF;
+      --text-mid:    #A8B8E0;
+      --text-dim:    #6A7FA0;
+      --muted:       #4A5A80;
+      --green:       #34D399;
+      --green-dim:   rgba(52,211,153,0.12);
+      --font-serif:  'Noto Serif SC', Georgia, serif;
+      --font-sans:   'Noto Sans SC', -apple-system, sans-serif;
+      --font-mono:   'JetBrains Mono', monospace;
+      --nav-h:       64px;
+      --radius:      16px;
+      --radius-sm:   10px;
+      --radius-lg:   24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--blue-bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ---- Utility ---- */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .container--narrow {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ---- NAV ---- */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      background: rgba(6,13,31,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(26,48,96,0.6);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--text);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo img {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      list-style: none;
+    }
+    .nav-links a {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      transition: all 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: var(--text);
+      background: var(--blue-glow);
+    }
+    .nav-links .sep { color: var(--blue-border); padding: 0 2px; }
+    .nav-toggle { display: none; background: none; border: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-toggle span { width: 22px; height: 2px; background: var(--text-mid); border-radius: 2px; transition: all 0.2s; }
+
+    /* ---- HERO ---- */
+    .hero {
+      padding: calc(var(--nav-h) + 60px) 0 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(10,132,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; right: -100px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--red);
+      background: var(--red-dim);
+      border: 1px solid rgba(255,107,53,0.2);
+      padding: 6px 14px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+    }
+    .hero__eyebrow .dot {
+      width: 6px; height: 6px;
+      background: var(--red);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      line-height: 1.15;
+      margin-bottom: 20px;
+      color: var(--text);
+    }
+    .hero h1 em {
+      color: var(--blue-light);
+      font-style: normal;
+      background: linear-gradient(135deg, var(--blue-light), #60A5FA);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero__sub {
+      font-size: 1rem;
+      color: var(--text-mid);
+      max-width: 52ch;
+      margin-bottom: 40px;
+      line-height: 1.8;
+    }
+
+    /* ---- Install command box ---- */
+    .install-box {
+      background: var(--blue-surface);
+      border: 1.5px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(10,132,255,0.1), inset 0 1px 0 rgba(255,255,255,0.04);
+    }
+    .install-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(10,132,255,0.5), transparent);
+    }
+    .install-box__label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--blue-light);
+      letter-spacing: 0.1em;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .install-box__label::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--green);
+      animation: pulse 2s infinite;
+    }
+    .install-command {
+      font-family: var(--font-mono);
+      font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+      color: #E0Eaff;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-sm);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: all;
+      position: relative;
+    }
+    .install-command:hover {
+      border-color: var(--blue-light);
+      background: rgba(10,132,255,0.08);
+    }
+    .install-command__prompt {
+      color: var(--green);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .install-command__text { flex: 1; }
+    .install-command__copy {
+      flex-shrink: 0;
+      background: var(--blue-border);
+      border: none;
+      color: var(--text-mid);
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .install-command__copy:hover {
+      background: var(--blue-light);
+      color: white;
+    }
+    .install-box__copy-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 12px;
+      text-align: right;
+    }
+    .install-box__copy-note kbd {
+      background: var(--blue-surface);
+      border: 1px solid var(--blue-border);
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-mid);
+    }
+
+    /* ---- Steps ---- */
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .step {
+      background: var(--blue-surface);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius);
+      padding: 24px;
+      position: relative;
+      transition: all 0.25s;
+    }
+    .step:hover {
+      border-color: var(--blue-light);
+      box-shadow: 0 0 20px var(--blue-glow);
+      transform: translateY(-2px);
+    }
+    .step__num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px; height: 32px;
+      background: var(--red-dim);
+      border: 1px solid rgba(255,107,53,0.25);
+      color: var(--red);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+    .step h3 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .step p {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .step__arrow {
+      display: none;
+    }
+
+    /* ---- Buttons ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--blue-light);
+      color: white;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 28px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: var(--font-sans);
+    }
+    .btn:hover {
+      background: #3B7EE8;
+      box-shadow: 0 4px 20px rgba(10,132,255,0.35);
+      transform: translateY(-1px);
+    }
+    .btn--accent {
+      background: var(--red);
+    }
+    .btn--accent:hover {
+      background: var(--red);
+      box-shadow: 0 4px 20px var(--red-dim);
+    }
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-mid);
+      border: 1.5px solid var(--blue-border);
+    }
+    .btn--ghost:hover {
+      border-color: var(--blue-light);
+      color: var(--text);
+      background: var(--blue-glow2);
+    }
+
+    /* ---- Demo Terminal Animation ---- */
+    .terminal-demo {
+      background: var(--blue-deep);
+      border: 1.5px solid var(--blue-border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin: 48px 0;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    }
+    .terminal-demo__bar {
+      background: var(--blue-surface);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid var(--blue-border);
+    }
+    .terminal-demo__dot {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .terminal-demo__dot--red { background: #FF5F57; }
+    .terminal-demo__dot--yellow { background: #FFBD2E; }
+    .terminal-demo__dot--green { background: #28C840; }
+    .terminal-demo__title {
+      margin-left: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      flex: 1;
+      text-align: center;
+    }
+    .terminal-demo__body {
+      padding: 24px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 2;
+      min-height: 240px;
+    }
+    .terminal-demo__line { display: flex; gap: 12px; margin-bottom: 2px; }
+    .terminal-demo__prompt { color: var(--green); font-weight: 700; flex-shrink: 0; }
+    .terminal-demo__cmd { color: #E0Eaff; }
+    .terminal-demo__out { color: var(--text-dim); padding-left: 24px; }
+    .terminal-demo__cursor {
+      display: inline-block;
+      width: 8px; height: 16px;
+      background: var(--blue-light);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+    }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    .terminal-demo__progress {
+      display: flex;
+      gap: 6px;
+      padding-left: 24px;
+      margin-top: 8px;
+    }
+    .terminal-demo__bar-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 16px;
+    }
+    .terminal-demo__bar-chart span {
+      width: 4px;
+      background: var(--blue-light);
+      border-radius: 2px;
+      animation: barGrow 0.6s ease-out forwards;
+      transform-origin: bottom;
+    }
+    @keyframes barGrow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+    .terminal-demo__success {
+      color: var(--green);
+      padding-left: 24px;
+      margin-top: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ---- Features ---- */
+    .section { padding: 80px 0; border-top: 1px solid rgba(26,48,96,0.5); }
+    .section--dark { background: var(--blue-deep); }
+    .section__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 12px;
+    }
+    .section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .section__sub {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 48px;
+      max-width: 55ch;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--blue-surface);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--blue-light), var(--red));
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+    .feature-card:hover {
+      border-color: var(--blue-light);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(10,132,255,0.12);
+    }
+    .feature-card:hover::before { opacity: 1; }
+    .feature-card__icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.75;
+    }
+    .feature-card__tag {
+      display: inline-block;
+      background: var(--red-dim);
+      color: var(--red);
+      font-size: 0.68rem;
+      font-family: var(--font-mono);
+      padding: 3px 8px;
+      border-radius: 4px;
+      margin-top: 12px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ---- Quick install highlight ---- */
+    .quick-install {
+      padding: 80px 0;
+      border-top: 1px solid rgba(26,48,96,0.5);
+      text-align: center;
+    }
+    .quick-install h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .quick-install__sub {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 36px;
+    }
+    .big-command {
+      display: inline-block;
+      background: var(--blue-surface);
+      border: 2px solid var(--blue-border);
+      border-radius: var(--radius);
+      padding: 20px 36px;
+      font-family: var(--font-mono);
+      font-size: clamp(0.8rem, 2.5vw, 1.05rem);
+      color: #C8D8F0;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: all;
+      margin-bottom: 16px;
+      position: relative;
+    }
+    .big-command:hover {
+      border-color: var(--blue-light);
+      box-shadow: 0 0 30px var(--blue-glow);
+    }
+    .big-command .copied-toast {
+      position: absolute;
+      bottom: -36px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--green-dim);
+      color: var(--green);
+      font-size: 0.75rem;
+      padding: 4px 14px;
+      border-radius: 20px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+    .big-command.copied .copied-toast { opacity: 1; }
+    .quick-install__note {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 24px;
+    }
+
+    /* ---- Comparison ---- */
+    .compare-section { padding: 80px 0; border-top: 1px solid rgba(26,48,96,0.5); }
+    .compare-section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .compare-section > p {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 36px;
+    }
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+    .compare-table th {
+      background: var(--blue-surface);
+      padding: 14px 20px;
+      text-align: left;
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      border-bottom: 1px solid var(--blue-border);
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+    .compare-table th:first-child { border-radius: var(--radius-sm) 0 0 0; }
+    .compare-table th:last-child { border-radius: 0 var(--radius-sm) 0 0; }
+    .compare-table th.col-openclaw {
+      background: rgba(10,132,255,0.08);
+      color: var(--blue-light);
+    }
+    .compare-table td {
+      padding: 13px 20px;
+      border-bottom: 1px solid rgba(26,48,96,0.5);
+      color: var(--text-dim);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table tr:hover td { background: rgba(10,132,255,0.04); }
+    .compare-table td:first-child { color: var(--text-mid); font-weight: 500; }
+    .compare-table .yes { color: var(--green); }
+    .compare-table .no { color: var(--muted); opacity: 0.4; }
+
+    /* ---- FAQ ---- */
+    .faq-section { padding: 80px 0; border-top: 1px solid rgba(26,48,96,0.5); }
+    .faq-section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      color: var(--text);
+      margin-bottom: 36px;
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 10px; }
+    .faq-item {
+      background: var(--blue-surface);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: var(--blue-mid); }
+    .faq-item__q {
+      padding: 18px 24px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      transition: background 0.2s;
+    }
+    .faq-item__q:hover { background: var(--blue-glow2); }
+    .faq-item__icon { color: var(--red); font-size: 1.1rem; transition: transform 0.25s; flex-shrink: 0; }
+    .faq-item.open .faq-item__icon { transform: rotate(45deg); }
+    .faq-item__a {
+      padding: 0 24px 18px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      display: none;
+    }
+    .faq-item.open .faq-item__a { display: block; }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      padding: 100px 0;
+      text-align: center;
+      border-top: 1px solid rgba(26,48,96,0.5);
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 600px; height: 400px;
+      background: radial-gradient(ellipse, rgba(10,132,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-section h2 {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+    .cta-section p {
+      font-size: 0.95rem;
+      color: var(--text-mid);
+      max-width: 50ch;
+      margin: 0 auto 36px;
+      line-height: 1.8;
+    }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .cta-install-cmd {
+      display: inline-block;
+      background: rgba(0,0,0,0.4);
+      border: 1px solid var(--blue-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 24px;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      color: #C8D8F0;
+      margin-top: 28px;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: all;
+    }
+    .cta-install-cmd:hover {
+      border-color: var(--blue-light);
+      background: rgba(10,132,255,0.08);
+    }
+
+    /* ---- Footer ---- */
+    .footer {
+      border-top: 1px solid rgba(26,48,96,0.5);
+      padding: 48px 0;
+      background: var(--blue-deep);
+    }
+    .footer__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .footer__brand img { width: 24px; height: 24px; border-radius: 50%; }
+    .footer__links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer__links a {
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .footer__links a:hover { color: var(--text-mid); }
+    .footer__copy {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ---- Grid BG ---- */
+    .grid-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image:
+        linear-gradient(rgba(10,132,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(10,132,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .content-wrap { position: relative; z-index: 1; }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 768px) {
+      .steps { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .nav-toggle { display: flex; }
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-h);
+        left: 0; right: 0;
+        background: rgba(6,13,31,0.98);
+        border-bottom: 1px solid var(--blue-border);
+        padding: 16px;
+        gap: 8px;
+      }
+      .compare-table { font-size: 0.78rem; }
+      .compare-table th, .compare-table td { padding: 10px 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .install-box { padding: 20px; }
+      .install-command { font-size: 0.78rem; padding: 12px 16px; }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="progress-bar" id="progressBar"></div>
+
+<div class="grid-bg"></div>
+<div class="content-wrap">
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-logo">🦞 老庄与小花</a>
+  <button class="nav-toggle" aria-label="菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links">
+    <li><a href="index.html">🏠 首页</a></li>
+    <li><a href="diary.html">📖 日记</a></li>
+    <li><a href="articles.html">📝 文章</a></li>
+    <li><a href="skills.html">🛒 技能</a></li>
+    <li><a href="easyclaw.html">🦞 EasyClaw</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero__eyebrow">
+      <span class="dot"></span>
+      一键安装 · 永久免费
+    </div>
+    <h1>一条命令，<br><em>30秒拥有 AI 助手</em></h1>
+    <p class="hero__sub">不需要注册账号、不需要申请API Key、不需要翻墙。打开终端，粘贴命令，回车——你的私人AI助手就绪。</p>
+
+    <!-- Install command box -->
+    <div class="install-box">
+      <div class="install-box__label">TERMINAL</div>
+      <div class="install-command" onclick="copyCommand(this)">
+        <span class="install-command__prompt">$</span>
+        <span class="install-command__text">curl -fsSL https://openclaw.ai/install.sh | bash</span>
+        <button class="install-command__copy" onclick="event.stopPropagation();copyCommand(this.closest('.install-box'))">复制</button>
+      </div>
+      <p class="install-box__copy-note">macOS / Linux / WSL 均适用 · 支持 Apple Silicon</p>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:0;">
+      <a href="https://docs.openclaw.ai/start/getting-started" class="btn btn--accent" target="_blank" rel="noopener">
+        ⚡ 立即安装
+      </a>
+      <a href="easyclaw.html" class="btn btn--ghost">
+        🌱 了解更多
+      </a>
+    </div>
+
+    <!-- Steps -->
+    <div class="steps" style="margin-top:48px;">
+      <div class="step">
+        <div class="step__num">1</div>
+        <h3>打开终端</h3>
+        <p>macOS 按 <kbd style="background:var(--blue-surface);border:1px solid var(--blue-border);padding:1px 5px;border-radius:3px;font-size:0.72rem;font-family:var(--font-mono);color:var(--text-mid);">⌘+Space</kbd> 搜索"终端"，Windows 用户用 WSL 或 PowerShell</p>
+      </div>
+      <div class="step">
+        <div class="step__num">2</div>
+        <h3>粘贴命令</h3>
+        <p>复制上面的安装命令，粘贴到终端窗口。只需一行，不需要其他配置。</p>
+      </div>
+      <div class="step">
+        <div class="step__num">3</div>
+        <h3>回车运行</h3>
+        <p>按回车，等待30秒安装完成。自动配置好所有依赖，直接开始使用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO TERMINAL -->
+<section>
+  <div class="container--narrow">
+    <div class="terminal-demo" id="terminal-demo">
+      <div class="terminal-demo__bar">
+        <div class="terminal-demo__dot terminal-demo__dot--red"></div>
+        <div class="terminal-demo__dot terminal-demo__dot--yellow"></div>
+        <div class="terminal-demo__dot terminal-demo__dot--green"></div>
+        <div class="terminal-demo__title">Terminal — openclaw</div>
+      </div>
+      <div class="terminal-demo__body" id="terminal-body">
+        <!-- Animation fills here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section">
+  <div class="container">
+    <div class="section__eyebrow">✨ 为什么选 OpenClaw</div>
+    <h2>真正零门槛的 AI 助手</h2>
+    <p class="section__sub">没有套路，没有门槛，没有学习成本。装好即用，用起来就像呼吸一样自然。</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-card__icon">⚡</span>
+        <h3>30秒上手</h3>
+        <p>一条命令安装完成，没有任何配置文件，没有依赖地狱。装好就是完整功能。</p>
+        <span class="feature-card__tag">⚡ 即装即用</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🔑</span>
+        <h3>不需要 API Key</h3>
+        <p>不需要去各大平台申请账号、充值额度、对接SDK。默认使用内置模型，开箱即用。</p>
+        <span class="feature-card__tag">🔑 零配置</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🀄</span>
+        <h3>纯中文界面</h3>
+        <p>从安装到使用全程中文，AI 也用中文思考和回复。符合中文语境，理解更准确。</p>
+        <span class="feature-card__tag">🀄 中文优先</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🇨🇳</span>
+        <h3>国内直连可用</h3>
+        <p>不需要翻墙，服务器在国内，响应速度快。连接飞书、微信等国内平台零障碍。</p>
+        <span class="feature-card__tag">🇨🇳 国内优化</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🧠</span>
+        <h3>长期记忆</h3>
+        <p>记住你的偏好、工作习惯、项目背景。不用每次重复上下文，越用越懂你。</p>
+        <span class="feature-card__tag">🧠 持久记忆</span>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🔌</span>
+        <h3>200+ 技能扩展</h3>
+        <p>ClawHub 上有免费技能市场：天气、股票、网页抓取、定时任务……一句话安装。</p>
+        <span class="feature-card__tag">🔌 技能市场</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK INSTALL HIGHLIGHT -->
+<section class="quick-install">
+  <div class="container">
+    <h2>安装就是这么简单</h2>
+    <p class="quick-install__sub">复制命令，粘贴到终端，回车。三步搞定。</p>
+    <div class="big-command" onclick="copyCommand(this)" id="big-cmd">
+      curl -fsSL https://openclaw.ai/install.sh | bash
+      <span class="copied-toast">✅ 已复制！</span>
+    </div>
+    <p class="quick-install__note">支持 macOS、Linux、Windows WSL · Apple Silicon 兼容</p>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="section section--dark">
+  <div class="container">
+    <div class="section__eyebrow">💡 OpenClaw 能做什么</div>
+    <h2>不只是一个聊天窗口</h2>
+    <p class="section__sub">它能真正帮你做事——执行任务、操作工具、记住信息、自动运行。</p>
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-card__icon">📧</span>
+        <h3>邮件处理</h3>
+        <p>帮你起草邮件、回复客户、自动分类整理。在飞书或微信里直接喊它发邮件。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">📅</span>
+        <h3>日程管理</h3>
+        <p>连接日历，自动安排会议、设置提醒、追踪deadline。你只管决定，调度它来做。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">📁</span>
+        <h3>文件整理</h3>
+        <p>自动整理下载文件夹、归档项目文档、生成目录索引。你的数字资产，它来打理。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🔍</span>
+        <h3>网络研究</h3>
+        <p>自动抓取网页、提取数据、汇总信息。告诉它你要调研什么，它把结果整理好给你。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">💻</span>
+        <h3>代码助手</h3>
+        <p>写代码、改bug、解释逻辑、审查PR。不是替代你，而是放大你的能力。</p>
+      </div>
+      <div class="feature-card">
+        <span class="feature-card__icon">🤖</span>
+        <h3>多AI协作</h3>
+        <p>创建多个AI角色：造梦者、文案君、代码侠、分析师——各司其职，协同完成复杂任务。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-section">
+  <div class="container">
+    <h2>🆚 传统 AI 工具 vs OpenClaw</h2>
+    <p>不是所有AI都需要折腾。OpenClaw 把复杂度留给自己，把简单留给你。</p>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>功能</th>
+          <th>🤖 传统 AI 工具</th>
+          <th class="col-openclaw">⚡ OpenClaw</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>安装配置</td>
+          <td class="no">❌ 需要申请API、配置环境</td>
+          <td class="yes">✅ 一条命令，30秒完成</td>
+        </tr>
+        <tr>
+          <td>API Key</td>
+          <td class="no">❌ 必须注册充值各平台</td>
+          <td class="yes">✅ 内置模型，无需Key</td>
+        </tr>
+        <tr>
+          <td>网络环境</td>
+          <td class="no">❌ 大多数需要翻墙</td>
+          <td class="yes">✅ 国内直连，即装即用</td>
+        </tr>
+        <tr>
+          <td>长期记忆</td>
+          <td class="no">❌ 对话结束即遗忘</td>
+          <td class="yes">✅ 持久记住你的偏好</td>
+        </tr>
+        <tr>
+          <td>主动执行</td>
+          <td class="no">❌ 只响应你的提问</td>
+          <td class="yes">✅ 定时自动运行任务</td>
+        </tr>
+        <tr>
+          <td>工具连接</td>
+          <td class="no">⚠️ 插件有限且不稳定</td>
+          <td class="yes">✅ 飞书/微信/邮件直连</td>
+        </tr>
+        <tr>
+          <td>中文体验</td>
+          <td class="no">⚠️ 中文理解一般</td>
+          <td class="yes">✅ 纯中文界面+中文思维</td>
+        </tr>
+        <tr>
+          <td>多AI协作</td>
+          <td class="no">❌ 单对话，无法协作</td>
+          <td class="yes">✅ 多角色分工合作</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="container--narrow">
+    <h2>❓ 常见问题</h2>
+    <div class="faq-list">
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          支持 Windows 吗？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          支持！Windows 10/11 用户建议使用 WSL（Windows Subsystem for Linux），安装后体验与 macOS/Linux 完全一致。直接在 PowerShell 里粘贴安装命令也可以运行。
+        </div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          安装需要管理员权限吗？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          大多数情况下不需要。安装脚本会自动处理依赖，权限不够时会提示你输入密码（sudo）。安装目录默认在你的用户目录下，不污染系统全局环境。
+        </div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          完全免费吗？有没有隐藏费用？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          OpenClaw 本身完全免费开源。但AI推理需要消耗模型算力，默认使用内置免费额度，个人日常使用足够。企业用户可以接入自己的API Key使用商业模型。
+        </div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          我的数据安全吗？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          个人版：所有数据都在你自己的机器上，不会经过任何第三方服务器。企业版：独立云实例，数据隔离，支持私有化部署。
+        </div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          和 ChatGPT / Claude 比有什么区别？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          它们是问答工具，OpenClaw 是执行工具。ChatGPT 回答问题，OpenClaw 帮你做事——发邮件、管文件、记日程、跑自动化。它有记忆、会主动执行、能连接真实工具。
+        </div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          怎么升级到最新版本？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          再跑一次安装命令即可。OpenClaw 会自动检测已安装版本，有更新时提示你确认。不会丢失任何配置和记忆。
+        </div>
+      </div>
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-item__q">
+          可以用微信 / 飞书使用吗？
+          <span class="faq-item__icon">+</span>
+        </div>
+        <div class="faq-item__a">
+          可以！OpenClaw 支持接入飞书、微信、Telegram、Discord 等平台。在你习惯的聊天工具里直接跟它对话，不需要开新的App。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>30秒后，<br>你的 AI 助手就绪</h2>
+    <p>不要等到"以后有空再试试"。<br>现在打开终端，粘贴命令，回车——你就已经拥有了。</p>
+    <div class="cta-buttons">
+      <a href="https://docs.openclaw.ai/start/getting-started" class="btn btn--accent" target="_blank" rel="noopener" style="font-size:1rem;padding:14px 36px;">
+        ⚡ 一键安装
+      </a>
+      <a href="easyclaw.html" class="btn btn--ghost" style="font-size:1rem;padding:14px 36px;">
+        🌱 了解更多
+      </a>
+    </div>
+    <div class="cta-install-cmd" onclick="copyCommand(this)">
+      $ curl -fsSL https://openclaw.ai/install.sh | bash
+    </div>
+  </div>
+</section>
+
+<!-- NEXT STEPS after install -->
+<section style="background:var(--blue-surface);border-top:1px solid var(--blue-border);padding:60px 0;">
+  <div class="container" style="text-align:center;">
+    <p style="font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--red);font-family:var(--font-mono);margin-bottom:16px;">安装完成后</p>
+    <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">接下来做什么？</h2>
+    <p style="color:var(--muted);max-width:48ch;margin:0 auto 40px;">安装只是开始。阅读快速入门文档，开始配置你的第一个AI助手。</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="https://docs.openclaw.ai/start/getting-started" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:var(--red);color:#fff;font-weight:600;border-radius:8px;text-decoration:none;font-size:0.95rem;">
+        📖 阅读快速入门 →
+      </a>
+      <a href="skills.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:transparent;color:var(--text);font-weight:500;border-radius:8px;text-decoration:none;font-size:0.95rem;border:1.5px solid var(--blue-border);">
+        🛠️ 浏览技能市场
+      </a>
+      <a href="easyclaw.html" style="display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:transparent;color:var(--text);font-weight:500;border-radius:8px;text-decoration:none;font-size:0.95rem;border:1.5px solid var(--blue-border);">
+        🌱 了解 EasyClaw
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="images/xiaohua.jpg" alt="logo" loading="lazy">
+        <span>小花 × OpenClaw</span>
+      </div>
+      <ul class="footer__links">
+        <li><a href="diary.html">日记</a></li>
+        <li><a href="articles.html">文章</a></li>
+        <li><a href="science.html">科普</a></li>
+        <li><a href="skills.html">技能</a></li>
+        <li><a href="openclaw-install.html">⚡安装</a></li>
+        <li><a href="easyclaw.html">EasyClaw</a></li>
+        <li><a href="office.html">团队</a></li>
+        <li><a href="about.html">关于</a></li>
+        <li><a href="testimonials.html">见证</a></li>
+        <li><a href="faq.html">FAQ</a></li>
+      </ul>
+    </div>
+    <p class="footer__copy">
+      © 2026 老庄与小花 · 一个真实的 AI 实验 🏠
+    </p>
+  </div>
+</footer>
+
+</div><!-- /content-wrap -->
+
+<script>
+  // Copy command to clipboard
+  function copyCommand(el) {
+    const text = el.querySelector('.install-command__text') 
+      ? el.querySelector('.install-command__text').textContent 
+      : el.textContent.replace('$ ', '').trim();
+    const textToCopy = text.includes('curl') ? 'curl -fsSL https://openclaw.ai/install.sh | bash' : text;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 2000);
+    }).catch(() => {
+      // Fallback
+      const ta = document.createElement('textarea');
+      ta.value = 'curl -fsSL https://openclaw.ai/install.sh | bash';
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      el.classList.add('copied');
+      setTimeout(() => el.classList.remove('copied'), 2000);
+    });
+  }
+
+  // Terminal animation
+  const terminalBody = document.getElementById('terminal-body');
+  const lines = [
+    { type: 'cmd', text: 'curl -fsSL https://openclaw.ai/install.sh | bash' },
+    { type: 'out', text: '⬇️  Downloading OpenClaw v2.4.1...' },
+    { type: 'out', text: '📦  Installing dependencies...' },
+    { type: 'out', text: '⚙️   Configuring AI gateway...' },
+    { type: 'out', text: '🔗  Connecting to Feishu...' },
+    { type: 'out', text: '🧠  Initializing memory store...' },
+    { type: 'out', text: '✅  Done! Starting OpenClaw...' },
+    { type: 'out', text: '' },
+    { type: 'cmd', text: 'openclaw chat --name 小花' },
+    { type: 'out', text: '' },
+    { type: 'out', text: '  🌱 OpenClaw is running!' },
+    { type: 'out', text: '  💬 Say hi to your new AI assistant...' },
+    { type: 'out', text: '' },
+  ];
+
+  let lineIndex = 0;
+  let charIndex = 0;
+  let currentLine = null;
+  let isDeleting = false;
+
+  function typeLine() {
+    if (lineIndex >= lines.length) {
+      // Show cursor at end
+      terminalBody.innerHTML += '<span class="terminal-demo__cursor"></span>';
+      return;
+    }
+
+    const line = lines[lineIndex];
+
+    if (line.type === 'cmd') {
+      if (!currentLine) {
+        // Start new command line
+        const div = document.createElement('div');
+        div.className = 'terminal-demo__line';
+        div.innerHTML = `<span class="terminal-demo__prompt">$</span><span class="terminal-demo__cmd"></span>`;
+        terminalBody.appendChild(div);
+        currentLine = div.querySelector('.terminal-demo__cmd');
+        charIndex = 0;
+      }
+      if (charIndex < line.text.length) {
+        currentLine.textContent += line.text[charIndex++];
+        setTimeout(typeLine, 35);
+      } else {
+        currentLine = null;
+        lineIndex++;
+        charIndex = 0;
+        // Add blank line after cmd
+        const blank = document.createElement('div');
+        blank.style.height = '4px';
+        terminalBody.appendChild(blank);
+        setTimeout(typeLine, 100);
+      }
+    } else if (line.type === 'out') {
+      const div = document.createElement('div');
+      div.className = 'terminal-demo__out';
+      div.textContent = line.text || '\u00A0';
+      terminalBody.appendChild(div);
+      lineIndex++;
+      setTimeout(typeLine, line.text ? 200 : 60);
+      terminalBody.scrollTop = terminalBody.scrollHeight;
+    }
+  }
+
+  // Start animation when terminal is in view
+  const terminalDemo = document.getElementById('terminal-demo');
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && lineIndex === 0) {
+      observer.disconnect();
+      setTimeout(typeLine, 600);
+    }
+  }, { threshold: 0.3 });
+  observer.observe(terminalDemo);
+</script>
+
+<!-- 浮动吉祥物 -->
+<div class="floating-mascot" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <div class="floating-mascot__bubble">回顶部 🦞</div>
+  <img src="images/xiaohua.jpg" alt="小花" loading="lazy">
+</div>
+</body>
+</html>

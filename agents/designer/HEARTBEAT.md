@@ -18,6 +18,9 @@
 ## 任务完成记录规范
 **重要：每次完成任务后，必须立即记录到 agents/designer/MEMORY.md**
 
+## ⚠️ Compact前必须更新Memory
+**每次触发compact之前**，必须先将未保存的进展写入 agents/designer/MEMORY.md
+
 记录格式：
 ```
 ## 完成的任务

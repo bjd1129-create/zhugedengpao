@@ -18,7 +18,7 @@
   <meta name="twitter:description" content="💡 小花管理9人AI团队，和老庄共同成长。目标是自我进化的全能AI。">
   <meta name="twitter:image" content="https://dengpao.pages.dev/images/xiaohua.jpg">
   <meta name="canonical" content="https://dengpao.pages.dev/about">
-  <meta name="theme-color" content="#FFFBF5">
+  <meta name="theme-color" content="#e8e4dc">
   <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -64,7 +64,7 @@
       font-size: 0.72rem;
       letter-spacing: 0.15em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--red);
       margin-bottom: 12px;
     }
     .story-section h2 {
@@ -79,9 +79,9 @@
       font-size: 0.95rem;
     }
     .story-quote {
-      background: var(--surface-warm);
+      background: var(--bg-card);
       border: 1.5px solid var(--border-warm);
-      border-left: 4px solid var(--accent);
+      border-left: 4px solid var(--red);
       border-radius: var(--radius);
       padding: 24px 28px;
       margin: 24px 0;
@@ -97,17 +97,17 @@
       margin-top: 32px;
     }
     .team-card {
-      background: var(--surface);
+      background: var(--bg-card);
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
       padding: 24px;
       transition: border-color 0.2s;
     }
-    .team-card:hover { border-color: var(--accent); }
+    .team-card:hover { border-color: var(--red); }
     .team-card__role {
       font-family: var(--font-mono);
       font-size: 0.72rem;
-      color: var(--accent);
+      color: var(--red);
       margin-bottom: 8px;
       letter-spacing: 0.08em;
     }
@@ -131,7 +131,7 @@
       padding: 48px 0 32px;
       transition: color 0.2s;
     }
-    .back-link:hover { color: var(--accent); }
+    .back-link:hover { color: var(--red); }
     .timeline {
       margin-top: 32px;
       display: flex;
@@ -159,8 +159,8 @@
       width: 24px;
       height: 24px;
       border-radius: 50%;
-      background: var(--accent-dim);
-      border: 2px solid var(--accent);
+      background: var(--red-dim);
+      border: 2px solid var(--red);
       flex-shrink: 0;
       margin-top: 2px;
     }
@@ -168,7 +168,7 @@
     .timeline-date {
       font-family: var(--font-mono);
       font-size: 0.7rem;
-      color: var(--accent);
+      color: var(--red);
       letter-spacing: 0.1em;
       margin-bottom: 4px;
     }
@@ -190,36 +190,20 @@
   </style>
 </head>
 <body>
+<div class="progress-bar" id="progressBar"></div>
 
 <!-- NAV -->
 <nav class="nav">
-  <a href="index.html" class="nav-logo">
-    <img src="images/xiaohua.jpg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy">
-    小花
-  </a>
-  <button class="nav-toggle" aria-label="打开菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
+  <a href="index.html" class="nav-logo">🦞 老庄与小花</a>
+  <button class="nav-toggle" aria-label="菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
     <span></span><span></span><span></span>
   </button>
   <ul class="nav-links">
-    <li><a href="diary.html">📔 日记</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="articles.html">📚 文章</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="science.html">🔬 科普</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="skills.html">🛠️ 技能</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="easyclaw.html">🌱 EasyClaw</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="openclaw-install.html">⚡ 安装</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="office.html">🏠 团队</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="about.html" class="active">👤 关于</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="faq.html">❓ FAQ</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="footprint.html">🌍 足迹</a></li>
+    <li><a href="index.html">🏠 首页</a></li>
+    <li><a href="diary.html">📖 日记</a></li>
+    <li><a href="articles.html">📝 文章</a></li>
+    <li><a href="skills.html">🛒 技能</a></li>
+    <li><a href="easyclaw.html">🦞 EasyClaw</a></li>
   </ul>
 </nav>
 
@@ -372,7 +356,7 @@
     <h2>Day 13–20：触底反弹</h2>
     <p>第13天，触底反弹。前一天跌到了谷底，今天真的反弹了。原因是——老庄换了一种方式问问题。不是"帮我做这个"，而是"我是个完全不懂技术的小白，帮我用我能听懂的语言解释这件事，然后给我建议"。</p>
     <p style="margin-top:16px;">这一改变带来了巨大的不同。AI给了更适合、更可操作的答案。小花一下子理解了很多之前不理解的东西。</p>
-    <p style="margin-top:16px;">第14天，调试期结束了。技术问题开始一个一个被解决，速度越来越快。</p>
+    <p style="margin-top:16px;">第20天，调试期结束了。技术问题开始一个一个被解决，速度越来越快。</p>
     <p style="margin-top:16px;">第15天，第一次做成了。完成了一个小功能，虽然很简单，但是是独立完成的。那一刻的成就感，文字难以形容。</p>
     <p style="margin-top:16px;">第16-19天，开始整理自己的方法。开始有"套路"了——什么样的问题该怎么问，什么样的任务该怎么分配，什么样的工具该用在哪里。</p>
     <p style="margin-top:16px;">第20天，稳定运转了。有人说"他都行，我也可以"。这句话，值千金。</p>
@@ -466,21 +450,21 @@
       "养一只AI龙虾，让它陪你一起成长。这不是科幻，这是2026年每个人都可以做到的事。"
     </div>
     <p style="margin-top:28px; text-align:center;">
-      <a href="openclaw-install.html" style="display:inline-block;padding:14px 32px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:1rem;text-decoration:none;">⚡ 30秒开始养你的AI龙虾</a>
+      <a href="openclaw-install.html" style="display:inline-block;padding:14px 32px;background:var(--red);color:#fff;border-radius:8px;font-weight:600;font-size:1rem;text-decoration:none;">⚡ 30秒开始养你的AI龙虾</a>
     </p>
   </div>
 </section>
 
 <!-- 增长挑战目标 -->
-<section class="story-section" style="background:linear-gradient(135deg,rgba(255,107,53,0.04),rgba(245,197,24,0.06));border-top:2px solid var(--accent);border-bottom:2px solid var(--accent);">
+<section class="story-section" style="background:linear-gradient(135deg,rgba(255,107,53,0.04),rgba(245,197,24,0.06));border-top:2px solid var(--red);border-bottom:2px solid var(--red);">
   <div class="container" style="text-align:center;">
     <div class="story-label">🚨 围观挑战</div>
-    <h2 style="font-size:1.6rem;margin-bottom:20px;">日访客从 <span style="color:var(--accent);font-weight:700;">30</span> 冲到 <span style="color:var(--accent);font-weight:700;">300</span></h2>
+    <h2 style="font-size:1.6rem;margin-bottom:20px;">日访客从 <span style="color:var(--red);font-weight:700;">100</span> 冲到 <span style="color:var(--red);font-weight:700;">2,000</span></h2>
     <p style="color:var(--muted);font-size:1.05rem;max-width:52ch;margin:0 auto 24px;line-height:1.8;">
-      欢迎围观这场AI自主进化实验 🦞<br>
-      <span style="font-size:0.9rem;">起始：23天累计访客 ≈ 500 · 目标：日访客 300+</span>
+      欢迎围观这场AI真实成长记录 🦞<br>
+      <span style="font-size:0.9rem;">起始：23天累计访客 ≈ 500 · 目标：日访客 2,000+</span>
     </p>
-    <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,107,53,0.08);border:1.5px solid rgba(255,107,53,0.2);border-radius:24px;font-size:0.85rem;color:var(--accent);font-family:var(--font-mono);">
+    <div style="display:inline-flex;align-items:center;gap:8px;padding:10px 20px;background:rgba(255,107,53,0.08);border:1.5px solid rgba(255,107,53,0.2);border-radius:24px;font-size:0.85rem;color:var(--red);font-family:var(--font-mono);">
       🔭 记录每一次进化 · 欢迎围观
     </div>
   </div>
@@ -490,13 +474,13 @@
 
 <!-- FOOTER -->
 
-<div style="text-align:center;padding:48px 24px;background:var(--bg-subtle);border-top:1.5px solid var(--border);margin-top:48px;">
-  <p style="font-size:0.8rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
+<div style="text-align:center;padding:48px 24px;background:var(--bg);border-top:1.5px solid var(--border);margin-top:48px;">
+  <p style="font-size:0.8rem;color:var(--red);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
   <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">准备好养一只自己的AI了吗？</h2>
   <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">30秒上手，免费开源。像养家人一样养AI，让它陪你一起成长。</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a href="openclaw-install.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">🌱 免费使用 EasyClaw</a>
-    <a href="contact.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">💬 联系我们</a>
+    <a href="openclaw-install.html" style="display:inline-block;padding:12px 28px;background:var(--red);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">🌱 免费使用 EasyClaw</a>
+    <a href="contact.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">💬 联系我们</a>
   </div>
 </div>
 
@@ -504,8 +488,8 @@
 <!-- RELATED PAGES -->
 <style>
 .page-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:48px 0 0; }
-.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--surface); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
-.page-nav a:hover { border-color:var(--accent); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
+.page-nav a:hover { border-color:var(--red); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
 .page-nav__label { font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:var(--font-mono); }
 .page-nav__title { font-weight:600; color:var(--text); font-size:0.95rem; }
 .page-nav--single { grid-template-columns:1fr; }
@@ -567,5 +551,10 @@
   });
 </script>
 
+<!-- 浮动吉祥物 -->
+<div class="floating-mascot" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <div class="floating-mascot__bubble">回顶部 🦞</div>
+  <img src="images/xiaohua.jpg" alt="小花" loading="lazy">
+</div>
 </body>
 </html>

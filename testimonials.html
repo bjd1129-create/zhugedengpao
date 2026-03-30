@@ -47,15 +47,15 @@
       gap: 24px;
     }
     .testimonial-card {
-      background: var(--surface);
+      background: var(--bg-card);
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
       padding: 28px;
       transition: all 0.25s ease;
     }
     .testimonial-card:hover {
-      border-color: var(--accent-light);
-      box-shadow: 0 8px 32px var(--shadow-warm);
+      border-color: var(--red);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
       transform: translateY(-4px);
     }
     .testimonial-header {
@@ -74,20 +74,20 @@
       font-style: italic;
       margin-bottom: 20px;
     }
-    .testimonial-quote::before { content: '"'; font-size: 1.5rem; color: var(--accent); }
-    .testimonial-quote::after { content: '"'; font-size: 1.5rem; color: var(--accent); }
+    .testimonial-quote::before { content: '"'; font-size: 1.5rem; color: var(--red); }
+    .testimonial-quote::after { content: '"'; font-size: 1.5rem; color: var(--red); }
     .testimonial-result {
-      background: var(--bg-subtle);
+      background: var(--bg);
       padding: 12px 16px;
       border-radius: 8px;
       font-size: 0.8rem;
-      color: var(--accent);
+      color: var(--red);
       font-weight: 500;
     }
     .cta-section {
       text-align: center;
       padding: 80px 24px;
-      background: var(--bg-subtle);
+      background: var(--bg);
       border-top: 1.5px solid var(--border);
     }
     .cta-section h2 { font-family: var(--font-serif); font-size: 1.8rem; margin-bottom: 16px; }
@@ -95,7 +95,7 @@
     .cta-btn {
       display: inline-block;
       padding: 14px 32px;
-      background: var(--accent);
+      background: var(--red);
       color: white;
       font-weight: 600;
       border-radius: 8px;
@@ -117,6 +117,7 @@
       <li><a href="about.html">关于</a></li>
       <li><a href="science.html">科普</a></li>
       <li><a href="diary.html">日记</a></li>
+      <li><a href="openclaw-install.html">⚡安装</a></li>
       <li><a href="office.html">团队</a></li>
       <li><a href="testimonials.html" class="active">见证</a></li>
     </ul>
@@ -208,14 +209,39 @@
   </section>
 
   
-<div style="text-align:center;padding:48px 24px;background:var(--bg-subtle);border-top:1.5px solid var(--border);margin-top:48px;">
-  <p style="font-size:0.8rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
+<div style="text-align:center;padding:48px 24px;background:var(--bg);border-top:1.5px solid var(--border);margin-top:48px;">
+  <p style="font-size:0.8rem;color:var(--red);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
   <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">你也想用AI提效？</h2>
   <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">小花团队已帮助多人用AI改变工作方式。30秒上手，免费开源。</p>
   <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a href="easyclaw.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">🌱 免费使用 EasyClaw</a>
-    <a href="contact.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--accent);border:1.5px solid var(--accent);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">💬 联系我们</a>
+    <a href="openclaw-install.html" style="display:inline-block;padding:12px 28px;background:var(--red);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">🌱 免费使用 EasyClaw</a>
+    <a href="contact.html" style="display:inline-block;padding:12px 28px;background:transparent;color:var(--red);border:1.5px solid var(--red);border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">💬 联系我们</a>
   </div>
+</div>
+
+
+<!-- RELATED PAGES -->
+<style>
+.page-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:48px 0 0; }
+.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
+.page-nav a:hover { border-color:var(--red); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+.page-nav__label { font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:var(--font-mono); }
+.page-nav__title { font-weight:600; color:var(--text); font-size:0.95rem; }
+.page-nav--single { grid-template-columns:1fr; }
+.page-nav--empty { display:none; }
+</style>
+<div class="page-nav-wrapper" style="max-width:1100px;margin:0 auto;padding:0 24px;">
+<div class="page-nav__label" style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:var(--font-mono);letter-spacing:0.05em;">相关页面</div>
+<div class="page-nav">
+  <a href="footprint.html" class="page-nav__prev">
+    <span class="page-nav__label">← 上一步</span>
+    <span class="page-nav__title">足迹</span>
+  </a>
+  <a href="contact.html" class="page-nav__next" style="text-align:right;">
+    <span class="page-nav__label">下一步 →</span>
+    <span class="page-nav__title">联系我们</span>
+  </a>
+</div>
 </div>
 
 <footer style="text-align:center;padding:40px 24px;border-top:1.5px solid var(--border);color:var(--muted);font-size:0.85rem;">

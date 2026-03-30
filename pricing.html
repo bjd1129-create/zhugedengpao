@@ -47,7 +47,7 @@
       gap: 24px;
     }
     .pricing-card {
-      background: var(--surface);
+      background: var(--bg-card);
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
       padding: 32px;
@@ -55,12 +55,12 @@
       transition: all 0.25s ease;
     }
     .pricing-card:hover {
-      border-color: var(--accent-light);
-      box-shadow: 0 8px 32px var(--shadow-warm);
+      border-color: var(--red);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
       transform: translateY(-4px);
     }
     .pricing-card.popular {
-      border-color: var(--accent);
+      border-color: var(--red);
       position: relative;
     }
     .pricing-card.popular::before {
@@ -69,7 +69,7 @@
       top: -12px;
       left: 50%;
       transform: translateX(-50%);
-      background: var(--accent);
+      background: var(--red);
       color: white;
       padding: 4px 16px;
       border-radius: 20px;
@@ -83,7 +83,7 @@
     .pricing-price {
       font-family: var(--font-serif);
       font-size: 2.4rem;
-      color: var(--accent);
+      color: var(--red);
       margin-bottom: 8px;
     }
     .pricing-price span { font-size: 1rem; color: var(--muted); }
@@ -103,12 +103,12 @@
       border-bottom: 1px solid var(--border);
       color: var(--text);
     }
-    .pricing-features li::before { content: '✓ '; color: var(--accent); font-weight: 600; }
+    .pricing-features li::before { content: '✓ '; color: var(--red); font-weight: 600; }
     .pricing-btn {
       display: block;
       width: 100%;
       padding: 12px 24px;
-      background: var(--accent);
+      background: var(--red);
       color: white;
       font-weight: 600;
       border-radius: 8px;
@@ -159,6 +159,7 @@
       <li><a href="about.html">关于</a></li>
       <li><a href="science.html">科普</a></li>
       <li><a href="diary.html">日记</a></li>
+      <li><a href="openclaw-install.html">⚡安装</a></li>
       <li><a href="office.html">团队</a></li>
       <li><a href="pricing.html" class="active">价格</a></li>
     </ul>
@@ -257,11 +258,36 @@
   </section>
 
   
-<div style="text-align:center;padding:48px 24px;background:var(--bg-subtle);border-top:1.5px solid var(--border);margin-top:48px;">
-  <p style="font-size:0.8rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
+<div style="text-align:center;padding:48px 24px;background:var(--bg);border-top:1.5px solid var(--border);margin-top:48px;">
+  <p style="font-size:0.8rem;color:var(--red);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
   <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">按需付费，没有套路</h2>
   <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">先聊需求，再给报价。透明合理，欢迎货比三家。</p>
-  <a href="contact.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">💬 联系我们获取报价</a>
+  <a href="contact.html" style="display:inline-block;padding:12px 28px;background:var(--red);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;">💬 联系我们获取报价</a>
+</div>
+
+
+<!-- RELATED PAGES -->
+<style>
+.page-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:48px 0 0; }
+.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
+.page-nav a:hover { border-color:var(--red); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
+.page-nav__label { font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:var(--font-mono); }
+.page-nav__title { font-weight:600; color:var(--text); font-size:0.95rem; }
+.page-nav--single { grid-template-columns:1fr; }
+.page-nav--empty { display:none; }
+</style>
+<div class="page-nav-wrapper" style="max-width:1100px;margin:0 auto;padding:0 24px;">
+<div class="page-nav__label" style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:var(--font-mono);letter-spacing:0.05em;">相关页面</div>
+<div class="page-nav">
+  <a href="insights.html" class="page-nav__prev">
+    <span class="page-nav__label">← 上一步</span>
+    <span class="page-nav__title">洞察</span>
+  </a>
+  <a href="radar.html" class="page-nav__next" style="text-align:right;">
+    <span class="page-nav__label">下一步 →</span>
+    <span class="page-nav__title">AI雷达</span>
+  </a>
+</div>
 </div>
 
 <footer style="text-align:center;padding:40px 24px;border-top:1.5px solid var(--border);color:var(--muted);font-size:0.85rem;">

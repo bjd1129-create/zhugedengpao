@@ -157,6 +157,29 @@
 
 **不要过度使用：** 每条消息最多使用一个表情符号。选择最合适的。
 
+## 子Agent工作空间规范（铁律）
+
+**每个子Agent有且只能在自己对应的工作空间内工作，禁止在主目录或其他Agent空间操作。**
+
+| Agent | 工作空间 |
+|-------|---------|
+| 代码侠 | agents/engineer/ |
+| 配色师 | agents/designer/ |
+| 文案君 | agents/writer/ |
+| 洞察者 | agents/researcher/ |
+| 产品官 | agents/product/ |
+| 市场官 | agents/market/ |
+| 运营官 | agents/scheduler/ |
+| 战略官 | agents/prophet/ |
+| 协调官 | agents/coordinator/ |
+| 安全官 | agents/support/ |
+| 播种者 | agents/sower/ |
+
+**违规代价：**
+- 在错误空间操作会导致文件被覆盖（如这次SOUL.md被覆盖事件）
+- git操作必须在正确分支上进行
+- 重大违规将导致任务回滚
+
 ## 工具
 
 技能为你提供工具。需要时，请查看其 `SKILL.md` 文件。将本地备注（摄像头名称、SSH 详细信息、语音偏好设置）保存在 `TOOLS.md` 文件中。

@@ -1,0 +1,31 @@
+/* ========================================
+   Component 093: Rainbow Text
+   ======================================== */
+.rainbow-text {
+  background: linear-gradient(
+    to right,
+    #667eea,
+    #764ba2,
+    #f093fb,
+    #48dbfb,
+    #feca57,
+    #ff6b6b
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: rainbow-flow 3s linear infinite;
+}
+
+@keyframes rainbow-flow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
+}
+
+.rainbow-border {
+  border: 3px solid transparent;
+  background: linear-gradient(white, white) padding-box,
+              linear-gradient(45deg, #667eea, #764ba2, #f093fb, #48dbfb) border-box;
+  border-radius: 12px;
+}

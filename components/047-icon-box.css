@@ -1,0 +1,45 @@
+/* ========================================
+   Component 047: Icon Box
+   ======================================== */
+.icon-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  transition: all 0.3s ease;
+}
+
+.icon-box.primary {
+  background: rgba(102, 126, 234, 0.1);
+  color: #667eea;
+}
+
+.icon-box.success {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.icon-box.warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+.icon-box.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.icon-box.circular {
+  border-radius: 50%;
+}
+
+.icon-box:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.icon-box.shadow {
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}

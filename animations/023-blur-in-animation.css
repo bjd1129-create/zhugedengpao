@@ -1,0 +1,48 @@
+/* ========================================
+   CSS Animation 023: Blur In Animation
+   ======================================== */
+@keyframes blur-in {
+  0% {
+    filter: blur(20px);
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes blur-out {
+  0% {
+    filter: blur(0);
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    filter: blur(20px);
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.animate-blur-in {
+  animation: blur-in 0.6s ease forwards;
+}
+
+.animate-blur-out {
+  animation: blur-out 0.4s ease forwards;
+}
+
+.blur-in-container > * {
+  opacity: 0;
+  filter: blur(10px);
+  animation: blur-in 0.8s ease forwards;
+}
+
+.blur-in-container > *:nth-child(1) { animation-delay: 0.1s; }
+.blur-in-container > *:nth-child(2) { animation-delay: 0.2s; }
+.blur-in-container > *:nth-child(3) { animation-delay: 0.3s; }
+.blur-in-container > *:nth-child(4) { animation-delay: 0.4s; }
+.blur-in-container > *:nth-child(5) { animation-delay: 0.5s; }

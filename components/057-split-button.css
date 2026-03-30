@@ -1,0 +1,67 @@
+/* ========================================
+   Component 057: Split Button
+   ======================================== */
+.split-button {
+  display: inline-flex;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.split-button-main {
+  padding: 12px 20px;
+  background: #667eea;
+  color: white;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.split-button-toggle {
+  padding: 12px 10px;
+  background: #5a67d8;
+  color: white;
+  border: none;
+  border-left: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s ease;
+}
+
+.split-button-toggle:hover {
+  background: #4c51bf;
+}
+
+.split-button-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.split-button:hover .split-button-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.split-button-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.split-button-item:hover {
+  background: #f8f9fa;
+}

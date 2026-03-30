@@ -1,0 +1,30 @@
+/* ========================================
+   Component 090: Background Pattern
+   ======================================== */
+.pattern-dots {
+  background-image: radial-gradient(#667eea 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.pattern-grid {
+  background-image: 
+    linear-gradient(rgba(102, 126, 234, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 126, 234, 0.1) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.pattern-zigzag {
+  background: 
+    linear-gradient(135deg, #667eea 25%, transparent 25%) -20px 0,
+    linear-gradient(225deg, #667eea 25%, transparent 25%) -20px 0,
+    linear-gradient(315deg, #667eea 25%, transparent 25%),
+    linear-gradient(45deg, #667eea 25%, transparent 25%);
+  background-size: 40px 40px;
+  background-color: white;
+}
+
+.pattern-circles {
+  background-image: radial-gradient(#667eea 2px, transparent 2px);
+  background-size: 30px 30px;
+  background-color: white;
+}

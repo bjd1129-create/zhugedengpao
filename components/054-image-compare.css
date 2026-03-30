@@ -1,0 +1,46 @@
+/* ========================================
+   Component 054: Image Comparison Slider
+   ======================================== */
+.image-compare {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  user-select: none;
+}
+
+.image-compare img {
+  width: 100%;
+  display: block;
+}
+
+.image-compare-after {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.image-compare-slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: white;
+  cursor: ew-resize;
+  left: 50%;
+}
+
+.image-compare-slider::before {
+  content: '◀ ▶';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 8px 12px;
+  border-radius: 30px;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: #333;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  white-space: nowrap;
+}

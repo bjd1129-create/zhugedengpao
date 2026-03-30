@@ -1,0 +1,44 @@
+/* ========================================
+   Component 082: Floating Particles Background
+   ======================================== */
+.particles-bg {
+  position: relative;
+  background: #0a0a0f;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(102, 126, 234, 0.6);
+  border-radius: 50%;
+  animation: float-particle 20s infinite linear;
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+.particle:nth-child(2) { left: 10%; animation-delay: 2s; animation-duration: 25s; }
+.particle:nth-child(3) { left: 20%; animation-delay: 4s; animation-duration: 18s; }
+.particle:nth-child(4) { left: 30%; animation-delay: 6s; animation-duration: 22s; }
+.particle:nth-child(5) { left: 40%; animation-delay: 8s; animation-duration: 20s; }
+.particle:nth-child(6) { left: 50%; animation-delay: 10s; animation-duration: 24s; }
+.particle:nth-child(7) { left: 60%; animation-delay: 12s; animation-duration: 19s; }
+.particle:nth-child(8) { left: 70%; animation-delay: 14s; animation-duration: 21s; }
+.particle:nth-child(9) { left: 80%; animation-delay: 16s; animation-duration: 23s; }
+.particle:nth-child(10) { left: 90%; animation-delay: 18s; animation-duration: 17s; }

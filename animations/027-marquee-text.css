@@ -1,0 +1,42 @@
+/* ========================================
+   CSS Animation 027: Marquee Text Animation
+   ======================================== */
+@keyframes marquee-left {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes marquee-right {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.marquee-text {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-text-inner {
+  display: inline-flex;
+  animation: marquee-left 20s linear infinite;
+}
+
+.marquee-text:hover .marquee-text-inner {
+  animation-play-state: paused;
+}
+
+.marquee-text-content {
+  padding-right: 50px;
+}
+
+.marquee-text-reversed .marquee-text-inner {
+  animation-direction: reverse;
+}

@@ -1,0 +1,49 @@
+/* ========================================
+   Component 024: Timeline
+   ======================================== */
+.timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 10px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #e0e0e0;
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 30px;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -24px;
+  top: 6px;
+  width: 14px;
+  height: 14px;
+  background: white;
+  border: 3px solid #667eea;
+  border-radius: 50%;
+}
+
+.timeline-item.completed::before {
+  background: #667eea;
+}
+
+.timeline-date {
+  font-size: 12px;
+  color: #999;
+  margin-bottom: 4px;
+}
+
+.timeline-content {
+  font-size: 16px;
+  color: #333;
+}

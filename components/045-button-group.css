@@ -1,0 +1,46 @@
+/* ========================================
+   Component 045: Button Group
+   ======================================== */
+.btn-group {
+  display: inline-flex;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+}
+
+.btn-group .btn {
+  padding: 12px 24px;
+  background: white;
+  border: none;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-right: 1px solid #e0e0e0;
+}
+
+.btn-group .btn:last-child {
+  border-right: none;
+}
+
+.btn-group .btn:hover {
+  background: #f8f9fa;
+}
+
+.btn-group .btn.active {
+  background: #667eea;
+  color: white;
+}
+
+.btn-group-vertical {
+  flex-direction: column;
+}
+
+.btn-group-vertical .btn {
+  border-right: none;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.btn-group-vertical .btn:last-child {
+  border-bottom: none;
+}

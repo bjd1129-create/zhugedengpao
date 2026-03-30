@@ -1,0 +1,32 @@
+/* ========================================
+   Component 005: Neon Glow Text
+   ======================================== */
+.neon-text {
+  font-size: 48px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 
+    0 0 5px #fff,
+    0 0 10px #fff,
+    0 0 20px #667eea,
+    0 0 40px #667eea,
+    0 0 80px #667eea;
+  animation: neon-pulse 2s infinite alternate;
+}
+
+@keyframes neon-pulse {
+  from {
+    text-shadow: 
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #667eea,
+      0 0 40px #667eea;
+  }
+  to {
+    text-shadow: 
+      0 0 10px #fff,
+      0 0 30px #fff,
+      0 0 60px #667eea,
+      0 0 100px #667eea;
+  }
+}

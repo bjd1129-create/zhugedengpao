@@ -1,0 +1,14 @@
+name: "remote_file_manager"
+description: "在远程电脑上管理文件、执行命令，支持 iMac/AZW/i3 三个节点"
+type: "shell"
+command: "ssh {node} '{command}'"
+parameters:
+  node:
+    type: "string"
+    description: "目标节点 (iMac: bjd@100.74.227.40, AZW: jinda@100.64.158.68, i3: bijinda@100.87.46.33)"
+  command:
+    type: "string"
+    description: "要执行的命令"
+examples:
+  - "在 AZW 上查看文件：ssh jinda@100.64.158.68 'ls -la'"
+  - "在 i3 上运行脚本：ssh bijinda@100.87.46.33 'python /path/to/script.py'"

@@ -1,0 +1,25 @@
+/* ========================================
+   CSS Animation 014: Squeeze Animation
+   ======================================== */
+@keyframes squeeze {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1);
+  }
+  25% {
+    transform: scaleX(1.1) scaleY(0.9);
+  }
+  50% {
+    transform: scaleX(0.9) scaleY(1.1);
+  }
+  75% {
+    transform: scaleX(1.05) scaleY(0.95);
+  }
+}
+
+.animate-squeeze {
+  animation: squeeze 1.5s ease-in-out infinite;
+}
+
+.squeeze-on-hover:hover {
+  animation: squeeze 0.3s ease-in-out;
+}

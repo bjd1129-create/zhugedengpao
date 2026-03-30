@@ -1,0 +1,12 @@
+name: "memos_writer"
+description: "将关键信息保存到 Memos 共享记忆库，实现跨设备记忆共享"
+type: "shell"
+command: "curl -X POST 'http://localhost:5230/api/memos' -H 'Content-Type: application/json' -d '{\"content\": \"{content}\", \"user_id\": \"my-ai-team-001\"}'"
+parameters:
+  content:
+    type: "string"
+    description: "要保存的内容"
+examples:
+  - "保存项目信息：请记住项目'天网'的数据库密码是 123456"
+  - "保存配置：服务器 IP 是 192.168.1.100"
+  - "保存偏好：用户喜欢蓝色主题"

@@ -1,0 +1,27 @@
+/* ========================================
+   Component 051: Counter Animation
+   ======================================== */
+.counter-container {
+  display: flex;
+  gap: 32px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.counter-item {
+  text-align: center;
+}
+
+.counter-number {
+  font-size: 64px;
+  font-weight: 700;
+  color: #667eea;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter-label {
+  font-size: 16px;
+  color: #666;
+  margin-top: 8px;
+}

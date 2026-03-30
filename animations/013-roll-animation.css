@@ -1,0 +1,39 @@
+/* ========================================
+   CSS Animation 013: Roll Animation
+   ======================================== */
+@keyframes roll-in {
+  0% {
+    transform: translateX(-100%) rotate(-120deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes roll-out {
+  0% {
+    transform: translateX(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(100%) rotate(120deg);
+    opacity: 0;
+  }
+}
+
+@keyframes roll-in-up {
+  0% {
+    transform: translateY(100%) rotate(180deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.animate-roll-in { animation: roll-in 0.6s ease forwards; }
+.animate-roll-out { animation: roll-out 0.6s ease forwards; }
+.animate-roll-in-up { animation: roll-in-up 0.6s ease forwards; }

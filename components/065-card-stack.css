@@ -1,0 +1,45 @@
+/* ========================================
+   Component 065: Card Stack / Deck
+   ======================================== */
+.card-stack {
+  position: relative;
+  width: 300px;
+  height: 400px;
+}
+
+.stack-card {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+  padding: 24px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.stack-card:nth-child(1) {
+  z-index: 3;
+}
+
+.stack-card:nth-child(2) {
+  z-index: 2;
+  transform: translateY(10px) scale(0.95);
+}
+
+.stack-card:nth-child(3) {
+  z-index: 1;
+  transform: translateY(20px) scale(0.9);
+}
+
+.card-stack:hover .stack-card:nth-child(1) {
+  transform: translateY(-10px) rotate(2deg);
+}
+
+.card-stack:hover .stack-card:nth-child(2) {
+  transform: translateY(0) scale(0.97);
+}
+
+.card-stack:hover .stack-card:nth-child(3) {
+  transform: translateY(10px) scale(0.95);
+}

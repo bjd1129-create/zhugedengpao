@@ -1,0 +1,31 @@
+/* ========================================
+   CSS Animation 017: Swing Animation
+   ======================================== */
+@keyframes swing {
+  0%, 100% {
+    transform: rotate(0deg);
+    transform-origin: top center;
+  }
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  80% {
+    transform: rotate(-5deg);
+  }
+}
+
+.animate-swing {
+  animation: swing 1s ease-in-out;
+  transform-origin: top center;
+}
+
+.swing-on-hover:hover {
+  animation: swing 0.8s ease-in-out;
+  transform-origin: top center;
+}

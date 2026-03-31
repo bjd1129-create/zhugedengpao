@@ -1434,6 +1434,7 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
       img.src=d.thumb||d.img;
       img.alt=d.title;
       img.loading=i<3?'eager':'lazy';
+      img.fetchPriority='low';
       var cap=document.createElement('div');
       cap.className='c-card-cap';
       cap.innerHTML='<span class="c-day">'+dayLabel+'</span><div class="c-title">'+titleText+'</div>';

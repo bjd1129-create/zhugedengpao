@@ -1,16 +1,25 @@
 {
   "lastChecks": {
-    "memory": 1743388020,
-    "subagents": 1743388020,
-    "content": 1743391620
+    "memory": 1743391620,
+    "subagents": 1743391620,
+    "content": 1743396600
   },
-  "lastContentCheck": "2026-03-30 22:47",
-  "cron_status": "running",
-  "new产出_since_21:47": [
-    "22:12 推进官-进化报告.md",
-    "22:09 运营官-进化报告.md",
-    "22:06 战略官-进化报告.md",
-    "22:03 协调者-进化报告.md"
+  "lastContentCheck": "2026-03-31 01:10",
+  "cron_status": "优化后运行中",
+  "cron_active": ["writer进化", "researcher进化", "designer进化", "engineer进化", "coordinator进化"],
+  "cron_disabled": ["scheduler进化", "sower进化", "prophet进化", "support进化", "product进化", "market进化", "scheduler心跳", "sower心跳"],
+  "关键发现_from_深夜进化": [
+    "运营官已归档（职责并入文案君）",
+    "6个归档Agent的cron已禁用",
+    "核心4人进化频率从5min降到30min",
+    "4个页面克隆完成但内容为空",
+    "部分Agent存在Cron 400错误（Feishu delivery问题）",
+    "代码侠进化报告写太多，技术交付太少",
+    "官网克隆站点内容差异是品牌不同，非故障"
   ],
-  "feishu": "正常"
+  "待处理": [
+    "Cron 400错误待排查",
+    "4个克隆页面内容待填充",
+    "代码侠技术基准任务待落地"
+  ]
 }

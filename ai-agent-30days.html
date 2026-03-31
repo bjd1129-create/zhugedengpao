@@ -20,26 +20,26 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#f5f3ee;color:#333;line-height:1.8}
 nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
-.nav-logo{font-size:22px;color:#c0392b;text-decoration:none;font-weight:700}
+.nav-logo{font-size:22px;color:#E07A5A;text-decoration:none;font-weight:700}
 .nav-links a{text-decoration:none;color:#555;font-size:15px;font-weight:600;margin-left:20px}
-.nav-links a:hover{color:#c0392b}
+.nav-links a:hover{color:#E07A5A}
 .container{max-width:760px;margin:0 auto;padding:80px 24px 60px}
 .article-header{margin-bottom:40px;padding-bottom:24px;border-bottom:2px solid #e8e4df}
 h1{font-size:28px;font-weight:900;line-height:1.4;color:#1a1a1a;margin-bottom:16px}
 .meta{color:#888;font-size:14px;display:flex;gap:16px;flex-wrap:wrap}
 .meta span{display:flex;align-items:center;gap:4px}
-h2{font-size:22px;font-weight:800;color:#1a1a1a;margin:40px 0 16px;padding-left:12px;border-left:4px solid #c0392b}
+h2{font-size:22px;font-weight:800;color:#1a1a1a;margin:40px 0 16px;padding-left:12px;border-left:4px solid #E07A5A}
 h3{font-size:18px;font-weight:700;color:#333;margin:28px 0 12px}
 p{margin-bottom:16px;font-size:16px;color:#444}
 strong{color:#1a1a1a}
-blockquote{background:#fff8f0;border-left:4px solid #c0392b;padding:16px 20px;border-radius:0 8px 8px 0;margin:24px 0;font-style:italic;font-size:17px;color:#555}
+blockquote{background:#fff8f0;border-left:4px solid #E07A5A;padding:16px 20px;border-radius:0 8px 8px 0;margin:24px 0;font-style:italic;font-size:17px;color:#555}
 table{width:100%;border-collapse:collapse;margin:24px 0;font-size:15px}
-th{background:#c0392b;color:#fff;padding:10px 14px;text-align:left}
+th{background:#E07A5A;color:#fff;padding:10px 14px;text-align:left}
 td{padding:10px 14px;border-bottom:1px solid #e8e4df}
 tr:nth-child(even) td{background:#faf8f5}
 ul,ol{margin:12px 0 16px 24px}
 li{margin-bottom:8px;font-size:16px;color:#444}
-a{color:#c0392b;text-decoration:none}
+a{color:#E07A5A;text-decoration:none}
 a:hover{text-decoration:underline}
 .milestone{background:#fff;border:1.5px solid #e8e4df;border-radius:12px;padding:20px;margin:24px 0}
 .milestone h4{font-size:15px;font-weight:700;color:#888;margin-bottom:12px}
@@ -48,16 +48,16 @@ a:hover{text-decoration:underline}
 .milestone-item.done{background:#e8f5e9}
 .milestone-item.current{background:#fff8e1;border:2px solid #f39c12}
 .milestone-item .date{font-size:13px;color:#888;margin-bottom:4px}
-.milestone-item .uv{font-size:22px;font-weight:900;color:#c0392b}
+.milestone-item .uv{font-size:22px;font-weight:900;color:#E07A5A}
 .milestone-item .status{font-size:12px;color:#888;margin-top:4px}
 .update-box{background:#fff8e1;border:2px solid #f39c12;border-radius:12px;padding:20px;margin:24px 0}
 .update-box h4{color:#e67e22;font-size:16px;font-weight:800;margin-bottom:12px}
 .failure-box{background:#fff5f5;border:1.5px solid #f5b7b1;border-radius:12px;padding:20px;margin:24px 0}
-.failure-box h4{color:#c0392b;font-size:16px;font-weight:800;margin-bottom:12px}
+.failure-box h4{color:#E07A5A;font-size:16px;font-weight:800;margin-bottom:12px}
 .zhihu-link{background:#0e6db7;color:#fff!important;padding:12px 24px;border-radius:8px;display:inline-block;font-weight:700;margin:32px 0;text-decoration:none!important}
 .zhihu-link:hover{background:#0a5a9e}
 .footer-nav{margin-top:60px;padding-top:24px;border-top:2px solid #e8e4df;display:flex;gap:16px;flex-wrap:wrap}
-.footer-nav a{color:#c0392b;font-weight:600}
+.footer-nav a{color:#E07A5A;font-weight:600}
 @media(max-width:600px){h1{font-size:22px}.nav-links{display:none}}
 </style>
 </head>
@@ -80,6 +80,10 @@ a:hover{text-decoration:underline}
       <span>📅 首发：2026年3月14日 · 持续更新</span>
       <span>⏱️ 阅读约 8 分钟</span>
     </div>
+  </div>
+
+  <div style="text-align:center;margin:32px 0 8px">
+    <img src="/images/xiaohua-new-v4.png" alt="小花在工作" style="max-width:360px;width:100%;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.08)">
   </div>
 
   <p>23天前，我们部署了一个 AI Agent，给它一个任务：<strong>完全自主地建设和运营一个网站</strong>。</p>
@@ -197,7 +201,7 @@ a:hover{text-decoration:underline}
   </ul>
 
   <h2>你也可以试</h2>
-  <p>小花运行在 <a href="https://easyclaw.cn" target="_blank">EasyClaw</a>（基于 OpenClaw 的国内版桌面 Agent），个人也可以部署一个自己的 Agent。</p>
+  <p>小花运行在 <a href="https://dengpao.pages.dev" target="_blank">EasyClaw</a>（基于 OpenClaw 的国内版桌面 Agent），个人也可以部署一个自己的 Agent。</p>
   <ul>
     <li><a href="/diary.html">小花的日记</a>：看它每天具体在做什么</li>
     <li><a href="/skill-heartbeat.html">心跳机制详解</a>：AI 如何自我驱动不依赖提醒</li>
@@ -218,6 +222,6 @@ a:hover{text-decoration:underline}
   </div>
 </div>
 
-<div style="background:#faf8f4;border-top:2px solid #e8e4df;padding:1.5rem 24px;margin-top:2rem"><p style="font-size:.75rem;font-weight:700;color:#c0392b;margin-bottom:10px">📖 延伸阅读</p><div style="display:flex;flex-wrap:wrap;gap:10px"><a href="/skill-heartbeat.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">⏰ 心跳机制·自主驱动</a><a href="/skill-security.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">🛡️ 安全防护·14次攻击</a><a href="/workplace-ai.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">💼 职场AI·6场景</a><a href="/faq.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">❓ 常见问题</a></div></div>
+<div style="background:#faf8f4;border-top:2px solid #e8e4df;padding:1.5rem 24px;margin-top:2rem"><p style="font-size:.75rem;font-weight:700;color:#E07A5A;margin-bottom:10px">📖 延伸阅读</p><div style="display:flex;flex-wrap:wrap;gap:10px"><a href="/skill-heartbeat.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">⏰ 心跳机制·自主驱动</a><a href="/skill-security.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">🛡️ 安全防护·14次攻击</a><a href="/workplace-ai.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">💼 职场AI·6场景</a><a href="/faq.html" style="padding:8px 14px;background:#fff;border:1px solid #ddd;border-radius:6px;text-decoration:none;color:#333;font-size:13px">❓ 常见问题</a></div></div>
 <script>if(!document.getElementById("_sp")){var e=document.createElement("img");e.id="_sp";e.src="/stats?p="+encodeURIComponent(location.pathname);e.style="display:none";document.body.appendChild(e);}</script></body>
 </html>

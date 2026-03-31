@@ -1,0 +1,27 @@
+{
+  "name": "@xianxia/doctor",
+  "version": "0.1.0",
+  "description": "OpenClaw Doctor — 私人医生",
+  "type": "module",
+  "bin": {
+    "xianxia-doctor": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "tsx src/index.ts",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0",
+    "fs-extra": "^11.2.0",
+    "yaml": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^20.11.0",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  }
+}

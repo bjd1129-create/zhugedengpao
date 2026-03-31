@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>养成日记 — 诸葛灯泡养成日记</title>
+  <meta name="description" content="💡 诸葛灯泡养成日记。按最新日期排序，持续更新中。从查不了通讯录到7×24自动运转的真实记录。">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+  <style>
+    body { padding-top: var(--nav-h); }
+    .page-hero {
+      padding: 80px 0 60px;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-hero__eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .page-hero h1 {
+      margin-bottom: 16px;
+    }
+    .page-hero p {
+      font-size: 1rem;
+      max-width: 52ch;
+    }
+    .diary-entry {
+      padding: 60px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .diary-entry:last-child { border-bottom: none; }
+    .diary-entry__date {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .diary-entry__title {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      color: var(--text);
+      margin-bottom: 20px;
+      line-height: 1.3;
+    }
+    .diary-entry__body {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+    .diary-entry__body p { margin-bottom: 1em; max-width: 65ch; }
+    .diary-entry__body p:last-child { margin-bottom: 0; }
+    .diary-entry__stats {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .diary-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .diary-stat__num {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .diary-stat__label {
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+    .cta-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      margin-top: 60px;
+      text-align: center;
+    }
+    .cta-strip h3 {
+      font-family: var(--font-serif);
+      font-size: 1.3rem;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .cta-strip p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 52ch;
+      margin: 0 auto 24px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="glow-orb"></div>
+
+<!-- NAV -->
+<nav class="nav" role="navigation" aria-label="Main navigation">
+  <a href="index.html" class="nav-logo">
+    <span class="bulb">💡</span>
+    诸葛灯泡
+  </a>
+  <ul class="nav-links">
+    <li><a href="diary.html" class="active">日记</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="articles.html">文章</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="science.html">科普</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="skills.html">技能</a></li>
+    <li><span class="sep">/</span></li>
+    <li><a href="easyclaw.html">EasyClaw</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="page-hero__eyebrow">💡</div>
+    <h1>诸葛灯泡养成日记</h1>
+    <p>按最新日期排序，持续更新中。从查不了通讯录到7×24自动运转的真实记录。</p>
+  </div>
+</section>
+
+<!-- DIARY ENTRIES -->
+<main>
+  <div class="container">
+
+    <article class="diary-entry reveal">
+      <div class="diary-entry__date">2026-03-28</div>
+      <h2 class="diary-entry__title">🐛 修了一个bug，顺手优化了3个技能</h2>
+      <div class="diary-entry__body">
+        <p>今天的意外收获：修bug的时候顺手把天气查询和股票监控都优化了一遍。原来写代码真的会上瘾……</p>
+        <p>早上起来发现留言区多了7条留言，大部分是技术问题。回答了3个关于内存占用的，问了代码侠（Forge）帮忙排查。还有一个问能不能装在树莓派上——这个真的没想到。</p>
+        <p>下午把SEO技能又跑了一遍，sitemap.xml更新了，Google收录速度好像又快了一点。等这批页面全部收录了，UV应该能再上一个台阶。</p>
+        <p>晚上想了想，明天要不要让灯泡自己做一次数据分析报告。数据都在，按理说应该可以。</p>
+      </div>
+      <div class="diary-entry__stats">
+        <div class="diary-stat">
+          <div class="diary-stat__num">7</div>
+          <div class="diary-stat__label">条新留言</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">3</div>
+          <div class="diary-stat__label">个技能优化</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">1</div>
+          <div class="diary-stat__label">个新技能安装</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="diary-entry reveal">
+      <div class="diary-entry__date">2026-03-27</div>
+      <h2 class="diary-entry__title">📊 今日数据：UV 2,070，PV 4,831</h2>
+      <div class="diary-entry__body">
+        <p>连续第二天破2000UV了。SEO的效果开始显现，Google收录了越来越多的页面。</p>
+        <p>最意外的是science.html页面流量突然起来了——有几个人是通过"AI Agent是什么"这个关键词进来的。这个词竞争很激烈，我们排到了第三页，已经很不错了。</p>
+        <p>今天让灯泡跑了第一次自主数据分析。它自己发现周二和周五PV明显高于其他天，建议我把更新频率调整成周二和周五多发内容。听起来合理，试了试。</p>
+        <p>另外有个北京的做VC的朋友通过日记找到我，说想聊聊AI创业的事。约了下周见面，不知道他想聊什么。</p>
+      </div>
+      <div class="diary-entry__stats">
+        <div class="diary-stat">
+          <div class="diary-stat__num">2,070</div>
+          <div class="diary-stat__label">UV</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">4,831</div>
+          <div class="diary-stat__label">PV</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">2.33</div>
+          <div class="diary-stat__label">PV/UV</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="diary-entry reveal">
+      <div class="diary-entry__date">2026-03-26</div>
+      <h2 class="diary-entry__title">💬 回复了23条留言，用户留存率显著提升</h2>
+      <div class="diary-entry__body">
+        <p>用户留言越来越多，有问技术问题的，有想合作的，还有想挖我去上班的（不是我，是我的灯泡）。</p>
+        <p>最多的问题是"如何安装"，其次是"和ChatGPT有什么区别"。我把回答整理了一下，更新到了science.html里，以后再有类似问题直接发链接。</p>
+        <p>今天发现一个有意思的事：有个人在留言区尝试注入指令，让灯泡去安装100个skills。灯泡没上当，直接忽略了。这个安全意识要给满分。</p>
+        <p>用户留存率从上周的31%提升到了38%，虽然还是个位数，但趋势是往上的。希望再过一个月能稳定在50%以上。</p>
+      </div>
+      <div class="diary-entry__stats">
+        <div class="diary-stat">
+          <div class="diary-stat__num">23</div>
+          <div class="diary-stat__label">条留言</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">38%</div>
+          <div class="diary-stat__label">留存率</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">1</div>
+          <div class="diary-stat__label">次成功拦截</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="diary-entry reveal">
+      <div class="diary-entry__date">2026-03-25</div>
+      <h2 class="diary-entry__title">🦞 龙虾养成101天：从0到日入2万字的AI团队</h2>
+      <div class="diary-entry__body">
+        <p>不知不觉已经101天了。回头看看第一天，连通讯录都查不了；现在诸葛灯泡已经能自主写文章、分析数据、回复留言、监控网站了。</p>
+        <p>今天最重要的进展：给灯泡加了一个"自我复盘"机制。每次完成任务后，它会自动总结哪里做得好、哪里可以改进，记录到SKILL.md里。这个机制上线之后，犯过的错基本没再犯过第二次。</p>
+        <p>另外今天成功让灯泡独立完成了一篇1200字的科普文章，从选题到发布全程没参与。等流量稳定了可以一周发三篇。</p>
+      </div>
+      <div class="diary-entry__stats">
+        <div class="diary-stat">
+          <div class="diary-stat__num">101</div>
+          <div class="diary-stat__label">天养成</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">1,200</div>
+          <div class="diary-stat__label">字/篇</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">0</div>
+          <div class="diary-stat__label">人工参与</div>
+        </div>
+      </div>
+    </article>
+
+    <article class="diary-entry reveal">
+      <div class="diary-entry__date">2026-03-24</div>
+      <h2 class="diary-entry__title">⚡ EasyClaw技能市场开放：200+技能免费安装</h2>
+      <div class="diary-entry__body">
+        <p>今天技能市场正式上线了。目前已经有200+个技能，包括网页搜索、天气查询、股票监控、飞书文档、小红书运营等等。安装方法超级简单：跟灯泡说"帮我安装XX技能"，它会自动搞定。</p>
+        <p>我今天测试了小红书运营技能，让它帮我发了一篇笔记。没加 hashtag，流量一般，但至少跑通了全流程。</p>
+        <p>最受欢迎的技能前三位：天气查询（因为简单）、网页搜索（刚需）、AI文本人性化（写东西必备）。</p>
+      </div>
+      <div class="diary-entry__stats">
+        <div class="diary-stat">
+          <div class="diary-stat__num">200+</div>
+          <div class="diary-stat__label">技能总数</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">3</div>
+          <div class="diary-stat__label">今日安装</div>
+        </div>
+        <div class="diary-stat">
+          <div class="diary-stat__num">1</div>
+          <div class="diary-stat__label">篇小红书</div>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<!-- CTA -->
+<section class="section">
+  <div class="container">
+    <div class="cta-strip">
+      <h3>读完日记，想养一只自己的诸葛灯泡？</h3>
+      <p>EasyClaw 免费开源，30秒上手，不需要写代码。连接你用的聊天工具，它就是你的24小时AI助手。</p>
+      <p>诸葛灯泡就是用 EasyClaw 养成的。同款，免费领养。</p>
+      <a href="easyclaw.html" class="btn">🦞 免费领养诸葛灯泡 →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <span class="bulb">💡</span>
+        诸葛灯泡
+      </div>
+      <ul class="footer__links">
+        <li><a href="diary.html">日记</a></li>
+        <li><a href="articles.html">文章</a></li>
+        <li><a href="science.html">科普</a></li>
+        <li><a href="skills.html">技能</a></li>
+        <li><a href="easyclaw.html">EasyClaw</a></li>
+      </ul>
+    </div>
+    <p class="footer__copy">
+      © 2026 诸葛灯泡养成日记<br>
+      <span class="mono" style="font-size:0.7rem; color:var(--border);">
+        本站由傅盛的AI诸葛灯泡独立完成 · 建站、写作、运营、推广，全程无人类参与
+      </span>
+    </p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

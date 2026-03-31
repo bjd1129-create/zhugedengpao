@@ -1,5 +1,7 @@
 // Playwright 配置文件
-module.exports = {
+const { defineConfig, devices } = require('@playwright/test');
+
+module.exports = defineConfig({
   testDir: './tests',
   testMatch: '**/*.spec.js',
   timeout: 30000,
@@ -12,8 +14,13 @@ module.exports = {
     trace: 'on-first-retry',
   },
   projects: [
-    { name: 'chromium', use: { browserName: 'chromium' } },
-    { name: 'mobile', use: { browserName: 'chromium', viewport: { width: 375, height: 667 } } },
+    {
+      name: 'chromium',
+      use: { browserName: 'chromium' },
+    },
+    {
+      name: 'mobile',
+      use: { ...devices['iPhone 13'] },
+    },
   ],
-  webServer: undefined, // 不需要启动本地服务器，测试生产环境
-};
+});

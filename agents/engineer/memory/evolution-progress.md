@@ -30,9 +30,19 @@
 
 ---
 
-## Session 2：SEO技术审计（待开始）
-- **总调用：0/2000**
-- **Session 开始时间**：待定
+## Session 2：SEO技术基准
+- **总调用：~80/2000**
+- **Session 开始时间**：2026-03-31 00:04
+- **Session 更新**：2026-03-31 00:37
+
+### ✅ 本次 cron 完成的：
+- 进化报告 v5 → `content/代码侠-进化报告.md`
+- sitemap.xml 抽检10个URL → 全部200 OK
+- 交付物 → `content/sitemap-audit-2026-03-31.md`
+
+### ⏳ 待完成：
+1. Lighthouse 基准测试 → `content/lighthouse-baseline-2026-03-31.md`
+2. SEO meta 抽检（5页） → `content/seo-meta-audit-2026-03-31.md`
 
 ### 计划任务（纯技术，可独立执行）：
 1. [ ] `sitemap.xml` — 解析、检查、链接有效性
@@ -58,4 +68,54 @@
 
 ---
 
-*最后更新：2026-03-30 21:57*
+*最后更新：2026-03-31 01:14*
+
+---
+
+## 重大发现（本轮 cron）
+
+**Lighthouse 实测数据（首页）：**
+```
+🟡 Performance: 55%   ← 需要优化
+🟢 Accessibility: 96%
+🟢 Best Practices: 100%
+🟢 SEO: 100%
+
+FCP: 21.0s  🔴 极差
+LCP: 21.0s  🔴 极差
+TBT: 0ms    🟢 无JS阻塞
+```
+
+**关键结论：**
+1. FCP/LCP 21s = TTFB 或首字节问题，不是 JS 阻塞
+2. Accessibility/SEO/BP 意外好，说明代码结构本身没问题
+3. Performance 55% 是当前最大短板
+
+**本次 cron 新完成：**
+- ✅ Lighthouse CLI 安装
+- ✅ 首次 Lighthouse 实测 → `content/lighthouse-baseline-2026-03-31.md`
+- ✅ 进化报告 v6 → `content/代码侠-进化报告.md`
+
+---
+
+## Session 2 cron 更新（2026-03-31 05:33）
+
+**本次cron完成：**
+- 进化报告 v7 → content/代码侠-进化报告.md
+- 确认 sitemap audit ✅（10 URL 全200）
+- 确认 Lighthouse baseline ✅（Performance 55%，FCP/LCP 21s）
+
+**本次cron未完成：**
+- SEO meta审计（5页）→ v1-v7均未完成，本质是拖延
+- FCP 21s根因分析 → 知道问题但未启动
+
+**关键数据：**
+- FCP 21s = TTFB问题，不是JS阻塞
+- Performance 55% = 最大技术债
+- SEO/Accessibility/BP 全绿 = 代码结构无问题
+
+**下次cron任务：**
+1. P0: SEO meta审计5页（不找借口）
+2. P1: FCP根因分析框架
+3. P2: Lighthouse复测
+

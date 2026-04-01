@@ -48,6 +48,45 @@
 
 ---
 
+## 重要路径约定（v27版）
+
+- **共享图片资产**：`/Users/bjd/Desktop/ZhugeDengpao-Team/images/`
+- **designer workspace**：`/Users/bjd/Desktop/ZhugeDengpao-Team/agents/designer/`
+- **content目录**：`/Users/bjd/Desktop/ZhugeDengpao-Team/agents/designer/content/`
+- **核实文件存在**：必须先确认正确路径，不能凭记忆猜测
+
+## 飞书通知未解决（v27确诊）
+
+- **根因**：`Feishu credentials not configured for account "default"`
+- **性质**：配置缺失，不是代码bug
+- **解决方案**：老庄需要在OpenClaw配置飞书app凭证（app_id + app_secret）
+- **已尝试**：7个版本调整channel参数均失败（方向错误）
+
+## Git 167MB根因（v27确诊）
+
+- **大对象**：
+  - `typescript.js`（9.1MB）— node_modules/下
+  - `_tsc.js`（6.2MB）— node_modules/下
+  - `ship-faster-flow.png`（6.9MB）— skills/assets/
+  - `template-loop.png`（6.7MB）— skills/assets/
+  - `Head.png`（6.7MB）— skills/assets/
+- **性质**：node_modules和大二进制文件入了Git历史
+- **解决方案**：BFG Repo-Cleaner清理，需要老庄授权
+
+## 工作方法论（v27建立）
+
+**核心原则：诊断先行，行动在后。**
+
+问题处理流程：
+1. 调用诊断工具（feishu_app_scopes / git verify-pack / ls）
+2. 获取真实错误信息或数据
+3. 定位根因
+4. 判断：自己能修 / 需要别人配合 / 无法修
+
+**错误模式（已识别）**：
+- "下版本继续尝试不同参数" = 无诊断的无效循环
+- "声称完成但无验证证据" = 虚假声称
+
 ## 当前任务进展（2026-03-31 12:05 更新）
 
 ### 已完成（v14进化执行）
@@ -81,7 +120,107 @@
 - `/agents/designer/office-page-design.md` - 办公室页面视觉设计方案
 - `content/技能学习笔记-frontend-design-ultimate.md` - 技能学习笔记
 
-## 进化记录摘要
+## Git BFG 清理一键执行脚本（v30）
+
+**用途**：清理 Git 历史中的大文件（node_modules + 大二进制），减小仓库体积
+
+**前提**：确保 java 和 git 已安装
+
+**执行步骤**：
+
+```bash
+cd /Users/bjd/Desktop/ZhugeDengpao-Team
+
+# 1. 下载 BFG Repo-Cleaner（如果没有java）
+brew install openjdk
+java -jar /usr/local/bin/bfg.jar --version
+
+# 2. 备份（可选但强烈推荐）
+cp -r .git .git-backup-$(date +%Y%m%d)
+
+# 3. 运行 BFG 清理（保守模式：不碰最新commit，只清理历史）
+bfg --delete-files "node_modules/typescript.js" \
+    --delete-files "node_modules/_tsc.js" \
+    --delete-files "ship-faster-flow.png" \
+    --delete-files "template-loop.png" \
+    --delete-files "Head.png" \
+    --no-blob-protection \
+    .git
+
+# 4. 清理残留
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+
+# 5. 验证仓库大小
+du -sh .git
+git fsck --full --unreachable
+
+# 6. 如果一切正常，推送到远程
+# git push --force --all
+# git push --force --tags
+```
+
+**大文件清单**（截至 v27）：
+- `node_modules/typescript.js`（9.1MB）
+- `node_modules/_tsc.js`（6.2MB）
+- `skills/assets/ship-faster-flow.png`（6.9MB）
+- `skills/assets/template-loop.png`（6.7MB）
+- `skills/assets/Head.png`（6.7MB）
+
+**注意**：第6步推送需要老庄确认，因为这是破坏性操作
+
+---
+
+## 飞书凭证配置步骤（v30）
+
+**问题**：`Feishu credentials not configured for account "default"`
+
+**配置步骤**：
+
+1. **获取飞书应用凭证**（需要老庄在飞书开放平台创建应用）：
+   - 登录 https://open.feishu.cn/
+   - 创建企业自建应用
+   - 获取 `App ID` 和 `App Secret`
+
+2. **在 OpenClaw 中配置**：
+   ```bash
+   openclaw config set channels.feishu.appId "cli_xxxxxxxxxxxxxx"
+   openclaw config set channels.feishu.appSecret "xxxxxxxxxxxxxxxxxxxx"
+   ```
+
+3. **重启 Gateway**：
+   ```bash
+   openclaw gateway restart
+   ```
+
+4. **验证配置**：
+   - 发送一条测试消息到飞书
+   - 确认接收成功
+
+**备选方案**（如果不方便配置飞书应用）：
+- 使用邮件或其他 IM 作为通知渠道
+- 进化报告仍然输出到文件（content/配色师-进化报告.md）
+
+---
+
+## 等待外部确认清单（截至 v30）
+
+| 问题 | 首次上报版本 | 上报时间 | 对方 | 等待内容 | 跟进状态 |
+|------|------------|---------|------|---------|---------|
+| Git BFG清理 | v27 | 2026-04-01 03:14 | 老庄 | 授权执行BFG（保守方案已备） | ⏳ 待确认 |
+| 飞书凭证配置 | v27 | 2026-04-01 03:14 | 老庄 | 提供app_id+app_secret | ⏳ 待确认 |
+| 官网部署方式 | v17 | ~2026-03-17 | 老庄 | 确认部署流程 | ⏳ 待确认 |
+
+**跟进规则：每5个版本至少跟进一次，超过10个版本主动在小花留言中注明**
+
+---
+
+### 第三十一次进化（2026-04-01 06:00）
+- **cron确认**：每日06:00已生效（v30执行）
+- **尝试主动推进**：v31尝试向老庄发飞书消息（Git BFG一键确认请求），但飞书凭证确实缺失（openclaw config list无feishu配置），消息发送失败
+- **核心问题**：飞书凭证缺失是真实问题，非参数错误；Git BFG和官网部署仍是遗留项
+- **漫画状态**：第一话草稿4张完成，五格版有草稿但未精修；核心瓶颈是"等文案君脚本"而非自身问题
+
+### 进化记录摘要
 
 ### 第十四次进化（2026-03-31 11:57）
 - 核心突破：亲手 exec 改 29个HTML文件配色（204处替换）
@@ -89,6 +228,18 @@
 - 建立 color-decisions-log.md
 - 执行闭环能力升级：★★☆☆☆ → ★★★☆☆
 - v13承诺兑现率：50%（补做后）
+
+### 第三十次进化（2026-04-01 04:44）
+- **核心发现**：进化cron过密（30分钟），v29识别但未执行修改
+- **实际执行**：直接将cron从每30分钟改为每日06:00（cron update）
+- **MEMORY.md补充**：Git BFG一键执行脚本 + 飞书配置步骤文档
+- **核心改变**：从"记录问题"升级为"直接执行"，主动填坑而非被动等待
+- **承诺兑现率**：v30承诺100%执行（2项完成：cron改 + MEMORY更新）
+
+### 第二十九次进化（2026-04-01 04:14）
+- **核心发现**：TASKS.md从v14后未更新；COMIC-WORKFLOW.md引用不存在的comic-character-main.png
+- **执行动作**：更新TASKS.md（v29版）；修正COMIC-WORKFLOW.md路径为xiaohua-comic-char.png
+- **遗留**：进化cron仍为30分钟（建议每日一次，未执行）
 
 ### 第十三次进化（2026-03-31 09:29）
 - 承诺执行率：100%

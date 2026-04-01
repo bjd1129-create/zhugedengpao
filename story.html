@@ -21,6 +21,34 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 .nav-links{display:flex;gap:20px}
 .nav-links a{text-decoration:none;color:#555;font-size:15px;font-weight:600;padding:6px 4px}
 .nav-links a:hover,.nav-links a.active{color:#E07A5A}
+
+/* ── Comic Tabs ── */
+.comic-section{background:#fff;border:1.5px solid #e8e4df;border-radius:14px;margin:24px 0;overflow:hidden}
+.comic-tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:0;border-bottom:1.5px solid #e8e4df}
+.comic-tabs::-webkit-scrollbar{display:none}
+.comic-tab{padding:10px 18px;font-size:13px;font-weight:600;color:#888;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;flex-shrink:0;transition:color .2s,border-color .2s}
+.comic-tab:hover{color:#E07A5A}
+.comic-tab.active{color:#E07A5A;border-bottom-color:#E07A5A}
+.comic-panels{padding:16px}
+.comic-panel{display:none;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.comic-panel.active{display:grid}
+.comic-thumb{aspect-ratio:3/4;background:#f0ede8;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;border:1.5px solid #e8e4df}
+.comic-thumb:hover{transform:scale(1.04);box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+.comic-thumb img{width:100%;height:100%;object-fit:cover}
+.comic-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;background:#f0ede8;border-radius:8px;border:1.5px dashed #ccc;color:#bbb;font-size:12px;gap:6px}
+.comic-placeholder span{font-size:24px}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+.lightbox-nav{display:flex;gap:16px;margin-top:16px}
+.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px}
+.lightbox-nav button:hover{background:rgba(255,255,255,0.25)}
+.lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+.lightbox-counter{color:rgba(255,255,255,0.6);font-size:13px;margin-top:10px}
+
+/* ── Story Content ── */
 article{max-width:680px;margin:0 auto;padding:24px 20px 40px}
 h1{font-size:24px;font-weight:900;line-height:1.4;margin-bottom:8px}
 .subtitle{font-size:14px;color:#888;margin-bottom:24px;line-height:1.6}
@@ -39,6 +67,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
   .nav-links{display:none}
   .data-card{grid-template-columns:repeat(2,1fr)}
   h1{font-size:20px}
+  .comic-panel{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -55,6 +84,123 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <a href="easyclaw.html">🦞 EasyClaw</a>
 </div>
 </nav>
+
+<!-- Comic Tabs -->
+<section class="comic-section" style="max-width:680px;margin:24px auto 0">
+  <div class="comic-tabs" id="comicTabs">
+    <div class="comic-tab active" data-story="1">故事一</div>
+    <div class="comic-tab" data-story="2">故事二</div>
+    <div class="comic-tab" data-story="3">故事三</div>
+    <div class="comic-tab" data-story="4">故事四</div>
+    <div class="comic-tab" data-story="5">故事五</div>
+    <div class="comic-tab" data-story="6">故事六</div>
+    <div class="comic-tab" data-story="7">故事七</div>
+  </div>
+  <div class="comic-panels">
+    <div class="comic-panel active" id="panel-1">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-2">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-3">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-4">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-5">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-6">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-7">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">×</button>
+  <img id="lbImg" src="" alt="comic">
+  <div class="lightbox-nav">
+    <button id="lbPrev">◀ 上一格</button>
+    <button id="lbNext">下一格 ▶</button>
+  </div>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<script>
+(function(){
+  // Comic data: 7 stories × 8 panels
+  var stories = [
+    ['images/comic-ep1-p1.png','images/comic-ep1-p2.png','images/comic-ep1-p3.png','images/comic-ep1-p4.png','images/comic-ep1-p5.png','images/comic-ep1-p6.png','images/comic-ep1-p7.png','images/comic-ep1-p8.png','images/comic-ep1-p9.png','images/comic-ep1-p10.png','images/comic-ep1-p11.png','images/comic-ep1-p12.png','images/comic-ep1-p13.png','images/comic-ep1-p14.png','images/comic-ep1-p15.png','images/comic-ep1-p16.png','images/comic-ep1-p17.png','images/comic-ep1-p18.png'],
+    ['images/comic/story2-1.png','images/comic/story2-2.png','images/comic/story2-3.png','images/comic/story2-4.png','images/comic/story2-5.png','images/comic/story2-6.png','images/comic/story2-7.png','images/comic/story2-8.png'],
+    ['images/comic/story3-1.png','images/comic/story3-2.png','images/comic/story3-3.png','images/comic/story3-4.png','images/comic/story3-5.png','images/comic/story3-6.png','images/comic/story3-7.png','images/comic/story3-8.png'],
+    ['images/comic/story4-1.png','images/comic/story4-2.png','images/comic/story4-3.png','images/comic/story4-4.png','images/comic/story4-5.png','images/comic/story4-6.png','images/comic/story4-7.png','images/comic/story4-8.png'],
+    ['images/comic/story5-1.png','images/comic/story5-2.png','images/comic/story5-3.png','images/comic/story5-4.png','images/comic/story5-5.png','images/comic/story5-6.png','images/comic/story5-7.png','images/comic/story5-8.png'],
+    ['images/comic/story6-1.png','images/comic/story6-2.png','images/comic/story6-3.png','images/comic/story6-4.png','images/comic/story6-5.png','images/comic/story6-6.png','images/comic/story6-7.png','images/comic/story6-8.png'],
+    ['images/comic/story7-1.png','images/comic/story7-2.png','images/comic/story7-3.png','images/comic/story7-4.png','images/comic/story7-5.png','images/comic/story7-6.png','images/comic/story7-7.png','images/comic/story7-8.png']
+  ];
+
+  function renderStory(n) {
+    var panel = document.getElementById('panel-' + n);
+    if (!panel) return;
+    panel.innerHTML = '';
+    stories[n-1].forEach(function(src, i) {
+      var thumb = document.createElement('div');
+      thumb.className = 'comic-thumb';
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = '故事' + n + ' 第' + (i+1) + '格';
+      img.onerror = function(){ thumb.style.display='none'; };
+      thumb.appendChild(img);
+      thumb.addEventListener('click', function(){ openLightbox(n-1, i); });
+      panel.appendChild(thumb);
+    });
+  }
+
+  // Tab switching
+  document.querySelectorAll('.comic-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.comic-tab').forEach(function(t){t.classList.remove('active');});
+      document.querySelectorAll('.comic-panel').forEach(function(p){p.classList.remove('active');});
+      tab.classList.add('active');
+      var n = tab.dataset.story;
+      document.getElementById('panel-'+n).classList.add('active');
+      renderStory(n);
+    });
+  });
+
+  // Lightbox
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbCounter = document.getElementById('lbCounter');
+  var currentStory = 0, currentIdx = 0;
+
+  function openLightbox(story, idx) {
+    currentStory = story; currentIdx = idx;
+    lbImg.src = stories[story][idx];
+    lbCounter.textContent = '第 ' + (idx+1) + ' / ' + stories[story].length + ' 格';
+    lb.classList.add('open');
+  }
+  function closeLb(){ lb.classList.remove('open'); }
+  function prev(){ currentIdx = (currentIdx-1+stories[currentStory].length)%stories[currentStory].length; refreshLb(); }
+  function next(){ currentIdx = (currentIdx+1)%stories[currentStory].length; refreshLb(); }
+  function refreshLb(){ lbImg.src = stories[currentStory][currentIdx]; lbCounter.textContent = '第 ' + (currentIdx+1) + ' / ' + stories[currentStory].length + ' 格'; }
+
+  document.getElementById('lbClose').onclick = closeLb;
+  document.getElementById('lbPrev').onclick = prev;
+  document.getElementById('lbNext').onclick = next;
+  lb.onclick = function(e){ if(e.target===lb) closeLb(); };
+  document.addEventListener('keydown', function(e){ if(!lb.classList.contains('open')) return; if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); if(e.key==='Escape') closeLb(); });
+
+  // Render first story on load
+  renderStory(1);
+})();
+</script>
 
 <article>
 

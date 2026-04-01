@@ -49,9 +49,11 @@
 
 ### 2.2 保存这张图作为参考
 
-把这张图保存到：`/Users/bjd/Desktop/ZhugeDengpao-Team/images/comic-character-main.png`
+把这张图保存到：`/Users/bjd/Desktop/ZhugeDengpao-Team/images/xiaohua-comic-char.png`
 
 **以后每张漫画都要用这张图作为参考！**
+
+> ⚠️ v29修正：原COMIC-WORKFLOW.md引用了不存在的 `comic-character-main.png`，已更正为实际存在的 `xiaohua-comic-char.png`（161KB，2026-03-31 14:31，米色小熊风格）。
 
 ### 2.3 用seed锁定风格
 
@@ -98,7 +100,7 @@
 ### 4.2 参考图+seed方法
 
 生成每格图片时：
-1. 加上参考图路径：`reference=/Users/bjd/Desktop/ZhugeDengpao-Team/images/comic-character-main.png`
+1. 加上参考图路径：`reference=/Users/bjd/Desktop/ZhugeDengpao-Team/images/xiaohua-comic-char.png`
 2. 如果之前有成功的图片，加上它的seed值
 3. 这样能保持角色一致性
 
@@ -107,7 +109,7 @@
 ```bash
 # 用 image_generate 工具
 # prompt 写清楚场景、动作、文字
-# 参考图用 comic-character-main.png
+# 参考图用 xiaohua-comic-char.png
 # 记得加上 seed 参数（如果有的话）
 ```
 

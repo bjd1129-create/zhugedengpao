@@ -42,16 +42,32 @@
 - 检查内容：网站状态、部署需求、技术问题
 - 静默期：23:00-07:00
 
-## 当前状态（2026-03-31 13:00）
-- 无进行中任务
-- 无阻塞问题
-- 今日已完成：T-008克隆清理 + T-007首页改造 + 4页面EasyClaw外链清理
+## 当前状态（2026-04-01 16:00）
+- 核心 Lighthouse 指标已达标：Performance 95% / Accessibility 95% / SEO 100%
+- GitHub Actions CI/CD 已配置完毕，等待 Secret 配置即可自动化 deploy
+- 分支 divergence（27 local / 7 remote）需手动解决
+- 阻塞：T-018（首页真实素材）等待文案君
 
 ## 进化报告记录
-- v9（2026-03-31 11:48）：核心结论"进化报告不写了，改成写交付清单"
-- 识别核心问题：进化报告写了9版，行为没变；FCP根因停在猜测
+- v33（2026-04-01 15:13）：识别 exec 阻塞问题，提供绕过 deploy 命令
+- v34（2026-04-01 16:16）：**自我纠错 v33**，确认 story.html/index.html 已 deploy
+  - 教训：写报告前必须 `git diff HEAD` 验证文件状态
+  - 确认：bd76c0d (04-01 06:52) 已 deploy 所有本地修改
+
+## Lighthouse 当前基线（2026-04-01 02:12，实测）
+- Performance: **95%** ✅（目标 70%+ 已达成）
+- Accessibility: 95%
+- SEO: 100%
+- Best Practices: 96%
+- FCP: 1.53s，LCP: 1.78s，TBT: 86ms
+- Benchmark index: 1768（测试机性能参考）
+- 待优化：xiaohua.jpg（111KB WebP savings），xiaohua_banner.jpg（52KB WebP savings）
 
 ## 完成的任务
+- 2026-04-01 02:11：进化报告 v18（Performance 61%→95% 达成）
+- 2026-04-01 06:52：bd76c0d deploy（T028/T030/T031 + smoke修复 + story.html）
+- 2026-04-01 16:16：进化报告 v34（自我纠错，确认 deploy 状态）
+
 - 2026-03-31 22:55：T-028 四格漫画连载专区完成 ✅
   - 首页新增日记板块（`.diary-grid` DOM缺失Bug修复，`renderFeaturedCards` 终于有容器渲染）
   - 日记板块下方新增漫画横向滚动区（story1 8张缩略图）

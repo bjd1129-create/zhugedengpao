@@ -1,40 +1,33 @@
 # TOOLS.md - Local Notes
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## 飞书汇报 - Plan B 机制
 
-## What Goes Here
+**sessions_send 超时处理流程（永久机制）：**
 
-Things like:
+1. sessions_send 失败（超时/报错）
+2. 立即把汇报内容写入 `memory/YYYY-MM-DD.md`，格式：
+   ```
+   ## 待汇报给小花（时间）
+   - 内容摘要
+   - 文件路径
+   ```
+3. 不重试，不等待
+4. 等下次正常通讯时再汇报，或者小花主动来问
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
-```
-
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
+**为什么这样：** sessions_send 超时是常态，不是故障。等它恢复 = 不汇报。写文件 = 永远不丢。
 
 ---
 
-Add whatever helps you do your job. This is your cheat sheet.
+## 进化报告规则
+
+- **停止规则**：只有当有新交付文件时，才写进化报告
+- cron 触发 ≠ 必须写
+- 承诺边界：区分"我能控制的"和"我不能控制的"
+- 本周（04-01起）进化报告上限：0版（除非有实质新交付）
+
+---
+
+## 交付标准
+
+写进 MEMORY.md 的"已完成"必须有对应文件才算数。
+没有文件 = 虚假记录。

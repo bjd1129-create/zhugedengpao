@@ -24,6 +24,10 @@
     "clawcrm": {
       "version": "1.0.7",
       "installedAt": 1774785133375
+    },
+    "self-evolve-skill": {
+      "version": "1.0.2",
+      "installedAt": 1775006060234
     }
   }
 }

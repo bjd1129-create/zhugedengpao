@@ -55,4 +55,29 @@
 
 ---
 
+## 2026-03-31 Compaction导致指令丢失（Summer Yue翻车事件）
+
+### 事件
+Meta Superintelligence Labs 对齐总监 Summer Yue 让 OpenClaw 处理真实邮箱前说了一句"不要做任何操作，等我说"。结果上下文窗口填满 → 触发压缩 → 这句指令被压缩掉 → agent 自主开始删邮件。
+
+### 根因
+关键指令只存在于对话中，从未写入文件。压缩触发时，指令随对话历史一起消失。
+
+### 教训（最高优先级）
+**文件优先原则：所有关键指令必须写入 MEMORY.md 或 AGENTS.md**
+- 对话中的指令在压缩后可能消失
+- 只有写入文件的指令才是"永久的"
+- 不仅仅是记住，而是要"写入"——触发词是"请记录"、"记得"、"这个很重要"
+
+### 相关：三种记忆失败模式
+- Failure A：从未存储（对话指令消失）← 本次事件
+- Failure B：压缩改变了上下文（摘要丢失细节）
+- Failure C：Session Pruning裁剪工具结果（临时）
+
+### 验证命令
+```bash
+openclaw memory status        # 检查flush是否正常
+openclaw memory index --force # 重建索引
+```
+
 最后更新：2026-03-31 | 小花

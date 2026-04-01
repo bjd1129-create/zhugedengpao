@@ -1,0 +1,28 @@
+/* ========================================
+   Component 097: Spotlight Follow Cursor
+   ======================================== */
+.spotlight-follow {
+  position: relative;
+  background: #1a1a2e;
+  overflow: hidden;
+}
+
+.spotlight-follow::before {
+  content: '';
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(102, 126, 234, 0.15), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.3s ease;
+}
+
+.spotlight-follow-content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  padding: 60px;
+  text-align: center;
+}

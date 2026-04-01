@@ -1,0 +1,26 @@
+/* ========================================
+   Component 091: Animated Border
+   ======================================== */
+.animated-border {
+  position: relative;
+  padding: 3px;
+  background: conic-gradient(from var(--angle), #667eea, #764ba2, #f093fb, #667eea);
+  border-radius: 16px;
+  animation: border-rotate 4s linear infinite;
+}
+
+.animated-border-inner {
+  background: white;
+  border-radius: 14px;
+  padding: 32px;
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes border-rotate {
+  to { --angle: 360deg; }
+}

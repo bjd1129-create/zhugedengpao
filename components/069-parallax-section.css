@@ -1,0 +1,33 @@
+/* ========================================
+   Component 069: Parallax Section
+   ======================================== */
+.parallax-section {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+}
+
+.parallax-bg {
+  position: absolute;
+  inset: -20%;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.parallax-content {
+  position: relative;
+  z-index: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+}
+
+.parallax-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}

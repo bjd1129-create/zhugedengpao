@@ -1,0 +1,31 @@
+/* ========================================
+   CSS Animation 015: Jello Animation
+   ======================================== */
+@keyframes jello {
+  0%, 100% {
+    transform: scaleX(1) scaleY(1);
+  }
+  10% {
+    transform: scaleX(0.9) scaleY(1.1);
+  }
+  20% {
+    transform: scaleX(1.1) scaleY(0.9);
+  }
+  30% {
+    transform: scaleX(0.95) scaleY(1.05);
+  }
+  40% {
+    transform: scaleX(1.05) scaleY(0.95);
+  }
+  50% {
+    transform: scaleX(1);
+  }
+}
+
+.animate-jello {
+  animation: jello 1s ease-in-out;
+}
+
+.jello-on-hover:hover {
+  animation: jello 0.6s ease-in-out;
+}

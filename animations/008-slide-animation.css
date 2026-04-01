@@ -1,0 +1,51 @@
+/* ========================================
+   CSS Animation 008: Slide Animations
+   ======================================== */
+@keyframes slide-in-right {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-in-down {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-right { animation: slide-in-right 0.5s ease forwards; }
+.animate-slide-left { animation: slide-in-left 0.5s ease forwards; }
+.animate-slide-up { animation: slide-in-up 0.5s ease forwards; }
+.animate-slide-down { animation: slide-in-down 0.5s ease forwards; }

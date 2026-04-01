@@ -1,0 +1,26 @@
+/* ========================================
+   Component 022: Rating Stars
+   ======================================== */
+.rating {
+  display: flex;
+  gap: 4px;
+}
+
+.rating-star {
+  font-size: 24px;
+  color: #d1d5db;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.rating-star.filled {
+  color: #f59e0b;
+}
+
+.rating-star:hover {
+  transform: scale(1.2);
+}
+
+.rating-star.hovered {
+  color: #fbbf24;
+}

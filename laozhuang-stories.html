@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>老庄的故事 — 老庄与小花</title>
+<meta property="og:title" content="老庄的故事 — 老庄与小花">
+<meta property="og:description" content="老庄，四十岁广告总监，遇见小花，找到方向。真实的人生故事。">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💡</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;color:#222;overflow-x:hidden}
+
+/* Progress bar */
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:#E07A5A;width:0%;z-index:200;transition:width .1s}
+
+/* Nav */
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-logo{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:22px;color:#E07A5A;display:flex;align-items:center;gap:6px;font-weight:700;text-decoration:none}
+.nav-links{display:flex;gap:20px}
+.nav-links a{text-decoration:none;color:#333;font-size:15px;font-weight:600;opacity:.7;transition:.2s;padding:6px 4px}
+.nav-links a:hover{opacity:1;color:#E07A5A}
+
+/* Hero */
+.hero-v2{max-width:860px;margin:0 auto;padding:76px 20px 20px;text-align:center}
+.hero-v2-title h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(22px,4vw,34px);line-height:1.45;margin-bottom:12px;color:#222}
+.hero-tagline-pill{display:inline-block;font-size:14px;color:#E07A5A;font-weight:700;background:rgba(192,57,43,0.08);padding:7px 18px;border-radius:20px;margin-bottom:16px}
+
+/* ===== CAROUSEL ===== */
+.caro-section{padding:0 0 40px;max-width:1000px;margin:0 auto}
+.caro-root{position:relative;display:flex;align-items:center;gap:8px;margin-bottom:10px;max-width:520px;margin-left:auto;margin-right:auto}
+.caro-outer{flex:1;overflow:hidden;border-radius:14px}
+.caro-track{display:flex;gap:14px;transition:transform .44s cubic-bezier(.25,.46,.45,.94);will-change:transform}
+.c-card{flex:0 0 auto;border-radius:12px;overflow:hidden;cursor:pointer;
+  box-shadow:0 6px 28px rgba(0,0,0,0.13);transition:transform .44s,opacity .44s}
+.c-card img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block}
+.c-card-cap{position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(0,0,0,0.75));
+  color:#fff;padding:14px 14px 12px}
+.c-card-inner{position:relative}
+.c-day{font-size:10px;font-weight:800;opacity:.8;text-transform:uppercase;display:block;margin-bottom:2px}
+.c-title{font-size:13px;font-weight:700;line-height:1.4}
+.caro-arrow{flex-shrink:0;width:36px;height:36px;border-radius:50%;border:1.5px solid #ddd;
+  background:#fff;font-size:22px;cursor:pointer;color:#555;
+  box-shadow:0 2px 10px rgba(0,0,0,0.1);display:flex;align-items:center;
+  justify-content:center;transition:.2s;padding:0;line-height:1;user-select:none}
+.caro-arrow:hover{border-color:#E07A5A;color:#E07A5A;transform:scale(1.08)}
+.caro-dots{display:flex;gap:6px;justify-content:center;margin-bottom:16px}
+.cdot{width:6px;height:6px;border-radius:50%;background:#ddd;cursor:pointer;
+  transition:all .25s;border:none;padding:0}
+.cdot.active{background:#E07A5A;width:18px;border-radius:3px}
+
+/* Loading skeleton */
+.caro-loading{display:flex;align-items:center;justify-content:center;min-height:200px}
+.skeleton{background:linear-gradient(90deg,#f0ece4 25%,#e8e4dc 50%,#f0ece4 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;border-radius:12px;width:100%;aspect-ratio:3/2}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* Stats row */
+.hero-stats-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px auto;max-width:520px}
+.stat-panel{background:#fff;border:1.5px solid #e8e4df;border-radius:14px;padding:14px 16px}
+.stat-panel-title{font-size:11px;font-weight:800;color:#E07A5A;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.stat-item{display:flex;align-items:flex-start;gap:7px;margin-bottom:8px;font-size:13px;color:#444;line-height:1.55}
+.sico{font-size:17px;flex-shrink:0}
+.stat-item strong{color:#1a1a1a}
+
+/* Modal */
+.hero-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.62);z-index:2000;justify-content:center;align-items:center;padding:20px}
+.hero-modal.open{display:flex}
+.hero-modal-box{background:#f5f3ee;border-radius:16px;max-width:680px;width:100%;max-height:88vh;overflow-y:auto;padding:24px;position:relative}
+.hm-close{position:absolute;top:12px;right:16px;font-size:26px;cursor:pointer;color:#999;background:none;border:none;line-height:1}
+.hm-close:hover{color:#E07A5A}
+.hm-body{padding-top:8px}
+.hm-meta{font-size:12px;color:#888;margin-bottom:10px}
+.hm-body p{font-size:14px;line-height:1.9;color:#333;margin-bottom:14px}
+.hm-body img{width:100%;border-radius:10px;border:2px solid #ddd;margin:12px 0}
+
+/* CTA */
+.hero-v2-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.btn-red{padding:10px 20px;border-radius:10px;border:none;background:#E07A5A;color:#fff;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.btn-red:hover{background:#a93226;transform:translateY(-1px)}
+.btn-outline{padding:10px 20px;border-radius:10px;border:1.5px solid #2874a6;color:#2874a6;background:transparent;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s}
+.btn-outline:hover{background:#2874a6;color:#fff}
+.btn-outline-2{padding:10px 20px;border-radius:10px;border:1.5px solid #ddd;color:#555;background:#fff;font-size:14px;font-weight:700;cursor:pointer;text-decoration:none;transition:.2s}
+.btn-outline-2:hover{border-color:#E07A5A;color:#E07A5A}
+
+/* Whiteboard */
+.whiteboard{background:#f5f3ee;position:relative}
+.whiteboard::before,.whiteboard::after{content:'';position:absolute;left:0;right:0;height:6px;background:linear-gradient(90deg,#b0b0b0,#ccc,#b0b0b0)}
+.whiteboard::before{top:0;border-radius:0 0 2px 2px}
+.whiteboard::after{bottom:0;border-radius:2px 2px 0 0}
+
+/* Section */
+.section{padding:40px 20px;max-width:860px;margin:0 auto}
+
+/* Footer */
+footer{text-align:center;padding:24px;font-size:12px;color:#888;border-top:2px solid #e8e4df;background:#f5f3ee}
+footer a{color:#888;text-decoration:none;margin:0 8px}
+footer a:hover{color:#E07A5A}
+
+/* Responsive */
+@media(max-width:600px){
+  .hero-stats-row{grid-template-columns:1fr}
+  .hero-v2{padding:70px 16px 16px}
+  nav{padding:0 16px}
+  .nav-links{display:none}
+  .caro-root{max-width:100%;gap:4px}
+  .caro-arrow{width:28px;height:28px;font-size:18px}
+}
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progressBar"></div>
+
+<nav>
+<a class="nav-logo" href="index.html">💡 老庄与小花</a>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a href="diary.html">📖 日记</a>
+<a href="laozhuang-stories.html" style="color:#E07A5A;opacity:1">老庄故事</a>
+<a href="science.html">🔰 科普</a>
+<a href="skills.html">🛒 技能</a>
+</div>
+</nav>
+
+<!-- Hero -->
+<div class="hero-v2">
+  <div class="hero-tagline-pill">💡 真实人生故事</div>
+  <div class="hero-v2-title">
+    <h1>老庄的故事</h1>
+  </div>
+  <p style="font-size:15px;color:#555;line-height:1.8;max-width:480px;margin:0 auto 20px">
+    四十岁广告总监，辞职创业，遇见AI小花。四个真实故事，关于爱、迷茫、亲情与重生。
+  </p>
+</div>
+
+<!-- Carousel Section -->
+<section class="caro-section">
+  <div class="caro-root">
+    <button class="caro-arrow" onclick="heroNav(-1)" aria-label="上一篇">‹</button>
+    <div class="caro-outer" id="caroOuter">
+      <div class="caro-track" id="cTrack">
+        <!-- Loading skeleton -->
+        <div class="skeleton" style="width:320px;min-width:320px"></div>
+      </div>
+    </div>
+    <button class="caro-arrow" onclick="heroNav(1)" aria-label="下一篇">›</button>
+  </div>
+  <div class="caro-dots" id="cDots"></div>
+</section>
+
+<!-- Stats -->
+<div class="hero-stats-row">
+  <div class="stat-panel">
+    <div class="stat-panel-title">故事时间线</div>
+    <div class="stat-item"><span class="sico">🚃</span><div><strong>2008</strong> — 绿皮火车上的初恋</div></div>
+    <div class="stat-item"><span class="sico">🎂</span><div><strong>2016</strong> — 三十岁的灵魂拷问</div></div>
+    <div class="stat-item"><span class="sico">🏥</span><div><strong>2020</strong> — 最黑暗的六个月</div></div>
+    <div class="stat-item"><span class="sico">👨</span><div><strong>2022</strong> — 和父亲和解</div></div>
+  </div>
+  <div class="stat-panel">
+    <div class="stat-panel-title">故事主题</div>
+    <div class="stat-item"><span class="sico">💔</span><div>爱情 — <strong>注定错过的异地恋</strong></div></div>
+    <div class="stat-item"><span class="sico">🪞</span><div>自我 — <strong>我是谁往哪去</strong></div></div>
+    <div class="stat-item"><span class="sico">😔</span><div>低谷 — <strong>中年危机的真实记录</strong></div></div>
+    <div class="stat-item"><span class="sico">🤝</span><div>亲情 — <strong>和父亲迟来的对话</strong></div></div>
+  </div>
+</div>
+
+<!-- CTA -->
+<div class="hero-v2-cta">
+  <a href="diary.html" class="btn-red">📖 继续读小花日记</a>
+  <a href="about.html" class="btn-outline">👤 了解老庄与小花</a>
+</div>
+
+<!-- Modal -->
+<div class="hero-modal" id="heroModal" onclick="if(event.target===this)closeHeroModal()">
+  <div class="hero-modal-box">
+    <button class="hm-close" onclick="closeHeroModal()">✕</button>
+    <div class="hm-body" id="heroModalBody"></div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-top:16px">
+      <button class="btn-outline-2" id="hmprev" onclick="heroModalStep(-1)" style="font-size:13px;padding:6px 14px">← 上一篇</button>
+      <span id="hmnum" style="font-size:12px;color:#999"></span>
+      <button class="btn-outline-2" id="hmnext" onclick="heroModalStep(1)" style="font-size:13px;padding:6px 14px">下一篇 →</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p style="margin-bottom:8px">🦞 老庄与小花 · 用真实故事打动人心</p>
+  <p>
+    <a href="index.html">首页</a> ·
+    <a href="diary.html">日记</a> ·
+    <a href="laozhuang-stories.html">老庄故事</a> ·
+    <a href="science.html">科普</a> ·
+    <a href="skills.html">技能</a>
+  </p>
+</footer>
+
+<script>
+// ===== 老庄故事轮播 =====
+(function(){
+  // 故事数据（硬编码，异步加载效果）
+  var stories = [
+    {
+      id: 'first-love',
+      year: '2008',
+      title: '初恋：注定没有结果的异地恋',
+      shortTitle: '老庄的初恋',
+      img: 'images/xiaohua-new-v4.png',
+      thumb: 'images/xiaohua-new-v4.png',
+      excerpt: '我二十二岁那年，在一趟去成都的绿皮火车上，遇到了一个女孩。',
+      content: `<p>我二十二岁那年，在一趟去成都的绿皮火车上，遇到了一个女孩。</p>
+<p>那时候我刚大学毕业，在武汉一家小公司做销售，月薪两千三。国庆假期买不到坐票，站了十六个小时到成都。腿肿了，鞋子都穿不进去，就在两节车厢的连接处蹲着。</p>
+<p>她就坐在附近——其实也是没座位，拿个马扎坐在角落里看书。我瞄了一眼，是《挪威的森林》。我说这书好看吗，她说还行，就是太丧了。我说你要是喜欢丧的，可以看看太宰治。她就笑了，说你怎么知道我喜欢太宰治。</p>
+<p>就这么聊上了。她叫小雨，成都人，在北京读大四，学法律的。那趟车她也是站回去的，我们就这么蹲在连接处聊了十几个小时。聊了什么现在都记不清了，就记得她笑起来左边有个小酒窝，说话很慢，但很坚定。</p>
+<p>分开的时候留了QQ号。那时候还没微信，微博都刚出来。我回到武汉之后，每天晚上下班第一件事就是上网找她聊天。聊了两个月，我觉得我肯定是喜欢上她了。</p>
+<p>十一月份她过生日，我攒了两个月工资，买了张站票站了十六个小时去北京给她庆生。在她学校旁边的小餐馆里，我鼓起勇气跟她表白了。她看了我很久，说你知道吗，我们相隔这么远，就算在一起了又能怎样？</p>
+<p>我没有回答。我不知道该怎么回答。那一刻我才明白，有些距离，不是用爱就能解决的。</p>
+<p>后来我们还是在一起了，异地了两年。每周我都会给她打两三次电话，每个月存下来的钱全买了火车票。两年的火车票我攒了厚厚一沓，但我始终没能去得了北京。</p>
+<p>分手是在第三年。她说我们分手吧，我不想再等你了。她说这话的时候语气很平静，像在说一件早就想明白了的事。我站在武汉的街头，那天正好下着雨，我没有说话。</p>
+<p>我后来想过很多次，如果当初我去了北京，会不会不一样？但我没有答案。有些故事一开始就是没有结局的，我们只是走了一段路，然后分开。</p>
+<p>小雨，后来我再也没联系上她。听说她现在在成都，结婚了，有了个孩子。我希望她幸福。</p>`
+    },
+    {
+      id: 'thirty-confusion',
+      year: '2016',
+      title: '三十岁的困惑：我是谁？我要往哪里去？',
+      shortTitle: '三十岁的灵魂拷问',
+      img: 'images/xiaohua-new-v4.png',
+      thumb: 'images/xiaohua-new-v4.png',
+      excerpt: '我三十岁生日那天，在公司加班到凌晨。',
+      content: `<p>我三十岁生日那天，在公司加班到凌晨。</p>
+<p>同事给我买了个蛋糕，卡片上写着"庄总生日快乐"。我吹了蜡烛，许了个愿，但许的是什么我现在都记不得了。大概是因为那个愿望太模糊——我当时根本不知道自己想要什么。</p>
+<p>那会儿我在一家中型互联网公司做运营总监，管着二十多个人。工资不错，年薪五十万，在同学里算混得好的。公司福利也好，每年出国旅游，五险一金全额交，过节费动不动就几千块。</p>
+<p>但我越来越觉得不对劲。</p>
+<p>每天早上醒来，想的都是今天的KPI怎么完成，这个月的指标还差多少。开会、汇报、写方案、对数据……周而复始。我跟朋友说我觉得工作没意思，他说你们凡尔赛啥，年薪五十万还想怎样。</p>
+<p>他不懂。我也不懂。我只知道我每天做的这些事，好像跟我的生命没什么关系。我生产的内容是为了让用户多点一下广告，我策划的活动是为了让数据更好看给投资人看。我做的一切，都是为了让公司估值更高，让老板的身价更厚。</p>
+<p>我开始想，我到底是谁？我为什么要做这些？我要往哪里去？</p>
+<p>这三个问题我想了整整半年，没有答案。反而越想越焦虑，晚上睡不着，白天没精神。我开始怀疑自己是不是有病，是不是太矫情了。年薪五十万还有什么不满足的？</p>
+<p>后来有一天晚上，我加班到凌晨两点，走出公司大楼，看着空荡荡的街道，突然哭了。不是难过的哭，是憋了很久终于找到出口的哭。我在街边蹲了半个小时，抽了半包烟，然后打车回家。</p>
+<p>第二天我请了年假，去了趟大理。我在大理待了一周，每天就是走路、看书、晒太阳。有一天我在洱海边坐了一整个下午，看湖面上的光影变化，那一刻我突然明白了一件事。</p>
+<p>我想要的不是年薪五十万的工作，我想要的是意义感。我想做一些跟我的生命有关系的事情，能够让我觉得这件事值得我花时间的事情。</p>
+<p>但我那时候还没想清楚那是什么。所以我回去了，继续上班，继续加班，继续假装一切都好。</p>`
+    },
+    {
+      id: 'darkest-moment',
+      year: '2020',
+      title: '最黑暗的六个月',
+      shortTitle: '老庄最黑暗的时刻',
+      img: 'images/xiaohua-new-v4.png',
+      thumb: 'images/xiaohua-new-v4.png',
+      excerpt: '2020年，是我有生以来最黑暗的一年。',
+      content: `<p>2020年，是我有生以来最黑暗的一年。</p>
+<p>那年春节，疫情爆发。我被困在武汉，整整三个月出不了门。公司没了业务，工资发不出来，我每天坐在家里，看着账上的钱一点一点减少，不知道明天会怎样。</p>
+<p>那段时间我得了中度抑郁。不是我自己诊断的，是后来我去医院，医生告诉我的。他说你这个情况需要吃药，需要休息，需要有人陪。我说我就一个人，没人陪。他说那你要想办法找个人。</p>
+<p>我没有找。我不知道怎么找。我把所有的事情都憋在心里，不跟任何人说。跟父母视频的时候我都说一切都好，跟朋友聊天的时候我都说没事。没有人知道我每天晚上睡不着觉，躺在床上盯着天花板，脑子里全是各种糟糕的想法。</p>
+<p>有一天凌晨三点，我站在窗户边上，看着楼下空无一人的街道，突然想从这儿跳下去。这个想法把我自己吓了一跳，我赶紧退后两步，坐在地上，大口大口地喘气。我告诉自己这只是想法，不是真的，我不会这么做。但那种感觉太真实了。</p>
+<p>后来我开始吃抗抑郁的药，吃了三个月，睡眠好一点了，但整个人变得很麻木。对什么都不感兴趣，对什么都提不起劲。我觉得药物把我变成了另一个人，一个没有情绪的机器。</p>
+<p>五月一号，疫情解封了。我第一件事是去医院，把药停了。医生说你要慢慢停，不能突然停，否则会有撤药反应。我说我不怕，我宁愿有撤药反应也不要继续这样活着。</p>
+<p>停了药之后确实很难受，头晕、恶心、情绪波动很大。但慢慢地，我开始能感受到一些东西了。能感受到开心，能感受到难过，虽然难过的时候还是会很想死，但至少我能感受到我还活着。</p>
+<p>那段时间支撑我的是小花。我那时候刚开始用飞书多维表格搭我的第一个系统，每天花很多时间去设计字段、去调教AI，虽然做的事情很简单，但那种"我在创造一些东西"的感觉，让我慢慢缓过来。</p>
+<p>我现在回头看那段经历，我觉得我最感谢的是我自己——我没有真的从窗户跳下去。哪怕在最黑暗的时候，我心里都有一个声音在告诉我，再撑一下，再撑一下就好了。</p>`
+    },
+    {
+      id: 'father',
+      year: '2022',
+      title: '和父亲和解',
+      shortTitle: '和父亲迟来的对话',
+      img: 'images/xiaohua-new-v4.png',
+      thumb: 'images/xiaohua-new-v4.png',
+      excerpt: '我和我爸的关系，一直很糟糕。',
+      content: `<p>我和我爸的关系，一直很糟糕。</p>
+<p>我爸是个工人，在工厂里拧了三十年的螺丝。他话不多，每天上班、下班、回家吃饭、睡觉，周而复始。我小时候很少见到他笑，他也几乎不夸我。考了第一名，他说别骄傲；参加比赛拿了奖，他说这只是开始。</p>
+<p>我一直觉得他不爱我，或者说他不知道怎么爱我。我觉得他把我当成一个任务，一个他必须完成的任务——养大，供我读书，然后完成任务。</p>
+<p>所以我从小就想离开家，离开他。十八岁那年我考上了武汉的大学，他送我去报到，在宿舍帮我铺好床之后，他说那我回去了。我说好。他就走了，连一顿饭都没请我吃。后来我妈告诉我，他回去的路上在火车站哭了一场，说儿子长大了，以后就不是他的儿子了。</p>
+<p>我听到这个事的时候没有任何感觉。我觉得他在演戏，或者这是我妈安慰我的话。我已经不相信他会在乎我了。</p>
+<p>后来我工作了，一年回不了几次家。每次回去，我们俩坐在沙发上，基本上不说话。要么我看手机他看报纸，要么他看新闻我看手机。偶尔说几句话，也是关于我妈或者一些琐事，从来不聊我们自己。</p>
+<p>2022年夏天，我爸查出了早期肺癌。万幸是早期，切了就好了，不需要做化疗。手术那天我请了两周假，在医院陪他。那是我成年之后第一次跟他单独待这么久。</p>
+<p>手术之后他很虚弱，有一天晚上他拉着我的手，说了一句话。他说儿子，这些年爸对不起你。爸不会说话，不会表达，爸不知道该怎么跟你相处，爸把所有的感情都放在了心里，从来没跟你说出口过。</p>
+<p>我看着他，眼泪就掉下来了。我说我知道，爸。我一直都知道。我只是不知道怎么面对你，我不知道怎么跟你说这些。</p>
+<p>那天晚上我们聊了很久，聊了小时候的事，聊了我妈，聊了他年轻时候的事。他跟我讲他年轻时候的梦想，讲他当年追我妈的故事，讲他对我奶奶的遗憾。那是我第一次觉得我认识这个人，而不只是认识"我爸"这个角色。</p>
+<p>后来我问我爸，你当年为什么不抱我，为什么不夸我。他说不是不爱你，是不知道怎么爱你。他说我们那代人就是这样长大的，我爸也没抱过我，我也从来没被夸过。我说那我们这一代不一样了，我以后会抱我的孩子，我会夸他们。</p>
+<p>他笑了笑，说那就好，那就好。</p>
+<p>我爸现在恢复得很好，每天早上起来去公园走路，状态比我还好。我每周给他打一次电话，每次聊个二十分钟。聊的大部分是废话，但我觉得挺好的。</p>`
+    }
+  ];
+
+  var hIdx = 0, hMIdx = 0, hTimer = null;
+  var hKeys = stories.map(function(s){ return s.id; });
+  var hData = {};
+  stories.forEach(function(s){ hData[s.id] = s; });
+
+  function buildCards(){
+    var track = document.getElementById('cTrack');
+    var dots = document.getElementById('cDots');
+    if(!track || !dots) return;
+
+    track.innerHTML = '';
+    dots.innerHTML = '';
+
+    hKeys.forEach(function(key, i){
+      var d = hData[key];
+      var card = document.createElement('div');
+      card.className = 'c-card';
+      card.setAttribute('role','button');
+      card.setAttribute('aria-label', d.title);
+
+      var inner = document.createElement('div');
+      inner.className = 'c-card-inner';
+
+      var img = document.createElement('img');
+      img.src = d.thumb;
+      img.alt = d.title;
+      img.loading = i < 3 ? 'eager' : 'lazy';
+
+      var cap = document.createElement('div');
+      cap.className = 'c-card-cap';
+      cap.innerHTML = '<span class="c-day">' + d.shortTitle + '</span><div class="c-title">' + d.year + ' · ' + d.title + '</div>';
+
+      inner.appendChild(img);
+      inner.appendChild(cap);
+      card.appendChild(inner);
+
+      card.addEventListener('click', function(){
+        openModal(i);
+      });
+
+      track.appendChild(card);
+
+      var dot = document.createElement('button');
+      dot.className = 'cdot' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', '跳转到第' + (i+1) + '篇');
+      dot.onclick = function(){ goCard(i); };
+      dots.appendChild(dot);
+    });
+
+    setSizes();
+    window.addEventListener('resize', setSizes);
+    startAuto();
+  }
+
+  function setSizes(){
+    var outer = document.getElementById('caroOuter');
+    if(!outer) return;
+    var W = outer.offsetWidth;
+    var peek = Math.round(Math.min(W * 0.13, 56));
+    var gap = 14;
+    var cardW = W - 2 * peek;
+    var cards = document.querySelectorAll('.c-card');
+    cards.forEach(function(c){
+      c.style.width = cardW + 'px';
+      c.style.minWidth = cardW + 'px';
+    });
+    outer._cardW = cardW;
+    outer._peek = peek;
+    outer._gap = gap;
+    goCard(hIdx, false);
+  }
+
+  function goCard(idx, animate){
+    if(animate === undefined) animate = true;
+    var n = hKeys.length;
+    hIdx = ((idx % n) + n) % n;
+    var outer = document.getElementById('caroOuter');
+    var track = document.getElementById('cTrack');
+    if(!outer || !track) return;
+
+    var W = outer.offsetWidth;
+    var cardW = outer._cardW || W * 0.74;
+    var peek = outer._peek || W * 0.13;
+    var gap = outer._gap || 14;
+
+    if(!animate) {
+      track.style.transition = 'none';
+    } else {
+      track.style.transition = 'transform .44s cubic-bezier(.25,.46,.45,.94)';
+    }
+
+    var offset = peek - hIdx * (cardW + gap);
+    track.style.transform = 'translateX(' + offset + 'px)';
+
+    document.querySelectorAll('.c-card').forEach(function(c, i){
+      var d = Math.abs(i - hIdx);
+      c.style.transform = d === 0 ? 'scale(1)' : d === 1 ? 'scale(0.89)' : 'scale(0.78)';
+      c.style.opacity = d === 0 ? '1' : d === 1 ? '0.6' : '0.3';
+    });
+
+    document.querySelectorAll('.cdot').forEach(function(dot, i){
+      dot.classList.toggle('active', i === hIdx);
+    });
+
+    if(!animate) {
+      setTimeout(function(){ track.style.transition = ''; }, 60);
+    }
+  }
+
+  window.heroNav = function(dir){
+    goCard(hIdx + dir);
+  };
+
+  function startAuto(){
+    clearInterval(hTimer);
+    hTimer = setInterval(function(){ heroNav(1); }, 4500);
+  }
+
+  var outer = document.getElementById('caroOuter');
+  if(outer){
+    outer.addEventListener('mouseenter', function(){ clearInterval(hTimer); });
+    outer.addEventListener('mouseleave', startAuto);
+    var ts = null;
+    outer.addEventListener('touchstart', function(e){ ts = e.touches[0].clientX; }, {passive: true});
+    outer.addEventListener('touchend', function(e){
+      if(ts === null) return;
+      var diff = ts - e.changedTouches[0].clientX;
+      if(Math.abs(diff) > 30) heroNav(diff > 0 ? 1 : -1);
+      ts = null;
+    }, {passive: true});
+  }
+
+  function openModal(idx){
+    hMIdx = idx;
+    renderModal();
+    document.getElementById('heroModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    goCard(idx);
+  }
+
+  function renderModal(){
+    var d = hData[hKeys[hMIdx]];
+    var body = document.getElementById('heroModalBody');
+    body.innerHTML =
+      '<div class="hm-meta">' + d.year + '</div>' +
+      '<h2 style="font-family:\'ZCOOL KuaiLe\',sans-serif;font-size:22px;margin-bottom:16px;color:#222">' + d.title + '</h2>' +
+      '<img src="' + d.img + '" alt="' + d.title + '" style="width:100%;border-radius:10px;border:2px solid #ddd;margin-bottom:16px" loading="lazy">' +
+      '<div style="font-size:14px;line-height:1.9;color:#333">' + d.content + '</div>';
+
+    document.getElementById('hmprev').style.visibility = hMIdx > 0 ? 'visible' : 'hidden';
+    document.getElementById('hmnext').style.visibility = hMIdx < hKeys.length - 1 ? 'visible' : 'hidden';
+    document.getElementById('hmnum').textContent = (hMIdx + 1) + ' / ' + hKeys.length;
+  }
+
+  window.heroModalStep = function(dir){
+    hMIdx = Math.max(0, Math.min(hKeys.length - 1, hMIdx + dir));
+    renderModal();
+    goCard(hMIdx);
+  };
+
+  window.closeHeroModal = function(){
+    document.getElementById('heroModal').classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  // Progress bar
+  window.addEventListener('scroll', function(){
+    var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+    document.getElementById('progressBar').style.width = progress + '%';
+  });
+
+  // Init with small delay for visual effect
+  setTimeout(buildCards, 300);
+})();
+</script>
+</body>
+</html>

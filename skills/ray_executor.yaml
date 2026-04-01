@@ -1,0 +1,12 @@
+name: "ray_executor"
+description: "在远程 Ray 集群上执行耗资源的 Python 任务，支持 30 人 Agent 团队的任务分发"
+type: "shell"
+command: "python /Users/bjd/intelligence/ray_client_script.py {input}"
+parameters:
+  input:
+    type: "string"
+    description: "要执行的 Python 代码或任务描述"
+examples:
+  - "执行数据分析任务"
+  - "在 AZW 节点上运行机器学习模型"
+  - "在 i3 节点上处理文件"

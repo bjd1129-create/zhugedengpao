@@ -1,0 +1,45 @@
+/* ========================================
+   CSS Animation 012: Float Animation
+   ======================================== */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes float-shadow {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: translateY(15px) scale(0.9);
+    opacity: 0.1;
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-container {
+  position: relative;
+}
+
+.float-element {
+  animation: float 3s ease-in-out infinite;
+}
+
+.float-shadow {
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 10px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.3), transparent);
+  animation: float-shadow 3s ease-in-out infinite;
+}

@@ -1,0 +1,29 @@
+/* ========================================
+   CSS Animation 011: Gradient Flow Animation
+   ======================================== */
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient {
+  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #48dbfb);
+  background-size: 300% 300%;
+  animation: gradient-flow 8s ease infinite;
+}
+
+.gradient-text {
+  background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% auto;
+  animation: gradient-flow 4s ease infinite;
+}

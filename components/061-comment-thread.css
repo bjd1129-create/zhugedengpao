@@ -1,0 +1,75 @@
+/* ========================================
+   Component 061: Comment Thread
+   ======================================== */
+.comment {
+  display: flex;
+  gap: 16px;
+  padding: 20px 0;
+}
+
+.comment + .comment {
+  border-top: 1px solid #f0f0f0;
+}
+
+.comment-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+.comment-content {
+  flex: 1;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.comment-author {
+  font-weight: 600;
+  color: #333;
+}
+
+.comment-date {
+  font-size: 12px;
+  color: #999;
+}
+
+.comment-text {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+  margin-bottom: 12px;
+}
+
+.comment-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.comment-action {
+  background: none;
+  border: none;
+  color: #999;
+  font-size: 13px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s ease;
+}
+
+.comment-action:hover {
+  color: #667eea;
+}
+
+.comment-replies {
+  margin-left: 64px;
+  padding-left: 20px;
+  border-left: 2px solid #f0f0f0;
+}

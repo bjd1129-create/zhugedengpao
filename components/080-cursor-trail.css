@@ -1,0 +1,29 @@
+/* ========================================
+   Component 080: Cursor Trail Effect
+   ======================================== */
+.cursor-trail-dot {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: #667eea;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cursor-trail-dot.active {
+  opacity: 1;
+}
+
+.cursor-trail-ring {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 2px solid rgba(102, 126, 234, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: transform 0.1s ease, opacity 0.3s ease;
+}

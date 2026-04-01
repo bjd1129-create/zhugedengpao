@@ -1,0 +1,86 @@
+# 股票监控配置文件
+# 复制此文件为 ~/clawd/quant-trading/config.yaml 并修改配置
+
+# 监控的股票列表
+symbols:
+  - 600519.SS    # 贵州茅台 (A 股)
+  - 000001.SZ    # 平安银行 (A 股)
+  - 0700.HK      # 腾讯控股 (港股)
+  - 9988.HK      # 阿里巴巴 (港股)
+  - AAPL         # 苹果 (美股)
+  - TSLA         # 特斯拉 (美股)
+  - NVDA         # 英伟达 (美股)
+
+# 推送配置
+push:
+  # 飞书推送
+  feishu:
+    enabled: true
+    webhook_url: "https://open.feishu.cn/open-apis/bot/v2/hook/YOUR_WEBHOOK_URL"
+    mention_users:
+      - "ou_xxxxx"  # 飞书用户 ID
+  
+  # 微信推送 (可选)
+  wechat:
+    enabled: false
+    corp_id: "YOUR_CORP_ID"
+    agent_id: "YOUR_AGENT_ID"
+    secret: "YOUR_SECRET"
+  
+  # Telegram 推送 (可选)
+  telegram:
+    enabled: false
+    bot_token: "YOUR_BOT_TOKEN"
+    chat_id: "YOUR_CHAT_ID"
+  
+  # 邮件推送 (可选)
+  email:
+    enabled: false
+    smtp_server: "smtp.gmail.com"
+    smtp_port: 587
+    sender: "alert@example.com"
+    recipients:
+      - "user@example.com"
+    username: "YOUR_USERNAME"
+    password: "YOUR_PASSWORD"
+
+# 指标参数
+indicators:
+  rsi:
+    period: 14
+    overbought: 70
+    oversold: 30
+  
+  macd:
+    fast: 12
+    slow: 26
+    signal: 9
+  
+  bollinger:
+    period: 20
+    std_dev: 2
+
+# 交易时段设置
+trading_hours:
+  a_share:
+    morning_start: "09:30"
+    morning_end: "11:30"
+    afternoon_start: "13:00"
+    afternoon_end: "15:00"
+  
+  hk_share:
+    morning_start: "09:30"
+    morning_end: "12:00"
+    afternoon_start: "13:00"
+    afternoon_end: "16:00"
+  
+  us_share:
+    start: "21:30"  # 北京时间
+    end: "04:00"    # 次日
+
+# 日志设置
+logging:
+  level: INFO  # DEBUG, INFO, WARNING, ERROR
+  file: "~/clawd/quant-trading/logs/monitor.log"
+  max_size: 10MB  # 日志文件最大大小
+  backup_count: 5  # 保留的备份文件数量

@@ -1,0 +1,80 @@
+/* ========================================
+   Component 031: Price Card
+   ======================================== */
+.price-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.price-card:hover {
+  transform: translateY(-8px);
+}
+
+.price-card.featured {
+  border: 2px solid #667eea;
+}
+
+.price-card.featured::before {
+  content: 'Popular';
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #667eea;
+  color: white;
+  padding: 4px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.price-label {
+  font-size: 14px;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.price-value {
+  font-size: 48px;
+  font-weight: 700;
+  color: #333;
+  margin: 16px 0;
+}
+
+.price-value .currency {
+  font-size: 24px;
+  vertical-align: super;
+}
+
+.price-value .period {
+  font-size: 16px;
+  color: #999;
+  font-weight: 400;
+}
+
+.price-features {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0;
+  text-align: left;
+}
+
+.price-features li {
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-features li::before {
+  content: '✓';
+  color: #22c55e;
+  font-weight: bold;
+}

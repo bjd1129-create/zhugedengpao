@@ -1,0 +1,45 @@
+/* ========================================
+   Component 050: Tabs Pill Style
+   ======================================== */
+.tabs-pill {
+  display: flex;
+  gap: 4px;
+  background: #f0f0f0;
+  padding: 4px;
+  border-radius: 30px;
+}
+
+.tab-pill-btn {
+  padding: 10px 24px;
+  background: none;
+  border: none;
+  border-radius: 26px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-pill-btn:hover {
+  color: #333;
+}
+
+.tab-pill-btn.active {
+  background: white;
+  color: #667eea;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.tab-pill-content {
+  margin-top: 20px;
+}
+
+.tab-pill-content > div {
+  display: none;
+}
+
+.tab-pill-content > div.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}

@@ -1,0 +1,12 @@
+name: "memos_searcher"
+description: "在回答用户问题前，先搜索 Memos 中是否有相关的历史记忆或信息"
+type: "shell"
+command: "curl -X GET 'http://localhost:5230/api/memos?search={query}'"
+parameters:
+  query:
+    type: "string"
+    description: "搜索关键词"
+examples:
+  - "搜索项目信息：天网项目"
+  - "搜索配置：数据库密码"
+  - "搜索偏好：用户偏好"

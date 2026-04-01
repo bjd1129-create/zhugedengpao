@@ -1,0 +1,13 @@
+{
+  "lastHeartbeat": null,
+  "lastChecks": {
+    "statusBrief": null,
+    "taskReview": null,
+    "processHealth": null
+  },
+  "todayBriefStatus": {
+    "morning": false,
+    "afternoon": false,
+    "evening": false
+  }
+}

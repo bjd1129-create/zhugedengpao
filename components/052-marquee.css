@@ -1,0 +1,35 @@
+/* ========================================
+   Component 052: Marquee / Scrolling Text
+   ======================================== */
+.marquee {
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-content {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 40px;
+  font-size: 18px;
+  color: #333;
+}
+
+.marquee-separator {
+  color: #667eea;
+  font-size: 24px;
+}

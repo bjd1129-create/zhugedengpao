@@ -10,9 +10,9 @@
 /* ---- Tokens ---- */
 :root {
   /* 温暖配色 */
-  --bg:          #FFFBF5;
-  --bg-subtle:    #FFF8F0;
-  --bg-warm:      #FFF3E6;
+  --bg:          #FFF8E1;
+  --bg-subtle:    #FFF8E1;
+  --bg-warm:      #FFF0E3;
   --surface:      #FFFFFF;
   --surface-warm: #FFF9F2;
   --card:         #FFFCFA;
@@ -21,19 +21,19 @@
   --text:         #3D2314;
   --text-mid:     #6B3F2A;
   --text-dim:     #8B5A3C;
-  --muted:        #A07858;
-  --accent:       #E8724A;
-  --accent-light: #FF9A6C;
-  --accent-dim:   rgba(232,114,74,0.10);
-  --accent-glow:  rgba(232,114,74,0.20);
+  --muted:        #7A5C3C;
+  --accent:       #E07A5A;
+  --accent-light: #F09080;
+  --accent-dim:   rgba(224,122,90,0.10);
+  --accent-glow:  rgba(224,122,90,0.20);
   --shadow-warm:  rgba(61,35,20,0.08);
   --shadow-deep:  rgba(61,35,20,0.12);
 
   /* 语义色 */
   --green:   #7CB87A;
-  --amber:   #E8724A;
+  --amber:   #E07A5A;
   --gray:    #C4A882;
-  --red:     #D4653B;
+  --red:     #C4614A;
   --yellow:  #F5C518;
 
   /* 字体 */
@@ -48,6 +48,23 @@
   --radius:     20px;
   --radius-sm:  14px;
   --radius-lg:  28px;
+
+  /* === 家的暖色调（配色师方案）=== */
+  --home-cream:     #FFF5E8;
+  --home-wood:      #C4956A;
+  --home-wood-deep: #8B5E3C;
+  --home-green:     #7CB87A;
+  --home-green-dim: #E8F5E4;
+  --home-gold:      #E8B86D;
+  --home-glow:      rgba(232,184,109,0.15);
+
+  /* 氛围渐变 */
+  --office-ambience: linear-gradient(135deg, #FFF8E1 0%, #FFF0E3 50%, #FFE8D6 100%);
+  --lamp-glow:      radial-gradient(ellipse at top, rgba(255,220,150,0.20) 0%, transparent 60%);
+
+  /* 阴影变体 */
+  --shadow-warm:  rgba(61,35,20,0.08);
+  --shadow-deep:  rgba(61,35,20,0.12);
 }
 
 html {

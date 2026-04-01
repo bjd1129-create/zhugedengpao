@@ -1,0 +1,73 @@
+/* ========================================
+   Component 030: Profile Card
+   ======================================== */
+.profile-card {
+  background: white;
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border: 4px solid #667eea;
+}
+
+.profile-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-name {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.profile-role {
+  font-size: 14px;
+  color: #667eea;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.profile-bio {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.profile-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.profile-social a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.profile-social a:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-3px);
+}

@@ -1,0 +1,32 @@
+
+---
+
+## 02:24 凌晨记录
+
+### 当前阻塞（白天处理）
+1. 配色师漫画返工：角色穿普通毛衣→需龙虾套装
+2. 浮蛙悬浮组件Bug：CSS有但HTML缺元素
+3. sessions_send通信不稳定
+
+### 今日待老庄决策
+1. 虾医Sprint 1验收（18测试全过）
+2. science.html素材（持续阻塞）
+
+---
+
+## 02:54 凌晨巡检
+
+### 虾医团队状态
+- doctor-pm 🔄 正在修复 evolver.ts ESM __dirname bug
+- 代码侠 ⏳ Sprint 2 的4个任务待执行（diagnose→patterns联动、sessions.ts、config.ts、sessions整合）
+
+### 官网巡检发现（协调官02:14）
+- ✅ 四格漫画连载区已上线（仅展示story1的8张）
+- ❌ 43张 Garfield Lobster 漫画完全未使用（躺在images/文件夹里）
+- ❌ 浮蛙悬浮组件 CSS写了但HTML忘了加（Bug级半成品）
+- ❌ 导航栏logo还是🦞emoji，没换真实mascot图
+
+### 待白天处理
+1. 浮蛙悬浮组件HTML Bug修复（代码侠）
+2. 导航栏mascot升级
+3. 43张漫画未使用问题

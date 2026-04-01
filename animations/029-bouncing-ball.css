@@ -1,0 +1,40 @@
+/* ========================================
+   CSS Animation 029: Bouncing Ball Animation
+   ======================================== */
+@keyframes bounce-ball {
+  0%, 100% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(-100px);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.bounce-ball {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  animation: bounce-ball 1s ease-in-out infinite;
+}
+
+@keyframes bounce-shadow {
+  0%, 100% {
+    transform: scaleX(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scaleX(0.5);
+    opacity: 0.1;
+  }
+}
+
+.bounce-shadow {
+  width: 50px;
+  height: 10px;
+  background: radial-gradient(ellipse, rgba(0,0,0,0.4), transparent);
+  border-radius: 50%;
+  animation: bounce-shadow 1s ease-in-out infinite;
+}

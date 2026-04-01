@@ -1,0 +1,24 @@
+{
+  "ts": "2026-03-31T22:58:46.287Z",
+  "url": "https://dengpao.pages.dev/",
+  "tool": "Lighthouse 12.8.2 CLI",
+  "categories": {
+    "performance": 96,
+    "accessibility": 82,
+    "seo": 100,
+    "bestPractices": 96
+  },
+  "metrics": {
+    "fcp": "1.34s",
+    "lcp": "1.72s",
+    "tbt": "4ms",
+    "cls": "0.0635"
+  },
+  "lcpElement": {
+    "src": "https://dengpao.pages.dev/images/garfield_lobster_001_01_office_v1.png",
+    "alt": "Day 0：我叫小花",
+    "loading": "eager",
+    "fetchPriority": "low",
+    "note": "fetchpriority=low使浏览器不再将此图作为LCP判定"
+  }
+}

@@ -1,0 +1,32 @@
+/* ========================================
+   Component 055: Color Picker Swatch
+   ======================================== */
+.color-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.color-swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.color-swatch:hover {
+  transform: scale(1.1);
+}
+
+.color-swatch.selected {
+  border-color: #333;
+  box-shadow: 0 0 0 2px white, 0 0 0 4px #667eea;
+}
+
+.color-swatch-lg {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+}

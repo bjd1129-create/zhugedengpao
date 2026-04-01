@@ -1,0 +1,270 @@
+/* 宫崎骏风格颜色方案 */
+/* 主色调：温暖橙棕、天空蓝、草地绿 */
+/* 背景：奶油暖黄 */
+/* 整体：治愈、自然、柔和 */
+
+/* ===== 基础变量 ===== */
+:root {
+  --ghibli-primary: #D4883C;      /* 温暖橙 */
+  --ghibli-primary-dark: #B8732E; /* 深橙棕 */
+  --ghibli-accent-blue: #7CB9E8;  /* 天空蓝 */
+  --ghibli-accent-green: #7BC67B; /* 草地绿 */
+  --ghibli-bg-warm: #FDF6E9;      /* 奶油暖黄 */
+  --ghibli-bg-cream: #F9F1E3;     /* 米色 */
+  --ghibli-brown: #A67C52;        /* 温暖棕 */
+  --ghibli-text: #4A3B2A;         /* 深棕文字 */
+  --ghibli-text-light: #7A6B5A;   /* 浅棕文字 */
+}
+
+/* ===== 全局背景 ===== */
+body {
+  background: linear-gradient(135deg, #FDF6E9 0%, #F9F1E3 100%) !important;
+}
+
+/* ===== 导航栏 ===== */
+nav {
+  background: rgba(253, 246, 233, 0.95) !important;
+  border-bottom-color: #E8DCC8 !important;
+}
+.nav-logo {
+  color: #D4883C !important;
+}
+.nav-links a:hover {
+  color: #D4883C !important;
+}
+
+/* ===== 主标题 ===== */
+.hero-v2-title h1 {
+  color: #4A3B2A !important;
+}
+.red, .hero-tagline-pill {
+  color: #D4883C !important;
+}
+.hero-tagline-pill {
+  background: rgba(212, 136, 60, 0.12) !important;
+}
+
+/* ===== 进度条 ===== */
+.progress-bar {
+  background: linear-gradient(90deg, #D4883C, #E5A853) !important;
+}
+
+/* ===== 按钮 ===== */
+.btn-red {
+  background: linear-gradient(135deg, #D4883C, #E5A853) !important;
+  box-shadow: 0 4px 15px rgba(212, 136, 60, 0.3) !important;
+}
+.btn-red:hover {
+  background: linear-gradient(135deg, #B8732E, #D4883C) !important;
+}
+.btn-outline {
+  border-color: #7CB9E8 !important;
+  color: #5A9BD5 !important;
+}
+.btn-outline:hover {
+  background: #7CB9E8 !important;
+  color: white !important;
+}
+
+/* ===== 卡片 ===== */
+.stat-panel {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #E8DCC8 !important;
+}
+.stat-panel-title {
+  color: #D4883C !important;
+}
+
+/* ===== 轮播箭头 ===== */
+.caro-arrow:hover {
+  border-color: #D4883C !important;
+  color: #D4883C !important;
+}
+.cdot.active {
+  background: #D4883C !important;
+}
+
+/* ===== 白板区域 ===== */
+.whiteboard {
+  background: linear-gradient(180deg, #FDF6E9 0%, #F9F1E3 100%) !important;
+}
+
+/* ===== 区块标题 ===== */
+.section-label {
+  color: #D4883C !important;
+}
+.section-title {
+  color: #4A3B2A !important;
+}
+
+/* ===== 标签 ===== */
+.skill-tag {
+  background: rgba(212, 136, 60, 0.15) !important;
+  color: #D4883C !important;
+}
+
+/* ===== 卡片悬停 ===== */
+.diary-card:hover, .skill-card:hover, .sci-card:hover {
+  border-color: #D4883C !important;
+}
+
+/* ===== 日记卡片 ===== */
+.diary-card .day {
+  background: linear-gradient(135deg, #D4883C, #E5A853) !important;
+}
+
+/* ===== 团队成员卡片 ===== */
+.stat-panel:nth-child(1) .stat-panel-title { color: #D4883C !important; }
+.stat-panel:nth-child(2) .stat-panel-title { color: #7CB9E8 !important; }
+
+/* ===== 能力展示 ===== */
+#science-section .section-title {
+  color: #4A3B2A !important;
+}
+#science-section a {
+  background: linear-gradient(135deg, #7CB9E8, #5A9BD5) !important;
+}
+
+/* ===== 能力标签 ===== */
+#science-section div[style*="background:#a02315"] {
+  background: linear-gradient(135deg, #D4883C, #E5A853) !important;
+}
+
+/* ===== 能力故事卡片 ===== */
+.origin-story {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #E8DCC8 !important;
+}
+.origin-text .quote {
+  color: #D4883C !important;
+}
+
+/* ===== 浮动吉祥物 ===== */
+.float-bubble {
+  border-color: #F0DCC0 !important;
+  box-shadow: 0 4px 20px rgba(212, 136, 60, 0.15) !important;
+}
+.bubble-tail {
+  border-color: #F0DCC0 !important;
+}
+.bubble-dot {
+  background: #F0DCC0 !important;
+}
+
+/* ===== 状态栏 ===== */
+#siteStatusBar {
+  background: linear-gradient(90deg, #D4883C, #E5A853) !important;
+}
+
+/* ===== 今日钩子 ===== */
+#todayHook {
+  background: rgba(212, 136, 60, 0.08) !important;
+  border-color: #F0DCC0 !important;
+}
+#todayHook a {
+  color: #D4883C !important;
+}
+
+/* ===== 英雄区卡片悬停 ===== */
+.c-card:hover {
+  box-shadow: 0 8px 32px rgba(212, 136, 60, 0.2) !important;
+}
+
+/* ===== 漫画区域 ===== */
+.comic-tab-btn {
+  color: #D4883C !important;
+}
+.comic-tab-btn[style*="background:#a02315"],
+.comic-tab-btn[style*="background: #a02315"] {
+  background: linear-gradient(135deg, #D4883C, #E5A853) !important;
+  color: white !important;
+  border-color: #D4883C !important;
+}
+
+/* ===== 连载故事卡片 ===== */
+a[onmouseover*="#a02315"] {
+  border-color: rgba(212, 136, 60, 0.2) !important;
+}
+
+/* ===== 底部CTA ===== */
+.cta h2 .red {
+  color: #D4883C !important;
+}
+
+/* ===== 页脚 ===== */
+footer {
+  background: #F9F1E3 !important;
+  border-top-color: #E8DCC8 !important;
+}
+
+/* ===== 全站链接悬停 ===== */
+a:hover {
+  color: #D4883C !important;
+}
+
+/* ===== 圆润感 ===== */
+.diary-card, .skill-card, .sci-card, .stat-panel, .origin-story {
+  border-radius: 16px !important;
+}
+
+/* ===== 柔和阴影 ===== */
+.diary-card:hover, .skill-card:hover {
+  box-shadow: 0 8px 24px rgba(212, 136, 60, 0.15) !important;
+}
+
+/* ===== 模态框 ===== */
+.hero-modal-box, .modal-content {
+  background: #FDF6E9 !important;
+}
+
+/* ===== 深色文字 ===== */
+h1, h2, h3, .section-title, .chapter-title {
+  color: #4A3B2A !important;
+}
+
+/* ===== 浅色文字 ===== */
+.section-desc, p {
+  color: #5A4A3A !important;
+}
+
+/* ===== 强调色 ===== */
+strong, b {
+  color: #D4883C !important;
+}
+
+/* ===== 按钮动画 ===== */
+.btn-red, .btn-outline {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+.btn-red:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(212, 136, 60, 0.35) !important;
+}
+
+/* ===== 浮动龙虾气泡 ===== */
+#mascotBubble {
+  color: #D4883C !important;
+}
+
+/* ===== 技术文章卡片 ===== */
+a[href*="juejin"] {
+  border-color: rgba(212, 136, 60, 0.2) !important;
+}
+a[href*="juejin"]:hover {
+  border-color: #D4883C !important;
+}
+
+/* ===== 评论表单 ===== */
+#cmtBtn {
+  background: linear-gradient(135deg, #D4883C, #E5A853) !important;
+}
+input:focus, textarea:focus {
+  border-color: #D4883C !important;
+}
+
+/* ===== 响应式调整 ===== */
+@media (max-width: 768px) {
+  .nav-logo {
+    color: #D4883C !important;
+  }
+}

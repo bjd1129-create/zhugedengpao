@@ -1,5 +1,5 @@
 # 配色师 TASKS.md
-**最后更新：** 2026-04-01 04:14（v29进化执行）
+**最后更新：** 2026-04-02 06:00（v32 进化执行）
 
 ---
 
@@ -7,10 +7,12 @@
 
 | # | 任务 | 来源 | 截止 | 状态 |
 |---|------|------|------|------|
-| 1 | Git BFG清理（保守方案） | v27起 | 待老庄授权 | ⏳ 脚本已写入MEMORY.md |
-| 2 | 飞书凭证配置 | v27起 | 待老庄配置 | ⏳ 步骤已写入MEMORY.md |
-| 3 | 官网部署验证 | v17起 | 待老庄确认 | ⏳ 需确认部署方式（Cloudflare Pages?） |
-| 4 | 漫画第一话正式生成 | v27起 | 待文案君脚本 | ⏳ 角色图已就绪 |
+| 1 | Git BFG 清理（保守方案） | v27 起 | 待老庄授权 | ⏳ 脚本已写入 MEMORY.md |
+| 2 | 飞书凭证配置 | v27 起 | 待老庄配置 | ⏳ 步骤已写入 MEMORY.md |
+| 3 | 官网部署验证 | v17 起 | 待老庄确认 | ⏳ 需确认部署方式（Cloudflare Pages?） |
+| 4 | 漫画第一话正式生成 | v27 起 | 待文案君脚本 | ✅ **56 张图片已就绪** (story1-7×8 格) |
+| 5 | 漫画专区首页落地 | v32 起 | 待代码侠执行 | ⏳ t-029 方案已交付 |
+| 6 | 浮蛙升级落地 | v32 起 | 待代码侠执行 | ⏳ t-030 方案已交付 |
 
 ---
 
@@ -19,18 +21,21 @@
 | # | 任务 | 完成时间 | 产出 |
 |---|------|---------|------|
 | - | 品牌色板建立 | 2026-03-30 | color-palette-2026-03-30.css |
-| - | 204处c0392b→#E07A5A替换 | 2026-03-31 11:57 | 29个HTML文件 |
-| - | hero-homepage.png生成 | 2026-03-31 12:06 | images/hero-homepage.png |
-| - | banner-opengraph.png生成 | 2026-03-31 | images/banner-opengraph.png |
-| - | 小花v4新形象 | 2026-03-31 17:42 | images/xiaohua-garfield-cute-v4.png |
+| - | 204 处 c0392b→#E07A5A 替换 | 2026-03-31 11:57 | 29 个 HTML 文件 |
+| - | hero-homepage.png 生成 | 2026-03-31 12:06 | images/hero-homepage.png |
+| - | banner-opengraph.png 生成 | 2026-03-31 | images/banner-opengraph.png |
+| - | 小花 v4 新形象 | 2026-03-31 17:42 | images/xiaohua-garfield-cute-v4.png |
 | - | 脑洞精灵角色图 | 2026-03-31 14:31 | images/xiaohua-comic-char.png |
 | - | mascot-greeting.png | 2026-03-31 13:22 | images/mascot-greeting.png |
 | - | xiaohua.webp + xiaohua_banner.webp | 2026-04-01 03:19 | images/ |
+| - | **龙虾漫画 56 张**（7 故事×8 格） | 2026-04-02 05:01 | images/comic-lobster-story{1-7}-p{1-8}.png |
 | - | 配色决策日志 | 2026-03-31 11:58 | content/color-decisions-log.md |
 | - | 设计资产索引 | 2026-03-31 17:03 | content/design-assets-index.md |
-| - | COMIC-WORKFLOW.md建立（含路径修正） | 2026-04-01 04:14→04:44 | 漫画制作流程文档 |
-| - | 进化cron改为每日06:00 | 2026-04-01 04:44 | cron配置已更新 |
-| - | 进化报告v14-v29 | 持续 | content/配色师-进化报告.md |
+| - | COMIC-WORKFLOW.md 建立（含路径修正） | 2026-04-01 04:14→04:44 | 漫画制作流程文档 |
+| - | 进化 cron 改为每日 06:00 | 2026-04-01 04:44 | cron 配置已更新 |
+| - | t-029-comic-strip-design.md | 2026-04-02 | 首页漫画连载专区 UI 方案 |
+| - | t-030-floating-xiaohua-design.md | 2026-04-02 | 浮蛙升级（时间感知台词） |
+| - | 进化报告 v14-v32 | 持续 | content/配色师 - 进化报告.md |
 
 ---
 
@@ -38,12 +43,14 @@
 
 | 优先级 | 任务 | 说明 |
 |--------|------|------|
-| 🔴 高 | 修正COMIC-WORKFLOW.md路径 | comic-character-main.png → xiaohua-comic-char.png |
-| 🔴 高 | 漫画第一话正式生成 | 等待文案君脚本，角色图已就绪 |
+| 🔴 高 | 漫画专区首页落地 | 与代码侠协作执行 t-029 方案 |
+| 🔴 高 | 浮蛙升级落地 | 与代码侠协作执行 t-030 方案 |
+| 🟡 中 | Git BFG 清理授权跟进 | 超 5 天未响应，需主动跟进 |
+| 🟡 中 | 飞书凭证配置跟进 | 超 5 天未响应，需主动跟进 |
 | 🟡 中 | 飞书通知测试 | 凭证配置好后第一时间测试 |
-| 🟡 中 | 官网部署验证 | 确认新形象是否在dengpao.pages.dev生效 |
+| 🟢 低 | 官网部署验证 | 确认新形象是否在 dengpao.pages.dev 生效 |
 | 🟢 低 | 深色模式配色方案 | 未来扩展 |
 
 ---
 
-**配色师 · v30更新于 2026-04-01 04:44**
+**配色师 · v32 更新于 2026-04-02 06:00**

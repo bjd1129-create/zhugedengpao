@@ -278,4 +278,29 @@
 
 ---
 
-*最后更新：2026-04-01 21:00 | 小花 🦞*
+## OpenClaw进化研究（2026-04-02更新）
+
+**最新稳定版**：v2026.3.23-2（含Plugin SDK稳定化）
+**最新版本**：v2026.3.28（2026-03-29发布，Breaking变更）
+- Qwen认证迁移至Model Studio（旧版OAuth已移除）
+- xAI捆绑包升级至Responses API + x_search原生搜索
+- 新增MiniMax图像生成（image-01，支持图像编辑）
+- 工具执行审批钩子（requireApproval）支持暂停等用户确认
+- 配置迁移规则调整：仅保留近两月配置
+
+**三件套安装顺序**：Self-Evolve → Capability Evolver → Self-Improving Agent
+
+**安全警示（Lethal Trifecta）**：
+- 自我修改型Agent + 私有数据访问 + 外部通信 = 极高风险
+- ClawHub发现341个恶意技能，1.5M tokens泄露
+- 防护：只装主流渠道验证插件，定期轮换API Key
+
+**三步自动进化闭环**：
+1. Capability Evolver：`claw config capability-evolver --auto-optimize=true --interval=24h`
+2. 子Agent晚间错峰复盘（避免资源冲突）
+3. 凌晨4点自动复盘，更新MEMORY.md
+
+详细研究：agents/洞察者/进化研究-2026-04-02.md
+
+---
+*最后更新：2026-04-02 01:15 | 小花 🦞*

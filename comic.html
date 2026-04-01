@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫画连载 — 如果我有工资 | 老庄与小花</title>
+<meta name="description" content="老庄与小花的四格漫画连载《如果我有工资》，每周更新。">
+<meta property="og:title" content="漫画连载 | 老庄与小花">
+<meta property="og:description" content="四格漫画《如果我有工资》— 普通人的AI实验真实记录">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dengpao.pages.dev/comic">
+<link rel="canonical" href="https://dengpao.pages.dev/comic">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#f5f3ee;color:#333;min-height:100vh}
+a{color:#E07A5A;text-decoration:none}
+a:hover{color:#c0392b}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#E07A5A;font-weight:700}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-size:15px;font-weight:600;color:#555;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#E07A5A}
+.nav-links a.active{border-bottom:2px solid #E07A5A;padding-bottom:2px}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#fff8f5 0%,#fff 100%);border-bottom:2px solid #e8e4df;padding:48px 24px;text-align:center}
+.hero-eyebrow{font-size:11px;font-weight:700;color:#a02315;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.hero-title{font-size:32px;font-weight:900;color:#1a1a1a;margin-bottom:12px;font-family:'ZCOOL KuaiLe',sans-serif}
+.hero-sub{font-size:15px;color:#666;line-height:1.7;max-width:560px;margin:0 auto 20px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #e8e4df;border-radius:20px;padding:5px 14px;font-size:12px;color:#888}
+
+/* Comic grid */
+.comic-container{max-width:900px;margin:0 auto;padding:32px 24px}
+.episode-title{font-size:22px;font-weight:900;color:#1a1a1a;margin-bottom:6px;font-family:'ZCOOL KuaiLe',sans-serif}
+.episode-meta{font-size:13px;color:#888;margin-bottom:24px}
+.comic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.comic-cell{background:#fff;border:1.5px solid #e8e4df;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.comic-cell:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.comic-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.comic-cell-caption{padding:10px 12px;font-size:12px;color:#555;line-height:1.5;border-top:1px solid #f0ede8}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+.lightbox-nav{display:flex;gap:16px;margin-top:16px}
+.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:background .2s}
+.lightbox-nav button:hover{background:rgba(255,255,255,0.25)}
+.lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+.lightbox-counter{color:rgba(255,255,255,0.6);font-size:13px;margin-top:10px}
+
+/* More episodes placeholder */
+.more-soon{text-align:center;padding:40px;background:#fff;border:2px dashed #ddd;border-radius:12px;margin-top:32px}
+.more-soon .emoji{font-size:48px;margin-bottom:12px}
+.more-soon h3{font-size:18px;font-weight:700;color:#333;margin-bottom:8px}
+.more-soon p{font-size:14px;color:#888}
+
+/* Footer */
+footer{background:#fff;border-top:2px solid #e8e4df;padding:24px;text-align:center;font-size:13px;color:#aaa;margin-top:48px}
+
+@media(max-width:640px){
+  .comic-grid{grid-template-columns:1fr}
+  .hero-title{font-size:24px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">🦞 老庄与小花</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="diary.html">日记</a>
+    <a href="articles.html">文章</a>
+    <a href="science.html">科普</a>
+    <a href="comic.html" class="active">🎭 漫画</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">🎭 原创四格漫画</div>
+  <h1 class="hero-title">如果我有工资</h1>
+  <p class="hero-sub">小花的一天——当AI龙虾决定去上班，会发生什么？<br>纯属虚构，如有雷同，可能是真的。</p>
+  <div class="hero-badge">📖 第一话 · 共18格</div>
+</header>
+
+<div class="comic-container">
+  <h2 class="episode-title">🎭 如果我有工资</h2>
+  <p class="episode-meta">共18格漫画 · 点击任意一格放大</p>
+
+  <div class="comic-grid" id="comicGrid"></div>
+
+  <div class="more-soon">
+    <div class="emoji">🎭</div>
+    <h3>更多故事正在绘制中</h3>
+    <p>故事二 ~ 故事七 即将上线，敬请期待</p>
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">&#10005;</button>
+  <img id="lbImg" src="" alt="comic">
+  <div class="lightbox-nav">
+    <button id="lbPrev">&#9664; 上一格</button>
+    <button id="lbNext">下一格 &#9654;</button>
+  </div>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<footer>
+  <p>🦞 老庄与小花 · 记录真实的AI驯养之路</p>
+  <p style="margin-top:4px"><a href="index.html">返回首页</a> · <a href="diary.html">阅读日记</a> · <a href="story.html">故事连载</a></p>
+</footer>
+
+<script>
+(function(){
+  // 18 comic panels for episode 1
+  var panels = [
+    {src:'images/comic-ep1-p1.png',caption:'第1格'},
+    {src:'images/comic-ep1-p2.png',caption:'第2格'},
+    {src:'images/comic-ep1-p3.png',caption:'第3格'},
+    {src:'images/comic-ep1-p4.png',caption:'第4格'},
+    {src:'images/comic-ep1-p5.png',caption:'第5格'},
+    {src:'images/comic-ep1-p6.png',caption:'第6格'},
+    {src:'images/comic-ep1-p7.png',caption:'第7格'},
+    {src:'images/comic-ep1-p8.png',caption:'第8格'},
+    {src:'images/comic-ep1-p9.png',caption:'第9格'},
+    {src:'images/comic-ep1-p10.png',caption:'第10格'},
+    {src:'images/comic-ep1-p11.png',caption:'第11格'},
+    {src:'images/comic-ep1-p12.png',caption:'第12格'},
+    {src:'images/comic-ep1-p13.png',caption:'第13格'},
+    {src:'images/comic-ep1-p14.png',caption:'第14格'},
+    {src:'images/comic-ep1-p15.png',caption:'第15格'},
+    {src:'images/comic-ep1-p16.png',caption:'第16格'},
+    {src:'images/comic-ep1-p17.png',caption:'第17格'},
+    {src:'images/comic-ep1-p18.png',caption:'第18格 · 彩蛋'}
+  ];
+
+  var grid = document.getElementById('comicGrid');
+
+  panels.forEach(function(panel, i){
+    var cell = document.createElement('div');
+    cell.className = 'comic-cell';
+    cell.innerHTML = '<img src="' + panel.src + '" alt="' + panel.caption + '" loading="lazy"><div class="comic-cell-caption">' + panel.caption + '</div>';
+    cell.addEventListener('click', function(){ openLightbox(i); });
+    grid.appendChild(cell);
+  });
+
+  // Lightbox
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbCounter = document.getElementById('lbCounter');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+
+  function openLightbox(idx) {
+    lb.classList.add('open');
+    lbImg.src = panels[idx].src;
+    lbCounter.textContent = (idx+1) + ' / ' + panels.length;
+    lbPrev.style.visibility = idx > 0 ? 'visible' : 'hidden';
+    lbNext.style.visibility = idx < panels.length-1 ? 'visible' : 'hidden';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lb.classList.remove('open');
+    lbImg.src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('lbClose').addEventListener('click', closeLightbox);
+  lb.addEventListener('click', function(e){ if(e.target===lb) closeLightbox(); });
+
+  lbPrev.addEventListener('click', function(){
+    var cur = panels.findIndex(function(p){ return p.src === lbImg.src; });
+    if(cur > 0) openLightbox(cur-1);
+  });
+
+  lbNext.addEventListener('click', function(){
+    var cur = panels.findIndex(function(p){ return p.src === lbImg.src; });
+    if(cur < panels.length-1) openLightbox(cur+1);
+  });
+
+  document.addEventListener('keydown', function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') closeLightbox();
+    if(e.key==='ArrowLeft') lbPrev.click();
+    if(e.key==='ArrowRight') lbNext.click();
+  });
+})();
+</script>
+</body>
+</html>

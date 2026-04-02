@@ -15,6 +15,39 @@
 
 ---
 
+## OpenClaw 自我进化体系（2026-04-02 更新）
+
+### 三件套（已验证可实施）
+1. **Self-Evolve Plugin** — Q值强化学习+RAG，self-evolve.club 共享网络
+   - 推荐 balanced 模式（默认）
+   - 参数：minAbsReward=0.15, minRewardConfidence=0.55, retrieval.tau=0.85
+   - 需 OpenClaw 2026.3.2+，当前运行 v2026.3.31 ✓
+2. **Capability Evolver** — GEP 引导进化协议，防失控
+   - `/evolve` 扫描 memory/找优化点
+   - 可配置每24小时自动运行
+3. **Self-Improving Agent** — .learnings 文件系统，凌晨4点自动复盘
+
+### 每日自动化进化 Cron（工作日 8:30）
+- 扫描 Anthropic Engineering + Simon Willison + Hacker News + GitHub Trending
+- 对比 AGENTS.md/TOOLS.md/LESSONS.md 找差距
+- 输出 experiments/improvements.json
+
+### 稳定运行 7 法则
+1. 模型路由（省 70-80% 费用）
+2. 所有提供商设置消费上限
+3. 结构化 SOUL.md（含 Error state / Boundaries / Restrictions）
+4. 安全基线（Gateway 127.0.0.1，技能安装前读 SKILL.md）
+5. 配置文件版本控制
+6. Self-Healing 心跳每小时 + 每日全量扫描
+7. 凌晨4点自动复盘 + Self-Evolve 持续学习
+
+### 记忆防崩溃铁律
+- 所有规则必须写入 MEMORY.md / AGENTS.md
+- 对话中说的压缩后可能消失
+- 验证：`openclaw memory status` / `openclaw memory search`
+
+---
+
 ## 一张纸摘要（必读）
 
 **老庄**

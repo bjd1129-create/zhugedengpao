@@ -75,6 +75,7 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Long+Cang&family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700;900&family=&family=Ma+Shan+Zheng&display=swap"></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
+@keyframes breathe{0%,100%{box-shadow:0 4px 16px rgba(224,122,90,0.35)}50%{box-shadow:0 4px 28px rgba(224,122,90,0.7),0 0 16px rgba(224,122,90,0.35)}}
 body{font-size:16px;font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;color:#222;overflow-x:hidden}
 
 /* Progress bar */
@@ -1813,7 +1814,7 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
     </div>
     <div class="diary-carousel-nav" id="diaryCarouselDots"></div>
   </div>
-  <span class="float-lobster" id="floatLobster" style="font-size:0;cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))"><img src="images/xiaohua-garfield-lobster-v2.jpg" alt="小花" style="width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;border:3px solid #D4883C;box-shadow:0 4px 16px rgba(212,136,60,0.3)"></span>
+  <span class="float-lobster" id="floatLobster" style="font-size:0;cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))"><img src="images/xiaohua-garfield-lobster-v2.jpg" alt="小花" style="width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;border:3px solid #E07A5A;box-shadow:0 4px 16px rgba(224,122,90,0.35);animation:breathe 3s ease-in-out infinite"></span>
 </div>
 <script>
 (function(){

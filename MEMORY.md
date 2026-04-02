@@ -17,13 +17,11 @@
 
 ## OpenClaw 自我进化体系（2026-04-02 更新）
 
-### 三件套（2026-04-03 凌晨核实）
-1. **Self-Evolve Plugin** — ❌ 未安装（MEMORY.md此前记录有误）
-   - 安装命令：`npx clawhub@latest install self-evolve-skill`
+### 三件套（2026-04-03 05:38 更新）
+1. **Self-Evolve Plugin** — ✅ 已启用（config.patch成功）
    - 参数：minAbsReward=0.15, minRewardConfidence=0.55, retrieval.tau=0.85
    - 需 OpenClaw 2026.3.2+，当前运行 v2026.3.31 ✓
-2. **Capability Evolver** — ❌ 未安装
-   - 安装命令：`claw install capability-evolver`
+2. **Capability Evolver Pro** — ✅ 已启用（config.patch成功）
    - `/evolve` 扫描 memory/找优化点
 3. **Self-Improving Agent** — ✅ .learnings目录存在
    - 文件：ERRORS.md / LEARNINGS.md / EVOLUTION.md / FEATURE_REQUESTS.md

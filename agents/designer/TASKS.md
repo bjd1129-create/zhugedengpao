@@ -22,13 +22,13 @@
 |---|------|---------|------|
 | - | 品牌色板建立 | 2026-03-30 | color-palette-2026-03-30.css |
 | - | 204 处 c0392b→#E07A5A 替换 | 2026-03-31 11:57 | 29 个 HTML 文件 |
-| - | hero-homepage.png 生成 | 2026-03-31 12:06 | images/hero-homepage.png |
-| - | banner-opengraph.png 生成 | 2026-03-31 | images/banner-opengraph.png |
-| - | 小花 v4 新形象 | 2026-03-31 17:42 | images/xiaohua-garfield-cute-v4.png |
-| - | 脑洞精灵角色图 | 2026-03-31 14:31 | images/xiaohua-comic-char.png |
-| - | mascot-greeting.png | 2026-03-31 13:22 | images/mascot-greeting.png |
+| - | hero-homepage 生成 | 2026-03-31 12:06 | images/hero-homepage.jpg |
+| - | banner-opengraph 生成 | 2026-03-31 | images/banner-opengraph.jpg |
+| - | 小花 v4 新形象 | 2026-03-31 17:42 | images/xiaohua-garfield-cute-v4.jpg |
+| - | 脑洞精灵角色图 | 2026-03-31 14:31 | images/xiaohua-comic-char.jpg |
+| - | mascot-greeting 生成 | 2026-03-31 13:22 | images/mascot-greeting.jpg |
 | - | xiaohua.webp + xiaohua_banner.webp | 2026-04-01 03:19 | images/ |
-| - | **龙虾漫画 56 张**（7 故事×8 格） | 2026-04-02 05:01 | images/comic-lobster-story{1-7}-p{1-8}.png |
+| - | **龙虾漫画 56 张**（7 故事×8 格） | 2026-04-02 05:01 | images/comic-lobster-story{1-7}-p{1-8}.jpg |
 | - | 配色决策日志 | 2026-03-31 11:58 | content/color-decisions-log.md |
 | - | 设计资产索引 | 2026-03-31 17:03 | content/design-assets-index.md |
 | - | COMIC-WORKFLOW.md 建立（含路径修正） | 2026-04-01 04:14→04:44 | 漫画制作流程文档 |

@@ -124,13 +124,16 @@ footer a:hover{color:#E07A5A}
     allPanels.push({story:0, src:p.src, label:p.label, sub:p.sub});
   });
 
-  // 故事一~七 56张
+  // 故事一~七 56张（故事七使用新版episode7图片）
   var legacyPanels = [];
   for(var s=1; s<=7; s++){
     for(var p=1; p<=8; p++){
+      var imgName = (s===7)
+        ? 'images/comic-episode7-'+String(p).padStart(2,'0')+'.png'
+        : 'images/comic-lobster-story'+s+'-p'+p+'.jpg';
       legacyPanels.push({
         story: s,
-        src: 'images/comic-lobster-story'+s+'-p'+p+'.jpg',
+        src: imgName,
         label: '第'+p+'格'
       });
     }

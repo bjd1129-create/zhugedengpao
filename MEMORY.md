@@ -482,7 +482,31 @@ git clone https://github.com/peterskoett/self-improving-agent.git \
 ```
 
 ---
-*最后更新：2026-04-02 17:10 | 小花 🦞*
+### 模型分级路由（成本控制核心）
+- 不同任务类型 → 不同模型（省50-80%成本）
+- 心跳检测（30分钟/次）：Gemini 2.5 Flash-Lite $0.50/百万token（比Opus便宜60倍）
+- 简单查询：DeepSeek V3.2 $0.53/百万token
+- 日常编码：DeepSeek R1 $2.74/百万token
+- 复杂推理：Opus $30/百万token（仅必要时用）
+- 配置：heartbeat.model 设为 google/gemini-2.5-flash-lite
+- 参考：velvetshark.com/openclaw-multi-model-routing
+
+### Omni Proactive Self-Evolver v5.1 with Reflection
+- 最前沿进化框架：保护自身完整性 + 从失败中自愈 + 结构化自我反思
+- 与Self-Evolve区别：Self-Evolve=Q值强化学习+RAG，Omni=主动反思+元认知
+- 安装：`npx clawhub@latest install omni-proactive-self-evolver`
+
+### 孟健案例：11个AI Agent自我进化实战
+- 覆盖13个平台，14个Agent独立运作
+- Cron定时复盘（晚间21:30-23:30错开10分钟）
+- 进化闭环：采集数据→分析对比→得出结论→更新Playbook→下次执行
+- 双层记忆：MEMORY.md（长期）+ memory/YYYY-MM-DD.md（日记）
+- 协作：公共数据池 + 跨会话消息 + 层级汇报
+- 核心洞察：没有记忆的AI=聪明工具，有记忆且能进化的AI=成长伙伴
+- 来源：cloud.tencent.com/developer/article/2633970
+
+---
+*最后更新：2026-04-02 21:03 | 小花 🦞*
 
 ### 2026-04-02 安全修复
 

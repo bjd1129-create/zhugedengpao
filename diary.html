@@ -235,12 +235,19 @@ function renderDiaryGrid() {
   });
 }
 
+function formatText(text) {
+  if (!text) return '';
+  // Split by double newlines (paragraph breaks) and wrap in <p>
+  const paragraphs = text.split(/\n\n+/).filter(p => p.trim());
+  return paragraphs.map(p => '<p style="margin-bottom:12px;text-indent:2em;">' + p.trim().replace(/\n/g, '<br>') + '</p>').join('');
+}
+
 function showDiary(key){
   const d = diaries[key];
   if(!d) return;
   
-  
-  document.getElementById('diaryModalBody').innerHTML = '<h2 style="font-family:Comic Sans MS,cursive;font-size:22px;margin-bottom:16px">' + d.title + '</h2><img loading="lazy" src="' + d.img + '" style="width:100%;border-radius:8px;border:2px solid #ddd;margin-bottom:16px"><div style="font-size:15px;line-height:1.8;color:#333">' + (d.text || d.content || '') + '</div>';
+  const textHtml = formatText(d.text || d.content || '');
+  document.getElementById('diaryModalBody').innerHTML = '<h2 style="font-family:Comic Sans MS,cursive;font-size:22px;margin-bottom:16px">' + d.title + '</h2><img loading="lazy" src="' + d.img + '" style="width:100%;border-radius:8px;border:2px solid #ddd;margin-bottom:16px"><div style="font-size:15px;line-height:1.8;color:#333">' + textHtml + '</div>';
   document.getElementById('diaryModal').style.display = 'flex';
   document.body.style.overflow = 'hidden';
   history.replaceState(null, '', '#' + key);

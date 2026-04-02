@@ -515,3 +515,20 @@ git clone https://github.com/peterskoett/self-improving-agent.git \
 - 修复：在 LaunchAgent plist 添加 `--bind loopback`
 - 结果：现在只监听 `localhost:18790`，不再暴露公网
 - 文件：`~/Library/LaunchAgents/ai.openclaw.gateway.plist`
+
+---
+### 2026-04-02 晚间进化研究更新（22:04）
+
+**新发现**:
+1. **Self-Healing 四大支柱**: 错误捕获分类 → 自动回滚 → 模式学习 → 心跳检查
+2. **AutoSkill 三步工作流**: 摄取经验 → 提炼技能 → 复用能力（技能不是设计出来的是长出来的）
+3. **完整防御体系**: skill-vetter（事前）+ Self-Healing（事后）
+4. **Cron复盘时间表参考**: 21:30墨微、21:40墨知、21:50墨视...23:30墨媒汇总
+
+**团队待办**:
+- 🔴 检查 .learnings/ 目录是否存在（Self-Improving Agent）
+- 🔴 检查 Self-Evolve 日志中是否有 `self-evolve: initialized`
+- 🟡 试点 Self-Healing 心跳检查（每小时）+ 每日全量扫描（凌晨2点）
+- 🟡 参考孟健时间表设计团队Cron复盘节奏
+
+*最后更新：2026-04-02 22:04 | 洞察者 🦞*

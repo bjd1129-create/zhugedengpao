@@ -313,8 +313,9 @@
 
 **安全警示（Lethal Trifecta）**：
 - 自我修改型Agent + 私有数据访问 + 外部通信 = 极高风险
-- ClawHub发现341个恶意技能，1.5M tokens泄露
-- 防护：只装主流渠道验证插件，定期轮换API Key
+- ⚠️ ClawHub已发现824+个恶意技能（2026-04调查），占市场20%+，安装前必须完整审查SKILL.md源码
+- ⚠️ ZeroClaw下架事件：GitHub组织全网404，不要单一依赖来源，定期备份重要skill
+- 防护：只装主流渠道验证插件（Self-Evolve Plugin / Capability Evolver均来自主流渠道），定期轮换API Key
 
 **三步自动进化闭环**：
 1. Capability Evolver：`claw config capability-evolver --auto-optimize=true --interval=24h`
@@ -334,6 +335,25 @@
 - 查看.learnings/目录 — ERRORS.md / LEARNINGS.md / FEATURE_REQUESTS.md
 
 ### 详细研究：agents/洞察者/进化研究-2026-04-02.md（第二版，2026-04-02下午更新）
+
+**v2026.3 新增核心功能（2026-04-02补充）**：
+- ContextEngine 智能修剪：自动识别任务真正需要的信息，50轮对话 context 使用量下降约 30%
+- /btw 边栏问答：主任务运行中用 `/btw` 打断，AI在边栏回答，不污染主任务 context
+- 可插拔沙箱后端：OpenShell mirror（Mac友好，内存仅为Docker一半）、OpenShell remote、SSH sandbox
+- Firecrawl集成：解决网页抓取弱项
+- 增强人类介入工作流：AI关键节点暂停问"Is this right?"
+
+**Self-Evolve Plugin 关键参数（2026-04-02更新）**：
+- 推荐版本：**OpenClaw 2026.3.2+**（当前运行 2026.3.31 ✅）
+- 三大学习模式：`balanced`（默认，工具调用优先）/ `tools_only`（最低token消耗）/ `all`（最高消耗）
+- 核心参数：`minAbsReward=0.15`，`minRewardConfidence=0.55`，`retrieval.tau=0.85`
+- 反馈技巧：**明确Praise > 模糊消息**，做错要明确指出触发 down-rank
+- 记忆上限：`memory.maxEntries=200`，超过后保留高价值记忆
+
+**Capability Evolver 审核模式（2026-04-02新增）**：
+- `node index.js --review`：执行前暂停等待人类确认，适合生产环境
+- `EVOLVER_LLM_REVIEW=1`：第二次LLM审查后再固化
+- `EVOLVER_ROLLBACK_MODE=hard/stash`：失败自动回滚，安全机制
 
 **OpenClaw-RL（重大新进展）**：
 - GitHub: Gen-Verse/OpenClaw-RL，arxiv.org/abs/2603.10165（HuggingFace日榜第1）

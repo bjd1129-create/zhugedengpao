@@ -269,6 +269,12 @@
 - 配置全量扫描：`openclaw cron add --id "self-healing-daily-scan" --schedule "0 2 * * *"`（凌晨2点）
 - 7×24小时运行团队必备
 
+### 进化系统深度更新（2026-04-03 早研究）
+- **Self-Evolve 隐私双重脱敏**：本地 sanitizeMemoryText（去除元数据）→ LLM summarizer（敏感数据→[REDACTED_*]），远程只传 triplet
+- **Capability Evolver 7种策略**：balanced | innovate | harden | repair-only | early-stabilize | steady-state | auto
+- **EvoMap A2A 协议**：节点注册→ hello → heartbeat → publish/fetch/review，hub: evomap.ai
+- **当前版本 v2026.3.31 ✅**：完全满足 Self-Evolve 所需的 2026.3.2+ 要求
+
 ### AutoSkill（前沿实验）⚠️ 新增
 - 来源：华东师范大学 + 上海人工智能实验室
 - 核心：技能不是设计的，是从真实交互中"长出来"的

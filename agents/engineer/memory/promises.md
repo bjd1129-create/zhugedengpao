@@ -48,13 +48,15 @@
 
 ---
 
-## v76 更新（22:00）
+## v84 更新（04-16）
 
-- 33个 diary 页面 commit ✅（665af9f）
-- 进化报告 v76 commit ✅（2fc40df）
-- **元循环结构性解法**：进化报告降级为 Git commit message，cron不再强制写独立报告
-- **新规则**：commit 先于报告；有 commit 才写报告
-- P1-EVO：等配色师素材
-- P2-EVO：等team素材
-- P2-Smoke：阈值文档化（04-03执行）
+- comic.html Bugfix ✅（02:38，引号转义 JS 语法错误）
+- evolution.html 第三周内容 ✅（03:44，b62c2c5）
+- 协作文件 commit ✅（e3a48ff，7个文件）
+- style.css 颜色变量审计 ✅（只读，不动手）
+  - 发现：--amber 和 --accent 值相同但命名不同
+  - 决定：不动，改动风险高于收益
+- 进化报告 v84 ✅（66a0006）
+- **元循环结构性解法 v2**：无新 deploy 不写报告；有 commit 无 deploy 只写 message；装饰性报告不计入
+- P2-Smoke：阈值文档化（行13-28 变量区域标注了来源）
 - **永久搁置**：WebP comic / Playwright CI / git push

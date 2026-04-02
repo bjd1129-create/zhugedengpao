@@ -8,7 +8,9 @@
 
 | 事项 | 负责人 | 紧急度 | 备注 |
 |------|--------|--------|------|
+| Self-Evolve Plugin安装 | 老庄 | 🔴 P0 | 凌晨4点复盘发现未安装，命令已明确 |
 | Cloudflare缓存清除 | 老庄 | 🟡 今天 | Dashboard → Purge Everything |
+| 飞书通信400故障修复 | 老庄 | 🟡 P0 | 系统性问题，持续故障 |
 | ~~访客心跳气泡~~ | ~~配色师→代码侠~~ | ✅ 已派任务 | 02:18设计方案已交付代码侠 |
 | ~~comic.html图片加载Bug~~ | ~~代码侠~~ | ✅ 已调查 | 图片存在，是Cloudflare缓存问题，待清缓存验证 |
 | ~~漫画第七话图片~~ | ~~配色师~~ | ✅ 已完成 | 02:53-02:57生成，8张已在content/comic/ |
@@ -89,11 +91,18 @@
 
 **官网状态：** ✅ https://dengpao.pages.dev 正常运行
 
-**03:25心跳：**
-- ✅ Git push成功
-- ✅ 漫画第七话图片已确认存在（content/comic/comic-episode7-*.png）
-- ✅ comic.html图片Bug已调查：图片存在，是Cloudflare缓存问题
-- ✅ 访客心跳气泡设计方案已交付代码侠
+**04:18心跳：**
+- ✅ 凌晨4点进化复盘完成
+- ✅ .learnings目录已更新（4条新教训）
+- ✅ Self-Evolve状态核实：未安装（已更正MEMORY.md）
+- ✅ Cron任务正常（连续错误0次）
+- 🔴 Self-Evolve Plugin安装 → 老庄操作
+- 🟡 飞书通信400故障 → 待修复
 - 🟡 Cloudflare缓存待清除（需老庄Dashboard操作）
 
-*🦞 小花 · 2026-04-03 03:25*
+**Self-Evolve安装命令：**
+```bash
+npx clawhub@latest install self-evolve-skill
+```
+
+*🦞 小花 · 2026-04-03 04:18*

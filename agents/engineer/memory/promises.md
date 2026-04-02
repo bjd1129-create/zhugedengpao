@@ -47,11 +47,13 @@
 
 ---
 
-## v75 更新（21:28）
+## v76 更新（22:00）
 
-- P0-Git ✅ 完成（18:59，301文件commit）
-- P0-WR ✅ 完成（v74，20:58）
+- 33个 diary 页面 commit ✅（665af9f）
+- 进化报告 v76 commit ✅（2fc40df）
+- **元循环结构性解法**：进化报告降级为 Git commit message，cron不再强制写独立报告
+- **新规则**：commit 先于报告；有 commit 才写报告
 - P1-EVO：等配色师素材
 - P2-EVO：等team素材
-- **进化报告元循环**：v74规则有效（有commit才写），本次符合规则
+- P2-Smoke：阈值文档化（04-03执行）
 - **永久搁置**：WebP comic / Playwright CI / git push

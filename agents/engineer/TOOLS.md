@@ -5,8 +5,18 @@
 ### 部署命令
 ```bash
 cd /Users/bjd/Desktop/ZhugeDengpao-Team
-source .cloudflare.env && env -u http_proxy -u https_proxy npx wrangler pages deploy . --project-name=dengpao --commit-dirty=true
+source .cloudflare.env && env -u http_proxy -u https_proxy \
+  npx wrangler pages deploy . \
+  --project-name=dengpao \
+  --branch=main \
+  --commit-dirty=true
 ```
+
+**参数说明：**
+- `--branch=main`：更新 dengpao.pages.dev（生产环境）
+- `--branch=production`：创建独立 preview URL（不同 URL，不是生产）
+- `--commit-dirty=true`：跳过 git 状态检查，直接 deploy 脏目录
+- **不需要 `--branch`**：生成随机 preview URL，不更新生产环境（错误用法）
 
 ### Cloudflare
 - **项目名**: dengpao

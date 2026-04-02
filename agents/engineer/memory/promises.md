@@ -40,6 +40,7 @@
 | P0-WR | wrangler deploy参数整理到TOOLS.md | P0 | ✅ v74完成 | 04-02 20:58 |
 | P1-EVO | evolution.html 内容整合（team/目录素材） | P1 | ⏸ 等配色师素材 | - |
 | P2-EVO | 进化周记第二周内容 | P2 | ⏸ 等team素材 | - |
+| P0-E7 | comic-episode7 新图集成 | P0 | ✅ 04-03 03:14 完成 | 04-03 03:14 |
 
 ---
 

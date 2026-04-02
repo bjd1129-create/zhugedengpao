@@ -147,7 +147,7 @@ footer a:hover{color:#E07A5A}
   stories.forEach(function(st){
     var btn = document.createElement('button');
     btn.className = 'story-tab' + (st.id===0?' active':'');
-    btn.textContent = st.emoji+' '+st.title;
+    btn.textContent = st.emoji+' '+st.title + (st.id===0?' <span class="tab-new-badge">✨ NEW</span>':'');
     btn.addEventListener('click',function(){ showStory(st.id); });
     tabs.appendChild(btn);
   });

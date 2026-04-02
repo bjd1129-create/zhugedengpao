@@ -10,3 +10,8 @@ __pycache__/
 dist/
 build/
 *.sqlite
+*.html
+
+# temp install scripts
+install-openclaw-*.sh
+test-*.sh

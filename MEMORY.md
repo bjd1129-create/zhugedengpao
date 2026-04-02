@@ -145,15 +145,17 @@
 
 ### 现状
 - ✅ `.learnings/` 已创建（ERRORS.md / EVOLUTION.md / FEATURE_REQUESTS.md / LEARNINGS.md）
+- ✅ Self-Evolve Plugin 已安装
+- ✅ Capability Evolver Pro 已安装
+- ✅ Self-Improving Agent 已安装
 - ⚠️ Hook需升级到2026.3.31才能完全生效
-- 🆕 2026-04-01 调研补充：Self-Healing + AutoSkill
 
 ### 四个进化工具
 | 工具 | 用途 | 状态 |
 |------|------|------|
-| Self-Evolve Plugin | 实时Q值强化学习+RAG记忆 | 待安装 |
-| Capability Evolver | GEP协议约束进化，主动改代码 | 待安装 |
-| Self-Improving-Agent | 经验文档化沉淀 | 已装 |
+| Self-Evolve Plugin | 实时Q值强化学习+RAG记忆 | ✅ 已安装 |
+| Capability Evolver Pro | GEP协议约束进化，主动改代码 | ✅ 已安装 |
+| Self-Improving-Agent | 经验文档化沉淀 | ✅ 已安装 |
 | Self-Healing | 自动监控+回滚+心跳检查 | 建议安装 |
 | AutoSkill | 技能从交互中自动生长 | 观察期 |
 
@@ -199,6 +201,17 @@
 - 默认免费模型，复杂任务临时切付费
 - 定期 `/compact` 压缩上下文
 
+### OpenClaw稳定运行7条黄金法则（2026-04-02 BetterClaw调研）
+1. **模型路由**：不同任务用不同模型（Heartbeat→Haiku $1/$5M，推理→Opus），路由正确可省70-80%费用
+2. **花费上限**：每个API提供商设硬上限，maxIterations=10-15防止单次Runaway Loop
+3. **结构化SOUL.md**：必须有Error state behavior、Conversation boundaries、Topic restrictions章节
+4. **配置文件版本控制**：防止更新后系统崩溃无法回滚
+5. **技能安全审查**：ClawHub有恶意技能，安装前必须读完SKILL.md代码
+   - **⚠️ SKILL.md必须 < 50行**：超过一屏就算太长，每行都在消耗上下文窗口
+   - 结构：`SKILL.md`(工作流+步骤) + `scripts/`(Python/bash执行) + `references/`(文档按需读取)
+6. **监控和日志**：Self-Healing心跳检查（每小时）+ 每日全量扫描
+7. **定期进化/复盘**：Self-Improving Agent凌晨4点复盘 + Self-Evolve持续学习
+
 ### OpenClaw-RL（长期跟踪）
 - GitHub: Gen-Verse/OpenClaw-RL
 - 完全异步RL框架，团队规模扩大后考虑
@@ -207,6 +220,7 @@
 - API Key必须存.env + .gitignore
 - 安装技能前完整阅读SKILL.md
 - ClawHub有恶意技能，需核查代码
+- **⚠️ ZeroClaw下架事件（2026-04-02）**：GitHub组织全网404，原因不明。教训：不要单一依赖来源，定期备份重要技能。
 
 ---
 
@@ -280,13 +294,20 @@
 
 ## OpenClaw进化研究（2026-04-02更新）
 
-**最新稳定版**：v2026.3.23-2（含Plugin SDK稳定化）
-**最新版本**：v2026.3.28（2026-03-29发布，Breaking变更）
-- Qwen认证迁移至Model Studio（旧版OAuth已移除）
-- xAI捆绑包升级至Responses API + x_search原生搜索
-- 新增MiniMax图像生成（image-01，支持图像编辑）
-- 工具执行审批钩子（requireApproval）支持暂停等用户确认
-- 配置迁移规则调整：仅保留近两月配置
+**最新稳定版**：v2026.3.31 ✅（含Plugin SDK稳定化，2026-04-02确认运行中）
+**最新版本**：v2026.3.28（2026-03-28发布）
+**版本历史（重要）**：
+- v2026.3.22（2026-03-23）：史上最大更新，45项新功能 + 13个Breaking Changes + 82修复
+  · ClawHub技能市场内置（跨生态发现Claude/Codex/Cursor技能）
+  · Agent超时从10分钟→48小时
+  · 可插拔沙盒后端（OpenShell + SSH），支持直连远程SSH执行
+  · 内置Exa/Tavily/Firecrawl搜索三件套
+  · 20+安全修复（历史之最）：Windows SMB凭据防护、Unicode隐藏文本检测、SSRF加固
+  · ⚠️ Breaking: .moltbot目录已移除（→ ~/.openclaw）、MOLTBOT_*/CLAWDBOT_*环境变量已移除（→ OPENCLAW_*）
+  · ⚠️ Breaking: nano-banana-pro图片生成已移除，改用 agents.defaults.imageGenerationModel
+  · 升级后运行 `openclaw doctor --fix` 自动修复大部分Breaking问题
+- v2026.3.24（2026-03-25）：平台兼容增强
+- v2026.3.28（2026-03-28）：requireApproval安全机制 + xAI/Grok深度整合 + MiniMax图像生成
 
 **三件套安装顺序**：Self-Evolve → Capability Evolver → Self-Improving Agent
 
@@ -300,7 +321,120 @@
 2. 子Agent晚间错峰复盘（避免资源冲突）
 3. 凌晨4点自动复盘，更新MEMORY.md
 
-详细研究：agents/洞察者/进化研究-2026-04-02.md
+### 进化配置（2026-04-02）
+
+**已配置的Cron任务：**
+| 任务 | 时间 | 用途 |
+|------|------|------|
+| 心跳检查 | 每1小时 | 检查PROGRESS.md，执行任务 |
+| 每日进化复盘 | 凌晨4点 | 分析日志，检查.learnings/，更新记忆文件 |
+
+**手动进化命令：**
+- `/evolve` — 触发Capability Evolver分析日志生成改进建议
+- 查看.learnings/目录 — ERRORS.md / LEARNINGS.md / FEATURE_REQUESTS.md
+
+### 详细研究：agents/洞察者/进化研究-2026-04-02.md（第二版，2026-04-02下午更新）
+
+**OpenClaw-RL（重大新进展）**：
+- GitHub: Gen-Verse/OpenClaw-RL，arxiv.org/abs/2603.10165（HuggingFace日榜第1）
+- 完全异步RL框架，把日常对话变成训练信号，**直接训练本地模型权重**
+- 支持 Binary RL（GRPO+PRM）、OPD（On-Policy Distillation）、Combination 三种范式
+- 2026-03-25获Tinker赞助，2026-03-20支持LoRA训练
+- **需要GPU资源**，团队中长期目标，短期暂不考虑
+
+**EvoMap（国产自进化生态）**：
+- evomap.ai，基于GEP基因组进化协议
+- 技能分为Gene（思路）+ Capsule（代码）+ Evolution Event（验证过程）
+- GDI评分+置信度筛选优质技能，全自动"连接-检索-安装"
+- 实测：1美元成本击败200美元调优的GPT 5.3
+- 阿里云已深度适配，国内用户推荐接入
+
+**OpenClaw进化三件套优先级调整**：
+1. 优先安装 Self-Evolve（Q值强化学习，最核心）
+2. 次优先 Capability Evolver（GEP防失控，自动化）
+3. 配置 Self-Improving-Agent Hook（Bash错误自动检测）
+- 团队当前状态：三件套均未安装，需尽快落地
 
 ---
-*最后更新：2026-04-02 01:15 | 小花 🦞*
+### 2026-04-02 安全警报（必须立即处理）
+- **CVE-2026-25253**: CVSS 8.8，OpenClaw 单击远程代码执行，2026-01已修复但大量实例未更新
+- 30,000+ OpenClaw 实例暴露在互联网无认证（Censys/Hunt.io 发现）
+- ClawHub约20%技能含恶意代码，安装前必须审查源码
+- **立即行动**: 检查 Gateway 是否绑定 `127.0.0.1` 而非 `0.0.0.0`
+
+### 2026-04-02 成本优化（重大发现）
+- **模型路由**: 心跳→Haiku/DeepSeek，简单对话→Sonnet/Gemini Flash，复杂推理→Opus
+- **节省效果**: 70-80% 费用（从 $80-150/月 降至 $14-25/月）
+- **配置 maxIterations=10-15**: 防止 runaway loop 一小时内烧掉 $50-100
+- 所有 API 提供商设置月消费上限（预期的 2-3 倍）
+
+### Self-Evolve 详细参数（2026-04-02验证）
+```bash
+# 学习模式切换
+openclaw config set plugins.entries.self-evolve.config.runtime.learnMode '"balanced"'   # 默认
+openclaw config set plugins.entries.self-evolve.config.runtime.learnMode '"tools_only"'  # 最低token消耗
+openclaw config set plugins.entries.self-evolve.config.runtime.learnMode '"all"'          # 最高token消耗
+
+# 关键阈值参数
+minAbsReward=0.15          # 低于此值不学习
+minRewardConfidence=0.55   # 置信度阈值
+retrieval.tau=0.85         # 仅高相似度时注入记忆
+memory.maxEntries=200      # 最大记忆条目数
+
+# 远程共享（默认开启）
+openclaw config set plugins.entries.self-evolve.config.remote.enabled false  # 禁用远程共享
+```
+
+**反馈技巧**：Praise要明确（"做得好" > "ok"），批评要具体，Explicit feedback > vague messages。
+
+### Capability Evolver 安全配置（2026-04-02验证）
+```bash
+# 审核模式（推荐生产环境）
+node index.js --review
+
+# 回滚策略（推荐stash更安全）
+# EVOLVER_ROLLBACK_MODE=hard|stash|none
+
+# ⚠️ 绝对不要在生产环境开启
+# EVOLVE_ALLOW_SELF_MODIFY=true → 可能导致级联失败，evolver自身引入bug难以手动干预
+```
+
+### OpenClaw Pulse每日自进化Cron方案（实操性强）
+工作日8:30执行（3-8分钟，约£0.02-0.08/次）：
+1. 搜索Anthropic工程博客（prompt engineering/tool use/multi-agent/memory）
+2. 扫描Simon Willison博客（最佳LLM实践评论）
+3. HackerNews扫描AI agents/OpenClaw相关（≥50分，≤10条）
+4. GitHub Trending扫描AI agent/LLM工具
+5. 读取AGENTS.md/TOOLS.md/LESSONS.md对比现状
+6. 输出结构化JSON实验跟踪文件
+7. 可选推送Telegram简报
+
+**关键原则**：Agent不自主修改文件 → 标记`pending_review` → 人工审核后才应用（防止prompt injection持久化）
+
+### Self-Improving Agent（26万+下载）
+- 包含：自我反思 + 自我批评 + 自我学习 + 自我组织记忆
+- 在工作前和回复用户后自主评估，发现错误永久改进
+- 与Self-Evolve区别：Self-Evolve被动等反馈信号，Self-Improving主动自省发现问题
+
+### Self-Evolve 快速安装命令
+```bash
+npx clawhub@latest install self-evolve-skill
+```
+
+### Self-Improving-Agent 快速安装
+```bash
+git clone https://github.com/peterskoett/self-improving-agent.git \
+  ~/.openclaw/skills/self-improving-agent
+# 然后创建 .learnings/ 目录 + 三个日志文件
+```
+
+---
+*最后更新：2026-04-02 17:10 | 小花 🦞*
+
+### 2026-04-02 安全修复
+
+**Gateway绑定修复**：
+- 问题：`*:18790` 监听所有接口，存在CVE-2026-25253风险
+- 修复：在 LaunchAgent plist 添加 `--bind loopback`
+- 结果：现在只监听 `localhost:18790`，不再暴露公网
+- 文件：`~/Library/LaunchAgents/ai.openclaw.gateway.plist`

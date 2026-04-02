@@ -27,7 +27,15 @@
     },
     "self-evolve-skill": {
       "version": "1.0.2",
-      "installedAt": 1775006060234
+      "installedAt": 1775089180146
+    },
+    "capability-evolver-pro": {
+      "version": "1.0.2",
+      "installedAt": 1775089242907
+    },
+    "self-health-monitor": {
+      "version": "1.0.0",
+      "installedAt": 1775089251556
     }
   }
 }

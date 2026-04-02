@@ -155,6 +155,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div class="float-mascot" title="回到顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <span class="float-lobster">🦞</span>
 </div>
+<script src="/articles-data.js"></script>
 <script>
 let allArticles=[];let activeCategory='全部';let activeTag='';
 const CAT_EMOJI={'全部':'📚','部署教程':'🚀','使用技巧':'💡','进阶玩法':'⚡','评测分析':'🔍','视频教程':'🎬','其他':'📄'};
@@ -202,9 +203,11 @@ function buildSidebar(){
 function toggleTag(t){if(activeTag===t){activeTag='';}else{activeTag=t;}document.querySelectorAll('.tag-pill').forEach(p=>{p.classList.toggle('active',p.textContent.trim().startsWith(t));});filterArticles();}
 async function init(){
   try{
-    const res=await fetch("/api/articles");
-    allArticles=await res.json();
-    allArticles.sort((a,b)=>new Date(b.date)-new Date(a.date));
+    // 使用静态数据
+    if(typeof allArticles !== 'undefined'){
+      window.allArticles = allArticles;
+    }
+    window.allArticles.sort((a,b)=>new Date(b.date)-new Date(a.date));
     buildCatTabs();buildSidebar();filterArticles();
   }catch(e){document.getElementById('articlesList').innerHTML=`<div class="empty-state"><div class="empty-icon">⚠️</div>加载失败，请刷新重试</div>`;}
 }

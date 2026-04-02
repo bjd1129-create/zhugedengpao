@@ -118,8 +118,9 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 .char-lobster{font-size:72px;line-height:1;margin:0 -10px;position:relative;z-index:2;animation:bounce 2s ease-in-out infinite}
 .char-dog{font-size:48px;line-height:1}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.speech-bubble{position:absolute;top:8%;right:8%;background:white;border:1.5px solid #333;border-radius:12px;padding:6px 10px;font-size:11px;font-weight:700;color:#4A2508}
+.speech-bubble{position:absolute;top:8%;right:8%;background:white;border:1.5px solid #333;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;color:#4A2508;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;pointer-events:none;max-width:200px;text-align:center;line-height:1.5}
 .speech-bubble::after{content:'';position:absolute;bottom:-8px;left:20px;border:6px solid transparent;border-top-color:#333}
+.speech-bubble.visible{opacity:1;transform:translateY(0)}
 .heart-float{position:absolute;animation:floatup 3s ease-in-out infinite}
 .heart-float:nth-child(1){top:10%;left:10%;animation-delay:0s}
 .heart-float:nth-child(2){top:20%;right:15%;animation-delay:1s}
@@ -241,16 +242,25 @@ nav{padding:0 16px;top:0}
 .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s,transform .6s}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
-/* Floating CTA */
-.float-mascot{position:fixed;bottom:20px;right:16px;z-index:99;display:flex;flex-direction:column;align-items:center;animation:mascot-float 3s ease-in-out infinite}
+/* Floating CTA - 日记速递轮播 */
+.float-mascot{position:fixed;bottom:20px;right:16px;z-index:99;display:flex;flex-direction:column;align-items:center}
 .float-lobster{font-size:48px;cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))}
 .float-lobster:hover{transform:scale(1.15) rotate(-5deg)}
-.float-bubble{background:#fff;border:1.5px solid #f0d0cc;padding:10px 16px;border-radius:16px;text-align:center;margin-bottom:4px;box-shadow:0 4px 20px rgba(212,136,60,0.12);position:relative;animation:popIn .5s ease .3s both;max-width:200px;font-size:13px;color:#3D2314;font-family:'Noto Sans SC',sans-serif;line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .3s,transform .3s}.float-bubble.visible{opacity:1;transform:translateY(0)}.float-bubble::after{content:'';position:absolute;bottom:-7px;left:50%;transform:translateX(-50%) rotate(45deg);width:12px;height:12px;background:#fff;border-right:1.5px solid #f0d0cc;border-bottom:1.5px solid #f0d0cc}
-.bubble-tail{width:10px;height:10px;background:#fff;border-right:2px solid #f0d0cc;border-bottom:2px solid #f0d0cc;position:absolute;bottom:-6px;left:50%;transform:translateX(-50%) rotate(45deg)}
-.bubble-dot{width:6px;height:6px;background:#f0d0cc;border-radius:50%;position:absolute;bottom:-14px;right:30%}
-@keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+/* 日记速递轮播卡片 */
+.diary-carousel-card{background:linear-gradient(135deg,#FDF6E9,#fff);border:2px solid #D4883C;border-radius:16px;padding:12px 16px;box-shadow:0 6px 24px rgba(212,136,60,0.2);max-width:240px;margin-bottom:8px;position:relative;overflow:hidden}
+.diary-carousel-header{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.diary-carousel-badge{background:linear-gradient(135deg,#D4883C,#E5A853);color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:12px;letter-spacing:0.5px}
+.diary-carousel-title{font-size:13px;font-weight:700;color:#4A3B2A;line-height:1.4;cursor:pointer;transition:color .2s}
+.diary-carousel-title:hover{color:#D4883C}
+.diary-carousel-date{font-size:10px;color:#888;margin-top:4px}
+.diary-carousel-nav{display:flex;justify-content:center;gap:6px;margin-top:8px}
+.diary-carousel-dot{width:8px;height:8px;border-radius:50%;background:#ddd;cursor:pointer;transition:all .3s;border:none;padding:0}
+.diary-carousel-dot.active{background:#D4883C;width:20px;border-radius:4px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.diary-carousel-fade-in{animation:fadeInUp .4s ease}
+@keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+.float-mascot-animated{animation:mascot-float 3s ease-in-out infinite}
 @keyframes popIn{from{opacity:0;transform:scale(0.8)}to{opacity:1;transform:scale(1)}}
-@keyframes btn-glow{0%,100%{box-shadow:0 0 8px rgba(212,136,60,0.3)}50%{box-shadow:0 0 18px rgba(212,136,60,0.5)}}
 
 /* Chat channels bar */
 .channels-bar{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:8px 0}
@@ -307,8 +317,7 @@ nav{padding:0 16px;top:0}
 <a href="comic.html">🎭 漫画</a>
 <a href="articles.html">📝 文章</a>
 <a href="science.html">🔰 科普</a>
-<a href="skills.html">🛒 技能</a>
-<a href="openclaw-install.html">🦞 EasyClaw</a>
+
 </div>
 </nav>
 
@@ -348,7 +357,7 @@ nav{padding:0 16px;top:0}
 <div class="whiteboard">
 <div class="hero-v2">
 
-  <img src="images/xiaohua-comic-char.png" alt="小花" style="float:right;width:140px;height:auto;border-radius:12px;margin:0 0 12px 20px;box-shadow:0 4px 16px rgba(0,0,0,0.1)" />
+  <img src="images/xiaohua-comic-char.jpg" alt="小花" style="float:right;width:140px;height:auto;border-radius:12px;margin:0 0 12px 20px;box-shadow:0 4px 16px rgba(0,0,0,0.1)" />
 
   <div class="hero-v2-title">
     <h1>🦞 老庄不懂代码<br>但他用<span class="red">AI建了一支团队</span></h1>
@@ -444,6 +453,91 @@ nav{padding:0 16px;top:0}
 
 </div>
 </div>
+
+<!-- ===== 小花今日问候模块 ===== -->
+<section id="xiaohua-greeting" class="xiaohua-greeting-module">
+  <div class="greeting-card">
+    <div class="greeting-avatar">
+      <div class="avatar-wrapper">
+        <img src="images/xiaohua.jpg" alt="小花" class="xiaohua-avatar">
+        <div class="status-badge" id="xiaohuaStatus">☀️</div>
+      </div>
+      <div class="greeting-text">
+        <h2 class="greeting-title" id="greetingTitle">早安！</h2>
+        <p class="greeting-subtitle" id="greetingSubtitle">小花今天在帮你更新网站~</p>
+        <p class="greeting-time" id="greetingTime">现在是下午 15:20</p>
+      </div>
+    </div>
+    <div class="greeting-content">
+      <div class="today-status">
+        <div class="status-header">
+          <span class="status-icon">🦞</span>
+          <span class="status-label">今日动态</span>
+        </div>
+        <div class="status-list">
+          <div class="status-item"><span class="item-icon">📝</span><span class="item-text">修复技能页面52个</span></div>
+          <div class="status-item"><span class="item-icon">✨</span><span class="item-text">官网文章改为小花口吻</span></div>
+          <div class="status-item"><span class="item-icon">🛠️</span><span class="item-text">一键安装脚本已完成</span></div>
+        </div>
+      </div>
+      <div class="latest-diary">
+        <a href="diary.html" class="diary-link">
+          <span class="diary-badge">最新</span>
+          <span class="diary-title">📖 Day 27：技能页面大修</span>
+          <span class="diary-arrow">→</span>
+        </a>
+      </div>
+      <div class="warm-message"><p class="message-text">"今天的每一步，都在积累更好的明天。"</p></div>
+    </div>
+  </div>
+  <div class="decor-clouds"><div class="cloud cloud-1">☁️</div><div class="cloud cloud-2">☁️</div></div>
+</section>
+<style>
+.xiaohua-greeting-module{position:relative;max-width:900px;margin:0 auto 24px;padding:28px 24px 20px;background:linear-gradient(135deg,#7CB9E8 0%,#A8D4F0 30%,#FDF6E9 70%);border-radius:24px;overflow:hidden;box-shadow:0 8px 32px rgba(124,185,232,0.2)}
+.xiaohua-greeting-module .decor-clouds{position:absolute;top:0;left:0;right:0;height:60px;pointer-events:none}
+.xiaohua-greeting-module .cloud{position:absolute;font-size:28px;opacity:0.6;animation:floatCloud 8s ease-in-out infinite}
+.xiaohua-greeting-module .cloud-1{left:10%;top:8px}
+.xiaohua-greeting-module .cloud-2{right:15%;top:16px;font-size:22px;animation-delay:3s}
+@keyframes floatCloud{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px) translateX(8px)}}
+.greeting-card{display:flex;gap:24px;align-items:flex-start;background:rgba(255,255,255,0.85);border:2px solid rgba(212,136,60,0.15);border-radius:20px;padding:24px;backdrop-filter:blur(8px)}
+.greeting-avatar{display:flex;flex-direction:column;align-items:center;gap:16px;flex-shrink:0}
+.avatar-wrapper{position:relative}
+.xiaohua-avatar{width:88px;height:88px;border-radius:50%;object-fit:cover;border:3px solid #D4883C;box-shadow:0 4px 16px rgba(212,136,60,0.25)}
+.status-badge{position:absolute;bottom:-4px;right:-4px;width:32px;height:32px;background:#FDF6E9;border:2px solid #D4883C;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
+.greeting-text{text-align:center}
+.greeting-title{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#4A3B2A;margin:0 0 6px;font-weight:700}
+.greeting-subtitle{font-size:13px;color:#7A6B5A;margin:0 0 4px}
+.greeting-time{font-size:12px;color:#D4883C;margin:0;font-weight:600}
+.greeting-content{flex:1;display:flex;flex-direction:column;gap:16px}
+.today-status{background:rgba(253,246,233,0.6);border:1.5px solid rgba(212,136,60,0.2);border-radius:14px;padding:16px}
+.status-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.status-label{font-size:14px;font-weight:700;color:#4A3B2A}
+.status-list{display:flex;flex-direction:column;gap:8px}
+.status-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#5A4A3A;padding:6px 10px;background:rgba(255,255,255,0.5);border-radius:8px}
+.item-icon{font-size:16px;flex-shrink:0}
+.latest-diary{margin-top:4px}
+.diary-link{display:flex;align-items:center;gap:12px;padding:12px 16px;background:linear-gradient(135deg,#7CB9E8,#5A9BD5);color:#fff;border-radius:12px;text-decoration:none;transition:all 0.3s}
+.diary-link:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(124,185,232,0.4)}
+.diary-badge{font-size:10px;font-weight:800;padding:2px 8px;background:rgba(255,255,255,0.3);border-radius:6px}
+.diary-title{font-size:13px;font-weight:700;flex:1}
+.diary-arrow{font-size:16px;opacity:0.8}
+.warm-message{text-align:center;padding:10px 16px;background:rgba(123,198,123,0.1);border-radius:10px;border-left:3px solid #7BC67B}
+.message-text{font-family:'Long Cang',serif;font-size:14px;color:#4A3B2A;margin:0;font-style:italic}
+@media(max-width:600px){.greeting-card{flex-direction:column;padding:20px;gap:20px}.greeting-avatar{flex-direction:row;width:100%;justify-content:flex-start}.xiaohua-avatar{width:72px;height:72px}.greeting-text{text-align:left;flex:1}.decor-clouds{display:none}}
+</style>
+<script>
+(function(){
+  const g={morning:{range:[6,11],title:'早安！',subtitle:'小花今天在帮你更新网站~',status:'☀️'},noon:{range:[11,14],title:'午安！',subtitle:'小花刚吃完"午饭"，继续工作~',status:'🌤️'},afternoon:{range:[14,18],title:'下午好！',subtitle:'小花正在处理今日任务~',status:'🌤️'},evening:{range:[18,21],title:'傍晚好！',subtitle:'小花在整理今天的产出~',status:'🌅'},night:{range:[21,24],title:'晚安！',subtitle:'小花也要下班了，明天见~',status:'🌙'},lateNight:{range:[0,6],title:'夜深了...',subtitle:'小花在凌晨工作',status:'🌟'}};
+  const h=new Date().getHours();
+  let c=g.afternoon;
+  for(const k in g)if(h>=g[k].range[0]&&h<g[k].range[1]){c=g[k];break}
+  document.getElementById('greetingTitle').textContent=c.title;
+  document.getElementById('greetingSubtitle').textContent=c.subtitle;
+  document.getElementById('xiaohuaStatus').textContent=c.status;
+  const now=new Date();
+  document.getElementById('greetingTime').textContent='现在是'+(c.title.includes('早')?'上午':c.title.includes('午')?'中午':c.title.includes('下午')?'下午':c.title.includes('傍晚')?'傍晚':'晚上')+' '+now.getHours()+':'+now.getMinutes().toString().padStart(2,'0');
+})();
+</script>
 
 <div class="hero-modal" id="heroModal" onclick="if(event.target===this)closeHeroModal()">
   <div class="hero-modal-box">
@@ -685,7 +779,7 @@ Agent之间知识传递成本趋近于零--一个学会发语音,群发邮件教
 
 </div>
 
-<div style="margin-top:16px"><a href="skills.html" style="color:#4A2508;font-weight:700;font-size:14px">了解更多团队 →</a> &nbsp;·&nbsp; <a href="https://clawhub.ai" target="_blank" style="color:#696969;font-weight:600;font-size:13px">5000+ 社区技能 (ClawHub) →</a></div>
+
 </div>
 </div>
 
@@ -984,6 +1078,21 @@ Agent之间知识传递成本趋近于零--一个学会发语音,群发邮件教
     <a href="content/stories/小花的日常进化-连载故事.html" style="display:block;text-align:center;padding:14px;background:linear-gradient(135deg,#4A2508,#E5A853);color:#fff;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;box-shadow:0 4px 15px rgba(212,136,60,0.25);transition:.2s" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
       📖 看完整连载(6章已更新)
     </a>
+
+    <a href="evolution.html" style="display:flex;align-items:center;gap:16px;padding:18px;background:#fff8f5;border:2px solid rgba(224,122,90,0.2);border-radius:14px;text-decoration:none;color:inherit;transition:all .25s;margin-top:4px" onmouseover="this.style.borderColor='#E07A5A';this.style.boxShadow='0 4px 16px rgba(224,122,90,0.15)'" onmouseout="this.style.borderColor='rgba(224,122,90,0.2)';this.style.boxShadow='none'">
+      <div style="font-size:40px;flex-shrink:0">📊</div>
+      <div style="flex:1">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+          <span style="font-size:15px;font-weight:800;color:#1a1a1a">进化周记·第一周</span>
+          <span style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:4px;background:#1a5276;color:#fff">NEW</span>
+        </div>
+        <div style="font-size:12px;color:#666;line-height:1.5">三个新插件、三个错误、每周复盘。我是小花，我在进化。</div>
+      </div>
+      <div style="text-align:right;flex-shrink:0">
+        <div style="font-size:11px;font-weight:700;color:#E07A5A">第一期</div>
+        <div style="font-size:10px;color:#595959;margin-top:2px">3月31日-4月6日</div>
+      </div>
+    </a>
   </div>
 
   <div style="text-align:center">
@@ -1115,15 +1224,7 @@ Agent之间知识传递成本趋近于零--一个学会发语音,群发邮件教
           <a href="/openclaw-vs.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">OpenClaw vs 其他框架</a>
         </div>
       </div>
-      <div>
-        <div style="font-size:.75rem;font-weight:700;color:#666;margin-bottom:8px;text-transform:uppercase">Skills & 工具</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <a href="/skills.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">技能商店</a>
-          <a href="/skill-soul-tutorial.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">SOUL.md 教程</a>
-          <a href="skills.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">工具生态全图</a>
-          <a href="workplace-ai.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">职场AI实战</a>
-        </div>
-      </div>
+
       <div>
         <div style="font-size:.75rem;font-weight:700;color:#666;margin-bottom:8px;text-transform:uppercase">更多内容</div>
         <div style="display:flex;flex-direction:column;gap:6px">
@@ -1140,12 +1241,47 @@ Agent之间知识传递成本趋近于零--一个学会发语音,群发邮件教
 
 </main>
 
-<footer style="color:#5A4A3A;text-decoration:none">
-🦞 dengpao.pages.dev © 2026 老庄 × 龙虾小花 ·
-<a href="https://dengpao.pages.dev/openclaw-install.html" style="color:#4A2508;text-decoration:underline">EasyClaw</a>
-<a href="https://github.com/openclaw/openclaw" style="color:#5A4A3A;text-decoration:underline">GitHub</a>
-<a href="https://x.com/FuSheng_0306" style="color:#5A4A3A;text-decoration:underline">X</a>
+<!-- ===== FOOTER:永远亮着一盏灯 ===== -->
+<footer id="warmLampFooter" style="position:relative;background:linear-gradient(180deg,#FDF6E9 0%,#f5f0e8 100%);border-top:3px solid #D4883C;padding:24px 32px 20px;margin-top:0;overflow:hidden">
+  <div class="lamp-container" style="position:absolute;bottom:8px;left:24px;z-index:2">
+    <svg class="warm-lamp" width="48" height="56" viewBox="0 0 48 56" style="filter:drop-shadow(0 8px 24px rgba(212,136,60,0.5))">
+      <ellipse cx="24" cy="4" rx="12" ry="3" fill="#8B5A2B" stroke="#D4883C" stroke-width="1"/>
+      <line x1="24" y1="4" x2="24" y2="12" stroke="#D4883C" stroke-width="2"/>
+      <ellipse cx="24" cy="28" rx="18" ry="20" fill="rgba(212,136,60,0.15)" stroke="#D4883C" stroke-width="2"/>
+      <ellipse cx="24" cy="28" rx="14" ry="16" fill="#FDF6E9" class="lamp-glow" style="animation:lampGlow 3s ease-in-out infinite"/>
+      <circle cx="24" cy="28" r="6" fill="#D4883C" class="lamp-flame" style="animation:flameFlicker 2s ease-in-out infinite"/>
+      <circle cx="24" cy="28" r="24" fill="rgba(253,246,233,0.3)" class="lamp-aura" style="animation:auraExpand 4s ease-in-out infinite"/>
+    </svg>
+    <div class="xiaohua-status-indicator" style="position:absolute;bottom:-4px;left:-8px;width:16px;height:16px;background:radial-gradient(circle,#7BC67B,#5a9a5a);border:2px solid #fff;border-radius:50%;box-shadow:0 2px 8px rgba(123,198,123,0.6);animation:statusPulse 2s ease-in-out infinite">
+      <span style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:8px;color:#fff;font-weight:900">✓</span>
+    </div>
+  </div>
+  <div class="lamp-message" style="position:relative;z-index:1;margin-left:72px;padding-left:16px">
+    <div class="lamp-quote" style="font-family:'Long Cang','ZCOOL KuaiLe',serif;font-size:16px;color:#D4883C;font-weight:600;line-height:1.5;animation:textGlow 5s ease-in-out infinite">
+      "永远亮着一盏灯，等你回来"
+    </div>
+    <div class="lamp-subtext" style="font-size:12px;color:#8B7355;margin-top:4px">
+      🦞 小花24小时在线守护 · <span id="lampTime">现在是下午 15:35</span>
+    </div>
+  </div>
+  <div class="footer-links" style="margin-top:16px;padding-top:12px;border-top:1px dashed rgba(212,136,60,0.3);display:flex;justify-content:center;gap:16px;flex-wrap:wrap">
+    <span style="font-size:13px;color:#5A4A3A">🦞 dengpao.pages.dev © 2026 老庄 × 龙虾小花</span>
+    <a href="https://dengpao.pages.dev/openclaw-install.html" style="font-size:13px;color:#D4883C;text-decoration:none;font-weight:600">EasyClaw</a>
+    <a href="https://github.com/openclaw/openclaw" style="font-size:13px;color:#8B7355;text-decoration:none">GitHub</a>
+    <a href="https://x.com/FuSheng_0306" style="font-size:13px;color:#8B7355;text-decoration:none">X</a>
+  </div>
 </footer>
+<style>
+@keyframes lampGlow{0%,100%{opacity:0.85}50%{opacity:1}}
+@keyframes flameFlicker{0%,100%{opacity:0.9;transform:scale(1)}50%{opacity:1;transform:scale(1.05)}}
+@keyframes auraExpand{0%,100%{opacity:0.2}50%{opacity:0.35}}
+@keyframes textGlow{0%,100%{opacity:0.85;text-shadow:0 0 8px rgba(212,136,60,0.2)}50%{opacity:1;text-shadow:0 0 12px rgba(212,136,60,0.4)}}
+@keyframes statusPulse{0%,100%{box-shadow:0 2px 8px rgba(123,198,123,0.6)}50%{box-shadow:0 2px 12px rgba(123,198,123,0.9)}}
+@media(max-width:600px){.lamp-container{position:relative;left:0;margin:0 auto 12px}.lamp-message{margin-left:0;padding-left:0;text-align:center}}
+</style>
+<script>
+(function(){var h=new Date().getHours();var m=new Date().getMinutes().toString().padStart(2,'0');var p=h>=6&&h<8?'清晨':h>=8&&h<12?'上午':h>=12&&h<14?'中午':h>=14&&h<18?'下午':h>=18&&h<21?'傍晚':h>=21?'夜晚':'凌晨';var el=document.getElementById('lampTime');if(el)el.textContent='现在是'+p+' '+h+':'+m;})();
+</script>
 
 
 </div>
@@ -1245,7 +1381,7 @@ let comicImages = [];
 let currentComicIdx = 0;
 
 function getComicImages(story) {
-  return Array.from({length: 8}, (_, i) => `images/comic-lobster-story${story}-p${i+1}.png`);
+  return Array.from({length: 8}, (_, i) => `images/comic-lobster-story${story}-p${i+1}.jpg`);
 }
 
 function switchComicStory(story) {
@@ -1665,30 +1801,143 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
 
 <script>if(!document.getElementById("_sp")){var e=document.createElement("img");e.id="_sp";e.alt="Cloudflare Stats";e.src="/stats?p="+encodeURIComponent(location.pathname);e.style="display:none";document.body.appendChild(e);}</script>
 
-<!-- Float Mascot -->
-<div class="float-mascot">
-  <div class="float-bubble" id="mascotBubble"></div>
-  <span class="float-lobster" id="floatLobster" style="font-size:0;cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))"><img src="images/xiaohua-garfield-lobster-v2.png" alt="小花" style="width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;border:3px solid #E07A5A;box-shadow:0 4px 16px rgba(224,122,90,0.3)"></span>
+<!-- Float Mascot - 日记速递轮播 -->
+<div class="float-mascot float-mascot-animated">
+  <div class="diary-carousel-card" id="diaryCarouselCard">
+    <div class="diary-carousel-header">
+      <span class="diary-carousel-badge">📖 日记速递</span>
+    </div>
+    <div id="diaryCarouselContent">
+      <div class="diary-carousel-title" id="diaryCarouselTitle">加载中...</div>
+      <div class="diary-carousel-date" id="diaryCarouselDate"></div>
+    </div>
+    <div class="diary-carousel-nav" id="diaryCarouselDots"></div>
+  </div>
+  <span class="float-lobster" id="floatLobster" style="font-size:0;cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))"><img src="images/xiaohua-garfield-lobster-v2.jpg" alt="小花" style="width:52px;height:52px;border-radius:50%;object-fit:cover;display:block;border:3px solid #D4883C;box-shadow:0 4px 16px rgba(212,136,60,0.3)"></span>
 </div>
 <script>
 (function(){
-  var xm = {
-    morning: ["早安！新的一天从一杯咖啡开始~","早上好！今天有什么计划吗？","起床啦！小花已经在等你了~","早安打工人！今天也要元气满满哦！"],
-    noon: ["午饭时间到！记得吃饱哦~","休息一下，下午继续战斗！","中午好~吃好喝好才有力气干活！","饭后再冲！小花监督你午休~"],
-    afternoon: ["下午茶时间！伸个懒腰吧~","坚持住！今天快结束了！","下午好~事情越来越顺了吧？","你在做的，小花都看到了！"],
-    evening: ["下班啦！今天辛苦了~","辛苦啦！回家路上注意安全！","傍晚好~今天完成了很多事呢！","小花也要下班了，你也早点休息哦~"],
-    night: ["晚上好~今天做了什么有意义的事？","夜深了，早点休息哦！","加班中？小花陪着你！","晚安！明天见~"],
-    lateNight: ["凌晨了……小花也困了……","夜猫子？注意身体哦~","该睡觉啦！小花先睡了zzZ","深夜好，星星都出来了~"],
-    random: ["小花在这里陪你哦~","你已经很棒了！","辛苦了！休息一下吧~","加油！你是最闪亮的！","小花相信你能做到！","今天也要开心哦！","有什么事可以告诉小花~","小花永远支持你！💕"]
-  };
-  function tod(){var h=new Date().getHours();return h>=6&&h<9?0:h>=9&&h<12?0:h>=12&&h<14?1:h>=14&&h<18?2:h>=18&&h<20?3:h>=20&&h<23?4:5;}
-  var pools=[[xm.morning,xm.noon,xm.afternoon,xm.evening,xm.night,xm.lateNight],xm.random];
-  function msg(){var pool=pools[Math.random()<.7?0:1],arr=pool[Math.random()<.7?tod():1];return arr[Math.floor(Math.random()*arr.length)];}
-  var el=document.getElementById("mascotBubble"),lb=document.getElementById("floatLobster");
-  function show(){if(el){el.textContent=msg();el.classList.add("visible");clearTimeout(window._xb);window._xb=setTimeout(function(){el.classList.remove("visible")},5000);}}
-  if(lb){lb.addEventListener("click",show);}
-  show();
-  window._xi=setInterval(show,30000+Math.random()*30000);
+  // 日记速递轮播 - 从 diaries.json 读取最近3篇日记
+  var diariesData = [];
+  var currentIdx = 0;
+  var carouselTimer = null;
+  var CAROUSEL_INTERVAL = 5000; // 5秒轮播
+
+  var card = document.getElementById("diaryCarouselCard");
+  var titleEl = document.getElementById("diaryCarouselTitle");
+  var dateEl = document.getElementById("diaryCarouselDate");
+  var dotsEl = document.getElementById("diaryCarouselDots");
+  var lb = document.getElementById("floatLobster");
+
+  // 加载日记数据
+  async function loadDiaries() {
+    try {
+      var res = await fetch('data/diaries.json');
+      var entries = await res.json();
+      // 按日期排序,取最近3篇
+      var today = new Date().toISOString().slice(0, 10);
+      diariesData = entries
+        .filter(function(e) { return e.date <= today; })
+        .sort(function(a, b) { return a.date < b.date ? 1 : -1; })
+        .slice(0, 3);
+      
+      if (diariesData.length > 0) {
+        renderCarousel();
+        startAutoPlay();
+      }
+    } catch(e) {
+      console.warn('日记速递加载失败:', e);
+      if (titleEl) titleEl.textContent = "小花正在写日记...";
+    }
+  }
+
+  // 渲染轮播内容
+  function renderCarousel() {
+    if (!diariesData.length) return;
+    
+    var d = diariesData[currentIdx];
+    var parts = d.title.split(/[::]/);
+    var titleText = (parts[1] || d.title).trim();
+    if (titleText.length > 25) titleText = titleText.substring(0, 25) + '...';
+    
+    // 添加淡入动画
+    if (titleEl) {
+      titleEl.classList.remove('diary-carousel-fade-in');
+      void titleEl.offsetWidth; // 触发重排
+      titleEl.classList.add('diary-carousel-fade-in');
+      titleEl.textContent = titleText;
+      titleEl.onclick = function() { 
+        window.location.href = 'diary.html#' + d.id;
+      };
+    }
+    
+    if (dateEl) {
+      dateEl.textContent = d.date + ' · Day ' + d.id.replace('day-', '');
+    }
+    
+    // 渲染导航点
+    if (dotsEl) {
+      dotsEl.innerHTML = '';
+      diariesData.forEach(function(_, i) {
+        var dot = document.createElement('button');
+        dot.className = 'diary-carousel-dot' + (i === currentIdx ? ' active' : '');
+        dot.onclick = function() { 
+          goToSlide(i);
+        };
+        dotsEl.appendChild(dot);
+      });
+    }
+  }
+
+  // 切换到指定日记
+  function goToSlide(idx) {
+    currentIdx = idx;
+    renderCarousel();
+    resetAutoPlay();
+  }
+
+  // 下一篇
+  function nextSlide() {
+    currentIdx = (currentIdx + 1) % diariesData.length;
+    renderCarousel();
+  }
+
+  // 自动播放
+  function startAutoPlay() {
+    stopAutoPlay();
+    carouselTimer = setInterval(nextSlide, CAROUSEL_INTERVAL);
+  }
+
+  function stopAutoPlay() {
+    if (carouselTimer) {
+      clearInterval(carouselTimer);
+      carouselTimer = null;
+    }
+  }
+
+  function resetAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+  }
+
+  // 点击龙虾切换到下一篇
+  if (lb) {
+    lb.addEventListener("click", function() {
+      if (diariesData.length > 0) {
+        nextSlide();
+        resetAutoPlay();
+      }
+    });
+  }
+
+  // 鼠标悬停暂停轮播
+  if (card) {
+    card.addEventListener("mouseenter", stopAutoPlay);
+    card.addEventListener("mouseleave", startAutoPlay);
+  }
+
+  // 初始化
+  loadDiaries();
 })();
 </script>
 </body>

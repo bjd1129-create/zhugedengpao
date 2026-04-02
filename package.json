@@ -24,5 +24,8 @@
   "homepage": "https://github.com/bjd1129-create/zhugedengpao#readme",
   "dependencies": {
     "@playwright/test": "^1.58.2"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.11.1"
   }
 }

@@ -22,7 +22,7 @@
   --text-mid:     #6B3F2A;
   --text-dim:     #8B5A3C;
   --muted:        #7A5C3C;
-  --accent:       #E07A5A;
+  --accent:       #c44434;
   --accent-light: #F09080;
   --accent-dim:   rgba(224,122,90,0.10);
   --accent-glow:  rgba(224,122,90,0.20);
@@ -31,7 +31,7 @@
 
   /* 语义色 */
   --green:   #7CB87A;
-  --amber:   #E07A5A;
+  --amber:   #c44434;
   --gray:    #C4A882;
   --red:     #C4614A;
   --yellow:  #F5C518;

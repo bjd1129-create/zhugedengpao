@@ -27,10 +27,10 @@ nav {
   border-bottom-color: #E8DCC8 !important;
 }
 .nav-logo {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 .nav-links a:hover {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 主标题 ===== */
@@ -38,7 +38,7 @@ nav {
   color: #4A3B2A !important;
 }
 .red, .hero-tagline-pill {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 .hero-tagline-pill {
   background: rgba(212, 136, 60, 0.12) !important;
@@ -72,13 +72,13 @@ nav {
   border-color: #E8DCC8 !important;
 }
 .stat-panel-title {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 轮播箭头 ===== */
 .caro-arrow:hover {
-  border-color: #D4883C !important;
-  color: #D4883C !important;
+  border-color: #8B4513 !important;
+  color: #8B4513 !important;
 }
 .cdot.active {
   background: #D4883C !important;
@@ -91,7 +91,7 @@ nav {
 
 /* ===== 区块标题 ===== */
 .section-label {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 .section-title {
   color: #4A3B2A !important;
@@ -100,12 +100,12 @@ nav {
 /* ===== 标签 ===== */
 .skill-tag {
   background: rgba(212, 136, 60, 0.15) !important;
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 卡片悬停 ===== */
 .diary-card:hover, .skill-card:hover, .sci-card:hover {
-  border-color: #D4883C !important;
+  border-color: #8B4513 !important;
 }
 
 /* ===== 日记卡片 ===== */
@@ -114,7 +114,7 @@ nav {
 }
 
 /* ===== 团队成员卡片 ===== */
-.stat-panel:nth-child(1) .stat-panel-title { color: #D4883C !important; }
+.stat-panel:nth-child(1) .stat-panel-title { color: #8B4513 !important; }
 .stat-panel:nth-child(2) .stat-panel-title { color: #7CB9E8 !important; }
 
 /* ===== 能力展示 ===== */
@@ -136,7 +136,7 @@ nav {
   border-color: #E8DCC8 !important;
 }
 .origin-text .quote {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 浮动吉祥物 ===== */
@@ -162,7 +162,7 @@ nav {
   border-color: #F0DCC0 !important;
 }
 #todayHook a {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 英雄区卡片悬停 ===== */
@@ -172,13 +172,13 @@ nav {
 
 /* ===== 漫画区域 ===== */
 .comic-tab-btn {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 .comic-tab-btn[style*="background:#a02315"],
 .comic-tab-btn[style*="background: #a02315"] {
   background: linear-gradient(135deg, #D4883C, #E5A853) !important;
   color: white !important;
-  border-color: #D4883C !important;
+  border-color: #8B4513 !important;
 }
 
 /* ===== 连载故事卡片 ===== */
@@ -188,7 +188,7 @@ a[onmouseover*="#a02315"] {
 
 /* ===== 底部CTA ===== */
 .cta h2 .red {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 页脚 ===== */
@@ -199,7 +199,7 @@ footer {
 
 /* ===== 全站链接悬停 ===== */
 a:hover {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 圆润感 ===== */
@@ -229,7 +229,7 @@ h1, h2, h3, .section-title, .chapter-title {
 
 /* ===== 强调色 ===== */
 strong, b {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 按钮动画 ===== */
@@ -243,7 +243,7 @@ strong, b {
 
 /* ===== 浮动龙虾气泡 ===== */
 #mascotBubble {
-  color: #D4883C !important;
+  color: #8B4513 !important;
 }
 
 /* ===== 技术文章卡片 ===== */
@@ -251,7 +251,7 @@ a[href*="juejin"] {
   border-color: rgba(212, 136, 60, 0.2) !important;
 }
 a[href*="juejin"]:hover {
-  border-color: #D4883C !important;
+  border-color: #8B4513 !important;
 }
 
 /* ===== 评论表单 ===== */
@@ -259,12 +259,12 @@ a[href*="juejin"]:hover {
   background: linear-gradient(135deg, #D4883C, #E5A853) !important;
 }
 input:focus, textarea:focus {
-  border-color: #D4883C !important;
+  border-color: #8B4513 !important;
 }
 
 /* ===== 响应式调整 ===== */
 @media (max-width: 768px) {
   .nav-logo {
-    color: #D4883C !important;
+    color: #8B4513 !important;
   }
 }

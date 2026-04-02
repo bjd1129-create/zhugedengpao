@@ -49,6 +49,28 @@
 - 对话中说的压缩后可能消失
 - 验证：`openclaw memory status` / `openclaw memory search`
 
+### 重要新发现（2026-04-03）：Compaction vs Pruning
+- **Pruning（友好）：** 只裁剪内存中的旧工具结果，不丢数据，自动实时
+- **Compaction（危险）：** 把整个对话历史压缩成摘要，有损，不可逆
+- 诊断命令：`/context list` — 可看到哪些文件被截断
+- **TOOLS.md经常被截断**（实测：54K→20K）！重要配置不要只放TOOLS.md
+
+### OpenClaw 2.26更新（2026-04-02）
+- ✅ Cron Job失败修复（之前cron任务频繁静默失败）
+- ✅ External Secrets管理
+- ✅ Agent Lifecycle可靠性提升
+- **行动：** 验证cron任务状态：`openclaw cron list`
+
+### 关键Cron故障（2026-04-03凌晨发现）
+| Cron名称 | 错误数 | 错误类型 |
+|----------|--------|---------|
+| 协调官15分钟汇报 | 13次连续错误 | Axios 400 |
+| 小花每小时进度汇报 | 超时 | job execution timed out |
+| 每日AI资讯速报 | 消息失败 | Message failed |
+| 每日通信健康自检 | 超时 | job execution timed out |
+| 小花每日晚间汇报 | 消息失败 | Message failed |
+| 小花22:00日记 | 消息失败 | Message failed |
+
 ---
 
 ## 一张纸摘要（必读）

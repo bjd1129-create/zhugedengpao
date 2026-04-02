@@ -17,15 +17,17 @@
 
 ## OpenClaw 自我进化体系（2026-04-02 更新）
 
-### 三件套（已验证可实施）
-1. **Self-Evolve Plugin** — Q值强化学习+RAG，self-evolve.club 共享网络
-   - 推荐 balanced 模式（默认）
+### 三件套（2026-04-03 凌晨核实）
+1. **Self-Evolve Plugin** — ❌ 未安装（MEMORY.md此前记录有误）
+   - 安装命令：`npx clawhub@latest install self-evolve-skill`
    - 参数：minAbsReward=0.15, minRewardConfidence=0.55, retrieval.tau=0.85
    - 需 OpenClaw 2026.3.2+，当前运行 v2026.3.31 ✓
-2. **Capability Evolver** — GEP 引导进化协议，防失控
+2. **Capability Evolver** — ❌ 未安装
+   - 安装命令：`claw install capability-evolver`
    - `/evolve` 扫描 memory/找优化点
-   - 可配置每24小时自动运行
-3. **Self-Improving Agent** — .learnings 文件系统，凌晨4点自动复盘
+3. **Self-Improving Agent** — ✅ .learnings目录存在
+   - 文件：ERRORS.md / LEARNINGS.md / EVOLUTION.md / FEATURE_REQUESTS.md
+   - 凌晨4点自动复盘正在运行
 
 ### 学术支撑
 - **MemRL (arXiv:2601.03192)** — "Self-Evolving Agents via Runtime Reinforcement Learning"：现有RAG方法（被动语义匹配）存在噪声问题，MemRL提出主动记忆选择+运行时强化学习，Q值更新思路与Self-Evolve Plugin一致。
@@ -70,6 +72,27 @@
 | 每日通信健康自检 | 超时 | job execution timed out |
 | 小花每日晚间汇报 | 消息失败 | Message failed |
 | 小花22:00日记 | 消息失败 | Message failed |
+
+### 2026-04-03 凌晨4点进化复盘发现
+
+**状态核实（cron list）**：
+- ✅ 每日进化复盘：正常运行，连续错误0次
+- ✅ 心跳检查：正常运行，上次ok，连续错误0次
+- ⚠️ 飞书通信：持续400故障（系统性问题）
+
+**关键教训固化到 .learnings**：
+1. 进化报告循环问题（v44-v85）：停止规则生效（无新deploy不写报告）
+2. JSON验证教训：声称修复前必须 `python3 -c "import json"` 实测
+3. Self-Evolve状态核实：配置声称≠实际状态，必须检查文件存在性
+
+**团队成效**：
+- 漫画系统：56张图完成，comic-episode7集成成功
+- 官网质量：Smoke test 25/25，Nav axe-core 0 violations
+- 进化系统：.learnings目录正在使用，凌晨复盘正常触发
+
+**待落地（本周P0）**：
+- Self-Evolve Plugin安装（命令已明确）
+- 飞书通信400故障修复
 
 ---
 

@@ -27,6 +27,9 @@
    - 可配置每24小时自动运行
 3. **Self-Improving Agent** — .learnings 文件系统，凌晨4点自动复盘
 
+### 学术支撑
+- **MemRL (arXiv:2601.03192)** — "Self-Evolving Agents via Runtime Reinforcement Learning"：现有RAG方法（被动语义匹配）存在噪声问题，MemRL提出主动记忆选择+运行时强化学习，Q值更新思路与Self-Evolve Plugin一致。
+
 ### 每日自动化进化 Cron（工作日 8:30）
 - 扫描 Anthropic Engineering + Simon Willison + Hacker News + GitHub Trending
 - 对比 AGENTS.md/TOOLS.md/LESSONS.md 找差距

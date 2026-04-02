@@ -37,8 +37,9 @@
 | # | 承诺内容 | 优先级 | 状态 | 更新时间 |
 |---|----------|--------|------|----------|
 | P0-Git | 清理Git状态，commit | P0 | ✅ 301文件已commit（18:59） | 04-02 18:59 |
-| P0-WR | wrangler deploy参数整理到TOOLS.md | P0 | ❌ 进行中 | - |
-| P1-EVO | evolution.html 内容整合（team/目录素材） | P1 | ❌ 进行中 | - |
+| P0-WR | wrangler deploy参数整理到TOOLS.md | P0 | ✅ v74完成 | 04-02 20:58 |
+| P1-EVO | evolution.html 内容整合（team/目录素材） | P1 | ⏸ 等配色师素材 | - |
+| P2-EVO | 进化周记第二周内容 | P2 | ⏸ 等team素材 | - |
 
 ---
 
@@ -46,8 +47,11 @@
 
 ---
 
-## v73 更新（20:28）
+## v75 更新（21:28）
 
-- P0-WR（wrangler 参数→TOOLS.md）：仍未执行（跳票持续）
-- P1-EVO（evolution.html 内容）：等配色师素材
-- **元循环识别**：cron 触发器与停止规则冲突，下轮修复机制
+- P0-Git ✅ 完成（18:59，301文件commit）
+- P0-WR ✅ 完成（v74，20:58）
+- P1-EVO：等配色师素材
+- P2-EVO：等team素材
+- **进化报告元循环**：v74规则有效（有commit才写），本次符合规则
+- **永久搁置**：WebP comic / Playwright CI / git push

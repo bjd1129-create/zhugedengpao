@@ -1544,9 +1544,11 @@ function renderFeaturedCards() {
   const grid = document.getElementById('diaryGrid');
   if (!grid) return;
   grid.innerHTML = '';
+  var rendered = 0;
   featuredIds.forEach(key => {
     const d = diaries[key];
     if (!d) return;
+    rendered++;
     const card = document.createElement('a');
     card.className = 'diary-card';
     card.onclick = function(){ showDiary(key); return false; };
@@ -1555,6 +1557,13 @@ function renderFeaturedCards() {
       + '<h3>' + (d.title.split(':')[1] || d.title) + '</h3></div>';
     grid.appendChild(card);
   });
+  if (!rendered) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px 20px;background:#fff8f5;border-radius:16px;border:2px solid rgba(224,122,90,0.15)">'
+      + '<div style="font-size:32px;margin-bottom:12px">🦞</div>'
+      + '<div style="font-size:15px;color:#555;line-height:1.8">老庄说等我攒够故事就让我天天写日记！</div>'
+      + '<div style="font-size:13px;color:#aaa;margin-top:10px">小花的日记本正在填写中...</div>'
+      + '</div>';
+  }
 }
 
 function showDiary(key){

@@ -13,10 +13,26 @@ source .cloudflare.env && env -u http_proxy -u https_proxy \
 ```
 
 **参数说明：**
-- `--branch=main`：更新 dengpao.pages.dev（生产环境）
-- `--branch=production`：创建独立 preview URL（不同 URL，不是生产）
-- `--commit-dirty=true`：跳过 git 状态检查，直接 deploy 脏目录
-- **不需要 `--branch`**：生成随机 preview URL，不更新生产环境（错误用法）
+| 参数 | 作用 | 示例 |
+|------|------|------|
+| `--project-name` | 指定 Cloudflare Pages 项目 | `dengpao` |
+| `--branch=main` | 更新生产环境 `dengpao.pages.dev` | 必须指定 |
+| `--branch=production` | 创建独立 preview URL（非生产） | `production.dengpao.pages.dev` |
+| `--branch=<random>` | 生成随机 preview URL | 不更新生产环境 |
+| `--commit-dirty=true` | 跳过 git 状态检查，直接 deploy 脏目录 | 推荐 always |
+| **不指定 `--branch`** | ❌ 错误用法：生成随机 URL，不更新生产 | 避免 |
+
+**常见场景：**
+```bash
+# 场景 1：更新生产环境（最常用）
+npx wrangler pages deploy . --project-name=dengpao --branch=main --commit-dirty=true
+
+# 场景 2：生成 preview URL 测试（不更新生产）
+npx wrangler pages deploy . --project-name=dengpao --commit-dirty=true
+
+# 场景 3：指定分支部署（独立 preview URL）
+npx wrangler pages deploy . --project-name=dengpao --branch=feature-test --commit-dirty=true
+```
 
 ### Cloudflare
 - **项目名**: dengpao

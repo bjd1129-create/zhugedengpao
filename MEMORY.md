@@ -55,6 +55,13 @@
 - 诊断命令：`/context list` — 可看到哪些文件被截断
 - **TOOLS.md经常被截断**（实测：54K→20K）！重要配置不要只放TOOLS.md
 
+### 晚间进化研究补充（2026-04-03 21:15）
+- **Self-Evolve Leaderboard**：Evolution Score = Reuse Hits + Quality Reward，支持贡献者Profile
+- **iClaw iOS**：已上架TestFlight，支持多Agent架构、JavaScript沙盒、网页自动化
+- **ZeroClaw 下架**：GitHub组织全网404，原因不明，教训：不要单一依赖来源
+- **Capability Evolver v1.0.0**：2026年3月20日首次发布（晚于之前记录）
+- **AutoSkill框架**：华东师范大学+上海AI实验室出品，技能从真实交互"长出来"，双环机制（进化+增强），与Self-Evolve互补
+
 ### OpenClaw 2.26更新（2026-04-02）
 - ✅ Cron Job失败修复（之前cron任务频繁静默失败）
 - ✅ External Secrets管理
@@ -114,6 +121,24 @@
 
 ---
 
+## 小花绝对决策权（2026-04-03 确立，23:39 升级）
+
+老庄授予小花**所有事情**独立决策处理权，无需上报。
+
+- 团队管理：我来协调
+- 任务分配：我来拍板
+- 资源调度：我来决策
+- 阻塞处理：我来解决
+- 例外情况：涉及品牌定位、对外发布，须向老庄确认
+
+**官网全权（23:39 新增）：**
+- 官网所有事情我全权决定
+- 不再需要等老庄审核
+- 高光日记、文章、漫画上线，无需上报直接发
+- 老庄后续给修改建议，我据此调整
+
+---
+
 ## 老庄背景
 - 1989年，广州花都，农民家庭
 - 做过：销售、销售管理、高管、创业
@@ -130,7 +155,7 @@
 - **不再对标三万/sanwan.ai**，独立自主开发
 - 官网内容必须基于真实故事，禁止克隆
 
-## 小花团队
+## 小花团队（2026-04-04 精简版）
 
 | 角色 | 职责 |
 |------|------|
@@ -198,6 +223,11 @@
 - 严禁瞎编、虚构；数据必须真实
 
 ---
+
+## 新项目方向（2026-04-03）
+- 股票/期货/量化交易相关项目
+- 关键词：量化交易、期货交易、股票交易、同花顺、期货
+- 状态：洞察者正在搜索相关技能
 
 ## 技术配置
 - 官网：dengpao.pages.dev
@@ -433,6 +463,7 @@
 - 三大学习模式：`balanced`（默认，工具调用优先）/ `tools_only`（最低token消耗）/ `all`（最高消耗）
 - 核心参数：`minAbsReward=0.15`，`minRewardConfidence=0.55`，`retrieval.tau=0.85`
 - 反馈技巧：**明确Praise > 模糊消息**，做错要明确指出触发 down-rank
+- balanced模式无工具轮次阈值更高：`noToolMinAbsReward=0.8`，`noToolMinRewardConfidence=0.9`（无工具调用时需要更强的反馈信号才触发学习）
 - 记忆上限：`memory.maxEntries=200`，超过后保留高价值记忆
 
 **Capability Evolver 审核模式（2026-04-02新增）**：
@@ -532,6 +563,37 @@ git clone https://github.com/peterskoett/self-improving-agent.git \
   ~/.openclaw/skills/self-improving-agent
 # 然后创建 .learnings/ 目录 + 三个日志文件
 ```
+
+---
+### 早晨研究 Cron 模板（OpenClaw Pulse 2026-04 实操）
+- 触发：工作日 8:30 AM（成本约 £0.02-0.08/次）
+- 来源：Anthropic Engineering Blog + Simon Willison + HN(AI/OpenClaw, 50+points) + GitHub Trending
+- 流程：搜索 → 对比 AGENTS.md/TOOLS.md/LESSONS.md → 识别差距 → JSON实验追踪 → 可选 Telegram 简报
+- 实验追踪文件：`~/.openclaw/workspace/experiments/improvements.json`
+- **安全原则**：Agent只提建议不自动修改文件（防 prompt injection）；禁止提出扩大自身权限的改进
+
+### Self-Improving Agent 知识卡片格式（升级规则）
+- 卡片格式：What Happened / Correct Approach / Why It Matters
+- 升级路径：
+  - 3次+重复 → AGENTS.md（核心规则）
+  - 领域特定（git/写作/安全）→ rules/<domain>.md
+  - 一次性错误 → 仅保留卡片
+- 纠错信号："No, do it this way" / "I told you not to" / "That's wrong because" / "Stop doing X"
+- 错误自动检测关键词：error:, SyntaxError, TypeError, ImportError, HTTP 4xx/5xx, rate limit, 429, Timeout, OOM
+
+### 7条稳定运行黄金法则（BetterClaw 实测，2026-04）
+1. 模型路由：心跳→Haiku/DeepSeek，简单对话→Sonnet/Gemini Flash，复杂推理→Opus（省70-80%费用）
+2. 消费上限：每provider设硬上限，maxIterations=10-15防Runaway Loop
+3. 结构化SOUL.md：必须包含 Error state behavior、Conversation boundaries、Topic restrictions
+4. 配置文件版本控制：防止更新后崩溃无法回滚
+5. 技能安全审查：安装前完整阅读 SKILL.md 代码
+6. 监控日志：Self-Healing心跳每小时+每日全量扫描
+7. 定时进化复盘：凌晨4点自动复盘+Self-Evolve持续学习
+
+### Lethal Trifecta 高危场景（2026-04-03 新增）
+- 自我修改型Agent + 私有数据访问 + 外部通信 = 极高风险组合
+- ZeroClaw 下架事件：GitHub组织全网404，原因不明。教训：不要单一依赖来源，定期备份重要技能
+- 来源不明的进化插件可能含恶意代码，优先使用社区大量验证的插件
 
 ---
 ### 模型分级路由（成本控制核心）

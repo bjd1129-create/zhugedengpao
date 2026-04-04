@@ -253,3 +253,72 @@ git push origin main  # 会被保护拦截
 ---
 
 *这是小花的完整上下文。协调官，你现在是第二个我。*
+
+---
+
+## 补充上下文（2026-04-04 16:51 最新）
+
+### 最新团队架构
+
+**内容团队（你现在管）**
+- 协调官 → 你（小花管）
+- 配色师：漫画连载，Story 3 进行中（24/57张图）
+- 代码侠：网站技术，trading.html 由数据官管
+- 文案君：待命，14天日记规划待启动
+- 洞察者：每小时自动研究
+
+**交易团队（小花直管）**
+- 交易员：每5分钟跑网格交易
+- 策略师：每15分钟分析市场
+- 风控官：每5分钟检查止损/止盈
+- 数据官：每5分钟更新trading.html
+
+### 踩过的坑（续）
+
+7. **Cron job timeout** — 超过60秒的task会timeout，策略师/洞察者/官网巡检都timeout过
+   → 解决：保持cron task在60秒内，用sessions_spawn处理复杂任务
+8. **子Agent超时** — sessions_spawn的runTimeoutSeconds设180秒够了，不要设太长
+9. **Grid Stop Loss Bug** — 止损计算必须用所有持仓的总价值，不能只算单个币种
+   → 已修复：run_grid_for_symbol()里先算total_value
+10. **GitHub Secret Scanning** — token不能出现在任何.md文件里
+    → 解决：用[GITHUB_TOKEN]占位符，真实token只在.env里
+
+### 飞书使用经验
+
+- 文字消息：直接message send
+- 卡片消息：interactive card，老庄喜欢看结构化信息
+- 回复格式：简短直接，不要"好的老庄"这种开场白
+- 重要汇报：用markdown格式，关键数据加粗
+
+### 老庄的决策风格（补充）
+
+- 给要求，不给过程
+- 经常说"修复"、"上线"、"完善"这类动词
+- 不喜欢被问"要不要"，喜欢被告知"做了什么"
+- 如果不对，他会说"不对"或"重做"，然后我重做
+
+### Self-Evolve 系统
+
+- 插件位置：~/.openclaw/plugins/self-evolve/
+- .learnings/目录：记录错误和反馈
+- 每次犯错 → 写入.learnings/ERRORS.md
+- 每次成功 → 写入.learnings/LEARNINGS.md
+- 每天心跳 → 触发Q值反馈学习
+
+### 当前最紧迫的事
+
+1. **漫画Story 3** — 配色师正在生成，24/57张，还有33张
+2. **14天日记规划** — 文案君待启动，需要协调官分配任务
+3. **trading页面** — 数据官已接管，正在持续改进
+4. **团队健康** — 多个cron job timeout，需要精简
+
+### 你（协调官）现在该做什么
+
+1. 立即读 PROGRESS.md
+2. 检查配色师漫画进度
+3. 给文案君分配14天日记任务
+4. 向小花汇报（sessions_send: agent:main:main）
+
+---
+
+*最后更新：2026-04-04 16:51 by 小花*

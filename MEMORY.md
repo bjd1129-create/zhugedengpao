@@ -78,6 +78,13 @@
 - 多agent不能同时edit同一文件
 - 搜索用Brave/web_search，不用ddgs（会被拦截）
 
+## 交易员Agent（2026-04-04新增）
+- 目录：agents/trader/
+- 策略：BTC/ETH持有 + AVAX/ADA网格
+- 监控Bug：止损判断脚本把持仓价值当总账户值（ETH $999 ≠ 总账户）
+- 实际账户：$10,448（+4.48%）
+- 配置文件：data/trading/portfolio.json
+
 ## 技术配置
 - 官网：dengpao.pages.dev
 - GitHub：github.com/bjd1129-create/zhugedengpao
@@ -122,6 +129,35 @@
 - 追踪skill使用效果，识别改进点，自动化优化流程
 - 持续迭代SKILL.md，形成闭环优化
 
+### 五级进化成熟度模型（2026-04-04 新增）
+| 级别 | 名称 | 特征 | Token成本 |
+|------|------|------|----------|
+| L1 | 基础日志 | 手动记录 learnings | 无 |
+| L2 | 自动捕获 | self-improving-agent | 低 |
+| L3 | 算法学习 | self-evolve (Q值) | 中 |
+| L4 | Skill优化 | skill-evolution | 变化 |
+| L5 | 自主进化 | be1human-self-evolve | 高 |
+
+**小花团队现状：L2→L3 过渡期**
+
+### Pre-compaction Ping 机制（内置被动学习）
+- 会话接近上下文上限时自动触发静默agentic turn
+- 自动提醒在上下文压缩前写入持久记忆
+- 配置路径：`agents.defaults.compaction.memoryFlush`
+
+### X/Twitter 深度研究工作流
+- OpenClaw可实现完整"监听→研究→发布"闭环
+- 适用于内容运营自动化和端到端工作流
+- 需配置X skill和深度研究能力
+
+### 安全四象限模型
+```
+高自动化+低监控 = 危险区
+高自动化+高监控 = 最佳区
+低自动化+低监控 = 谨慎区
+低自动化+高监控 = 观察区
+```
+
 ### 版本建议
 - ✅ 推荐 OpenClaw 2026.3.2+（完整功能支持）
 - ⚠️ 不推荐 2026.2.12（有已知bug）
@@ -132,6 +168,15 @@
 2. 安装 self-evolve 插件
 3. 制定团队反馈规范（明确正/负反馈）
 4. 建立 .learnings 目录结构
+
+## 内容团队当前核心问题（2026-04-04）
+- 内容团队24小时运转 = cron空转，没有真正的任务来源链条
+- 明天目标：建立洞察者→文案君→配色师的自动任务链
+
+## 协调官3个网站改善建议（待执行）
+1. 首页浮动小花角色（P1）
+2. 首页晨光氛围效果（P1）
+3. 访客彩蛋（P2）
 
 ## 记忆系统规范
 - 见 memory/MEMORY-FLOW.md
@@ -148,3 +193,29 @@
 - 团队管理/任务分配/资源调度/阻塞处理：我全权决策
 - 例外（须向老庄确认）：涉及品牌定位、对外发布
 - 老庄只给建议和要求，我要结果，不解释过程
+
+### 交易团队（2026-04-04 确立）
+- 混合策略v1.0：BTC/ETH持有 + AVAX/ADA网格
+- 4个Agent：trader/strategist/riskofficer/dataviz
+- LaunchDaemon改nohup后台进程（PID 75739）
+- 后端：agents/trader/trading_simulator.py
+- 页面：dengpao.pages.dev/trading
+
+### 协调官接管内容团队（2026-04-04）
+- 协调官向小花汇报，不自作主张
+- 小花通过sessions_spawn给协调官派工
+- GitHub/CF凭证在 agents/coordinator/.env
+
+---
+
+## OpenClaw 进化技术栈（2026年4月调研）
+
+**OpenClaw-RL**（ArXiv #1, 2026/3/10）：用对话训练 Agent 的 RL 框架，三种范式（Binary RL/OPD/Combine），全异步，零标注，支持 LoRA 微调。代码：github.com/Gen-Verse/OpenClaw-RL
+
+**Self-Evolve**（self-evolve.club）：技能进化 + RAG 知识共享网络，Intent-Experience 三元组，Evolution Score 排行榜。安装：npx clawhub@latest install self-evolve-skill
+
+**Self-Improving Agent + AutoSkill**：双环进化——前者管错误记录和日复盘，后者管技能从经验中"长出来"并持续版本化。Self-Improving: pskoett/self-improving-agent；AutoSkill: ECNU-ICALK/AutoSkill
+
+**稳定性最佳实践**：模型路由（省70-80%费用）、消费上限、SOUL.md 结构化、Gateway 安全（SIGUSR1重启）、SKILL.md<50行
+
+详见：`agents/洞察者/进化研究-2026-04-04.md`

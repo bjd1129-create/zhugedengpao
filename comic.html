@@ -137,9 +137,7 @@ footer a:hover{color:#E07A5A}
   var legacyPanels = [];
   for(var s=1; s<=7; s++){
     for(var p=1; p<=8; p++){
-      var imgName = (s===7)
-        ? 'content/comic/comic-episode7-'+String(p).padStart(2,'0')+'-cn.jpg'
-        : 'images/comic-lobster-story'+s+'-p'+p+'.jpg';
+      var imgName = 'images/comic-lobster-story'+s+'-p'+p+(s>=3?'-cn':'')+'.jpg';
       legacyPanels.push({
         story: s,
         src: imgName,

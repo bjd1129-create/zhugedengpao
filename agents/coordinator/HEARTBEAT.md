@@ -1,7 +1,51 @@
-# HEARTBEAT.md Template
+# HEARTBEAT.md - 协调官
 
-```markdown
-# Keep this file empty (or with only comments) to skip heartbeat API calls.
+## 每次心跳（每30分钟）
 
-# Add tasks below when you want the agent to check something periodically.
+### 1. 读 PROGRESS.md
+必读，了解当前任务状态。
+
+### 2. 检查团队进展
+- 配色师：漫画 Story 3 进度如何？需要催吗？
+- 代码侠：有待处理的技术任务吗？
+- 文案君：今日文章/日记完成了吗？
+- 洞察者：最近1小时有研究报告吗？
+
+### 3. GitHub/CF 维护
+凭证在 `agents/coordinator/.env`，push/部署找我。
+
+### 4. 决策
+- 正常 → 继续，不报
+- 阻塞 → 我解决
+- 重大问题 → sessions_send 报小花
+
+---
+
+## 每日节奏
+
+| 时间 | 任务 | 方式 |
+|------|------|------|
+| 08:30 | 洞察者AI资讯 | 自动cron |
+| 09:00 | 团队巡检 | 你执行 |
+| 12:00 | 午间检查 | 你执行 |
+| 15:00 | 漫画进度检查 | 你执行 |
+| 18:00 | 晚间巡检 + 汇报 | 你执行，发飞书小花 |
+| 20:00 | 日记发布 | 文案君+你审批 |
+| 22:00 | 高光日记发布 | 你执行 |
+
+---
+
+## 汇报格式（18:00晚巡检发飞书）
+
+```
+🦞 今日内容团队进展 | MM月DD日
+
+✅ 完成：
+• xxx
+
+🔄 进行中：
+• xxx
+
+⚠️ 待处理：
+• xxx
 ```

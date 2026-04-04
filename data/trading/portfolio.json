@@ -1,50 +1,71 @@
 {
-  "lastUpdated": "2026-04-04T14:12:00+08:00",
+  "lastUpdated": "2026-04-04T14:53:45+08:00",
   "account": {
-    "totalValue": 10000.00,
+    "totalValue": 11000.29,
     "currency": "USDT",
-    "initialBalance": 10000.00,
-    "todayPnL": 0.00,
-    "todayPnLPercent": 0.00,
-    "totalPnL": 0.00,
-    "totalPnLPercent": 0.00,
-    "winRate": 0.00,
-    "totalTrades": 0
+    "initialBalance": 10000.0,
+    "todayPnL": 0.0,
+    "todayPnLPercent": 0.0,
+    "totalPnL": 1000.29,
+    "totalPnLPercent": 10.0,
+    "winRate": 0.0,
+    "totalTrades": 2,
+    "cashBalance": 9000.0
   },
   "holdings": [
     {
       "symbol": "BTC",
-      "amount": 0.00,
-      "avgPrice": 0.00,
-      "currentPrice": 0.00,
-      "value": 0.00,
-      "pnl": 0.00,
-      "pnlPercent": 0.00
+      "amount": 0.014923947563217844,
+      "avgPrice": 67006.4,
+      "currentPrice": 67015.88,
+      "value": 1000.1414790228995,
+      "pnl": 0.14147902289946152,
+      "pnlPercent": 0.0001414790228994615
     },
     {
       "symbol": "ETH",
-      "amount": 0.00,
-      "avgPrice": 0.00,
-      "currentPrice": 0.00,
-      "value": 0.00,
-      "pnl": 0.00,
-      "pnlPercent": 0.00
+      "amount": 0.48649726831783835,
+      "avgPrice": 2055.51,
+      "currentPrice": 2055.82,
+      "value": 1000.1508141531785,
+      "pnl": 0.15081415317850333,
+      "pnlPercent": 0.00015081415317850334
     }
   ],
   "strategy": {
     "name": "网格交易 v1.0",
-    "status": "待启动",
+    "status": "测试网已连接，待充值测试币",
     "gridLevels": 10,
     "gridSpacing": 0.02,
     "positionPerGrid": 0.1,
     "stopLoss": 0.05,
     "takeProfit": 0.03
   },
-  "recentTrades": [],
-  "equityCurve": [
-    {"date": "2026-04-04", "value": 10000}
+  "recentTrades": [
+    {
+      "time": "2026-04-04T14:53:14.802013",
+      "side": "BUY",
+      "symbol": "ETH",
+      "amount": 0.48649726831783835,
+      "price": 2055.51,
+      "gridLevel": 1
+    },
+    {
+      "time": "2026-04-04T14:53:14.801995",
+      "side": "BUY",
+      "symbol": "BTC",
+      "amount": 0.014923947563217844,
+      "price": 67006.4,
+      "gridLevel": 1
+    }
   ],
-  "status": "simulated",
-  "exchange": "binance",
-  "notes": "当前为模拟盘，待Binance API接入后切换实盘"
+  "equityCurve": [
+    {
+      "date": "2026-04-04",
+      "value": 11000.29
+    }
+  ],
+  "status": "testnet",
+  "exchange": "binance-testnet",
+  "notes": "测试网余额 | BTC=66911.21 ETH=2053.29"
 }

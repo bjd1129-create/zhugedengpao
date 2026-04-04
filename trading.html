@@ -635,18 +635,25 @@ function switchTab(tab) {
   document.querySelectorAll('.chart-tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase().includes(tab)));
 }
 
-// Live prices store (updated every 10s via CoinGecko)
-let livePrices = { BTC: null, ETH: null };
+// Live prices store (updated every 10s via Binance - no CORS issue, China accessible)
+let livePrices = { BTC: null, ETH: null, AVAX: null, ADA: null };
 
 async function fetchLivePrices() {
   try {
-    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
-    const d = await r.json();
+    const [btcR, ethR, avaxR, adaR] = await Promise.all([
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'),
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT'),
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=AVAXUSDT'),
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=ADAUSDT')
+    ]);
+    const [btc, eth, avax, ada] = await Promise.all([btcR.json(), ethR.json(), avaxR.json(), adaR.json()]);
     livePrices = {
-      BTC: d.bitcoin.usd,
-      ETH: d.ethereum.usd
+      BTC: parseFloat(btc.price),
+      ETH: parseFloat(eth.price),
+      AVAX: parseFloat(avax.price),
+      ADA: parseFloat(ada.price)
     };
-    ['BTC', 'ETH'].forEach(sym => {
+    ['BTC', 'ETH', 'AVAX', 'ADA'].forEach(sym => {
       const el = document.getElementById(sym.toLowerCase() + 'Price');
       const currEl = document.getElementById(sym.toLowerCase() + 'Curr');
       const gridEl = document.getElementById('grid' + sym + 'Price');
@@ -656,6 +663,9 @@ async function fetchLivePrices() {
       if (gridEl) gridEl.textContent = '$' + fmt(price);
     });
   } catch (e) {
+    console.warn('Live price fetch failed:', e);
+  }
+}{
     console.warn('Live price fetch failed:', e);
   }
 }

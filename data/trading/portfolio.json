@@ -1,21 +1,21 @@
 {
   "account": {
     "cashBalance": 4000.0,
-    "totalValue": 10000.0,
+    "totalValue": 9999.99,
     "initialBalance": 10000.0,
-    "totalPnL": 0.0,
-    "totalPnLPercent": 0.0,
+    "totalPnL": -0.01,
+    "totalPnLPercent": -0.0,
     "totalTrades": 0,
-    "todayPnL": 0,
-    "todayPnLPercent": 0
+    "todayPnL": 0.0,
+    "todayPnLPercent": 0.0
   },
   "holdings": [
     {
       "symbol": "BTC",
       "name": "Bitcoin",
-      "amount": 0.04463974,
-      "avgPrice": 67204.7,
-      "currentPrice": 67204.7,
+      "amount": 0.04468024,
+      "avgPrice": 67143.78,
+      "currentPrice": 67143.78,
       "value": 3000.0,
       "pnl": 0.0,
       "pnlPercent": 0.0
@@ -23,19 +23,19 @@
     {
       "symbol": "ETH",
       "name": "Ethereum",
-      "amount": 1.46207381,
-      "avgPrice": 2051.88,
-      "currentPrice": 2051.88,
-      "value": 3000.0,
-      "pnl": 0.0,
-      "pnlPercent": 0.0
+      "amount": 1.46262981,
+      "avgPrice": 2051.1,
+      "currentPrice": 2051.09,
+      "value": 2999.99,
+      "pnl": -0.01,
+      "pnlPercent": -0.0
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 8.87,
+      "currentPrice": 8.89,
       "value": 0.0,
       "pnl": 0.0,
       "pnlPercent": 0
@@ -45,7 +45,7 @@
       "name": "Cardano",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 0.2441,
+      "currentPrice": 0.2448,
       "value": 0.0,
       "pnl": 0.0,
       "pnlPercent": 0
@@ -53,41 +53,41 @@
   ],
   "gridState": {
     "BTC": {
-      "position": 0.04463973501853293,
-      "avgPrice": 67204.7,
       "levels": [],
+      "position": 0.04468024,
+      "avgPrice": 67143.78,
       "lastGridIdx": null,
       "fills": []
     },
     "ETH": {
-      "position": 1.4620738054857008,
-      "avgPrice": 2051.88,
       "levels": [],
+      "position": 1.46262981,
+      "avgPrice": 2051.1,
       "lastGridIdx": null,
       "fills": []
     },
     "AVAX": {
       "levels": [
-        8.4806,
-        8.5231,
-        8.5657,
-        8.6085,
-        8.6515,
-        8.6948,
-        8.7383,
-        8.782,
-        8.8259,
-        8.87,
-        8.9143,
-        8.9589,
-        9.0037,
-        9.0487,
-        9.094,
-        9.1394,
-        9.1851,
-        9.2311,
-        9.2772,
-        9.3236
+        8.4998,
+        8.5423,
+        8.585,
+        8.6279,
+        8.671,
+        8.7144,
+        8.758,
+        8.8018,
+        8.8458,
+        8.89,
+        8.9345,
+        8.9791,
+        9.024,
+        9.0691,
+        9.1145,
+        9.1601,
+        9.2059,
+        9.2519,
+        9.2981,
+        9.3446
       ],
       "position": 0,
       "avgPrice": 0,
@@ -96,26 +96,26 @@
     },
     "ADA": {
       "levels": [
-        0.2334,
-        0.2346,
-        0.2357,
-        0.2369,
-        0.2381,
-        0.2393,
-        0.2405,
-        0.2417,
-        0.2429,
-        0.2441,
-        0.2453,
-        0.2465,
-        0.2478,
-        0.249,
-        0.2503,
-        0.2515,
-        0.2528,
-        0.254,
-        0.2553,
-        0.2566
+        0.2341,
+        0.2352,
+        0.2364,
+        0.2376,
+        0.2388,
+        0.24,
+        0.2412,
+        0.2424,
+        0.2436,
+        0.2448,
+        0.246,
+        0.2473,
+        0.2485,
+        0.2497,
+        0.251,
+        0.2522,
+        0.2535,
+        0.2548,
+        0.256,
+        0.2573
       ],
       "position": 0,
       "avgPrice": 0,
@@ -127,10 +127,10 @@
   "equityCurve": [
     {
       "date": "2026-04-04",
-      "value": 10000.0
+      "value": 9999.99
     }
   ],
-  "lastUpdated": "2026-04-04T21:51:11+08:00",
+  "lastUpdated": "2026-04-04T22:53:35+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

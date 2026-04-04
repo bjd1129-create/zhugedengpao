@@ -425,7 +425,9 @@ function renderDonut(data) {
     { name: '₳ ADA', value: data.holdings.find(h=>h.symbol==='ADA')?.value||0, color: '#0033ad' }
   ];
 
-  const totalVal = cash + btcVal + ethVal;
+  const avaxVal = data.holdings.find(h=>h.symbol==='AVAX')?.value||0;
+  const adaVal = data.holdings.find(h=>h.symbol==='ADA')?.value||0;
+  const totalVal = cash + btcVal + ethVal + avaxVal + adaVal;
   document.getElementById('donutTotal').textContent = '$' + fmt(totalVal, 0);
 
   // Compute conic-gradient segments

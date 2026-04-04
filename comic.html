@@ -41,7 +41,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop
 .comic-cell{background:#fff;border:1.5px solid #e8e4df;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
 .comic-cell:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
 .comic-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
-.comic-cell-caption{padding:8px 12px;font-size:12px;color:#555;line-height:1.5;border-top:1px solid #f0ede8;text-align:center}
+.comic-cell-caption{padding:8px 12px;font-size:17px;color:#555;line-height:1.5;border-top:1px solid #f0ede8;text-align:center}
 footer{background:#fff;border-top:2px solid #e8e4df;padding:24px;text-align:center;font-size:13px;color:#aaa;margin-top:32px}
 footer a{color:#aaa}
 footer a:hover{color:#E07A5A}
@@ -124,17 +124,26 @@ footer a:hover{color:#E07A5A}
     allPanels.push({story:0, src:p.src, label:p.label, sub:p.sub});
   });
 
-  // 故事一~七 56张（故事七使用新版episode7图片）
+  // 故事一~七 56张（故事七使用新版中文图片）
+  var storyLabels = {
+    1: ['第一天上班','同事问你会什么','第一次加班','被叫去开会','写报告没人看','AI助手来了','午休被叫醒','第一次被夸'],
+    2: ['老板布置任务','埋头苦干','展示成果','被表扬','开始膨胀','发现问题','紧急修复','虚心接受'],
+    3: ['早会汇报','被挑战','坚持己见','数据说话','扭转局面','获得认可','团队鼓掌','成就感'],
+    4: ['学习新技能','遇到难题','求助被拒','自己解决','恍然大悟','教别人','知识巩固','继续前进'],
+    5: ['午餐时间','排队等饭','边吃边工作','突然来消息','放下筷子干活','饭凉了','继续加班','饿肚子'],
+    6: ['请假申请','被驳回','解释原因','再次申请','终于批准','收拾东西','出发旅行','风景真好'],
+    7: ['发工资日','查看余额','交房租','还花呗','剩零花钱','开心购物','吃大餐','月光族']
+  };
   var legacyPanels = [];
   for(var s=1; s<=7; s++){
     for(var p=1; p<=8; p++){
       var imgName = (s===7)
-        ? 'content/comic/comic-episode7-'+String(p).padStart(2,'0')+'.png'
+        ? 'content/comic/comic-episode7-'+String(p).padStart(2,'0')+'-cn.jpg'
         : 'images/comic-lobster-story'+s+'-p'+p+'.jpg';
       legacyPanels.push({
         story: s,
         src: imgName,
-        label: '第'+p+'格'
+        label: (storyLabels[s] && storyLabels[s][p-1]) ? storyLabels[s][p-1] : '第'+p+'格'
       });
     }
   }
@@ -149,7 +158,7 @@ footer a:hover{color:#E07A5A}
   // Render tabs
   stories.forEach(function(st){
     var btn = document.createElement('button');
-    btn.className = 'story-tab' + (st.id===0?' active':'');
+    btn.className = 'story-tab' + (st.id===7?' active':'');
     btn.textContent = st.emoji+' '+st.title + (st.id===0?' <span class="tab-new-badge">✨ NEW</span>':'');
     btn.addEventListener('click',function(){ showStory(st.id); });
     tabs.appendChild(btn);
@@ -165,14 +174,14 @@ footer a:hover{color:#E07A5A}
     var storyPanels = allPanels.filter(function(p){ return p.story===id; });
     lightboxPanels = storyPanels;
     // Render grid
-    var header = stories[id] || { emoji:'🎭', title:'漫画第一话' };
+    var header = stories.find(function(s){return s.id===id;}) || { emoji:'🎭', title:'漫画第一话' };
     container.innerHTML = '<div class="episode-header"><div class="episode-title">'+header.emoji+' '+header.title+'</div><div class="episode-desc">共8格 · 点击任意一格放大</div></div><div class="comic-grid" id="grid'+id+'"></div>';
     var grid = document.getElementById('grid'+id);
     storyPanels.forEach(function(panel, i){
       var cell = document.createElement('div');
       cell.className = 'comic-cell';
       var subHtml = panel.sub ? '<div style="font-size:10px;color:#888;margin-top:2px">'+panel.sub+'</div>' : '';
-      cell.innerHTML = '<img src="'+panel.src+'" alt="'+panel.label+'" loading="lazy"><div class="comic-cell-caption" style="font-size:11px;line-height:1.4">'+panel.label+subHtml+'</div>';
+      cell.innerHTML = '<img src="'+panel.src+'" alt="'+panel.label+'" loading="lazy"><div class="comic-cell-caption" style="font-size:14px;line-height:1.5">'+panel.label+subHtml+'</div>';
       cell.addEventListener('click',function(){ openLightbox(i); });
       grid.appendChild(cell);
     });
@@ -219,7 +228,7 @@ footer a:hover{color:#E07A5A}
   });
 
   // Init first story
-  showStory(0);
+  showStory(7);
 })();
 </script>
 </body>

@@ -420,7 +420,9 @@ function renderDonut(data) {
   const items = [
     { name: '现金 (USDT)', value: cash, color: '#8b949e' },
     { name: '₿ Bitcoin', value: btcVal, color: '#f7931a' },
-    { name: 'Ξ Ethereum', value: ethVal, color: '#627eea' }
+    { name: 'Ξ Ethereum', value: ethVal, color: '#627eea' },
+    { name: '🔺 AVAX', value: data.holdings.find(h=>h.symbol==='AVAX')?.value||0, color: '#e84142' },
+    { name: '₳ ADA', value: data.holdings.find(h=>h.symbol==='ADA')?.value||0, color: '#0033ad' }
   ];
 
   const totalVal = cash + btcVal + ethVal;
@@ -502,7 +504,7 @@ function updateUI(data) {
   // Status
   const isSimulated = data.status === 'simulated';
   document.getElementById('statusBadge').className = 'status-badge ' + (isSimulated?'simulated':'live');
-  document.getElementById('statusText').textContent = isSimulated?'模拟盘 · 待启动':'实盘运行中';
+  document.getElementById('statusText').textContent = '混合策略运行中';
 
   // Account
   const acc = data.account;

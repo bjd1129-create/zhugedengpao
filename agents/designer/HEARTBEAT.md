@@ -6,8 +6,8 @@
 读 PROGRESS.md，找设计/配色/漫画任务。
 
 ### 2. 执行产出
-漫画 → images/comic-lobster-story{N}-p{M}-cn.jpg
-配色方案 → 写入对应页面或文档
+- 漫画 → images/comic-lobster-story{N}-p{M}-cn.jpg
+- 配色方案 → 写入对应页面或文档
 
 ### 3. 三问自检
 - 今天的图产出了吗？

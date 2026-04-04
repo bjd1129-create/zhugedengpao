@@ -649,29 +649,39 @@ async function fetchLivePrices() {
   }
 }
 
+// Store portfolio data globally for live price overlay
+let portfolioData = null;
+
 async function init() {
-  const data = await loadData();
-  if (livePrices.BTC) {
-    data.holdings.forEach(h => {
+  portfolioData = await loadData();
+  if (livePrices.BTC && portfolioData) {
+    portfolioData.holdings.forEach(h => {
       if (livePrices[h.symbol]) {
         h.currentPrice = livePrices[h.symbol];
         h.value = h.amount * livePrices[h.symbol];
       }
     });
   }
-  updateUI(data);
+  updateUI(portfolioData);
   fetchLivePrices();
   setInterval(fetchLivePrices, 15000);
+  // Every 30s reload portfolio + overlay live prices
   setInterval(async () => {
     const d = await loadData();
-    if (livePrices.BTC) {
+    if (d && livePrices.BTC) {
       d.holdings.forEach(h => {
         if (livePrices[h.symbol]) {
           h.currentPrice = livePrices[h.symbol];
           h.value = h.amount * livePrices[h.symbol];
         }
       });
+      const cash = d.account.cashBalance;
+      const holdingsValue = d.holdings.reduce((sum, h) => sum + (h.value || 0), 0);
+      d.account.totalValue = cash + holdingsValue;
+      d.account.totalPnL = d.account.totalValue - 10000;
+      d.account.totalPnLPercent = (d.account.totalPnL / 10000) * 100;
     }
+    portfolioData = d;
     updateUI(d);
   }, 30000);
 }

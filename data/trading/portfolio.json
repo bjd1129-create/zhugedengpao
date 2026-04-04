@@ -1,0 +1,50 @@
+{
+  "lastUpdated": "2026-04-04T14:12:00+08:00",
+  "account": {
+    "totalValue": 10000.00,
+    "currency": "USDT",
+    "initialBalance": 10000.00,
+    "todayPnL": 0.00,
+    "todayPnLPercent": 0.00,
+    "totalPnL": 0.00,
+    "totalPnLPercent": 0.00,
+    "winRate": 0.00,
+    "totalTrades": 0
+  },
+  "holdings": [
+    {
+      "symbol": "BTC",
+      "amount": 0.00,
+      "avgPrice": 0.00,
+      "currentPrice": 0.00,
+      "value": 0.00,
+      "pnl": 0.00,
+      "pnlPercent": 0.00
+    },
+    {
+      "symbol": "ETH",
+      "amount": 0.00,
+      "avgPrice": 0.00,
+      "currentPrice": 0.00,
+      "value": 0.00,
+      "pnl": 0.00,
+      "pnlPercent": 0.00
+    }
+  ],
+  "strategy": {
+    "name": "网格交易 v1.0",
+    "status": "待启动",
+    "gridLevels": 10,
+    "gridSpacing": 0.02,
+    "positionPerGrid": 0.1,
+    "stopLoss": 0.05,
+    "takeProfit": 0.03
+  },
+  "recentTrades": [],
+  "equityCurve": [
+    {"date": "2026-04-04", "value": 10000}
+  ],
+  "status": "simulated",
+  "exchange": "binance",
+  "notes": "当前为模拟盘，待Binance API接入后切换实盘"
+}

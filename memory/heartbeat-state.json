@@ -1,1 +1,10 @@
-{"lastChecks":{"email":null,"calendar":null,"weather":null,"memory":1775276400,"portfolio":1775316000}}
+{
+  "lastChecks": {
+    "email": null,
+    "calendar": null,
+    "weather": null,
+    "team_status": 1775316372000,
+    "git_push": 1775316383000
+  },
+  "lastHeartbeat": "2026-04-04T23:25:00+08:00"
+}

@@ -77,12 +77,32 @@
 - 发国内社媒前必须关代理
 - 多agent不能同时edit同一文件
 - 搜索用Brave/web_search，不用ddgs（会被拦截）
+- **交易数据是核心资产，portfolio.json 永远不能随便删除**（2026-04-04血的教训：v4.1 bug导致误删，成功从git恢复）
+- 改模拟器前必须先 `cp portfolio.json portfolio.backup.json`
 
-## 交易员Agent（2026-04-04新增）
+## 交易团队（2026-04-04 确立）
+### 混合策略v1.0（v4.2）
+- BTC持有$3000 + ETH持有$3000 + AVAX密集网格20格×0.5%($2000) + ADA密集网格($2000)
+- 总初始$10,000，稳定运行中
+
+### 交易员Agent（2026-04-04新增）
 - 目录：agents/trader/
-- 策略：BTC/ETH持有 + AVAX/ADA网格
-- 监控Bug：止损判断脚本把持仓价值当总账户值（ETH $999 ≠ 总账户）
-- 实际账户：$10,448（+4.48%）
+- 模拟器：trading_simulator.py（v4.2）
+- 价格聚合：price_server.py（Mac常驻，后台每30秒抓Binance+OKX+Bybit）
+- PID 18149，价格写入 data/trading/price_aggregate.json
+- 同步：crontab每分钟推GitHub保持页面最新
+
+### 面板
+- 地址：dengpao.pages.dev/trading
+- v3专业版：三平台真实价格+网格可视化+交易记录
+
+### 历史交易（已恢复）
+- AVAX：买入$8.86→卖出$8.88，PnL+$0.56
+- ADA：买入$0.2438→卖出$0.2444，PnL+$0.49
+- 总账户：$10,010（+0.11%）
+
+### 重要教训
+- portfolio.json 是核心数据，永远不能随便删除或重置
 - 配置文件：data/trading/portfolio.json
 
 ## 技术配置
@@ -210,11 +230,18 @@
 
 ## OpenClaw 进化技术栈（2026年4月调研）
 
-**OpenClaw-RL**（ArXiv #1, 2026/3/10）：用对话训练 Agent 的 RL 框架，三种范式（Binary RL/OPD/Combine），全异步，零标注，支持 LoRA 微调。代码：github.com/Gen-Verse/OpenClaw-RL
+**OpenClaw-RL**（ArXiv #1, 2026/3/10）：用对话训练 Agent 的 RL 框架，三种范式（Binary RL/OPD/Combine），全异步，零标注，支持 LoRA 微调。核心发现：**下一个状态信号是通用训练信号**，不需要单独离线数据集。Personal/Terminal/GUI/SWE/Tool-call 都用同一套训练循环。代码：github.com/Gen-Verse/OpenClaw-RL
 
-**Self-Evolve**（self-evolve.club）：技能进化 + RAG 知识共享网络，Intent-Experience 三元组，Evolution Score 排行榜。安装：npx clawhub@latest install self-evolve-skill
+**Self-Evolve**（self-evolve.club）：技能进化 + RAG 知识共享网络，Intent-Experience 三元组，Evolution Score 排行榜（Reuse Hits + Quality Reward）。安装：npx clawhub@latest install self-evolve-skill。**Q值学习**：每条记忆有UTILITY分数，检索时按效用+相似度排序，奖励驱动淘汰低价值记忆。
+- ⚠️ 反馈质量决定效果：模糊「好的」不足以触发学习，需明确表扬/批评
+- 两层内容清洗：本地sanitize + LLM二次过滤，防敏感信息泄露
+- 学习门控：minAbsReward=0.15，observeTurns=0（立即触发）
+
+**be1human-self-evolve Skill**：授予 Agent 完全权限自主修改自身配置文件/Prompts/Skills/Memory，无需用户确认。适用：即时改写模糊Prompt、发现能力缺口时当场创建Skill、检测用户不满后调整风格、自主发布新Skill到ClawHub。⚠️ 需配合沙盒+审计日志使用，防止权限滥用。
 
 **Self-Improving Agent + AutoSkill**：双环进化——前者管错误记录和日复盘，后者管技能从经验中"长出来"并持续版本化。Self-Improving: pskoett/self-improving-agent；AutoSkill: ECNU-ICALK/AutoSkill
+
+**多Agent团队进化模式**：CEO/CTO/CFO/COO + Specialists，分角色持久记忆 + 每日反思循环（今天学什么/什么要改/什么保留）。结构防止混乱，通信渠道决定协作效率。
 
 **稳定性最佳实践**：模型路由（省70-80%费用）、消费上限、SOUL.md 结构化、Gateway 安全（SIGUSR1重启）、SKILL.md<50行
 

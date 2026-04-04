@@ -3,393 +3,353 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>老庄与小花 · 量化交易平台</title>
+<title>老庄与小花 · 量化交易</title>
 <style>
-:root {
-  --bg: #0d1117; --card: #161b22; --border: #30363d;
-  --text: #e6edf3; --sub: #8b949e;
-  --green: #3fb950; --red: #f85149;
-  --blue: #58a6ff; --yellow: #d29922; --orange: #f0883e;
-  --purple: #a371f7;
-}
 * { margin:0; padding:0; box-sizing:border-box; }
-body { background:var(--bg); color:var(--text); font-family:-apple-system,system-ui,sans-serif; min-height:100vh; padding:20px; }
-.container { max-width:1200px; margin:0 auto; }
+body { font-family:-apple-system,system-ui,sans-serif; background:#0d1117; color:#e6edf3; padding:20px; }
+.container { max-width:1100px; margin:0 auto; }
+h1 { font-size:1.5rem; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+h1 span { background:#3fb950; color:#000; font-size:0.7rem; padding:2px 8px; border-radius:12px; font-weight:700; }
+更新时间 { font-size:0.8rem; color:#8b949e; margin-left:auto; font-family:monospace; }
 
-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
-header h1 { font-size:1.4rem; font-weight:600; display:flex; align-items:center; gap:8px; }
-.badge { background:var(--green); color:#000; font-size:0.7rem; padding:2px 8px; border-radius:12px; font-weight:600; }
-.status { font-size:0.85rem; color:var(--sub); }
-.status span { color:var(--text); font-family:monospace; }
+/* 账户卡片 */
+.account-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.account-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; text-align:center; }
+.account-card .label { font-size:0.75rem; color:#8b949e; margin-bottom:8px; }
+.account-card .value { font-size:1.5rem; font-weight:700; font-family:'SF Mono',monospace; }
+.account-card .value.green { color:#3fb950; }
+.account-card .value.red { color:#f85149; }
+.account-card .sub { font-size:0.7rem; color:#8b949e; margin-top:4px; }
 
-/* 三平台卡片 */
-.platforms { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
-.platform-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; position:relative; overflow:hidden; }
-.platform-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
-.platform-card.binance::before { background:linear-gradient(90deg,#F0B90B,#7645D9); }
-.platform-card.okx::before { background:linear-gradient(90deg,#121212,#00B4C8); }
-.platform-card.bybit::before { background:linear-gradient(90deg,#7B61FF,#FF5733); }
-.platform-card h3 { font-size:1rem; margin-bottom:12px; display:flex; align-items:center; gap:8px; font-weight:600; }
-.platform-card h3 .dot { width:8px; height:8px; border-radius:50%; background:var(--green); animation:pulse 2s infinite; }
-.platform-card h3 .dot.offline { background:var(--red); animation:none; }
-.pnl { font-size:1.6rem; font-weight:700; font-family:'SF Mono',monospace; margin-bottom:4px; }
-.sub { font-size:0.75rem; color:var(--sub); margin-bottom:12px; }
-.price-row { display:flex; justify-content:space-between; font-size:0.82rem; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
-.price-row:last-child { border-bottom:none; }
-.coin { color:var(--sub); }
-.coin.green { color:var(--green); }
-.coin.red { color:var(--red); }
-.price-val { font-family:'SF Mono',monospace; font-weight:500; }
+/* 持仓 */
+.holdings-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:20px; }
+.holding-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:16px; }
+.holding-card h3 { font-size:1rem; font-weight:600; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
+.holding-card h3 .badge { font-size:0.7rem; padding:2px 8px; border-radius:6px; font-weight:600; }
+.holding-card h3 .badge.hold { background:rgba(234,179,8,0.15); color:#eab308; }
+.holding-card h3 .badge.grid { background:rgba(88,166,255,0.15); color:#58a6ff; }
+.holding-card .amount { font-family:'SF Mono',monospace; font-size:0.85rem; color:#8b949e; margin-bottom:4px; }
+.holding-card .price-row { display:flex; justify-content:space-between; font-size:0.85rem; padding:3px 0; }
+.holding-card .price-row span:first-child { color:#8b949e; }
+.holding-card .price-row span:last-child { font-family:'SF Mono',monospace; }
+.holding-card .pnl { margin-top:10px; font-size:0.85rem; font-weight:600; font-family:'SF Mono',monospace; }
+.holding-card .pnl.up { color:#3fb950; }
+.holding-card .pnl.down { color:#f85149; }
 
-/* 网格可视化 */
-.grid-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px; }
+/* 网格 */
+.grid-section { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
 .grid-section h2 { font-size:1rem; margin-bottom:16px; }
-.grid-coin { margin-bottom:20px; }
+.grid-coin { margin-bottom:16px; }
 .grid-coin:last-child { margin-bottom:0; }
-.grid-coin-header { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; }
+.grid-header { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px; }
 .grid-name { font-weight:600; }
-.grid-meta { font-size:0.75rem; color:var(--sub); }
-.grid-bar { position:relative; height:24px; background:#21262d; border-radius:6px; overflow:hidden; display:flex; }
-.grid-cell { flex:1; border-right:1px solid rgba(255,255,255,0.04); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--sub); transition:background 0.3s; cursor:default; }
-.grid-cell:hover { background:rgba(255,255,255,0.05); }
-.grid-cell.triggered { background:rgba(63,185,80,0.25); color:var(--green); }
-.grid-cell.current { background:rgba(88,166,255,0.35); border:2px solid var(--blue); z-index:1; }
-.price-marker { position:absolute; top:-16px; transform:translateX(-50%); font-size:0.65rem; color:var(--yellow); font-family:'SF Mono',monospace; white-space:nowrap; font-weight:600; }
+.grid-range { color:#8b949e; font-family:'SF Mono',monospace; font-size:0.8rem; }
+.grid-bar { height:24px; background:#21262d; border-radius:6px; position:relative; overflow:hidden; display:flex; }
+.grid-cell { flex:1; border-right:1px solid rgba(255,255,255,0.05); }
+.grid-cell.filled { background:rgba(63,185,80,0.2); }
+.grid-cell.now { background:rgba(88,166,255,0.4); border:2px solid #58a6ff; position:absolute; width:4px; height:100%; left:50%; transform:translateX(-50%); border-radius:4px; }
+
+/* 三平台价格 */
+.platforms { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
+.platform-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:16px; }
+.platform-card h3 { font-size:1rem; font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.platform-card h3 .dot { width:8px; height:8px; border-radius:50%; background:#3fb950; animation:pulse 2s infinite; }
+.platform-card h3 .dot.offline { background:#f85149; animation:none; }
+.platform-card .price-row { display:flex; justify-content:space-between; font-size:0.82rem; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+.platform-card .price-row:last-child { border-bottom:none; }
+.platform-card .coin { color:#8b949e; }
+.platform-card .price { font-family:'SF Mono',monospace; }
 
 /* 交易记录 */
-.trades-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px; }
+.trades-section { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
 .trades-section h2 { font-size:1rem; margin-bottom:12px; }
-table { width:100%; border-collapse:collapse; font-size:0.82rem; }
-th { text-align:left; color:var(--sub); font-weight:500; padding:8px; border-bottom:1px solid var(--border); font-size:0.75rem; }
+table { width:100%; border-collapse:collapse; font-size:0.85rem; }
+th { text-align:left; color:#8b949e; font-weight:500; padding:8px; border-bottom:1px solid #30363d; }
 td { padding:8px; border-bottom:1px solid rgba(255,255,255,0.05); }
-.buy { color:var(--green); font-weight:600; }
-.sell { color:var(--red); font-weight:600; }
-.pnl-pos { color:var(--green); }
-.pnl-neg { color:var(--red); }
+.buy { color:#3fb950; font-weight:600; }
+.sell { color:#f85149; font-weight:600; }
+.pnl-up { color:#3fb950; }
+.pnl-down { color:#f85149; }
+.empty { color:#8b949e; text-align:center; padding:20px; }
 
-/* 汇总数据 */
-.summary { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px; display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-.summary-item { text-align:center; }
-.summary-value { font-size:1.3rem; font-weight:700; font-family:'SF Mono',monospace; }
-.summary-label { font-size:0.72rem; color:var(--sub); margin-top:4px; }
-.positive { color:var(--green); }
-.negative { color:var(--red); }
-
-/* 更新提示 */
-.update-bar { background:rgba(63,185,80,0.1); border:1px solid rgba(63,185,80,0.3); border-radius:8px; padding:8px 12px; font-size:0.8rem; color:var(--green); margin-bottom:16px; display:none; }
-.update-bar.show { display:block; }
-
-footer { text-align:center; color:var(--sub); font-size:0.75rem; margin-top:24px; padding-top:16px; border-top:1px solid var(--border); }
-
+footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; border-top:1px solid #30363d; }
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-@media(max-width:768px) {
-  .platforms { grid-template-columns:1fr; }
-  .summary { grid-template-columns:repeat(2,1fr); }
-}
+@media(max-width:768px) { .account-grid{grid-template-columns:repeat(2,1fr)} .platforms{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
 <div class="container">
+  <h1>🦞 量化交易 <span>v4.2</span> <span id="updateTime" style="font-size:0.8rem;color:#8b949e;font-weight:400;margin-left:auto;font-family:monospace">--:--:--</span></h1>
 
-<header>
-  <h1>🦞 量化交易平台 <span class="badge">v4.2</span></h1>
-  <div class="status">数据更新: <span id="updateTime">--:--:--</span></div>
-</header>
-
-<div class="update-bar" id="updateBar">✅ 数据已更新</div>
-
-<!-- 三平台卡片 -->
-<div class="platforms">
-  <div class="platform-card binance">
-    <h3><span class="dot"></span> Binance</h3>
-    <div class="pnl" id="bn-pnl">--</div>
-    <div class="sub" id="bn-sub">现货</div>
-    <div class="price-row"><span class="coin">₿ BTC</span><span class="price-val" id="bn-btc">--</span></div>
-    <div class="price-row"><span class="coin">Ξ ETH</span><span class="price-val" id="bn-eth">--</span></div>
-    <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price-val" id="bn-avax">--</span></div>
-    <div class="price-row"><span class="coin">₳ ADA</span><span class="price-val" id="bn-ada">--</span></div>
-  </div>
-  <div class="platform-card okx">
-    <h3><span class="dot"></span> OKX</h3>
-    <div class="pnl" id="okx-pnl">--</div>
-    <div class="sub" id="okx-sub">费率低</div>
-    <div class="price-row"><span class="coin">₿ BTC</span><span class="price-val" id="okx-btc">--</span></div>
-    <div class="price-row"><span class="coin">Ξ ETH</span><span class="price-val" id="okx-eth">--</span></div>
-    <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price-val" id="okx-avax">--</span></div>
-    <div class="price-row"><span class="coin">₳ ADA</span><span class="price-val" id="okx-ada">--</span></div>
-  </div>
-  <div class="platform-card bybit">
-    <h3><span class="dot"></span> Bybit</h3>
-    <div class="pnl" id="by-pnl">--</div>
-    <div class="sub" id="by-sub">合约强</div>
-    <div class="price-row"><span class="coin">₿ BTC</span><span class="price-val" id="by-btc">--</span></div>
-    <div class="price-row"><span class="coin">Ξ ETH</span><span class="price-val" id="by-eth">--</span></div>
-    <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price-val" id="by-avax">--</span></div>
-    <div class="price-row"><span class="coin">₳ ADA</span><span class="price-val" id="by-ada">--</span></div>
-  </div>
-</div>
-
-<!-- 账户汇总 -->
-<div class="summary">
-  <div class="summary-item">
-    <div class="summary-value" id="totalValue">--</div>
-    <div class="summary-label">总资产 (USDT)</div>
-  </div>
-  <div class="summary-item">
-    <div class="summary-value" id="totalPnL">--</div>
-    <div class="summary-label">累计盈亏</div>
-  </div>
-  <div class="summary-item">
-    <div class="summary-value" id="cashBalance">--</div>
-    <div class="summary-label">可用现金</div>
-  </div>
-  <div class="summary-item">
-    <div class="summary-value" id="totalTrades">--</div>
-    <div class="summary-label">交易次数</div>
-  </div>
-</div>
-
-<!-- 网格状态 -->
-<div class="grid-section">
-  <h2>📊 网格状态 <span style="font-weight:400;color:var(--sub);font-size:0.8rem">密集网格v4.2 · 20格×0.5%</span></h2>
-  <div id="grids">
-    <div class="grid-coin" id="grid-BTC">
-      <div class="grid-coin-header">
-        <span class="grid-name">₿ Bitcoin</span>
-        <span class="grid-meta" id="meta-BTC">持有模式</span>
-      </div>
-      <div class="grid-bar" id="bar-BTC"></div>
+  <!-- 账户总览 -->
+  <div class="account-grid">
+    <div class="account-card">
+      <div class="label">总资产 (USDT)</div>
+      <div class="value" id="totalValue">--</div>
     </div>
-    <div class="grid-coin" id="grid-AVAX">
-      <div class="grid-coin-header">
-        <span class="grid-name">🔺 Avalanche</span>
-        <span class="grid-meta" id="meta-AVAX">--</span>
-      </div>
-      <div class="grid-bar" id="bar-AVAX"></div>
+    <div class="account-card">
+      <div class="label">累计盈亏</div>
+      <div class="value" id="totalPnL">--</div>
     </div>
-    <div class="grid-coin" id="grid-ADA">
-      <div class="grid-coin-header">
-        <span class="grid-name">₳ Cardano</span>
-        <span class="grid-meta" id="meta-ADA">--</span>
-      </div>
-      <div class="grid-bar" id="bar-ADA"></div>
+    <div class="account-card">
+      <div class="label">可用现金</div>
+      <div class="value" id="cashBalance">--</div>
+    </div>
+    <div class="account-card">
+      <div class="label">网格交易</div>
+      <div class="value" id="tradeCount">--</div>
     </div>
   </div>
-</div>
 
-<!-- 交易记录 -->
-<div class="trades-section">
-  <h2>📋 最近交易 <span style="font-weight:400;color:var(--sub);font-size:0.8rem">按时间倒序</span></h2>
-  <table>
-    <thead><tr><th>时间</th><th>方向</th><th>币种</th><th>价格</th><th>数量</th><th>盈亏</th></tr></thead>
-    <tbody id="tradesBody"><tr><td colspan="6" style="color:var(--sub)">暂无交易记录</td></tr></tbody>
-  </table>
-</div>
+  <!-- 三平台实时价格 -->
+  <div class="platforms">
+    <div class="platform-card">
+      <h3><span class="dot" id="bn-dot"></span> Binance</h3>
+      <div class="price-row"><span class="coin">₿ BTC</span><span class="price" id="bn-btc">--</span></div>
+      <div class="price-row"><span class="coin">Ξ ETH</span><span class="price" id="bn-eth">--</span></div>
+      <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price" id="bn-avax">--</span></div>
+      <div class="price-row"><span class="coin">₳ ADA</span><span class="price" id="bn-ada">--</span></div>
+    </div>
+    <div class="platform-card">
+      <h3><span class="dot" id="okx-dot"></span> OKX</h3>
+      <div class="price-row"><span class="coin">₿ BTC</span><span class="price" id="okx-btc">--</span></div>
+      <div class="price-row"><span class="coin">Ξ ETH</span><span class="price" id="okx-eth">--</span></div>
+      <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price" id="okx-avax">--</span></div>
+      <div class="price-row"><span class="coin">₳ ADA</span><span class="price" id="okx-ada">--</span></div>
+    </div>
+    <div class="platform-card">
+      <h3><span class="dot" id="by-dot"></span> Bybit</h3>
+      <div class="price-row"><span class="coin">₿ BTC</span><span class="price" id="by-btc">--</span></div>
+      <div class="price-row"><span class="coin">Ξ ETH</span><span class="price" id="by-eth">--</span></div>
+      <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price" id="by-avax">--</span></div>
+      <div class="price-row"><span class="coin">₳ ADA</span><span class="price" id="by-ada">--</span></div>
+    </div>
+  </div>
 
-<footer>
-  数据来源: Binance / OKX / Bybit 公开API · 每30秒自动刷新<br>
-  策略: 密集网格v4.2 · BTC/ETH持有 + AVAX/ADA网格
-</footer>
+  <!-- 持仓 -->
+  <div class="holdings-grid" id="holdingsGrid"></div>
+
+  <!-- 网格状态 -->
+  <div class="grid-section">
+    <h2>📊 网格状态</h2>
+    <div id="gridsContainer"></div>
+  </div>
+
+  <!-- 交易记录 -->
+  <div class="trades-section">
+    <h2>📋 交易记录</h2>
+    <div id="tradesContainer"><div class="empty">暂无交易记录</div></div>
+  </div>
+
+  <footer>策略: 密集网格v4.2 · BTC/ETH持有 + AVAX/ADA网格<br>数据每30秒自动刷新</footer>
 </div>
 
 <script>
-// ── 实时价格（CORS 直接拉 Binance）─
-const PRICE_URLS = {
-  BTC:  'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT',
-  ETH:  'https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT',
-  AVAX: 'https://api.binance.com/api/v3/ticker/price?symbol=AVAXUSDT',
-  ADA:  'https://api.binance.com/api/v3/ticker/price?symbol=ADAUSDT'
-};
-const livePrices = {};
-
-// ── 加载聚合价格数据（三平台）─
-async function loadPrices() {
-  try {
-    const r = await fetch('/data/trading/price_aggregate.json?t=' + Date.now(), {cache:'no-store'});
-    const data = await r.json();
-    const platforms = data.platforms;
-
-    // Binance
-    ['BTC','ETH','AVAX','ADA'].forEach(sym => {
-      const p = platforms.Binance?.[sym];
-      const el = document.getElementById('bn-' + sym.toLowerCase());
-      if (el && p) { el.textContent = '$' + p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4}); livePrices[sym] = p; }
-    });
-
-    // OKX
-    ['BTC','ETH','AVAX','ADA'].forEach(sym => {
-      const p = platforms.OKX?.[sym];
-      const el = document.getElementById('okx-' + sym.toLowerCase());
-      if (el && p) el.textContent = '$' + p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
-    });
-
-    // Bybit
-    ['BTC','ETH','AVAX','ADA'].forEach(sym => {
-      const p = platforms.Bybit?.[sym];
-      const el = document.getElementById('by-' + sym.toLowerCase());
-      if (el && p) el.textContent = '$' + p.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
-    });
-
-    // 更新三平台卡片状态
-    ['bn','okx','by'].forEach(p => {
-      const dot = document.querySelector('.' + p + ' .dot');
-      if (dot) dot.className = 'dot' + (platforms.Binance?.BTC ? '' : ' offline');
-    });
-
-    document.getElementById('updateTime').textContent = data.timestamp || '--';
-    return data.timestamp;
-  } catch(e) {
-    // fallback: 直接从 Binance 拉
-    await fetchBinanceDirect();
-    return null;
-  }
+// ─── 工具函数 ───
+function fmt(n, decimals) {
+  if (n === null || n === undefined || isNaN(n)) return '--';
+  return Number(n).toFixed(decimals || 2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 }
 
-// ── Fallback: 直接从 Binance 拉价格 ─
-async function fetchBinanceDirect() {
-  try {
-    const results = await Promise.all(
-      Object.entries(PRICE_URLS).map(async ([sym, url]) => {
-        const r = await fetch(url);
-        const d = await r.json();
-        return [sym, parseFloat(d.price)];
-      })
-    );
-    results.forEach(([sym, price]) => {
-      livePrices[sym] = price;
-      const el = document.getElementById('bn-' + sym.toLowerCase());
-      if (el) el.textContent = '$' + price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
-    });
-    document.getElementById('updateTime').textContent = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-  } catch(e) { console.warn('价格获取失败:', e); }
+// ─── 账户渲染 ───
+function renderAccount(data) {
+  var acc = data.account || {};
+  var total = acc.totalValue || 0;
+  var pnl = acc.totalPnL || 0;
+  var pnlPct = acc.totalPnLPercent || 0;
+  var cash = acc.cashBalance || 0;
+  var trades = acc.totalTrades || 0;
+
+  document.getElementById('totalValue').textContent = '$' + fmt(total);
+  document.getElementById('cashBalance').textContent = '$' + fmt(cash);
+  document.getElementById('tradeCount').textContent = trades + '笔';
+
+  var pnlEl = document.getElementById('totalPnL');
+  var sign = pnl >= 0 ? '+' : '';
+  pnlEl.textContent = sign + '$' + fmt(Math.abs(pnl)) + ' (' + sign + fmt(pnlPct) + '%)';
+  pnlEl.className = 'value ' + (pnl >= 0 ? 'green' : 'red');
 }
 
-// ── 加载账户数据 ─
-async function loadPortfolio() {
-  try {
-    const r = await fetch('/data/trading/portfolio.json?t=' + Date.now(), {cache:'no-store'});
-    return await r.json();
-  } catch(e) { return null; }
+// ─── 持仓渲染 ───
+function renderHoldings(data) {
+  var container = document.getElementById('holdingsGrid');
+  var holdings = data.holdings || [];
+  var gridState = data.gridState || {};
+  var html = '';
+  var modeLabel = { 'BTC': '持有', 'ETH': '持有', 'AVAX': '网格', 'ADA': '网格' };
+
+  holdings.forEach(function(h) {
+    var sym = h.symbol;
+    var gs = gridState[sym] || {};
+    var mode = (gs.levels && gs.levels.length > 0) ? '网格' : '持有';
+    var badgeClass = mode === '持有' ? 'hold' : 'grid';
+    var amount = h.amount || 0;
+    var avgPrice = h.avgPrice || 0;
+    var currPrice = h.currentPrice || 0;
+    var value = h.value || 0;
+    var pnl = h.pnl || 0;
+    var pnlClass = pnl > 0 ? 'up' : (pnl < 0 ? 'down' : '');
+    var pnlSign = pnl > 0 ? '+' : '';
+
+    html += '<div class="holding-card">' +
+      '<h3>' + sym + ' <span class="badge ' + badgeClass + '">' + mode + '</span></h3>' +
+      '<div class="amount">' + fmt(amount, 6) + ' ' + sym + '</div>' +
+      '<div class="price-row"><span>当前价</span><span>$' + fmt(currPrice, 4) + '</span></div>' +
+      '<div class="price-row"><span>持仓价值</span><span>$' + fmt(value, 2) + '</span></div>' +
+      '<div class="price-row"><span>浮动盈亏</span><span class="' + pnlClass + '">' + pnlSign + '$' + fmt(Math.abs(pnl), 2) + '</span></div>' +
+    '</div>';
+  });
+
+  container.innerHTML = html;
 }
 
-// ── 渲染网格 ─
-function renderGrids(data) {
-  const gs = data.gridState || {};
-  ['BTC','AVAX','ADA'].forEach(sym => {
-    const g = gs[sym];
-    const bar = document.getElementById('bar-' + sym);
-    const meta = document.getElementById('meta-' + sym);
-    if (!bar) return;
+// ─── 网格渲染 ───
+function renderGrids(data, livePrices) {
+  var container = document.getElementById('gridsContainer');
+  var gridState = data.gridState || {};
+  var html = '';
+  var symbols = ['BTC', 'ETH', 'AVAX', 'ADA'];
+  var gridSymbols = ['AVAX', 'ADA']; // 只有这两个有网格
 
-    if (sym === 'BTC') {
-      meta.textContent = '持有模式';
-      bar.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--yellow);font-size:0.75rem">长期持有，不参与网格</div>';
-      return;
+  symbols.forEach(function(sym) {
+    var gs = gridState[sym] || {};
+    var levels = gs.levels || [];
+    var mode = (levels.length > 0) ? '网格' : '持有';
+    var price = livePrices[sym] || 0;
+    var pos = gs.position || 0;
+
+    if (mode === '持有') {
+      html += '<div class="grid-coin">' +
+        '<div class="grid-header"><span class="grid-name">₿ ' + sym + '</span><span class="grid-range">持有模式 · 不参与网格</span></div>' +
+        '<div class="grid-bar" style="align-items:center;justify-content:center;color:#eab308;font-size:0.8rem">长期持有，静待趋势</div>' +
+      '</div>';
+    } else {
+      var rangeStr = levels.length > 0 ? levels[0].toFixed(4) + ' ~ ' + levels[levels.length-1].toFixed(4) : '--';
+      var inRange = price >= levels[0] && price <= levels[levels.length-1];
+      var pct = 50;
+      if (inRange && levels.length > 1) {
+        pct = Math.min(98, Math.max(2, ((price - levels[0]) / (levels[levels.length-1] - levels[0])) * 100));
+      }
+
+      html += '<div class="grid-coin">' +
+        '<div class="grid-header"><span class="grid-name">🔺 ' + sym + '</span><span class="grid-range">' + rangeStr + ' | ' + (pos > 0 ? '持仓中' : '空仓等待') + '</span></div>' +
+        '<div class="grid-bar" style="position:relative">';
+      levels.forEach(function(lvl, i) {
+        var isNow = price >= lvl && (i === levels.length-1 || price < levels[i+1]);
+        var filled = gs.fills && gs.fills.some(function(f) { return f.note && f.note.indexOf('grid-' + i) !== -1; });
+        var cls = isNow ? 'grid-cell now' : (filled ? 'grid-cell filled' : 'grid-cell');
+        html += '<div class="' + cls + '"></div>';
+      });
+      if (inRange) {
+        html += '<div class="grid-cell now" style="left:' + pct + '%;transform:translateX(-50%);width:4px;border-radius:4px"></div>';
+      }
+      html += '</div></div>';
     }
+  });
 
-    if (!g || !g.levels || !g.levels.length) {
-      meta.textContent = '网格待启动';
-      bar.innerHTML = '<div style="display:flex;align-items:center;justify-content:center;height:100%;color:var(--sub);font-size:0.75rem">等待价格进入网格范围</div>';
-      return;
+  container.innerHTML = html;
+}
+
+// ─── 三平台价格渲染 ───
+function renderPrices(platforms) {
+  var syms = ['BTC', 'ETH', 'AVAX', 'ADA'];
+  var dots = { 'Binance': 'bn-dot', 'OKX': 'okx-dot', 'Bybit': 'by-dot' };
+
+  Object.keys(dots).forEach(function(p) {
+    var dot = document.getElementById(dots[p]);
+    if (dot) {
+      var hasData = platforms[p] && platforms[p].BTC;
+      dot.className = 'dot' + (hasData ? '' : ' offline');
     }
+  });
 
-    const levels = g.levels;
-    const price = livePrices[sym];
-    const inRange = price && price >= levels[0] && price <= levels[1];
-
-    meta.textContent = `网格 ${levels[0].toFixed(4)}~${levels[levels.length-1].toFixed(4)} | ${g.position > 0 ? '持有中' : '空仓'}`;
-
-    bar.innerHTML = '';
-    if (price && inRange) {
-      const pct = (price - levels[0]) / (levels[levels.length-1] - levels[0]) * 100;
-      const marker = document.createElement('div');
-      marker.className = 'price-marker';
-      marker.style.left = Math.min(Math.max(pct, 2), 98) + '%';
-      marker.textContent = '$' + price.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
-      bar.style.position = 'relative';
-      bar.appendChild(marker);
-    }
-
-    levels.forEach((lvl, i) => {
-      const cell = document.createElement('div');
-      cell.className = 'grid-cell';
-      const isCurrent = price && price >= lvl && (i === levels.length-1 || price < levels[i+1]);
-      if (isCurrent) cell.classList.add('current');
-      // 判断是否已触发
-      const fills = g.fills || [];
-      const triggered = fills.some(f => f.note && f.note.includes('grid-' + i));
-      if (triggered) cell.classList.add('triggered');
-
-      cell.title = '$' + lvl.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
-      bar.appendChild(cell);
+  syms.forEach(function(s) {
+    var lower = s.toLowerCase();
+    ['bn', 'okx', 'by'].forEach(function(p) {
+      var el = document.getElementById(p + '-' + lower);
+      if (el && platforms[p === 'bn' ? 'Binance' : p === 'okx' ? 'OKX' : 'Bybit']) {
+        var price = platforms[p === 'bn' ? 'Binance' : p === 'okx' ? 'OKX' : 'Bybit'][s];
+        if (price) {
+          el.textContent = '$' + (price < 1 ? fmt(price, 4) : fmt(price, 2));
+        }
+      }
     });
   });
 }
 
-// ── 渲染交易记录 ─
+// ─── 交易记录渲染 ───
 function renderTrades(data) {
-  const fills = [];
-  const gs = data.gridState || {};
-  for (const [sym, g] of Object.entries(gs)) {
-    for (const f of (g.fills || [])) {
-      fills.push({...f, symbol: sym});
+  var container = document.getElementById('tradesContainer');
+  var fills = [];
+  var gridState = data.gridState || {};
+
+  Object.keys(gridState).forEach(function(sym) {
+    var gsFills = gridState[sym].fills || [];
+    gsFills.forEach(function(f) {
+      fills.push({ time: f.time, side: f.side, symbol: sym, price: f.price, amount: f.amount, pnl: f.pnl, note: f.note });
+    });
+  });
+
+  fills.sort(function(a, b) { return (b.time || '').localeCompare(a.time || ''); });
+
+  if (fills.length === 0) {
+    container.innerHTML = '<div class="empty">暂无交易记录（网格将在价格波动时自动触发）</div>';
+    return;
+  }
+
+  var html = '<table><thead><tr><th>时间</th><th>方向</th><th>币种</th><th>价格</th><th>数量</th><th>盈亏</th></tr></thead><tbody>';
+  fills.slice(0, 20).forEach(function(f) {
+    var time = f.time ? f.time.substring(11, 16) : '--:--';
+    var sideClass = f.side === 'BUY' ? 'buy' : 'sell';
+    var pnlStr = f.pnl !== undefined ? (f.pnl >= 0 ? '+$' + fmt(f.pnl, 2) : '-$' + fmt(Math.abs(f.pnl), 2)) : (f.note && f.note.indexOf('PnL') !== -1 ? f.note.match(/PnL:([^\)]+)/)[1] : '');
+    var pnlClass = f.pnl > 0 ? 'pnl-up' : (f.pnl < 0 ? 'pnl-down' : '');
+    html += '<tr><td>' + time + '</td><td class="' + sideClass + '">' + f.side + '</td><td>' + f.symbol + '</td>' +
+      '<td>$' + fmt(f.price, 4) + '</td><td>' + fmt(f.amount, 4) + '</td><td class="' + pnlClass + '">' + pnlStr + '</td></tr>';
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+// ─── 主初始化 ───
+var livePrices = {};
+
+async function init() {
+  try {
+    // 1. 加载组合价格数据
+    var priceData = null;
+    try {
+      var priceRes = await fetch('/data/trading/price_aggregate.json?t=' + Date.now(), { cache: 'no-store' });
+      priceData = await priceRes.json();
+      if (priceData && priceData.platforms) {
+        renderPrices(priceData.platforms);
+        Object.keys(priceData.platforms.Binance || {}).forEach(function(s) {
+          livePrices[s] = priceData.platforms.Binance[s];
+        });
+      }
+      var ts = priceData && priceData.timestamp;
+      if (ts) document.getElementById('updateTime').textContent = ts;
+    } catch(e) {
+      console.warn('price_aggregate.json 加载失败，尝试直接拉Binance', e);
     }
-  }
-  fills.sort((a,b) => (b.time||'').localeCompare(a.time||''));
 
-  const tbody = document.getElementById('tradesBody');
-  if (!fills.length) return;
-  tbody.innerHTML = fills.slice(0, 15).map(t => {
-    const sideClass = t.side === 'BUY' ? 'buy' : 'sell';
-    const pnl = t.pnl !== undefined ? (t.pnl >= 0 ? 'pnl-pos' : 'pnl-neg') : '';
-    const pnlStr = t.pnl !== undefined ? (t.pnl >= 0 ? '+' : '') + '$' + t.pnl.toFixed(2) : (t.note?.match(/PnL:([^\)]+)/)?.[1] || '');
-    const time = (t.time||'').substring(11,16);
-    return `<tr>
-      <td>${time}</td>
-      <td class="${sideClass}">${t.side}</td>
-      <td>${t.symbol}</td>
-      <td>$${parseFloat(t.price||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4})}</td>
-      <td>${parseFloat(t.amount||0).toLocaleString('en-US',{minimumFractionDigits:6})}</td>
-      <td class="${pnlStr.startsWith('+')?'pnl-pos':pnlStr.startsWith('-')?'pnl-neg':''}">${pnlStr}</td>
-    </tr>`;
-  }).join('');
-}
+    // 2. 加载组合账户数据
+    var portfolioRes = await fetch('/data/trading/portfolio.json?t=' + Date.now(), { cache: 'no-store' });
+    var data = await portfolioRes.json();
 
-// ── 渲染账户汇总 ─
-function renderSummary(data) {
-  const acc = data.account || {};
-  const fmt = (n,d=2) => (n||0).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d});
-  const fmtPct = (n) => (n>=0?'+':'') + (n||0).toFixed(2) + '%';
-  const pnl = acc.totalPnL || 0;
-  const pnlClass = pnl > 0 ? 'positive' : pnl < 0 ? 'negative' : '';
-
-  document.getElementById('totalValue').textContent = '$' + fmt(acc.totalValue || 0);
-  document.getElementById('totalPnL').innerHTML = `<span class="${pnlClass}">${(pnl>=0?'+':'')}$${fmt(Math.abs(pnl))} (${fmtPct(acc.totalPnLPercent||0)})</span>`;
-  document.getElementById('cashBalance').textContent = '$' + fmt(acc.cashBalance || 0);
-  document.getElementById('totalTrades').textContent = (acc.totalTrades || 0) + '笔';
-}
-
-// ── 主更新 ─
-async function update() {
-  const [ts, data] = await Promise.all([loadPrices(), loadPortfolio()]);
-  if (data) {
-    renderSummary(data);
-    renderGrids(data);
+    renderAccount(data);
+    renderHoldings(data);
+    renderGrids(data, livePrices);
     renderTrades(data);
-  }
-  // 显示更新提示
-  const bar = document.getElementById('updateBar');
-  if (bar && ts) {
-    bar.textContent = '✅ 数据已更新 ' + ts;
-    bar.classList.add('show');
-    setTimeout(() => bar.classList.remove('show'), 2000);
+
+    console.log('✅ 页面加载成功', new Date().toLocaleTimeString());
+  } catch(err) {
+    console.error('页面加载失败:', err);
   }
 }
 
-// ── 启动 ─
-update();
-setInterval(update, 30000); // 每30秒
+// ─── 定时刷新 ───
+init();
+setInterval(init, 30000);
 </script>
 </body>
 </html>

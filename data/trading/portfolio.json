@@ -1,10 +1,10 @@
 {
   "account": {
     "cashBalance": 4000.0,
-    "totalValue": 10015.48,
+    "totalValue": 10013.23,
     "initialBalance": 10000.0,
-    "totalPnL": 15.48,
-    "totalPnLPercent": 0.15,
+    "totalPnL": 13.23,
+    "totalPnLPercent": 0.13,
     "totalTrades": 4,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
@@ -15,9 +15,9 @@
       "name": "Bitcoin",
       "amount": 0.04468024,
       "avgPrice": 67143.78,
-      "currentPrice": 67357.84,
-      "value": 3009.56,
-      "pnl": 9.56,
+      "currentPrice": 67360.0,
+      "value": 3009.66,
+      "pnl": 9.66,
       "pnlPercent": 0.32
     },
     {
@@ -25,10 +25,10 @@
       "name": "Ethereum",
       "amount": 1.46262981,
       "avgPrice": 2051.1,
-      "currentPrice": 2055.15,
-      "value": 3005.92,
-      "pnl": 5.92,
-      "pnlPercent": 0.2
+      "currentPrice": 2053.54,
+      "value": 3003.57,
+      "pnl": 3.57,
+      "pnlPercent": 0.12
     },
     {
       "symbol": "AVAX",
@@ -45,7 +45,7 @@
       "name": "Cardano",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 0.2453,
+      "currentPrice": 0.2457,
       "value": 0.0,
       "pnl": 0.0,
       "pnlPercent": 0
@@ -202,10 +202,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 10015.48
+      "value": 10013.23
     }
   ],
-  "lastUpdated": "2026-04-05T00:07:29+08:00",
+  "lastUpdated": "2026-04-05T00:21:36+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

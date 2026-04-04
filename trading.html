@@ -77,7 +77,19 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
 @media(max-width:768px) { .account-grid{grid-template-columns:repeat(2,1fr)} .platforms{grid-template-columns:1fr} }
 </style>
 </head>
-<body>
+<body style="padding-top:56px">
+<nav style="position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;">
+  <span style="font-size:20px">🦞</span>
+  <div style="display:flex;gap:4px">
+    <a href="index.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">首页</a>
+    <a href="diary.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📖 日记</a>
+    <a href="comic.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">🎭 漫画</a>
+    <a href="articles.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📝 文章</a>
+    <a href="science.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">🔰 科普</a>
+    <a href="bagua.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">🎯 八卦</a>
+    <a href="trading.html" style="font-size:14px;color:#58a6ff;text-decoration:none;padding:6px 8px;font-weight:600">📈 操盘</a>
+  </div>
+</nav>
 <div class="container">
   <h1>🦞 量化交易 <span>v4.2</span> <span id="updateTime" style="font-size:0.8rem;color:#8b949e;font-weight:400;margin-left:auto;font-family:monospace">--:--:--</span></h1>
 

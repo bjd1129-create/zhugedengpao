@@ -219,3 +219,16 @@
 **稳定性最佳实践**：模型路由（省70-80%费用）、消费上限、SOUL.md 结构化、Gateway 安全（SIGUSR1重启）、SKILL.md<50行
 
 详见：`agents/洞察者/进化研究-2026-04-04.md`
+
+## 2026-04-04 重要更新
+
+### 协调官正式接棒（16:51）
+- 内容团队全面移交给协调官
+- 协调官SOUL/HEARTBEAT/TASKS/MASTER全部更新
+- 小花退居决策层，不直接管内容团队
+
+### 交易团队上线
+- 混合策略v1.0：BTC持有$4K + ETH持有$1K + AVAX/ADA网格各$2.5K
+- 模拟盘LaunchDaemon失败，改用nohup后台进程（PID 75739）
+- 风控官独立监控（check_risk.py），每5分钟运行
+- Self-evolve插件安装成功，待gateway重启生效

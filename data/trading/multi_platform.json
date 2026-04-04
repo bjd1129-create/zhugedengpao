@@ -1,0 +1,38 @@
+{
+  "timestamp": "21:40:38",
+  "results": [
+    {
+      "platform": "Binance",
+      "prices": {
+        "BTC": 67252.0,
+        "ETH": 2052.85,
+        "AVAX": 8.9,
+        "ADA": 0.2442
+      },
+      "note": "\u6700\u6210\u719f",
+      "timestamp": "21:40"
+    },
+    {
+      "platform": "OKX",
+      "prices": {
+        "BTC": 67239.7,
+        "ETH": 2052.72,
+        "AVAX": 8.894,
+        "ADA": 0.2443
+      },
+      "note": "\u8d39\u7387\u4f4e",
+      "timestamp": "21:40"
+    },
+    {
+      "platform": "Bybit",
+      "prices": {
+        "BTC": null,
+        "ETH": null,
+        "AVAX": null,
+        "ADA": null
+      },
+      "note": "\u6c38\u7eed\u5408\u7ea6\u5f3a",
+      "timestamp": "21:40"
+    }
+  ]
+}

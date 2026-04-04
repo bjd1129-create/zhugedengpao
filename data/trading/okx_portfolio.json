@@ -1,0 +1,62 @@
+{
+  "account": {
+    "cashBalance": 5000.0,
+    "totalValue": 10000.0,
+    "initialBalance": 10000.0,
+    "totalPnL": 0,
+    "totalPnLPercent": 0,
+    "totalTrades": 0,
+    "todayPnL": 0,
+    "todayPnLPercent": 0
+  },
+  "holdings": [
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0,
+      "value": 0,
+      "pnl": 0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0,
+      "value": 0,
+      "pnl": 0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0,
+      "value": 0,
+      "pnl": 0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "ADA",
+      "name": "Cardano",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0,
+      "value": 0,
+      "pnl": 0,
+      "pnlPercent": 0
+    }
+  ],
+  "gridState": {},
+  "recentTrades": [],
+  "equityCurve": [],
+  "lastUpdated": "",
+  "strategy": {
+    "name": "密集网格v4.1",
+    "version": "4.1"
+  }
+}

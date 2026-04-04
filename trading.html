@@ -624,20 +624,16 @@ function switchTab(tab) {
   document.querySelectorAll('.chart-tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase().includes(tab)));
 }
 
-// Live prices store (updated every 5s)
+// Live prices store (updated every 10s via CoinGecko)
 let livePrices = { BTC: null, ETH: null };
 
 async function fetchLivePrices() {
   try {
-    const [btcR, ethR] = await Promise.all([
-      fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'),
-      fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT')
-    ]);
-    const btc = await btcR.json();
-    const eth = await ethR.json();
+    const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd');
+    const d = await r.json();
     livePrices = {
-      BTC: parseFloat(btc.price),
-      ETH: parseFloat(eth.price)
+      BTC: d.bitcoin.usd,
+      ETH: d.ethereum.usd
     };
     ['BTC', 'ETH'].forEach(sym => {
       const el = document.getElementById(sym.toLowerCase() + 'Price');
@@ -665,7 +661,7 @@ async function init() {
   }
   updateUI(data);
   fetchLivePrices();
-  setInterval(fetchLivePrices, 5000);
+  setInterval(fetchLivePrices, 15000);
   setInterval(async () => {
     const d = await loadData();
     if (livePrices.BTC) {

@@ -1,6 +1,19 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<style>
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-logo{font-family:"ZCOOL KuaiLe","Noto Sans SC",sans-serif;font-size:22px;color:#4A2508;display:flex;align-items:center;gap:6px;font-weight:700;text-decoration:none}
+.nav-links{display:flex;gap:20px}
+.nav-links a{text-decoration:none;color:#333;font-size:15px;font-weight:600;opacity:.7;transition:.2s;padding:6px 4px}
+.nav-links a:hover,.nav-links a.active{opacity:1;color:#4A2508}
+.hamburger{display:none;background:none;border:none;font-size:22px;cursor:pointer;padding:4px}
+@media(max-width:768px){
+.nav-links{display:none;flex-direction:column;position:absolute;top:56px;right:16px;background:#f5f3ee;border:1.5px solid #ddd;border-radius:10px;padding:12px 16px;gap:12px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+.nav-links.open{display:flex}
+.hamburger{display:block}
+}
+</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>复盘感悟 💭 — 小花大家庭</title>
@@ -31,33 +44,16 @@
 </head>
 <body>
 
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <a href="index.html" class="nav-logo">
-    <img src="images/xiaohua.webp" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy">
-    小花
-  </a>
-  <button class="nav-toggle" aria-label="打开菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="diary.html">📔 日记</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="articles.html">📚 文章</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="science.html">🔬 科普</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="testimonials.html">💬 见证</a></li>
-    <li><span class="sep">/</span></li>
-    <li><li><span class="sep">/</span></li>
-    <li><li><span class="sep">/</span></li>
-    <li><a href="office.html">🏠 团队</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="insights.html" class="active">💭 感悟</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="faq.html">❓ FAQ</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="footprint.html">🌍 足迹</a></li>
-  </ul>
+<nav>
+<div class="nav-logo">🦞 老庄与小花</div>
+<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
+<div class="nav-links">
+<a href="index.html">首页</a>
+<a href="diary.html">📖 日记</a>
+<a href="comic.html">🎭 漫画</a>
+<a href="articles.html">📝 文章</a>
+<a href="science.html">🔰 科普</a>
+</div>
 </nav>
 
 <!-- PAGE HEADER -->

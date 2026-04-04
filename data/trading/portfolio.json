@@ -1,34 +1,35 @@
 {
-  "lastUpdated": "2026-04-04T14:12:00+08:00",
+  "lastUpdated": "2026-04-04T16:07:48+08:00",
   "account": {
-    "totalValue": 10000.00,
+    "totalValue": 10000.45,
     "currency": "USDT",
-    "initialBalance": 10000.00,
-    "todayPnL": 0.00,
-    "todayPnLPercent": 0.00,
-    "totalPnL": 0.00,
-    "totalPnLPercent": 0.00,
-    "winRate": 0.00,
-    "totalTrades": 0
+    "initialBalance": 10000.0,
+    "todayPnL": 0.0,
+    "todayPnLPercent": 0.0,
+    "totalPnL": 0.45,
+    "totalPnLPercent": 0.0,
+    "winRate": 0.0,
+    "totalTrades": 2,
+    "cashBalance": 8000.0
   },
   "holdings": [
     {
       "symbol": "BTC",
-      "amount": 0.00,
-      "avgPrice": 0.00,
-      "currentPrice": 0.00,
-      "value": 0.00,
-      "pnl": 0.00,
-      "pnlPercent": 0.00
+      "amount": 0.014922695958128108,
+      "avgPrice": 67012.02,
+      "currentPrice": 67023.32,
+      "value": 1000.1686264643268,
+      "pnl": 0.16862646432689105,
+      "pnlPercent": 0.00016862646432689105
     },
     {
       "symbol": "ETH",
-      "amount": 0.00,
-      "avgPrice": 0.00,
-      "currentPrice": 0.00,
-      "value": 0.00,
-      "pnl": 0.00,
-      "pnlPercent": 0.00
+      "amount": 0.48682884558275846,
+      "avgPrice": 2054.11,
+      "currentPrice": 2054.69,
+      "value": 1000.282360730438,
+      "pnl": 0.2823607304379645,
+      "pnlPercent": 0.00028236073043796445
     }
   ],
   "strategy": {
@@ -40,9 +41,29 @@
     "stopLoss": 0.05,
     "takeProfit": 0.03
   },
-  "recentTrades": [],
+  "recentTrades": [
+    {
+      "time": "2026-04-04T15:16:35+08:00",
+      "side": "BUY",
+      "symbol": "ETH",
+      "amount": 0.486829,
+      "price": 2054.11,
+      "note": "grid level 1"
+    },
+    {
+      "time": "2026-04-04T15:16:35+08:00",
+      "side": "BUY",
+      "symbol": "BTC",
+      "amount": 0.014923,
+      "price": 67012.02,
+      "note": "grid level 1"
+    }
+  ],
   "equityCurve": [
-    {"date": "2026-04-04", "value": 10000}
+    {
+      "date": "2026-04-04",
+      "value": 10000.45
+    }
   ],
   "status": "simulated",
   "exchange": "binance",

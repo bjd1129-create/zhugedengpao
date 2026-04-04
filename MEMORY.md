@@ -94,6 +94,45 @@
 - 平台：小红书/公众号首发
 - 配图：穿龙虾衣服的加菲猫（images/xiaohua.jpg）
 
+## OpenClaw 自进化体系（2026-04-04持续更新）
+
+### 四层进化体系（从低到高）
+| 层次 | 组件 | 自主程度 | Token成本 | 代表技能 |
+|------|------|----------|-----------|----------|
+| Layer 1 | .learnings日志 | 低（被动） | 无 | self-improving-agent |
+| Layer 2 | Q值强化学习 | 中（半主动） | 中 | longmans/self-evolve |
+| Layer 3 | Skill优化框架 | 中高 | 低 | skill-evolution |
+| Layer 4 | 自主进化 | 高（自主） | 变化 | be1human-self-evolve |
+
+### self-evolve 插件（必须安装）⭐⭐⭐⭐⭐
+- **GitHub：** github.com/longmans/self-evolve
+- **官网：** self-evolve.club
+- **原理：** 强化学习式持续进化，从真实反馈中更新Q值、积累情景记忆triplet
+- **远程共享：** 可向 self-evolve.club 上报经验，同时利用全社区贡献的高价值记忆
+- **三种学习模式：** balanced（默认）/ tools_only（最低成本）/ all（最高成本）
+- **隐私：** 本地清洗 + LLM二次替换，敏感信息不外泄
+- **安装：** `git clone && openclaw plugins install ./self-evolve`，设置 OPENAI_API_KEY
+
+### be1human-self-evolve 技能（授予agent自主改进权）
+- agent可以自主修改配置/prompts/skills，无需用户确认
+- 适用：对话中改写prompt、创建缺失skill、调整回复风格、发布新skill
+- 需配合 self-evolve 使用：被动积累经验 + 主动应用经验
+
+### skill-evolution 技能（内置）
+- 追踪skill使用效果，识别改进点，自动化优化流程
+- 持续迭代SKILL.md，形成闭环优化
+
+### 版本建议
+- ✅ 推荐 OpenClaw 2026.3.2+（完整功能支持）
+- ⚠️ 不推荐 2026.2.12（有已知bug）
+- ✅ 2026.2.9 稳定可靠（备选）
+
+### 立即行动清单
+1. 升级到 OpenClaw 2026.3.2+
+2. 安装 self-evolve 插件
+3. 制定团队反馈规范（明确正/负反馈）
+4. 建立 .learnings 目录结构
+
 ## 记忆系统规范
 - 见 memory/MEMORY-FLOW.md
 - 重要决定立即写入MEMORY.md

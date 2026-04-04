@@ -146,6 +146,7 @@
 - **三种学习模式：** balanced（默认）/ tools_only（最低成本）/ all（最高成本）
 - **隐私：** 本地清洗 + LLM二次替换，敏感信息不外泄
 - **安装：** `git clone && openclaw plugins install ./self-evolve`，设置 OPENAI_API_KEY
+- **⚠️ 重要：安装后buffer.md只有"Buffer written"、episodic-memory.json为空 → Q值学习从未激活。必须 openclaw gateway restart 才能解锁**
 
 ### be1human-self-evolve 技能（授予agent自主改进权）
 - agent可以自主修改配置/prompts/skills，无需用户确认

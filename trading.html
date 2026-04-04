@@ -624,12 +624,58 @@ function switchTab(tab) {
   document.querySelectorAll('.chart-tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase().includes(tab)));
 }
 
+// Live prices store (updated every 5s)
+let livePrices = { BTC: null, ETH: null };
+
+async function fetchLivePrices() {
+  try {
+    const [btcR, ethR] = await Promise.all([
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT'),
+      fetch('https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT')
+    ]);
+    const btc = await btcR.json();
+    const eth = await ethR.json();
+    livePrices = {
+      BTC: parseFloat(btc.price),
+      ETH: parseFloat(eth.price)
+    };
+    ['BTC', 'ETH'].forEach(sym => {
+      const el = document.getElementById(sym.toLowerCase() + 'Price');
+      const currEl = document.getElementById(sym.toLowerCase() + 'Curr');
+      const gridEl = document.getElementById('grid' + sym + 'Price');
+      const price = livePrices[sym];
+      if (el) el.textContent = '$' + fmt(price);
+      if (currEl) currEl.textContent = '$' + fmt(price);
+      if (gridEl) gridEl.textContent = '$' + fmt(price);
+    });
+  } catch (e) {
+    console.warn('Live price fetch failed:', e);
+  }
+}
+
 async function init() {
   const data = await loadData();
+  if (livePrices.BTC) {
+    data.holdings.forEach(h => {
+      if (livePrices[h.symbol]) {
+        h.currentPrice = livePrices[h.symbol];
+        h.value = h.amount * livePrices[h.symbol];
+      }
+    });
+  }
   updateUI(data);
-  // Refresh every 30 seconds
+  fetchLivePrices();
+  setInterval(fetchLivePrices, 5000);
   setInterval(async () => {
     const d = await loadData();
+    if (livePrices.BTC) {
+      d.holdings.forEach(h => {
+        if (livePrices[h.symbol]) {
+          h.currentPrice = livePrices[h.symbol];
+          h.value = h.amount * livePrices[h.symbol];
+        }
+      });
+    }
     updateUI(d);
   }, 30000);
 }

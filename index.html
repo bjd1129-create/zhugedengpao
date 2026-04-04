@@ -472,10 +472,8 @@ nav{padding:0 16px;top:0}
           <span class="status-icon">🦞</span>
           <span class="status-label">今日动态</span>
         </div>
-        <div class="status-list">
-          <div class="status-item"><span class="item-icon">📝</span><span class="item-text">修复技能页面52个</span></div>
-          <div class="status-item"><span class="item-icon">✨</span><span class="item-text">官网文章改为小花口吻</span></div>
-          <div class="status-item"><span class="item-icon">🛠️</span><span class="item-text">一键安装脚本已完成</span></div>
+        <div class="status-list" id="statusList">
+          <div class="status-item"><span class="item-icon">📝</span><span class="item-text">加载中...</span></div>
         </div>
       </div>
       <div class="latest-diary">
@@ -534,6 +532,31 @@ nav{padding:0 16px;top:0}
   document.getElementById('xiaohuaStatus').textContent=c.status;
   const now=new Date();
   document.getElementById('greetingTime').textContent='现在是'+(c.title.includes('早')?'上午':c.title.includes('午')?'中午':c.title.includes('下午')?'下午':c.title.includes('傍晚')?'傍晚':'晚上')+' '+now.getHours()+':'+now.getMinutes().toString().padStart(2,'0');
+  // Load today's status from diaries.json
+  async function loadTodayStatus(){
+    try{
+      const r=await fetch('data/diaries.json');
+      const entries=await r.json();
+      if(!entries||!entries.length)return;
+      const today=new Date().toISOString().slice(0,10);
+      const todayEntry=entries.find(e=>e.date===today)||entries[0];
+      // Extract key points from text (split by newlines, take first 3 non-empty)
+      const lines=todayEntry.text.split('\n').filter(l=>l.trim().length>5).slice(0,3);
+      const icons=['📝','✨','🛠️'];
+      const container=document.getElementById('statusList');
+      if(container){
+        container.innerHTML=lines.map((l,i)=>`<div class="status-item"><span class="item-icon">${icons[i]||'📌'}</span><span class="item-text">${l.trim().slice(0,30)}</span></div>`).join('');
+      }
+      // Update latest diary link
+      const diaryLink=document.querySelector('.diary-link');
+      if(diaryLink){
+        const parts=todayEntry.title.split(/[：:]/);
+        const dayLabel=parts[0]||todayEntry.title;
+        diaryLink.innerHTML=`<span class="diary-badge">最新</span><span class="diary-title">📖 ${dayLabel}</span><span class="diary-arrow">→</span>`;
+      }
+    }catch(e){console.warn('loadTodayStatus failed',e);}
+  }
+  loadTodayStatus();
 })();
 </script>
 

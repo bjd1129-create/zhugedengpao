@@ -25,6 +25,59 @@ nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: 
 .status-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: pulse 2s infinite; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
 
+/* ===== GRID STATUS VISUALIZATION ===== */
+.grid-status-card { background: linear-gradient(135deg, #161b22 0%, #1c2128 100%); border: 1px solid #30363d; border-radius: 16px; padding: 20px; margin-bottom: 24px; }
+.grid-status-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.grid-status-title { font-size: 14px; font-weight: 700; color: #e6edf3; }
+.grid-status-price { font-size: 13px; color: #8b949e; }
+.grid-status-price span { color: #D4883C; font-weight: 700; }
+
+.grid-coins { display: flex; flex-direction: column; gap: 14px; }
+
+.grid-coin-row { }
+.grid-coin-label { font-size: 12px; color: #8b949e; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+.grid-coin-label .coin-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.grid-coin-label .coin-dot.btc { background: #f7931a; }
+.grid-coin-label .coin-dot.eth { background: #627eea; }
+
+.grid-track { display: flex; gap: 4px; height: 28px; align-items: center; }
+
+.grid-cell { flex: 1; height: 100%; border-radius: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; position: relative; transition: all 0.3s ease; cursor: default; border: 1px solid transparent; }
+.grid-cell .cell-price { font-size: 9px; opacity: 0.6; font-weight: 400; }
+.grid-cell .cell-label { font-size: 8px; opacity: 0; transition: opacity 0.2s; }
+
+/* States */
+.grid-cell.future { background: #21262d; color: #484f58; border-color: #30363d; }
+.grid-cell.triggered { background: rgba(34,197,94,0.15); color: #22c55e; border-color: rgba(34,197,94,0.3); }
+.grid-cell.triggered .cell-label { opacity: 1; color: #22c55e; }
+.grid-cell.active { background: #D4883C; color: #fff; border-color: #D4883C; box-shadow: 0 0 12px rgba(212,136,60,0.4); }
+.grid-cell.active .cell-label { opacity: 1; color: #fff; }
+.grid-cell.active::after { content: ''; position: absolute; top: -5px; width: 6px; height: 6px; border-radius: 50%; background: #D4883C; border: 2px solid #0d1117; }
+
+/* Arrow above active cell */
+.grid-track-wrapper { position: relative; }
+.grid-track-wrapper .active-arrow { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 6px solid #D4883C; }
+
+/* ===== HOLDINGS DONUT ===== */
+.holdings-donut-section { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; align-items: start; }
+@media(max-width: 600px) { .holdings-donut-section { grid-template-columns: 1fr; } }
+
+.donut-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+.donut-title { font-size: 13px; font-weight: 700; color: #e6edf3; margin-bottom: 16px; }
+.donut-chart-wrap { position: relative; width: 140px; height: 140px; }
+.donut-chart { width: 140px; height: 140px; border-radius: 50%; position: relative; transform: rotate(-90deg); overflow: hidden; }
+.donut-segment { position: absolute; width: 100%; height: 100%; border-radius: 50%; top: 0; left: 0; }
+.donut-center { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 80px; }
+.donut-center-value { font-size: 16px; font-weight: 700; color: #e6edf3; }
+.donut-center-label { font-size: 10px; color: #8b949e; }
+
+.donut-legend { display: flex; flex-direction: column; gap: 8px; width: 100%; margin-top: 16px; }
+.legend-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+.legend-name { color: #8b949e; flex: 1; }
+.legend-pct { font-weight: 700; color: #e6edf3; }
+.legend-val { font-size: 11px; color: #484f58; }
+
 /* Account Card */
 .account-card { background: linear-gradient(135deg, #161b22 0%, #1c2128 100%); border: 1px solid #30363d; border-radius: 16px; padding: 28px; margin-bottom: 24px; text-align: center; }
 .account-label { font-size: 13px; color: #8b949e; margin-bottom: 8px; }
@@ -45,7 +98,7 @@ nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: 
 .stat-label { font-size: 11px; color: #8b949e; margin-bottom: 6px; }
 .stat-value { font-size: 16px; font-weight: 700; color: #e6edf3; }
 
-/* Holdings */
+/* Holdings Grid */
 .section-title { font-size: 16px; font-weight: 700; color: #e6edf3; margin-bottom: 12px; }
 .holdings-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 24px; }
 .holding-card { background: #161b22; border: 1px solid #30363d; border-radius: 12px; padding: 16px; }
@@ -74,19 +127,28 @@ nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; background: 
 .param-value { font-size: 15px; font-weight: 700; color: #e6edf3; }
 
 /* Trades Table */
-.trades-table { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; }
-.trades-header { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; padding: 12px 16px; background: #0d1117; font-size: 11px; color: #8b949e; font-weight: 600; }
-.trade-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; padding: 12px 16px; border-top: 1px solid #21262d; font-size: 13px; }
-.trade-row:first-of-type { border-top: none; }
-.trade-type { font-weight: 700; }
-.trade-type.buy { color: #22c55e; }
-.trade-type.sell { color: #ef4444; }
+.trades-table { background: #161b22; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+.trades-header { display: grid; grid-template-columns: 1.5fr 1fr 0.8fr 1.2fr 1fr 1fr; padding: 12px 16px; background: #0d1117; font-size: 11px; color: #8b949e; font-weight: 600; border-bottom: 1px solid #21262d; }
+@media(max-width:600px) { .trades-header { grid-template-columns: 1fr 1fr 1fr 1fr; } .trades-header span:nth-child(5), .trades-header span:nth-child(6) { display:none; } }
+.trade-row { display: grid; grid-template-columns: 1.5fr 1fr 0.8fr 1.2fr 1fr 1fr; padding: 12px 16px; border-top: 1px solid #21262d; font-size: 13px; align-items: center; transition: background 0.15s; }
+.trade-row:hover { background: #1c2128; }
+@media(max-width:600px) { .trade-row { grid-template-columns: 1fr 1fr 1fr 1fr; } .trade-row span:nth-child(5), .trade-row span:nth-child(6) { display:none; } }
+.trade-type { font-weight: 700; display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 4px; font-size: 11px; }
+.trade-type.buy { background: rgba(34,197,94,0.15); color: #22c55e; }
+.trade-type.sell { background: rgba(239,68,68,0.15); color: #ef4444; }
+.trade-grid-badge { font-size: 10px; background: rgba(212,136,60,0.15); color: #D4883C; padding: 2px 6px; border-radius: 3px; font-weight: 700; }
+.trade-row span { color: #e6edf3; }
+.trade-row span:first-child { color: #8b949e; font-size: 12px; }
+.trade-row span:last-child { color: #e6edf3; }
 .empty-trades { text-align: center; padding: 40px; color: #8b949e; font-size: 14px; }
 
-/* Footer */
+/* ===== FOOTER ===== */
 footer { text-align: center; padding: 24px; color: #484f58; font-size: 12px; border-top: 1px solid #21262d; margin-top: 40px; }
 footer a { color: #8b949e; text-decoration: none; }
 footer a:hover { color: #D4883C; }
+.update-ts { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-bottom: 8px; }
+.update-ts span { color: #8b949e; font-size: 12px; }
+.update-ts span b { color: #D4883C; }
 </style>
 </head>
 <body>
@@ -110,23 +172,48 @@ footer a:hover { color: #D4883C; }
     <span id="statusText">模拟盘 · 待启动</span>
   </div>
 
-  <!-- Account Value -->
-  <div class="account-card">
-    <div class="account-label">账户总资产（USDT）</div>
-    <div class="account-value" id="accountValue">10,000.00</div>
-    <div class="account-currency" id="accountCurrency">≈ ¥72,850</div>
-    <div class="pnl-row">
-      <div class="pnl-item">
-        <div class="pnl-label">今日盈亏</div>
-        <div class="pnl-value neutral" id="todayPnl">+0.00 (0.00%)</div>
+  <!-- Grid Status Visualization -->
+  <div class="grid-status-card" id="gridStatusCard">
+    <div class="grid-status-header">
+      <div class="grid-status-title">📊 网格状态</div>
+      <div class="grid-status-price">当前 BTC 价格：<span id="gridBtcPrice">—</span></div>
+    </div>
+    <div class="grid-coins" id="gridCoins"></div>
+  </div>
+
+  <!-- Holdings Donut + Quick Stats -->
+  <div class="holdings-donut-section">
+    <div class="donut-card">
+      <div class="donut-title">💰 持仓分布</div>
+      <div class="donut-chart-wrap">
+        <div class="donut-chart" id="donutChart"></div>
+        <div class="donut-center">
+          <div class="donut-center-value" id="donutTotal">$0</div>
+          <div class="donut-center-label">总资产</div>
+        </div>
       </div>
-      <div class="pnl-item">
-        <div class="pnl-label">累计盈亏</div>
-        <div class="pnl-value neutral" id="totalPnl">+0.00 (0.00%)</div>
-      </div>
-      <div class="pnl-item">
-        <div class="pnl-label">胜率</div>
-        <div class="pnl-value neutral" id="winRate">—</div>
+      <div class="donut-legend" id="donutLegend"></div>
+    </div>
+    <div>
+      <!-- Account Value -->
+      <div class="account-card" style="margin-bottom:16px">
+        <div class="account-label">账户总资产（USDT）</div>
+        <div class="account-value" id="accountValue">10,000.00</div>
+        <div class="account-currency" id="accountCurrency">≈ ¥72,850</div>
+        <div class="pnl-row">
+          <div class="pnl-item">
+            <div class="pnl-label">今日盈亏</div>
+            <div class="pnl-value neutral" id="todayPnl">+0.00 (0.00%)</div>
+          </div>
+          <div class="pnl-item">
+            <div class="pnl-label">累计盈亏</div>
+            <div class="pnl-value neutral" id="totalPnl">+0.00 (0.00%)</div>
+          </div>
+          <div class="pnl-item">
+            <div class="pnl-label">胜率</div>
+            <div class="pnl-value neutral" id="winRate">—</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -163,7 +250,7 @@ footer a:hover { color: #D4883C; }
     </div>
   </div>
 
-  <!-- Holdings -->
+  <!-- Holdings (detail cards) -->
   <div class="section-title">当前持仓</div>
   <div class="holdings-grid" id="holdingsGrid">
     <div class="holding-card" id="btcHolding">
@@ -219,6 +306,7 @@ footer a:hover { color: #D4883C; }
       <span>币种</span>
       <span>数量</span>
       <span>价格</span>
+      <span>网格</span>
     </div>
     <div class="empty-trades" id="tradesEmpty">
       📭 暂无交易记录<br>
@@ -229,6 +317,10 @@ footer a:hover { color: #D4883C; }
 </div>
 
 <footer>
+  <div class="update-ts">
+    <span>数据更新时间：<b id="updateTime">—</b></span>
+    <span>页面刷新频率：<b>30秒</b></span>
+  </div>
   <p>🦞 老庄与小花 · AI量化交易实验</p>
   <p>风险提示：本页面仅供演示，模拟盘不代表真实收益，投资有风险</p>
 </footer>
@@ -238,6 +330,7 @@ footer a:hover { color: #D4883C; }
 // Trading Dashboard
 let chart = null;
 let currentTab = 'equity';
+let lastUpdateTime = null;
 
 async function loadData() {
   try {
@@ -254,8 +347,148 @@ function fmt(n, d=2) { return Number(n).toFixed(d); }
 function fmtPnl(n) { return (n>=0?'+':'') + fmt(n) + '%'; }
 function colorClass(n) { return n>0?'positive':n<0?'negative':'neutral'; }
 
+// ===== GRID STATUS VISUALIZATION =====
+function findActiveGridIdx(levels, currentPrice) {
+  // Find the grid index where current price sits (between level[i] and level[i+1])
+  // Or exactly on a level
+  for (let i = 0; i < levels.length; i++) {
+    if (currentPrice <= levels[i]) return i;
+  }
+  return levels.length - 1;
+}
+
+function renderGridStatus(data) {
+  const container = document.getElementById('gridCoins');
+  container.innerHTML = '';
+
+  if (!data || !data.gridState) return;
+
+  // BTC price display
+  const btcHolding = data.holdings.find(h => h.symbol === 'BTC');
+  const ethHolding = data.holdings.find(h => h.symbol === 'ETH');
+  document.getElementById('gridBtcPrice').textContent = btcHolding && btcHolding.currentPrice
+    ? '$' + fmt(btcHolding.currentPrice)
+    : '—';
+
+  const coinConfigs = [
+    { key: 'BTC', label: '₿ Bitcoin', dotClass: 'btc', color: '#f7931a', currentPrice: btcHolding?.currentPrice },
+    { key: 'ETH', label: 'Ξ Ethereum', dotClass: 'eth', color: '#627eea', currentPrice: ethHolding?.currentPrice }
+  ];
+
+  coinConfigs.forEach(cfg => {
+    const gs = data.gridState[cfg.key];
+    if (!gs || !gs.levels) return;
+
+    const triggeredIdxs = new Set((gs.fills || []).map(f => {
+      const note = f.note || '';
+      const m = note.match(/grid[- ]?(\d+)/i);
+      return m ? parseInt(m[1]) : -1;
+    }));
+    // Also mark lastGridIdx as triggered
+    if (gs.lastGridIdx !== undefined) triggeredIdxs.add(gs.lastGridIdx);
+
+    const activeIdx = findActiveGridIdx(gs.levels, cfg.currentPrice || 0);
+
+    const row = document.createElement('div');
+    row.className = 'grid-coin-row';
+
+    const label = document.createElement('div');
+    label.className = 'grid-coin-label';
+    label.innerHTML = `<span class="coin-dot ${cfg.dotClass}"></span>${cfg.label} — 当前价格: <b style="color:${cfg.color}">$${fmt(cfg.currentPrice || 0)}</b>`;
+
+    const track = document.createElement('div');
+    track.className = 'grid-track';
+
+    gs.levels.forEach((price, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'grid-cell';
+      const isActive = i === activeIdx;
+      const isTriggered = triggeredIdxs.has(i);
+
+      if (isActive) {
+        cell.classList.add('active');
+        cell.innerHTML = `<span class="cell-price">$${fmt(price,0)}</span><span class="cell-label">当前</span>`;
+      } else if (isTriggered) {
+        cell.classList.add('triggered');
+        cell.innerHTML = `<span class="cell-price">$${fmt(price,0)}</span><span class="cell-label">触发</span>`;
+      } else {
+        cell.classList.add('future');
+        cell.innerHTML = `<span class="cell-price">$${fmt(price,0)}</span>`;
+      }
+
+      track.appendChild(cell);
+    });
+
+    row.appendChild(label);
+    row.appendChild(track);
+    container.appendChild(row);
+  });
+}
+
+// ===== HOLDINGS DONUT (CSS-only) =====
+function renderDonut(data) {
+  const chartEl = document.getElementById('donutChart');
+  const legendEl = document.getElementById('donutLegend');
+  if (!data) return;
+
+  const total = data.account?.totalValue || 0;
+  const cash = data.account?.cashBalance || 0;
+  const btc = data.holdings.find(h => h.symbol === 'BTC');
+  const eth = data.holdings.find(h => h.symbol === 'ETH');
+  const btcVal = btc?.value || 0;
+  const ethVal = eth?.value || 0;
+
+  const items = [
+    { name: '现金 (USDT)', value: cash, color: '#8b949e' },
+    { name: '₿ Bitcoin', value: btcVal, color: '#f7931a' },
+    { name: 'Ξ Ethereum', value: ethVal, color: '#627eea' }
+  ];
+
+  const totalVal = cash + btcVal + ethVal;
+  document.getElementById('donutTotal').textContent = '$' + fmt(totalVal, 0);
+
+  // Compute conic-gradient segments
+  let currentAngle = 0;
+  const segments = [];
+  const legendItems = [];
+
+  items.forEach(item => {
+    const pct = totalVal > 0 ? (item.value / totalVal) * 100 : 0;
+    const angle = (pct / 100) * 360;
+    if (pct > 0) {
+      segments.push(`${item.color} ${currentAngle}deg ${currentAngle + angle}deg`);
+    }
+    currentAngle += angle;
+    legendItems.push(`
+      <div class="legend-item">
+        <span class="legend-dot" style="background:${item.color}"></span>
+        <span class="legend-name">${item.name}</span>
+        <span class="legend-pct">${pct.toFixed(1)}%</span>
+        <span class="legend-val">$${fmt(item.value, 2)}</span>
+      </div>
+    `);
+  });
+
+  // Pad to 360 if less (due to rounding)
+  if (currentAngle < 360 && segments.length > 0) {
+    const lastColor = items[items.length - 1].color;
+    segments.push(`${lastColor} ${currentAngle}deg 360deg`);
+  }
+
+  chartEl.style.background = segments.length > 0
+    ? `conic-gradient(${segments.join(', ')})`
+    : '#21262d';
+
+  legendEl.innerHTML = legendItems.join('');
+}
+
 function updateUI(data) {
   if (!data) return;
+
+  // Update timestamp
+  const now = new Date();
+  document.getElementById('updateTime').textContent =
+    now.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
   // Status
   const isSimulated = data.status === 'simulated';
@@ -265,6 +498,8 @@ function updateUI(data) {
   // Account
   const acc = data.account;
   document.getElementById('accountValue').textContent = fmt(acc.totalValue).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  const cnyRate = 7.285;
+  document.getElementById('accountCurrency').textContent = '≈ ¥' + fmt(acc.totalValue * cnyRate, 0);
   document.getElementById('todayPnl').textContent = (acc.todayPnL>=0?'+':'') + fmt(acc.todayPnL) + ' (' + fmtPnl(acc.todayPnLPercent) + ')';
   document.getElementById('todayPnl').className = 'pnl-value ' + colorClass(acc.todayPnL);
   document.getElementById('totalPnl').textContent = (acc.totalPnL>=0?'+':'') + fmt(acc.totalPnL) + ' (' + fmtPnl(acc.totalPnLPercent) + ')';
@@ -276,22 +511,26 @@ function updateUI(data) {
   document.getElementById('totalTrades').textContent = acc.totalTrades;
   const holdingCount = data.holdings.filter(h=>h.amount>0).length;
   document.getElementById('holdingsCount').textContent = holdingCount;
+  document.getElementById('btcPrice').textContent = (data.holdings.find(h=>h.symbol==='BTC')?.currentPrice || 0) > 0 ? '$' + fmt(data.holdings.find(h=>h.symbol==='BTC').currentPrice) : '—';
+  document.getElementById('ethPrice').textContent = (data.holdings.find(h=>h.symbol==='ETH')?.currentPrice || 0) > 0 ? '$' + fmt(data.holdings.find(h=>h.symbol==='ETH').currentPrice) : '—';
 
   // Holdings
   data.holdings.forEach(h => {
     const sym = h.symbol.toLowerCase();
-    document.getElementById(sym+'Amount').textContent = fmt(h.amount,6)+' '+h.symbol;
-    document.getElementById(sym+'Avg').textContent = h.avgPrice>0? '$'+fmt(h.avgPrice):'—';
-    document.getElementById(sym+'Curr').textContent = h.currentPrice>0? '$'+fmt(h.currentPrice):'—';
-    const pnlEl = document.getElementById(sym+'Pnl');
-    if (h.amount > 0) {
-      pnlEl.textContent = fmtPnl(h.pnlPercent);
-      pnlEl.className = 'holding-pnl ' + colorClass(h.pnl);
-    } else {
-      pnlEl.textContent = '—';
-      pnlEl.className = 'holding-pnl neutral';
+    const el = id => document.getElementById(sym + id);
+    if (el('Amount')) el('Amount').textContent = fmt(h.amount,6)+' '+h.symbol;
+    if (el('Avg')) el('Avg').textContent = h.avgPrice>0? '$'+fmt(h.avgPrice):'—';
+    if (el('Curr')) el('Curr').textContent = h.currentPrice>0? '$'+fmt(h.currentPrice):'—';
+    const pnlEl = el('Pnl');
+    if (pnlEl) {
+      if (h.amount > 0) {
+        pnlEl.textContent = fmtPnl(h.pnlPercent);
+        pnlEl.className = 'holding-pnl ' + colorClass(h.pnl);
+      } else {
+        pnlEl.textContent = '—';
+        pnlEl.className = 'holding-pnl neutral';
+      }
     }
-    document.getElementById(sym+'Price').textContent = h.currentPrice>0? '$'+fmt(h.currentPrice):'—';
   });
 
   // Strategy
@@ -302,20 +541,35 @@ function updateUI(data) {
   document.getElementById('stopLoss').textContent = fmtPnl(-(s.stopLoss||0.05)*100);
   document.getElementById('takeProfit').textContent = '+' + fmt((s.takeProfit||0.03)*100) + '%';
 
+  // Grid Status
+  renderGridStatus(data);
+
+  // Donut
+  renderDonut(data);
+
   // Trades
   const tbody = document.getElementById('tradesBody');
   const empty = document.getElementById('tradesEmpty');
   if (data.recentTrades && data.recentTrades.length > 0) {
     empty.style.display = 'none';
-    tbody.innerHTML = data.recentTrades.map(t => `
-      <div class="trade-row">
-        <span>${new Date(t.time).toLocaleString('zh-CN',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'})}</span>
-        <span class="trade-type ${t.side.toLowerCase()}">${t.side}</span>
-        <span>${t.symbol}</span>
-        <span>${fmt(t.amount,4)}</span>
-        <span>$${fmt(t.price)}</span>
-      </div>
-    `).join('');
+    tbody.innerHTML = data.recentTrades.map(t => {
+      const note = t.note || '';
+      const gridMatch = note.match(/grid[- ]?(\d+)/i);
+      const gridLabel = gridMatch ? `grid-${gridMatch[1]}` : '—';
+      const timeStr = new Date(t.time).toLocaleString('zh-CN', {
+        month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit', second:'2-digit'
+      });
+      return `
+        <div class="trade-row">
+          <span>${timeStr}</span>
+          <span><span class="trade-type ${t.side.toLowerCase()}">${t.side}</span></span>
+          <span>${t.symbol}</span>
+          <span>${fmt(t.amount,6)}</span>
+          <span>$${fmt(t.price)}</span>
+          <span><span class="trade-grid-badge">${gridLabel}</span></span>
+        </div>
+      `;
+    }).join('');
   } else {
     empty.style.display = 'block';
   }
@@ -368,7 +622,6 @@ function renderChart(equityData) {
 function switchTab(tab) {
   currentTab = tab;
   document.querySelectorAll('.chart-tab').forEach(t => t.classList.toggle('active', t.textContent.toLowerCase().includes(tab)));
-  // Re-render based on tab (simplified - would need real price data)
 }
 
 async function init() {

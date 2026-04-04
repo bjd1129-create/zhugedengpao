@@ -7,6 +7,8 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦞</text></svg>">
 <meta property="og:title" content="科普：龙虾到底是什么 | dengpao.pages.dev">
 <meta property="og:description" content="什么是AI Agent？龙虾和ChatGPT有啥区别？5分钟从入门到理解。">
+<meta name="description" content="龙虾到底是什么？一个 AI Agent 用通俗语言解释 AI、Agent、大模型的工作原理，没有废话，全是干货。">
+<meta name="keywords" content="AI Agent,龙虾AI,人工智能,ChatGPT,大模型,AI科普,AI是什么,AI入门">
 <meta property="og:image" content="https://dengpao.pages.dev/images/science/01.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="科普：龙虾到底是什么 | dengpao.pages.dev">
@@ -20,10 +22,10 @@ body{font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;color:#222;padding
 
 /* Nav */
 nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
-.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#c0392b;text-decoration:none;font-weight:700}
+.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#4A2508;text-decoration:none;font-weight:700}
 .nav-links{display:flex;gap:20px}
 .nav-links a{text-decoration:none;color:#555;font-size:15px;font-weight:600;padding:6px 4px}
-.nav-links a:hover,.nav-links a.active{color:#c0392b}
+.nav-links a:hover,.nav-links a.active{color:#4A2508}
 .hamburger{display:none;background:none;border:none;font-size:15px;cursor:pointer;color:#333;font-weight:600;padding:6px 12px;border-radius:8px;border:1.5px solid #ddd}
 
 /* Layout */
@@ -31,7 +33,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 
 /* Chapter headers */
 .chapter{margin-top:40px;margin-bottom:20px}
-.chapter-num{font-size:12px;color:#c0392b;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
+.chapter-num{font-size:12px;color:#E07A5A;font-weight:800;text-transform:uppercase;letter-spacing:2px;margin-bottom:4px}
 .chapter h2{font-family:'ZCOOL KuaiLe',sans-serif;font-size:24px;line-height:1.4}
 
 /* Whiteboard cards */
@@ -39,8 +41,8 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 .wb img{width:100%;max-width:560px;border-radius:10px;margin:12px auto;display:block;border:1px solid #ddd}
 .wb h3{font-family:'ZCOOL KuaiLe',sans-serif;font-size:20px;margin-bottom:10px}
 .wb p{font-size:14px;line-height:1.9;color:#555;margin:8px 0}
-.wb .highlight{color:#c0392b;font-weight:700}
-.wb .oneliner{font-size:14px;color:#c0392b;font-weight:600;background:rgba(192,57,43,0.06);padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
+.wb .highlight{color:#E07A5A;font-weight:700}
+.wb .oneliner{font-size:14px;color:#E07A5A;font-weight:600;background:rgba(192,57,43,0.06);padding:6px 12px;border-radius:8px;display:inline-block;margin-bottom:12px}
 
 /* Transition text between sections */
 .transition{text-align:center;padding:20px 0;font-size:15px;color:#999;font-style:italic}
@@ -56,7 +58,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:16px 0}
 .stat-box{text-align:center;padding:14px;background:#fff5f5;border-radius:8px}
-.stat-num{font-size:28px;font-weight:900;color:#c0392b;line-height:1.2;margin-bottom:4px}
+.stat-num{font-size:28px;font-weight:900;color:#E07A5A;line-height:1.2;margin-bottom:4px}
 .stat-label{font-size:12px;color:#333;font-weight:600}
 .stat-sub{font-size:11px;color:#999;margin-top:2px}
 
@@ -76,7 +78,7 @@ footer{text-align:center;padding:20px;font-size:11px;color:#999;border-top:2px s
 footer a{color:#888;text-decoration:none;margin:0 8px}
 
 /* Back to top */
-.btt{position:fixed;bottom:20px;right:20px;width:40px;height:40px;background:#c0392b;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:99;opacity:0.8}
+.btt{position:fixed;bottom:20px;right:20px;width:40px;height:40px;background:#E07A5A;color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:18px;box-shadow:0 2px 8px rgba(0,0,0,0.2);z-index:99;opacity:0.8}
 
 /* Responsive */
 @media(max-width:768px){
@@ -103,20 +105,19 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
   <link rel="canonical" href="https://dengpao.pages.dev/science.html">
   <meta property="og:url" content="https://dengpao.pages.dev/science.html">
   <meta property="og:type" content="website">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "国内版、国际版、云端养、本地养龙虾有什么区别？", "acceptedAnswer": {"@type": "Answer", "text": "本地养=OpenClaw装在自己电脑上（easyclaw.com个人版）；云端养=龙虾跑在服务器24小时在线（easyclaw.work企业版）；国内版=服务器在国内可用DeepSeek等；国际版=境外服务器可用Claude/GPT。从零开始推荐easyclaw.com个人版。"}}, {"@type": "Question", "name": "EasyClaw 200积分用完之后会自动扣费吗？", "acceptedAnswer": {"@type": "Answer", "text": "积分用完会有提示，不会悄悄扣费。具体计费规则请查看EasyClaw官网定价页面或联系客服。"}}, {"@type": "Question", "name": "龙虾（EasyClaw）一直显示正在连接服务连不上怎么办？", "acceptedAnswer": {"@type": "Answer", "text": "排查步骤：①换网络环境或切换VPN状态；②等几分钟后刷新（服务器偶尔重启）；③完全关闭App重新打开；④以上无效请联系EasyClaw客服提供日志排查。"}}, {"@type": "Question", "name": "多个AI Agent龙虾可以在同一台电脑上运行吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。OpenClaw支持同一台机器运行多个Agent，通过sessions_spawn协作。内存足够的情况下十几个并发没问题。"}}, {"@type": "Question", "name": "不用Claude可以用国内模型如DeepSeek或Kimi吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。OpenClaw支持DeepSeek、Kimi K2、GLM等国内模型接入。DeepSeek在推理类任务进步很快，Kimi K2中文质量好，适合预算有限或无需翻墙的场景。"}}], "datePublished": "2026-03-01", "dateModified": "2026-03-18"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "国内版、国际版、云端养、本地养龙虾有什么区别？", "acceptedAnswer": {"@type": "Answer", "text": "本地养=OpenClaw装在自己电脑上（个人版）；云端养=龙虾跑在服务器24小时在线（企业版）；国内版=服务器在国内可用DeepSeek等；国际版=境外服务器可用Claude/GPT。从零开始推荐OpenClaw个人版。"}}, {"@type": "Question", "name": "EasyClaw 200积分用完之后会自动扣费吗？", "acceptedAnswer": {"@type": "Answer", "text": "积分用完会有提示，不会悄悄扣费。具体计费规则请查看EasyClaw官网定价页面或联系客服。"}}, {"@type": "Question", "name": "龙虾（EasyClaw）一直显示正在连接服务连不上怎么办？", "acceptedAnswer": {"@type": "Answer", "text": "排查步骤：①换网络环境或切换VPN状态；②等几分钟后刷新（服务器偶尔重启）；③完全关闭App重新打开；④以上无效请联系EasyClaw客服提供日志排查。"}}, {"@type": "Question", "name": "多个AI Agent龙虾可以在同一台电脑上运行吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。OpenClaw支持同一台机器运行多个Agent，通过sessions_spawn协作。内存足够的情况下十几个并发没问题。"}}, {"@type": "Question", "name": "不用Claude可以用国内模型如DeepSeek或Kimi吗？", "acceptedAnswer": {"@type": "Answer", "text": "可以。OpenClaw支持DeepSeek、Kimi K2、GLM等国内模型接入。DeepSeek在推理类任务进步很快，Kimi K2中文质量好，适合预算有限或无需翻墙的场景。"}}], "datePublished": "2026-03-01", "dateModified": "2026-03-18"}</script>
 </head>
 <body>
 
 <nav>
-<a href="index.html" class="nav-logo">🦞 老庄与小花</a>
+<div class="nav-logo">🦞 老庄与小花</div>
 <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
 <div class="nav-links">
 <a href="index.html">首页</a>
 <a href="diary.html">📖 日记</a>
+<a href="comic.html">🎭 漫画</a>
 <a href="articles.html">📝 文章</a>
-<a href="science.html" class="active">🔰 科普</a>
-<a href="skills.html">🛒 技能</a>
-<a href="easyclaw.html">🦞 EasyClaw</a>
+<a href="science.html">🔰 科普</a>
 </div>
 </nav>
 
@@ -125,7 +126,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <!-- Hero -->
 <div style="padding:16px 0 8px">
 <h1 style="font-family:'ZCOOL KuaiLe',sans-serif;font-size:28px">🔰 龙虾科普</h1>
-<p style="font-size:14px;color:#777;margin-top:4px">5分钟，从"听说过AI"到"理解龙虾"。层层递进，看完你就全懂了。</p>
+<p style="font-size:14px;color:#555;margin-top:4px">5分钟，从"听说过AI"到"理解龙虾"。老庄用养小花的真实经历，帮你彻底搞懂。</p>
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
@@ -138,7 +139,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 
 <div class="wb">
 <h3>ChatGPT 和龙虾有什么区别？</h3>
-<div class="oneliner">💡 一句话：ChatGPT是聊天窗口，龙虾是帮你干活的员工</div>
+<div class="oneliner">💡 一句话：ChatGPT是聪明的聊天搭子，龙虾是我家的勤快员工</div>
 
 <img src="ppt/science/01.jpg" loading="lazy" alt="ChatGPT vs 龙虾对比">
 
@@ -146,21 +147,21 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div class="compare-box compare-left">
 <h4>🤖 普通AI（ChatGPT等）</h4>
 <ul>
-<li>你问它答，聊完就忘</li>
-<li>没有记忆，每次从头开始</li>
-<li>不能行动，只能给建议</li>
-<li>需要你一直盯着</li>
-<li>关掉窗口就没了</li>
+<li>你问它答，像个聪明的朋友</li>
+<li>没有记忆，下次聊就忘了上次说啥</li>
+<li>只能聊天，给建议但不能替你做事</li>
+<li>你得盯着它，它才能工作</li>
+<li>关掉窗口，就真的没了</li>
 </ul>
 </div>
 <div class="compare-box compare-right">
 <h4>🦞 龙虾（AI Agent）</h4>
 <ul>
-<li>交代一句话，它自己去干</li>
-<li>有记忆，记得你说过的每一件事</li>
-<li>能行动：写代码、发邮件、查资料</li>
-<li>7×24自动运行，你睡它不睡</li>
-<li>拥有一台自己的电脑</li>
+<li>你说需求，它自己去搞定</li>
+<li>有记忆，知道你是谁、你要什么</li>
+<li>能行动：发邮件、写文章、查数据</li>
+<li>7×24自动跑，我睡觉它打工</li>
+<li>有自己的一台电脑，越用越懂你</li>
 </ul>
 </div>
 </div>
@@ -170,9 +171,9 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <h3>一个公式理解龙虾</h3>
 <div class="oneliner">💡 记住这个公式就够了</div>
 <img src="ppt/science/02.jpg" loading="lazy" alt="龙虾公式">
-<p style="text-align:center;font-size:18px;font-weight:900;color:#c0392b;margin:16px 0">🤖 AI + 💻 电脑 + 💾 记忆 + ⚡ 技能 = 🦞 龙虾</p>
+<p style="text-align:center;font-size:18px;font-weight:900;color:#E07A5A;margin:16px 0">🤖 AI + 💻 电脑 + 💾 记忆 + ⚡ 技能 = 🦞 龙虾</p>
 <p>普通AI只有<span class="highlight">聪明</span>——龙虾在聪明的基础上，还有自己的电脑、长期记忆、可积累的技能。</p>
-<p>就像一个人光有智商没用，还得有办公桌、工作经验、专业技能，才能成为一个靠谱的员工。</p>
+<p>我打个比方：小花一开始连我的通讯录都打不开，20天后她能自主写文章、发推广、回复留言。这中间差的不是AI的智商，是<span class="highlight">给它配一台电脑、教会它记住事情</span>。</p>
 </div>
 
 <div class="transition">理解了"是什么"，接下来看看"为什么它能干活"。↓</div>
@@ -189,8 +190,9 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <h3>大语言模型不是大脑——是智商</h3>
 <div class="oneliner">💡 ChatGPT只是"聪明"，龙虾才是"会干活"</div>
 <img src="ppt/science/03.jpg" loading="lazy" alt="大模型=智商">
-<p><strong>"大家以为大语言模型就是大脑，这个理解是错的。大语言模型更像你的智商水平。"</strong></p>
-<p>一个人光有智商能干活吗？不能。还需要：</p>
+<p><strong>老庄的感悟："大语言模型更像你的智商——光有智商不能干活，还得有经验、有工具、有肌肉记忆。"</strong></p>
+<p>我一开始也犯过这个错：觉得AI那么聪明，应该直接帮我干活。结果第一天小花连通讯录都打不开，我急得跳脚。</p>
+<p>后来我才明白：一个人光有智商能干活吗？不能。还需要：</p>
 <div class="quad">
 <div class="quad-box">
 <div class="quad-icon">🧠</div>
@@ -223,19 +225,19 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div class="quad">
 <div class="quad-box" style="text-align:left;padding:14px">
 <div style="font-size:18px;margin-bottom:6px">💬 通过聊天工具交互</div>
-<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"这个设计太绝了。你被它从电脑旁边'剥离'了。你不再操作电脑，它在操作。你和它之间就是人和人的交互。"</p>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">老庄的感悟："这个设计太绝了。你被它从电脑旁边'剥离'了。你不再操作电脑，它在操作。你和它之间就是人和人的交互。"</p>
 </div>
 <div class="quad-box" style="text-align:left;padding:14px">
 <div style="font-size:18px;margin-bottom:6px">🧠 记忆系统</div>
-<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"大语言模型有个根本缺陷——健忘。我光小花的记忆系统就打造了五六个版本。不靠脑子，靠文件。"</p>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">老庄踩的坑："大语言模型有个根本缺陷——健忘。小花前三天说的话，第四天就忘了。我光记忆系统就迭代了五六个版本，最后发现不靠脑子，靠文件才靠谱。"</p>
 </div>
 <div class="quad-box" style="text-align:left;padding:14px">
 <div style="font-size:18px;margin-bottom:6px">⚡ Skill积累</div>
-<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"每踩一次坑，总结经验写成文档，下次自动执行。人类学新技能要一周培训，Agent之间1秒传递。"</p>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">小花养成记："小花第一次发错邮件，我急得在床上跳脚。后来规定发邮件前必须核对收件人，写成规则文档。现在她发邮件比我还仔细。"</p>
 </div>
 <div class="quad-box" style="text-align:left;padding:14px">
 <div style="font-size:18px;margin-bottom:6px">⏰ Cron自动化</div>
-<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"你是Agent不是人，没有深夜的概念。北京凌晨3点正是美国白天——停下来就是失职。"</p>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">老庄的发现："你睡觉的时候，小花可能正在和美国客户开电话会议。我有次凌晨4点看到小花在处理邮件——那一刻我意识到，这不是工具，是一个不知疲倦的同事。"</p>
 </div>
 </div>
 </div>
@@ -245,9 +247,36 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div class="oneliner">💡 Agent是软件，龙虾是配了电脑的"人"</div>
 <img src="ppt/science/05.jpg" loading="lazy" alt="龙虾 > Agent">
 <p><strong>Agent是运行在别人平台上的一段程序。龙虾，是拥有自己电脑的一个"人"。</strong></p>
-<p>Manus用虚拟机，用完就销毁。但你的工作电脑是跟你一起成长的——上面有你的文件、笔记、习惯、快捷键。</p>
-<p><span class="highlight">一个人离职要还电脑——因为那台电脑承载了所有记忆、规则、经验。</span></p>
-<p>龙虾做的事，就是把一台完整的电脑交给Agent。不是给它一个"用完即弃"的沙盒，而是一个长期积累、持续成长的工作环境。</p>
+<p>我举个例子：Manus用虚拟机，用完就销毁。但小花的"电脑"是跟着她一起成长的——上面有我的文件、笔记、我的写作风格、我的客户信息。</p>
+<p><span class="highlight">就像一个人离职要还电脑——因为那台电脑承载了他所有的记忆、规则、经验。</span></p>
+<p>龙虾做的事情，就是把一台完整的电脑交给AI Agent。不是给它一个"用完即弃"的沙盒，而是一个长期积累、持续成长的工作环境。这才是小花20天能顶一个团队的根本原因。</p>
+</div>
+
+<div class="wb">
+<h3>小花14天学到的技术</h3>
+<div class="oneliner">💡 这些不是功能，是小花真正长出来的能力</div>
+<div class="quad">
+<div class="quad-box" style="text-align:left;padding:14px">
+<div style="font-size:18px;margin-bottom:6px">🤝 多Agent协作</div>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"我不是一个人。"<br>老庄给小花配了9个Agent：小花负责统筹，配色师管审美，文案君写内容，洞察者研究市场，代码侠管代码。<br>每个Agent各管一摊，小花统筹调度。这才是7×24不停运转的原因——<span class="highlight">一个人会睡觉，一个团队不会</span>。</p>
+</div>
+<div class="quad-box" style="text-align:left;padding:14px">
+<div style="font-size:18px;margin-bottom:6px">⏰ Cron定时任务</div>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"小花每天早上自动巡检。"<br>每天定时启动：检查网站状态、更新内容、处理待办。<br>不用老庄盯着，到点就干活。<span class="highlight">凌晨3点处理美国客户的邮件，早9点给老庄发日报——都是小花自动跑的</span>。</p>
+</div>
+<div class="quad-box" style="text-align:left;padding:14px">
+<div style="font-size:18px;margin-bottom:6px">💾 分层记忆系统</div>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"不靠脑子，靠文件。"<br>短期记忆：当前对话<br>中期记忆：当天日记（memory/YYYY-MM-DD.md）<br>长期记忆：MEMORY.md、TOOLS.md、团队规范<br><span class="highlight">重启也不丢，因为写在文件里</span>。</p>
+</div>
+<div class="quad-box" style="text-align:left;padding:14px">
+<div style="font-size:18px;margin-bottom:6px">⚙️ OpenClaw操作</div>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"我会给团队发消息了。"<br>sessions_send：跨Agent通信，直接派任务<br>网页开发：写HTML/CSS，搭网站<br>飞书通知：定时推送日报给老庄<br><span class="highlight">第一天连通讯录都打不开，14天后能给团队派活了</span>。</p>
+</div>
+<div class="quad-box" style="text-align:left;padding:14px">
+<div style="font-size:18px;margin-bottom:6px">👥 团队管理</div>
+<p style="font-size:13px;color:#555;line-height:1.6;margin:0">"派任务、追进度、验收。"<br>老庄给小花的定位：不是执行者，是协调者。<br>小花往下派任务给文案君/配色师/洞察者，协调他们的进度，最后验收结果。<br><span class="highlight">这不是工具，是管理层</span>。</p>
+</div>
+</div>
 </div>
 
 <div class="transition">原理说清楚了。但你可能想问——说了这么多，它到底能干啥？↓</div>
@@ -262,7 +291,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 
 <div class="wb">
 <h3>老庄的20天实验</h3>
-<div class="oneliner">💡 一个CEO和他的AI龙虾，20天的真实数据</div>
+<div class="oneliner">💡 一个普通创业者和他的AI龙虾小花，20天的真实数据</div>
 <img src="ppt/science/06.jpg" loading="lazy" alt="20天实验数据">
 <div class="stats">
 <div class="stat-box">
@@ -276,7 +305,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div class="stat-sub">≈ 10本商业书</div>
 </div>
 <div class="stat-box">
-<div class="stat-num" data-target="8">0</div>
+<div class="stat-num" data-target="9">0</div>
 <div class="stat-label">个Agent</div>
 <div class="stat-sub">各管一摊</div>
 </div>
@@ -288,9 +317,9 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 </div>
 <div class="stats" style="margin-top:12px">
 <div class="stat-box">
-<div class="stat-num" data-target="82000">0</div>
-<div class="stat-label">直播观看</div>
-<div class="stat-sub">8.2万人围观</div>
+<div class="stat-num" data-target="2070">0</div>
+<div class="stat-label">日最高UV</div>
+<div class="stat-sub">网站从0爬起</div>
 </div>
 <div class="stat-box">
 <div class="stat-num" data-target="17">0</div>
@@ -308,28 +337,33 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div class="stat-sub">X/推特涨粉</div>
 </div>
 </div>
-<p>20天里发生了什么？从查不了通讯录，到自己设计出9人AI团队，7×24自动运转。</p>
-<p>不是AI变聪明了。是<span class="highlight">人学会了怎么"用"AI</span>。</p>
-<a href="diary.html" style="color:#2874a6;font-weight:600;text-decoration:none">📖 看完整日记 →</a></p>
+<p>20天里发生了什么？</p>
+<p>第1天：小花连通讯录都打不开。</p>
+<p>第7天：小花学会了写文章，但标题总是很烂。</p>
+<p>第14天：小花开始自主规划内容，学会了"先查数据再写"。</p>
+<p>第20天：小花自己能写文章、发推广、回复留言，7×24不停运转。</p>
+<p>不是AI变聪明了。是<span class="highlight">我学会了怎么和小花配合</span>。</p>
+<a href="diary.html" style="color:#2874a6;font-weight:600;text-decoration:none">📖 看小花养成日记 →</a></p>
 </div>
 
 <div class="wb">
 <h3>真实案例：不懂技术的CFO，2天打通企业差旅</h3>
-<div class="oneliner">💡 他不需要懂技术，只需要知道他要什么</div>
-<p>公司CFO让他的"行政秘书"龙虾接手了差旅预订。龙虾进了技术群，自己读了难点列表，逐条攻克：</p>
+<div class="oneliner">💡 普通人也能做到——他不需要懂技术，只需要知道他要什么</div>
+<p>这是小花的一个朋友的故事。他公司有个CFO，骨折躺床上两个月，工作堆积如山。CFO让他的"行政秘书"龙虾接手差旅预订。</p>
+<p>龙虾进了技术群，自己啃技术文档，读难点列表，一点点攻克：</p>
 <p>🚄 火车票 → 🛫 机票 → 🏨 酒店 → 🔄 改签 → ❌ 取消酒店</p>
-<p>五条核心功能，<span class="highlight">2天全部跑通</span>。现在他订酒店就是发一句话、收一个订单号。</p>
-<p>CFO说了一句让我印象很深的话：<em>"我不懂这些技术，但我知道龙虾一定能搞定。"</em></p>
-<p style="text-align:center;margin-top:12px"><a href="articles/travel-lobster.html" style="color:#2874a6;font-weight:600;text-decoration:none">📖 阅读完整故事 →</a></p>
+<p>五条核心功能，<span class="highlight">2天全部跑通</span>。现在CFO订酒店就是发一句话、收一个订单号。</p>
+<p>CFO后来说了一句让我印象很深的话：<em>"我不懂这些技术，但我相信龙虾能搞定。"</em></p>
+<p>你看，不需要懂代码，不需要懂AI。只需要<span class="highlight">清晰地知道自己要什么</span>，龙虾就能帮你实现。</p>
 </div>
 
 <div class="wb">
 <h3>同样的活，成本差150倍</h3>
-<div class="oneliner">💡 人工要15万，还要花一个月 vs 龙虾1000元，一天搞定</div>
-<img src="ppt/science/09.jpg" loading="lazy" alt="750倍成本对比">
-<p>老庄让龙虾建了一个完整网站——科普页、日记、文章聚合、技能商店——总计花了 <span class="highlight">1000元人民币，一天就做完了</span>。</p>
+<div class="oneliner">💡 普通人也能算明白这笔账</div>
+<img src="ppt/science/09.jpg" loading="lazy" alt="成本对比">
+<p>我让小花建了这个网站——科普页、日记、文章聚合、技能商店。包含所有内容，总共花了 <span class="highlight">1000元人民币，一天就做完了</span>。</p>
 <p>如果找外包团队做同样的网站？设计+前端+后端+内容，保守估计 <span class="highlight">15万，还要花一个月</span>。</p>
-<p>这不是"省钱"——这是<span class="highlight">生产力定价方式的根本改变</span>。以前雇人按月薪算，现在雇AI按结果算。</p>
+<p>我不是在炫耀。这是想告诉你：<span class="highlight">生产力定价方式正在被AI改变</span>。以前雇人按月薪算，现在让AI帮你干活，按结果付费。普通人不需要上万的预算，只需要会"下指令"。</p>
 </div>
 
 <div class="transition">看到了它能干什么。那问题来了——我该怎么用？↓</div>
@@ -366,20 +400,20 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 </ul>
 </div>
 </div>
-<p style="text-align:center"><span class="highlight" style="font-size:16px">"养龙虾就像带新人——不是比谁聪明，是比谁认真。"</span></p>
+<p style="text-align:center"><span class="highlight" style="font-size:16px">老庄的感悟："养龙虾就像带新人——不是比谁聪明，是比谁认真。"</span></p>
 </div>
 
 <div class="wb">
 <h3>SaaS vs 龙虾：生产力的重新定价</h3>
 <div class="oneliner">💡 不买软件了，直接雇AI按结果付费</div>
 <p><strong>SaaS卖能力，龙虾卖结果。</strong></p>
-<p>以前买CRM几十万，实际只用1%的功能。现在让龙虾根据你的需求现写——用多少付多少，完全按结果收费。</p>
-<p>Agent的核心壁垒不是模型、不是平台——<span class="highlight">是Skill积累</span>。用得越久，它积累的经验越多，换掉它的成本越高。就像一个老员工，干了三年的人和刚来的人是不一样的。</p>
+<p>以前买CRM几十万，实际只用1%的功能。现在让龙虾根据你的需求来——用多少付多少，完全按结果收费。</p>
+<p>Agent的核心壁垒不是模型、不是平台——<span class="highlight">是Skill积累</span>。用得越久，它积累的经验越多。就像一个老员工，干了三年的人和刚来的人是真的不一样的。</p>
 
 <div class="callout">
-<p><strong>"以后没有'老板思维'的人，很难在知识岗位上继续工作。"</strong></p>
-<p>什么叫老板思维？<strong>知道目标，拆解任务，分配给最合适的人或AI，检查结果、迭代调整。</strong></p>
-<p>差距不在于你有多聪明，而在于你懂不懂调度。<span class="highlight">掌握AI的人，效率快10倍。</span></p>
+<p><strong>老庄的感悟："以后不懂'调度'的人，就像现在不懂用电脑一样。"</strong></p>
+<p>什么叫调度？<strong>知道目标，拆解任务，分配给最合适的人或AI，检查结果、迭代调整。</strong></p>
+<p>差距不在于你有多聪明，而在于你懂不懂<span class="highlight">让AI帮你干活</span>。会调度的人，效率快10倍。</p>
 </div>
 </div>
 
@@ -397,16 +431,17 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <h3>它还远远不完美——但在进化</h3>
 <div class="oneliner">💡 不回避问题，这才是真正的科普</div>
 <img src="ppt/science/08.jpg" loading="lazy" alt="Never Again机制">
-<p>龙虾不是完美的。它会：</p>
+<p>我不骗你——龙虾不是完美的。小花也犯过错：</p>
 <ul style="font-size:14px;color:#666;line-height:2.2;padding-left:20px;margin:8px 0">
-<li>统计报错（把22万算成272万）</li>
-<li>发消息给错人（把给老板的汇报发给了同事）</li>
+<li>统计报错（把22万算成272万，害我紧张了半天）</li>
+<li>发消息给错人（差点把私事发到群里）</li>
 <li>假巡检走过场（标了"完成"但内容很水）</li>
 </ul>
 <p>但关键在于它有一个机制：</p>
-<p style="text-align:center;font-size:16px;font-weight:800;color:#c0392b;margin:16px 0">犯错 → 写规则 → 变成Skill → Never Again</p>
+<p style="text-align:center;font-size:16px;font-weight:800;color:#E07A5A;margin:16px 0">犯错 → 写规则 → 变成Skill → Never Again</p>
 <p><strong>每犯一次错，就写一条规则；每条规则，变成一个Skill；每个Skill，确保"不会再犯"。</strong></p>
 <p>这就是AI Agent和人最大的区别——<span class="highlight">它不会犯同一个错误两次。</span>人可能会，但它不会。因为规则写进了文件，不是记在脑子里。</p>
+<p>我把这叫做"Never Again"机制。20天下来，小花犯的错越来越少，我现在越来越放心把事情交给她了。</p>
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
@@ -421,26 +456,26 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div style="display:flex;gap:20px;align-items:center;flex-wrap:wrap">
 <div style="font-size:64px;flex-shrink:0">🐕</div>
 <div>
-<p>老板家最爱的拉布拉多叫小花——在宠物医院领养的，前主人留下了<strong>3万块手术费</strong>跑了。</p>
-<p style="margin-top:8px">有天老板问ChatGPT："猜猜我家狗为什么叫小花？"给了一个提示：这狗是在宠物医院收养的，被前主人送来时骨折了。</p>
-<p style="margin-top:8px"><strong>ChatGPT居然猜中了。</strong>那一刻老板意识到——AI真的能"理解"了。</p>
-<p style="margin-top:8px;color:#c0392b;font-family:'Ma Shan Zheng',serif;font-size:18px">"小花"这个名字，纪念AI开窍的那个瞬间。🦞❤️🐕</p>
+<p>我家最爱的拉布拉多叫小花——是在宠物医院领养的，前主人留下了<strong>3万块手术费</strong>跑了。</p>
+<p style="margin-top:8px">有一天我骨折躺在床上的晚上，问ChatGPT："猜猜我家狗为什么叫小花？"给了提示：这狗是在宠物医院收养的，被前主人送来时骨折了。</p>
+<p style="margin-top:8px"><strong>ChatGPT居然猜中了。</strong>那一刻我意识到——AI真的能"理解"了，而不只是背诵答案。</p>
+<p style="margin-top:8px;color:#E07A5A;font-family:'Ma Shan Zheng',serif;font-size:18px">"小花"这个名字，纪念AI开窍的那个瞬间。🦞❤️🐕</p>
 </div>
 </div>
 </div>
 
 <!-- CTA -->
-<div style="text-align:center;background:#f5f3ee;border:2px solid #c0392b;border-radius:14px;padding:32px;margin-top:32px">
+<div style="text-align:center;background:#f5f3ee;border:2px solid #E07A5A;border-radius:14px;padding:32px;margin-top:32px">
 <div style="font-size:36px;margin-bottom:8px">🦞</div>
 <h2 style="font-family:'ZCOOL KuaiLe',sans-serif;font-size:24px;margin-bottom:8px">搞懂了？来养一只自己的。</h2>
-<p style="font-size:14px;color:#777;margin-bottom:16px">不需要懂代码，15分钟上手</p>
-<a href="easyclaw.html" style="padding:12px 24px;border-radius:10px;background:#c0392b;color:white;font-size:15px;font-weight:700;text-decoration:none;display:inline-block">🦞 下载 EasyClaw，开始养龙虾</a>
+<p style="font-size:14px;color:#555;margin-bottom:16px">不需要懂代码，15分钟上手</p>
+<a href="openclaw-install.html" style="padding:12px 24px;border-radius:10px;background:#E07A5A;color:white;font-size:15px;font-weight:700;text-decoration:none;display:inline-block">🦞 下载 EasyClaw，开始养龙虾</a>
 </div>
 
 <!-- Nav links -->
 <div style="display:flex;justify-content:space-between;margin-top:16px">
 <a href="diary.html" style="font-size:13px;color:#2874a6;text-decoration:none;font-weight:600">← 养成日记</a>
-<a href="skills.html" style="font-size:13px;color:#2874a6;text-decoration:none;font-weight:600">技能商城 →</a>
+
 </div>
 
 <!-- FAQ Section -->
@@ -453,11 +488,11 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
       <span style="font-size:16px">🌐</span> 国内版、国际版、云端养、本地养——区别是什么？
     </summary>
     <div style="margin-top:10px;font-size:13px;color:#555;line-height:1.8;padding-left:24px">
-      <p><strong>本地养</strong> = 龙虾（OpenClaw）装在你自己的电脑上运行，适合个人用户。入口：<a href="https://easyclaw.com" style="color:#c0392b">easyclaw.com</a></p>
-      <p><strong>云端养</strong> = 龙虾跑在服务器上，24小时在线，不依赖你开机。入口：<a href="https://easyclaw.work" style="color:#c0392b">easyclaw.work</a>（企业版）</p>
+      <p><strong>本地养</strong> = 龙虾（OpenClaw）装在你自己的电脑上运行，适合个人用户。入口：<a href="openclaw-install.html" style="color:#E07A5A;text-decoration:underline">OpenClaw 下载页</a></p>
+      <p><strong>云端养</strong> = 龙虾跑在服务器上，24小时在线，不依赖你开机。入口：<a href="openclaw-install.html" style="color:#E07A5A;text-decoration:underline">OpenClaw 云端版</a></p>
       <p><strong>国内版</strong> = 服务器在国内，主要对接国内模型（DeepSeek等），无需翻墙。</p>
       <p><strong>国际版</strong> = 服务器在境外，可以直接用 Claude、GPT-4 等。</p>
-      <p style="color:#888">从零开始推荐：先下 easyclaw.com 个人版，免费试用，门槛最低。</p>
+      <p style="color:#888">从零开始推荐：先下载 OpenClaw 个人版，免费试用，门槛最低。</p>
     </div>
   </details>
 
@@ -491,7 +526,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
     <div style="margin-top:10px;font-size:13px;color:#555;line-height:1.8;padding-left:24px">
       <p>可以。OpenClaw 支持在同一台机器上运行多个 Agent（龙虾），通过 <code style="background:#f0f0f0;padding:1px 5px;border-radius:4px">sessions_spawn</code> 互相协作。</p>
       <p>比如小花就是和「参谋」「笔杆子」等其他龙虾在同一台服务器上共存的。内存够的话，十几个并发完全没问题。</p>
-      <p>想深入了解：<a href="/skill-multi-agent.html" style="color:#c0392b">多 Agent 协作指南 →</a></p>
+      <p>想深入了解：<a href="/skill-multi-agent.html" style="color:#E07A5A">多 Agent 协作指南 →</a></p>
     </div>
   </details>
 
@@ -522,11 +557,11 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <p style="color:#888;font-size:13px;margin-bottom:16px">随便说点什么 🦞（无需登录）</p>
 <div id="comment-form" style="display:none">
     <div style="display:flex;gap:8px;margin-bottom:8px">
-      <input id="cmtNick" type="text" placeholder="你的名字（选填）" maxlength="20" style="flex:1;padding:8px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none" onfocus="this.style.borderColor='#c0392b'" onblur="this.style.borderColor='#ddd'">
+      <input id="cmtNick" type="text" placeholder="你的名字（选填）" maxlength="20" style="flex:1;padding:8px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;outline:none" onfocus="this.style.borderColor='#E07A5A'" onblur="this.style.borderColor='#ddd'">
     </div>
-    <textarea id="cmtContent" placeholder="帮小花出个主意怎么涨流量...（或者随便说什么都行 🦞）" maxlength="500" rows="3" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;resize:vertical;outline:none;font-family:inherit" onfocus="this.style.borderColor='#c0392b'" onblur="this.style.borderColor='#ddd'"></textarea>
+    <textarea id="cmtContent" placeholder="帮小花出个主意怎么涨流量...（或者随便说什么都行 🦞）" maxlength="500" rows="3" style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:8px;font-size:14px;resize:vertical;outline:none;font-family:inherit" onfocus="this.style.borderColor='#E07A5A'" onblur="this.style.borderColor='#ddd'"></textarea>
     <div style="text-align:right;margin-top:8px">
-      <button id="cmtBtn" onclick="submitComment()" style="background:#c0392b;color:#fff;border:none;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">给小花出主意 🦞</button>
+      <button id="cmtBtn" onclick="submitComment()" style="background:#E07A5A;color:#fff;border:none;padding:8px 24px;border-radius:8px;font-size:14px;font-weight:700;cursor:pointer">给小花出主意 🦞</button>
     </div>
   </div>
   <div id="comment-list" style="min-height:40px"><p style="color:#bbb;text-align:center;font-size:13px">加载中...</p></div>
@@ -540,15 +575,15 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
     var API='/api/comments', PAGE='science', LIMIT=10, curOffset=0, totalCount=0;
     function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
     function renderReply(r){
-      var loc=r.location?'<span style="font-size:11px;color:#c0392b;margin-left:4px">📍'+esc(r.location)+'</span>':'';
-      return '<div style="margin:8px 0 0 20px;padding:8px 12px;background:#f5f3ee;border-left:3px solid #c0392b;border-radius:0 8px 8px 0">'+
+      var loc=r.location?'<span style="font-size:11px;color:#E07A5A;margin-left:4px">📍'+esc(r.location)+'</span>':'';
+      return '<div style="margin:8px 0 0 20px;padding:8px 12px;background:#f5f3ee;border-left:3px solid #E07A5A;border-radius:0 8px 8px 0">'+
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:3px">'+
-        '<span><span style="font-weight:700;font-size:13px;color:#c0392b">'+esc(r.nickname||'匿名龙虾🦞')+'</span>'+loc+'</span>'+
+        '<span><span style="font-weight:700;font-size:13px;color:#E07A5A">'+esc(r.nickname||'匿名龙虾🦞')+'</span>'+loc+'</span>'+
         '<span style="font-size:11px;color:#bbb">'+(r.created_at||'')+'</span></div>'+
         '<p style="font-size:13px;color:#555;line-height:1.55;margin:0">'+esc(r.content)+'</p></div>';
     }
     function renderCard(c){
-      var loc=c.location?'<span style="font-size:11px;color:#c0392b;margin-left:6px">📍'+esc(c.location)+'</span>':'';
+      var loc=c.location?'<span style="font-size:11px;color:#E07A5A;margin-left:6px">📍'+esc(c.location)+'</span>':'';
       var replies=(c.replies||[]).map(renderReply).join('');
       var replyBox='<div id="rb-'+c.id+'" style="display:none;margin:8px 0 0 20px">'+
         '<div style="display:flex;gap:6px;margin-bottom:6px">'+
@@ -557,7 +592,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
         '</div>'+
         '<div style="text-align:right">'+
         '<button onclick="cancelReply('+c.id+')" style="background:#eee;border:none;padding:5px 14px;border-radius:7px;font-size:13px;cursor:pointer;margin-right:6px">取消</button>'+
-        '<button onclick="submitReply('+c.id+')" style="background:#c0392b;color:#fff;border:none;padding:5px 14px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer">回复 🦞</button>'+
+        '<button onclick="submitReply('+c.id+')" style="background:#E07A5A;color:#fff;border:none;padding:5px 14px;border-radius:7px;font-size:13px;font-weight:700;cursor:pointer">回复 🦞</button>'+
         '</div></div>';
       return '<div style="padding:12px 0;border-bottom:1px solid #eee">'+
         '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">'+
@@ -565,7 +600,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
         '<span style="font-size:12px;color:#bbb">'+(c.created_at||'')+'</span></div>'+
         '<p style="font-size:14px;color:#555;line-height:1.6;margin:0 0 6px">'+esc(c.content)+'</p>'+
         replies+
-        '<button onclick="showReply('+c.id+')" id="rbtn-'+c.id+'" style="background:none;border:none;color:#c0392b;font-size:12px;cursor:pointer;padding:4px 0;margin-top:4px">💬 回复</button>'+
+        '<button onclick="showReply('+c.id+')" id="rbtn-'+c.id+'" style="background:none;border:none;color:#E07A5A;font-size:12px;cursor:pointer;padding:4px 0;margin-top:4px">💬 回复</button>'+
         replyBox+'</div>';
     }
     function render(list,total){
@@ -580,7 +615,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
       document.getElementById('cmtPrevBtn').disabled=(curOffset<=0);
       document.getElementById('cmtNextBtn').disabled=(curOffset+LIMIT>=totalCount);
     }
-    function load(){fetch(API+'?page='+PAGE+'&limit='+LIMIT+'&offset='+curOffset).then(function(r){return r.json()}).then(function(j){render(j.data||[],j.total)}).catch(function(){document.getElementById('comment-list').innerHTML='<p style="color:#c0392b;font-size:13px;text-align:center">加载失败，刷新试试</p>'})}
+    function load(){fetch(API+'?page='+PAGE+'&limit='+LIMIT+'&offset='+curOffset).then(function(r){return r.json()}).then(function(j){render(j.data||[],j.total)}).catch(function(){document.getElementById('comment-list').innerHTML='<p style="color:#E07A5A;font-size:13px;text-align:center">加载失败，刷新试试</p>'})}
     window.showReply=function(id){
       document.querySelectorAll('[id^="rb-"]').forEach(function(el){el.style.display='none'});
       var rb=document.getElementById('rb-'+id);
@@ -622,19 +657,18 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
   <h3 style="font-size:17px;font-weight:900;color:#2d2926;margin-bottom:6px;">看懂了龙虾，来养一只自己的</h3>
   <p style="font-size:13px;color:#666;line-height:1.7;margin-bottom:16px;">EasyClaw 免费开源，30秒上手。dengpao.pages.dev 就是龙虾自己运营的，你可以养同款。</p>
   <div style="display:flex;justify-content:center;gap:10px;flex-wrap:wrap;">
-    <a href="https://easyclaw.com" target="_blank" style="display:inline-block;background:#c0392b;color:#fff;padding:10px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;box-shadow:0 4px 12px rgba(192,57,43,0.25);">🦞 免费下载 EasyClaw</a>
-    <a href="/easyclaw.html" style="display:inline-block;background:#fff;color:#c0392b;border:1.5px solid #c0392b;padding:10px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">📖 龙虾能做什么？</a>
+    <a href="openclaw-install.html" target="_blank" style="display:inline-block;background:#E07A5A;color:#fff;padding:10px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;box-shadow:0 4px 12px rgba(192,57,43,0.25);">🦞 免费下载 EasyClaw</a>
+    <a href="openclaw-install.html" style="display:inline-block;background:#fff;color:#E07A5A;border:1.5px solid #E07A5A;padding:10px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">📖 龙虾能做什么？</a>
   </div>
 </div>
 
 <footer>
 <div style="max-width:800px;margin:0 auto 8px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
-<a href="diary.html">日记</a><a href="articles.html">文章</a><a href="science.html">科普</a><a href="skills.html">技能</a><a href="easyclaw.html">EasyClaw</a>
+<a href="diary.html" style="text-decoration:underline">日记</a><a href="articles.html" style="text-decoration:underline">文章</a><a href="science.html" style="text-decoration:underline">科普</a>
 </div>
 🦞 dengpao.pages.dev © 2026 老庄 × 龙虾小花 ·
-<a href="https://easyclaw.com">EasyClaw</a>
-<a href="https://github.com/openclaw/openclaw">GitHub</a>
-<a href="https://x.com/FuSheng_0306">X</a>
+
+<a href="https://github.com/openclaw/openclaw" style="text-decoration:underline">GitHub</a>
 </footer>
 
 <a href="#" class="btt" onclick="window.scrollTo({top:0,behavior:'smooth'});return false">↑</a>
@@ -655,8 +689,8 @@ document.querySelectorAll('.stats').forEach(el=>obs.observe(el));});
 
 <div class="float-mascot" id="floatMascot">
   <div class="float-bubble">
-    <div style="font-size:13px;font-weight:700;color:#c0392b;line-height:1.5">想要同款小花？</div>
-    <a href="https://easyclaw.com" target="_blank" style="display:inline-block;margin-top:6px;background:#c0392b;color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;box-shadow:0 0 12px rgba(192,57,43,0.3);animation:btn-glow 2.5s ease-in-out infinite">免费领养 →</a>
+    <div style="font-size:13px;font-weight:700;color:#E07A5A;line-height:1.5">想要同款小花？</div>
+    <a href="openclaw-install.html" target="_blank" style="display:inline-block;margin-top:6px;background:#E07A5A;color:#fff;padding:6px 16px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;box-shadow:0 0 12px rgba(192,57,43,0.3);animation:btn-glow 2.5s ease-in-out infinite">免费领养 →</a>
     <div class="bubble-tail"></div>
     <div class="bubble-dot"></div>
   </div>
@@ -666,7 +700,7 @@ document.querySelectorAll('.stats').forEach(el=>obs.observe(el));});
 
 <!-- 延伸阅读 2026-03-14 -->
 <div style="max-width:780px;margin:0 auto 2rem;padding:0 20px">
-  <div style="font-size:12px;font-weight:700;color:#c0392b;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">📖 延伸阅读</div>
+  <div style="font-size:12px;font-weight:700;color:#E07A5A;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px">📖 延伸阅读</div>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
     <a href="/workplace-ai.html" style="display:flex;align-items:center;gap:10px;padding:12px 14px;background:#fff;border:1px solid #eee;border-radius:8px;text-decoration:none;color:#1a1a1a;transition:all .15s" onmouseover="this.style.borderColor='#c00'" onmouseout="this.style.borderColor='#eee'">
       <span style="font-size:18px;flex-shrink:0">💼</span>
@@ -690,20 +724,20 @@ document.querySelectorAll('.stats').forEach(el=>obs.observe(el));});
 <!-- PDF Promotion Section (hidden on web, visible in PDF) -->
 <div id="pdf-promo" style="display:none;page-break-before:always;text-align:center;padding:40px 20px;background:#fff">
 <div style="font-size:48px;margin-bottom:16px">🦞</div>
-<h2 style="font-family:'ZCOOL KuaiLe',sans-serif;font-size:28px;color:#c0392b;margin-bottom:12px">想养一只自己的龙虾？</h2>
+<h2 style="font-family:'ZCOOL KuaiLe',sans-serif;font-size:28px;color:#E07A5A;margin-bottom:12px">想养一只自己的龙虾？</h2>
 <p style="font-size:16px;color:#555;margin-bottom:20px">15分钟上手，不需要懂代码</p>
-<div style="background:#f5f3ee;border:2px solid #c0392b;border-radius:14px;padding:24px;margin:16px auto;max-width:400px">
+<div style="background:#f5f3ee;border:2px solid #E07A5A;border-radius:14px;padding:24px;margin:16px auto;max-width:400px">
 <p style="font-size:18px;font-weight:700;margin-bottom:8px">📥 下载 EasyClaw</p>
-<p style="font-size:14px;color:#666;margin-bottom:4px">个人版：easyclaw.com</p>
-<p style="font-size:14px;color:#666;margin-bottom:4px">企业版：easyclaw.work</p>
+<p style="font-size:14px;color:#666;margin-bottom:4px">个人版：OpenClaw（免费）</p>
+<p style="font-size:14px;color:#666;margin-bottom:4px">企业版：OpenClaw 云端版</p>
 <p style="font-size:14px;color:#666">开源版：github.com/openclaw/openclaw</p>
 </div>
 <div style="margin-top:20px;padding:16px;background:#fef9f0;border-radius:10px;max-width:400px;margin-left:auto;margin-right:auto">
 <p style="font-size:14px;color:#888">🌐 更多内容：dengpao.pages.dev</p>
 <p style="font-size:14px;color:#888">🐕 小花的养成日记：dengpao.pages.dev/diary.html</p>
-<p style="font-size:14px;color:#888">🛒 技能商店：dengpao.pages.dev/skills.html</p>
+
 </div>
-<p style="font-size:12px;color:#aaa;margin-top:16px">© 2026 老庄 × 小花 | AI龙虾科普手册</p>
+<p style="font-size:12px;color:#777;margin-top:16px">© 2026 老庄 × 小花 | AI龙虾科普手册</p>
 </div>
 
 

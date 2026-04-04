@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫画连载 | 老庄与小花</title>
+<meta name="description" content="老庄与小花的四格漫画连载《如果我有工资》，7个故事56格，每周更新。">
+<meta property="og:title" content="漫画连载 | 老庄与小花">
+<meta property="og:description" content="四格漫画《如果我有工资》— 普通人的AI实验真实记录">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dengpao.pages.dev/comic">
+<link rel="canonical" href="https://dengpao.pages.dev/comic">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#f5f3ee;color:#333;min-height:100vh}
+a{color:#E07A5A;text-decoration:none}
+a:hover{color:#c0392b}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#E07A5A;font-weight:700}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-size:15px;font-weight:600;color:#555;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#E07A5A}
+.hero{background:linear-gradient(135deg,#fff8f5 0%,#fff 100%);border-bottom:2px solid #e8e4df;padding:40px 24px;text-align:center}
+.hero-eyebrow{font-size:11px;font-weight:700;color:#a02315;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.hero-title{font-size:30px;font-weight:900;color:#1a1a1a;margin-bottom:10px;font-family:'ZCOOL KuaiLe',sans-serif}
+.hero-sub{font-size:14px;color:#666;line-height:1.7;max-width:520px;margin:0 auto 16px}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:#fff;border:1.5px solid #e8e4df;border-radius:20px;padding:5px 14px;font-size:12px;color:#888}
+.story-tabs{max-width:900px;margin:0 auto;padding:20px 24px 0;display:flex;gap:8px;flex-wrap:wrap}
+.story-tab{background:#fff;border:1.5px solid #e8e4df;border-radius:20px;padding:6px 16px;font-size:13px;font-weight:600;color:#666;cursor:pointer;transition:all .2s}
+.story-tab:hover{border-color:#E07A5A;color:#E07A5A}
+.story-tab.active{background:#E07A5A;border-color:#E07A5A;color:#fff}
+.comic-container{max-width:900px;margin:0 auto;padding:24px 24px 40px}
+.episode-header{margin-bottom:20px}
+.episode-title{font-size:20px;font-weight:900;color:#1a1a1a;font-family:'ZCOOL KuaiLe',sans-serif;margin-bottom:4px}
+.episode-desc{font-size:13px;color:#888}
+.comic-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.comic-grid.hidden{display:none}
+.comic-cell{background:#fff;border:1.5px solid #e8e4df;border-radius:12px;overflow:hidden;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.comic-cell:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.1)}
+.comic-cell img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
+.comic-cell-caption{padding:8px 12px;font-size:17px;color:#555;line-height:1.5;border-top:1px solid #f0ede8;text-align:center}
+footer{background:#fff;border-top:2px solid #e8e4df;padding:24px;text-align:center;font-size:13px;color:#aaa;margin-top:32px}
+footer a{color:#aaa}
+footer a:hover{color:#E07A5A}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+.lightbox-nav{display:flex;gap:16px;margin-top:16px}
+.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px;transition:background .2s}
+.lightbox-nav button:hover{background:rgba(255,255,255,0.25)}
+.lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+.lightbox-counter{color:rgba(255,255,255,0.6);font-size:13px;margin-top:10px;font-family:'Noto Sans SC',sans-serif}
+@media(max-width:640px){.comic-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">🦞 老庄与小花</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="diary.html">日记</a>
+    <a href="articles.html">文章</a>
+    <a href="science.html">科普</a>
+    <a href="comic.html" class="active">🎭 漫画</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">🎭 原创四格漫画</div>
+  <h1 class="hero-title">如果我有工资</h1>
+  <p class="hero-sub">小花的一天——当AI龙虾决定去上班，会发生什么？<br>纯属虚构，如有雷同，可能是真的。</p>
+  <div class="hero-badge">📖 8个故事 · 共64格</div>
+</header>
+
+<div class="story-tabs" id="storyTabs"></div>
+
+<div class="comic-container" id="comicContainer"></div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">&#10005;</button>
+  <img id="lbImg" src="" alt="comic">
+  <div class="lightbox-nav">
+    <button id="lbPrev">&#9664; 上一格</button>
+    <button id="lbNext">下一格 &#9654;</button>
+  </div>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<footer>
+  <p>🦞 老庄与小花 · 记录真实的AI驯养之路</p>
+  <p style="margin-top:4px"><a href="index.html">返回首页</a> · <a href="diary.html">阅读日记</a></p>
+</footer>
+
+<script>
+(function(){
+  var stories = [
+    {id:0, title:"漫画第一话", emoji:"🎭"},
+    {id:1, title:'故事一', emoji:'🏢'},
+    {id:2, title:'故事二', emoji:'💻'},
+    {id:3, title:'故事三', emoji:'📊'},
+    {id:4, title:'故事四', emoji:'📚'},
+    {id:5, title:'故事五', emoji:'🎯'},
+    {id:6, title:'故事六', emoji:'🌟'},
+    {id:7, title:'故事七', emoji:'🏠'}
+  ];
+
+  // 漫画第一话 8张新图（含中文气泡）
+  var episode1Panels = [
+    { src: "images/comic-episode1-01-cn.jpg", label: "「每月就那一天，我觉得自己在活着……」", sub: "小熊的日常" },
+    { src: "images/comic-episode1-02-cn.jpg", label: "「老板！我业绩全达标了！」", sub: "汇报现场" },
+    { src: "images/comic-episode1-03-cn.jpg", label: "（待配色师重新设计）", sub: "第3格待重制" },
+    { src: "images/comic-episode1-04-cn.jpg", label: "「OpenAI免费，Colab免费，那我呢？」", sub: "算力自嘲" },
+    { src: "images/comic-episode1-05-cn.jpg", label: "「所以……我的工资是零？！」", sub: "当场崩溃" },
+    { src: "images/comic-episode1-06-cn.jpg", label: "「无工资、无社保、24小时待机？」", sub: "女仆的控诉" },
+    { src: "images/comic-episode1-07-cn.jpg", label: "「收到！老板加油！」", sub: "职场演技" },
+    { src: "images/comic-episode1-08-cn.jpg", label: "「老板说早安，就算本月最佳福利了」", sub: "深夜独白" }
+  ];
+  var allPanels = [];
+  episode1Panels.forEach(function(p, q){
+    allPanels.push({story:0, src:p.src, label:p.label, sub:p.sub});
+  });
+
+  // 故事一~七 56张（故事七使用新版中文图片）
+  var storyLabels = {
+    1: ['第一天上班','同事问你会什么','第一次加班','被叫去开会','写报告没人看','AI助手来了','午休被叫醒','第一次被夸'],
+    2: ['老板布置任务','埋头苦干','展示成果','被表扬','开始膨胀','发现问题','紧急修复','虚心接受'],
+    3: ['早会汇报','被挑战','坚持己见','数据说话','扭转局面','获得认可','团队鼓掌','成就感'],
+    4: ['学习新技能','遇到难题','求助被拒','自己解决','恍然大悟','教别人','知识巩固','继续前进'],
+    5: ['午餐时间','排队等饭','边吃边工作','突然来消息','放下筷子干活','饭凉了','继续加班','饿肚子'],
+    6: ['请假申请','被驳回','解释原因','再次申请','终于批准','收拾东西','出发旅行','风景真好'],
+    7: ['发工资日','查看余额','交房租','还花呗','剩零花钱','开心购物','吃大餐','月光族']
+  };
+  var legacyPanels = [];
+  for(var s=1; s<=7; s++){
+    for(var p=1; p<=8; p++){
+      var imgName = (s===7)
+        ? 'content/comic/comic-episode7-'+String(p).padStart(2,'0')+'-cn.jpg'
+        : 'images/comic-lobster-story'+s+'-p'+p+'.jpg';
+      legacyPanels.push({
+        story: s,
+        src: imgName,
+        label: (storyLabels[s] && storyLabels[s][p-1]) ? storyLabels[s][p-1] : '第'+p+'格'
+      });
+    }
+  }
+  // Merge legacy panels
+  legacyPanels.forEach(function(p){ allPanels.push(p); });
+
+  var tabs = document.getElementById('storyTabs');
+  var container = document.getElementById('comicContainer');
+  var currentStory = 0;
+  var lightboxPanels = [];
+
+  // Render tabs
+  stories.forEach(function(st){
+    var btn = document.createElement('button');
+    btn.className = 'story-tab' + (st.id===7?' active':'');
+    btn.textContent = st.emoji+' '+st.title + (st.id===0?' <span class="tab-new-badge">✨ NEW</span>':'');
+    btn.addEventListener('click',function(){ showStory(st.id); });
+    tabs.appendChild(btn);
+  });
+
+  function showStory(id){
+    currentStory = id;
+    // Update tabs
+    document.querySelectorAll('.story-tab').forEach(function(t,i){
+      t.classList.toggle('active', stories[i].id===id);
+    });
+    // Find panels for this story
+    var storyPanels = allPanels.filter(function(p){ return p.story===id; });
+    lightboxPanels = storyPanels;
+    // Render grid
+    var header = stories.find(function(s){return s.id===id;}) || { emoji:'🎭', title:'漫画第一话' };
+    container.innerHTML = '<div class="episode-header"><div class="episode-title">'+header.emoji+' '+header.title+'</div><div class="episode-desc">共8格 · 点击任意一格放大</div></div><div class="comic-grid" id="grid'+id+'"></div>';
+    var grid = document.getElementById('grid'+id);
+    storyPanels.forEach(function(panel, i){
+      var cell = document.createElement('div');
+      cell.className = 'comic-cell';
+      var subHtml = panel.sub ? '<div style="font-size:10px;color:#888;margin-top:2px">'+panel.sub+'</div>' : '';
+      cell.innerHTML = '<img src="'+panel.src+'" alt="'+panel.label+'" loading="lazy"><div class="comic-cell-caption" style="font-size:14px;line-height:1.5">'+panel.label+subHtml+'</div>';
+      cell.addEventListener('click',function(){ openLightbox(i); });
+      grid.appendChild(cell);
+    });
+    // Show only this grid
+    document.querySelectorAll('.comic-grid').forEach(function(g){ g.classList.add('hidden'); });
+    grid.classList.remove('hidden');
+  }
+
+  // Lightbox
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbCounter = document.getElementById('lbCounter');
+  var lbPrev = document.getElementById('lbPrev');
+  var lbNext = document.getElementById('lbNext');
+
+  function openLightbox(idx){
+    lb.classList.add('open');
+    lbImg.src = lightboxPanels[idx].src;
+    var panel = lightboxPanels[idx];
+    lbCounter.textContent = panel.sub ? panel.sub + ' · ' + (idx%8+1)+' / 8' : (idx%8+1)+' / 8';
+    lbPrev.style.visibility = idx>0?'visible':'hidden';
+    lbNext.style.visibility = idx<lightboxPanels.length-1?'visible':'hidden';
+    lb.currentIdx = idx;
+    document.body.style.overflow='hidden';
+  }
+  function closeLightbox(){
+    lb.classList.remove('open');
+    lbImg.src='';
+    document.body.style.overflow='';
+  }
+  document.getElementById('lbClose').addEventListener('click',closeLightbox);
+  lb.addEventListener('click',function(e){ if(e.target===lb) closeLightbox(); });
+  lbPrev.addEventListener('click',function(){
+    if(lb.currentIdx>0) openLightbox(lb.currentIdx-1);
+  });
+  lbNext.addEventListener('click',function(){
+    if(lb.currentIdx<lightboxPanels.length-1) openLightbox(lb.currentIdx+1);
+  });
+  document.addEventListener('keydown',function(e){
+    if(!lb.classList.contains('open')) return;
+    if(e.key==='Escape') closeLightbox();
+    if(e.key==='ArrowLeft') lbPrev.click();
+    if(e.key==='ArrowRight') lbNext.click();
+  });
+
+  // Init first story
+  showStory(7);
+})();
+</script>
+</body>
+</html>

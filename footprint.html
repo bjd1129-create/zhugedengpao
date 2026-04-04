@@ -28,7 +28,7 @@ body{font-size:16px;font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;col
 .progress-bar{position:fixed;top:0;left:0;height:3px;background:#E07A5A;width:0%;z-index:200;transition:width .1s}
 nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
 .nav-logo{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:22px;color:#E07A5A;display:flex;align-items:center;gap:6px;font-weight:700;text-decoration:none}
-.nav-links{display:flex;gap:20px}
+.nav-links{margin-left:autodisplay:flex;gap:20px}
 .nav-links a{text-decoration:none;color:#333;font-size:15px;font-weight:600;opacity:.7;transition:.2s;padding:6px 4px}
 .nav-links a:hover,.nav-links a.active{opacity:1;color:#E07A5A}
 .hamburger{display:none;background:none;border:none;font-size:15px;cursor:pointer;color:#333;font-weight:600;padding:6px 12px;border-radius:8px;border:1.5px solid #ddd}
@@ -88,8 +88,8 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 
 <nav class="nav">
 <div class="nav-logo">🦞 老庄与小花</div>
-<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
 <div class="nav-links">
+<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
 <a href="index.html">首页</a>
 <a href="diary.html">📖 日记</a>
 <a href="comic.html">🎭 漫画</a>

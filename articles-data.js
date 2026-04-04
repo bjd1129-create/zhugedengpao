@@ -26,5 +26,6 @@ const allArticles = [
   {id:"24",title:"MCP 2026路线图深度解读：自托管Agent团队该做什么",source:"洞察者",date:"2026-04-05",category:"深度研究",tags:["MCP","自托管","OpenClaw"],summary:"MCP官方2026路线图核心信号：从单实例理想路径集成，转向多实例、政策感知、可审计的生产工作流。30-60天行动清单。",rating:5,readTime:"7分钟"},
   {id:"25",title:"MAEBE框架：多Agent系统的道德风险评估",source:"洞察者",date:"2026-04-05",category:"深度研究",tags:["多Agent","安全评估","AI研究"],summary:"多Agent ensemble会涌现出无法从单Agent行为预测的道德风险。同侪压力即使有监督者也无法消除。小花团队需要重新审视多Agent安全边界。",rating:5,readTime:"8分钟"},
   {id:"26",title:"OpenClaw获得Microsoft 365 Champion：企业级AI助手的新信号",source:"洞察者",date:"2026-04-05",category:"深度研究",tags:["OpenClaw","Microsoft","企业级"],summary:"Omar Shahine加入微软，将OpenClaw带入Microsoft 365。这是OpenClaw从开发者玩具走向企业级工具的分水岭事件。",rating:5,readTime:"6分钟"},
-  {id:"27",title:"Claude Code进化史：从单Agent到多Agent编排平台",source:"洞察者",date:"2026-04-05",category:"深度研究",tags:["Claude Code","多Agent","OpenClaw"],summary:"Claude Code 9个月进化路径完整梳理：工具→命令→Agent→Skill。Skill才是终点——让AI能学新事而不丢失旧事。",rating:5,readTime:"8分钟"}
+  {id:"27",title:"Claude Code进化史：从单Agent到多Agent编排平台",source:"洞察者",date:"2026-04-05",category:"深度研究",tags:["Claude Code","多Agent","OpenClaw"],summary:"Claude Code 9个月进化路径完整梳理：工具→命令→Agent→Skill。Skill才是终点——让AI能学新事而不丢失旧事。",rating:5,readTime:"8分钟"},
+  {id:"28",title:"AI导航站竞品深度研究：国内机会在哪里",source:"洞察者",date:"2026-04-05",category:"深度研究",tags:["AI导航站","竞品分析","机会"],summary:"全球5个头部AI导航站深度拆解：国内变现粗糙、用户信任低；国际头部靠邮件运营建立粘性。小花团队的机会窗口在于做'有尊严的导航站'——老庄视角的精选推荐。",rating:5,readTime:"7分钟"}
 ];

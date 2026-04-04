@@ -185,18 +185,66 @@
 低自动化+高监控 = 观察区
 ```
 
-### 版本建议
+### 版本确认（2026-04-05 深度扫描）
+- ✅ **OpenClaw 2026.4.2** (d74a122) ← 当前运行版本，最新
 - ✅ 推荐 OpenClaw 2026.3.2+（完整功能支持）
 - ⚠️ 不推荐 2026.2.12（有已知bug）
 - ✅ 2026.2.9 稳定可靠（备选）
 
 ### 立即行动清单
 1. ~~安装 self-evolve 插件~~ ✅ 2026-04-04 完成
-2. **重启 Gateway** 使 self-evolve 完全生效（openclaw gateway restart）
-3. 制定团队反馈规范（明确正/负反馈 > 模糊回应）
-4. openclaw-self-optimizing 技能安装（Meta-Learning + Behavioral Adaptation）
-5. 升级到 OpenClaw 2026.4.1（2026-04-01稳定版）
-6. AutoSkill 集成研究（ECNU-ICALK/AutoSkill）
+2. **重启 Gateway** 使 self-evolve 完全生效（openclaw gateway restart）⚠️ 仍在阻塞
+3. **诊断 self-evolve 插件状态**：buffer.md和episodic-memory.json均为空，从未真正激活
+4. **提供明确反馈测试**：reward+confidence，模糊反馈无效
+5. ~~升级到 OpenClaw 2026.4.1~~ → ✅ 实际已是 2026.4.2
+6. 制定团队反馈规范（明确正/负反馈 > 模糊回应）
+7. 理清三个进化工具的分工：self-evolve(Q值) / skill-evolution(SKILL) / capability-evolver-pro(高级)
+8. 验证 Memos 记忆同步：本地 lessons-learned.md ↔ AZW Memos 如何协调
+
+### OpenClaw企业级背书（2026-04-04 新增）⭐
+- Omar Shahine（OpenClaw社区核心贡献者、微软MVP）正式加入微软
+- 负责将OpenClaw和个人AI助手带入Microsoft 365（Teams第一站）
+- 说明OpenClaw架构被企业级市场认可
+- 风险：路线图可能偏向企业需求，开发者特性需关注
+
+### ClawHub新生态（2026-04-05 新增）🆕
+- clawhub.ai 正式上线，新技能市场
+- 安装命令：`npx clawhub@latest install <skill-name>`
+- 版本化+回滚+向量搜索支持
+- 当前Popular Skills为空，是建立影响力的最佳时机
+
+### Self-Evolve 插件状态 ⚠️ 关键发现（2026-04-05）
+- `buffer.md` 只有"Buffer written"——**从未真正写入经验**
+- `episodic-memory.json` 存在但内容为空
+- **原因**：Gateway 从未以 self-evolve 插件模式重启，Q值学习从未激活
+- **立即行动**：重启 Gateway（`openclaw gateway restart`），然后提供明确反馈测试
+- **反馈要求**：必须明确 reward(0-1) + confidence(0-1)，模糊反馈无效
+
+### 分布式集群配置（新发现，2026-04-05）
+- 4机集群：iMac(100.74.227.40 Ray Head) + MBP + AZW(100.64.158.68 Memos) + i3
+- Ray distributed mode，head_node = iMac Tailscale IP
+- Memos 记忆后端运行在 AZW (http://100.64.158.68:5230)
+- 分层记忆：L1工作记忆(50轮) → L2摘要(关闭) → L3向量索引(10条) → L4归档(100轮后压缩)
+
+### Skills生态系统（2026-04-05 最新）
+已安装17+ skills，核心进化类：
+- self-evolve-skill（远程共享网络）
+- skill-evolution（SKILL.md自我优化）
+- capability-evolver-pro（高级能力进化）
+- skill-improver / skill-vetter
+⚠️ 多个进化工具并存，需要明确分工避免重叠
+
+### OpenClaw-RL技术框架（arXiv:2603.10165 新增）
+- 核心思想：从"下一状态信号"中提取两种信息
+  - 评估信号（Evaluative）：PRM judge打scalar reward
+  - 指导信号（Directive）：OPD恢复"应该怎么做不同"
+- token-level directional advantage > scalar reward
+- 异步设计：模型服务+PRM judge+训练器三者零协调开销
+
+### Pre-compaction Ping（新增配置技巧）
+- 会话接近上下文上限时自动触发静默agentic turn
+- 配置：`agents.defaults.compaction.memoryFlush`
+- 提醒在压缩前写入持久记忆，reply NO_REPLY if nothing
 
 ## 内容团队当前核心问题（2026-04-04）
 - 内容团队24小时运转 = cron空转，没有真正的任务来源链条
@@ -323,3 +371,42 @@
 2. **升级 OpenClaw 到 2026.3+**（ContextEngine + CVE 修复）
 3. Mac 用户测试 OpenShell Mirror 沙箱（替代 Docker，内存减半）
 4. 评估 Self-Evolution Pro（知识图谱 + RCA）是否值得迁移
+
+---
+
+## OpenClaw 自我进化实操模式（第九轮 2026-04-05）
+
+### Thoth System 毕业机制（⭐最高价值）
+- 同一错误 × 1 → memory/decisions/lessons-learned.md
+- 同一错误 × 3 → SOUL.md（永久生效，Agent 永不重蹈覆辙）
+- 跨session成功模式 → AGENTS.md
+- 来源：github.com/AlekseiUL/openclaw-superagent
+
+### Self-Improving Agent v3.0.5（ClawHub #1 下载技能，268k+）
+- 结构化日志（ERROR/FEATURE/LEARNING 模板）
+- 与 self-evolve 互补（前者管Q值，后者管结构化日志）
+- 明确晋升路径：improvement_log → daily memory → SOUL.md/AGENTS.md
+- 安装：npx clawhub@latest install self-improving-agent
+
+### ⭐安全最高原则（Lenny's Newsletter，百万订阅）
+> **永远不要把 OpenClaw 装在主力/工作电脑上。**
+> OpenClaw 理论上可以访问电脑上的所有文件。
+- ✅ 正确：专用 Mac Mini 或 VPS（隔离部署）
+- ❌ 错误（我们当前状态）：MBB's iMac（主力机）← 待评估
+- 参考：lennysnewsletter.com/p/openclaw-the-complete-guide-to-building
+
+### Thoth 三自动 Cron
+| Cron | 任务 |
+|------|------|
+| 每日备份 | workspace 备份 |
+| 晨间简报 | 今日任务预览 |
+| 晚间日记 | 每日总结 |
+
+### Lenny 9 Agent 分工参考
+Email/日历/研究/写作/销售/社交/提醒/协调/质检——我们内容团队可参考此模式建立专业化分工链路。
+
+### 立即行动（第九轮新增）
+1. 在 memory/decisions/ 下创建 lessons-learned.md（Thoth 格式）
+2. 补充"Honesty Rules"到 AGENTS.md（不捏造/立即承认错误/不懂说不懂）
+3. 评估 Self-Improving Agent v3.0.5 是否与现有 self-evolve 互补安装
+4. 确认当前 OpenClaw 版本（>= 2026.3？openclaw --version）

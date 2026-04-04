@@ -346,6 +346,7 @@ function renderGridStatus(data) {
   if (!data || !data.gridState) return;
 
   const SYMBOLS = { BTC: { label: '₿ Bitcoin', color: '#f7931a', dotClass: 'btc' }, ETH: { label: 'Ξ Ethereum', color: '#627eea', dotClass: 'eth' }, AVAX: { label: '🔺 Avalanche', color: '#e84142', dotClass: 'avax' }, ADA: { label: '₳ Cardano', color: '#0033ad', dotClass: 'ada' } };
+  const btcHolding = data.holdings.find(h => h.symbol === 'BTC');
   document.getElementById('gridBtcPrice').textContent = btcHolding && btcHolding.currentPrice
     ? '$' + fmt(btcHolding.currentPrice)
     : '—';
@@ -665,9 +666,6 @@ async function fetchLivePrices() {
       if (gridEl) gridEl.textContent = '$' + fmt(price);
     });
   } catch (e) {
-    console.warn('Live price fetch failed:', e);
-  }
-}{
     console.warn('Live price fetch failed:', e);
   }
 }

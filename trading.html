@@ -253,24 +253,7 @@ footer a:hover { color: #D4883C; }
   <!-- Holdings (detail cards) -->
   <div class="section-title">当前持仓</div>
   <div class="holdings-grid" id="holdingsGrid">
-    <div class="holding-card" id="btcHolding">
-      <div class="holding-header">
-        <span class="holding-symbol">₿ Bitcoin</span>
-        <span class="holding-pnl neutral" id="btcPnl">—</span>
-      </div>
-      <div class="holding-row"><span>数量</span><span id="btcAmount">0.000000 BTC</span></div>
-      <div class="holding-row"><span>均价</span><span id="btcAvg">—</span></div>
-      <div class="holding-row"><span>当前价</span><span id="btcCurr">—</span></div>
-    </div>
-    <div class="holding-card" id="ethHolding">
-      <div class="holding-header">
-        <span class="holding-symbol">Ξ Ethereum</span>
-        <span class="holding-pnl neutral" id="ethPnl">—</span>
-      </div>
-      <div class="holding-row"><span>数量</span><span id="ethAmount">0.000000 ETH</span></div>
-      <div class="holding-row"><span>均价</span><span id="ethAvg">—</span></div>
-      <div class="holding-row"><span>当前价</span><span id="ethCurr">—</span></div>
-    </div>
+    <!-- Dynamically generated from portfolio.json -->
   </div>
 
   <!-- Strategy -->
@@ -360,20 +343,16 @@ function findActiveGridIdx(levels, currentPrice) {
 function renderGridStatus(data) {
   const container = document.getElementById('gridCoins');
   container.innerHTML = '';
-
   if (!data || !data.gridState) return;
 
-  // BTC price display
-  const btcHolding = data.holdings.find(h => h.symbol === 'BTC');
-  const ethHolding = data.holdings.find(h => h.symbol === 'ETH');
+  const SYMBOLS = { BTC: { label: '₿ Bitcoin', color: '#f7931a', dotClass: 'btc' }, ETH: { label: 'Ξ Ethereum', color: '#627eea', dotClass: 'eth' }, AVAX: { label: '🔺 Avalanche', color: '#e84142', dotClass: 'avax' }, ADA: { label: '₳ Cardano', color: '#0033ad', dotClass: 'ada' } };
   document.getElementById('gridBtcPrice').textContent = btcHolding && btcHolding.currentPrice
     ? '$' + fmt(btcHolding.currentPrice)
     : '—';
 
-  const coinConfigs = [
-    { key: 'BTC', label: '₿ Bitcoin', dotClass: 'btc', color: '#f7931a', currentPrice: btcHolding?.currentPrice },
-    { key: 'ETH', label: 'Ξ Ethereum', dotClass: 'eth', color: '#627eea', currentPrice: ethHolding?.currentPrice }
-  ];
+  const coinConfigs = Object.entries(SYMBOLS).map(([key, cfg]) => ({
+    key, ...cfg, currentPrice: data.holdings.find(h => h.symbol === key)?.currentPrice || 0
+  }));
 
   coinConfigs.forEach(cfg => {
     const gs = data.gridState[cfg.key];
@@ -482,8 +461,38 @@ function renderDonut(data) {
   legendEl.innerHTML = legendItems.join('');
 }
 
+function renderHoldingsGrid(data) {
+  const grid = document.getElementById('holdingsGrid');
+  if (!grid || !data || !data.holdings) return;
+  
+  const SYMBOLS = { BTC: '₿ Bitcoin', ETH: 'Ξ Ethereum', AVAX: '🔺 Avalanche', ADA: '₳ Cardano' };
+  const COLORS = { BTC: '#f7931a', ETH: '#627eea', AVAX: '#e84142', ADA: '#0033ad' };
+  
+  grid.innerHTML = data.holdings.map(h => {
+    const name = SYMBOLS[h.symbol] || h.symbol;
+    const color = COLORS[h.symbol] || '#D4883C';
+    const pnl = h.pnl || 0;
+    const pnlClass = pnl > 0 ? 'positive' : pnl < 0 ? 'negative' : 'neutral';
+    const pnlStr = pnl !== 0 ? (pnl > 0 ? '+' : '') + '$' + fmt(pnl) + ' (' + fmtPnl(h.pnlPercent||0) + ')' : '—';
+    return `
+      <div class="holding-card" id="${h.symbol}Holding">
+        <div class="holding-header">
+          <span class="holding-symbol">${name}</span>
+          <span class="holding-pnl ${pnlClass}" id="${h.symbol.toLowerCase()}Pnl">${pnlStr}</span>
+        </div>
+        <div class="holding-row"><span>数量</span><span id="${h.symbol.toLowerCase()}Amount">${h.amount > 0 ? h.amount.toFixed(8) : '0.00000000'} ${h.symbol}</span></div>
+        <div class="holding-row"><span>均价</span><span id="${h.symbol.toLowerCase()}Avg">${h.avgPrice > 0 ? '$' + fmt(h.avgPrice) : '—'}</span></div>
+        <div class="holding-row"><span>当前价</span><span id="${h.symbol.toLowerCase()}Curr">${h.currentPrice > 0 ? '$' + fmt(h.currentPrice) : '—'}</span></div>
+      </div>
+    `;
+  }).join('');
+}
+
 function updateUI(data) {
   if (!data) return;
+
+  // Render dynamic holdings grid
+  renderHoldingsGrid(data);
 
   // Update timestamp
   const now = new Date();

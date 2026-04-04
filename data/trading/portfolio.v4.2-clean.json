@@ -1,0 +1,209 @@
+{
+  "account": {
+    "cashBalance": 4000.39,
+    "totalValue": 10003.61,
+    "initialBalance": 10000.0,
+    "totalPnL": 3.61,
+    "totalPnLPercent": 0.04,
+    "totalTrades": 4,
+    "todayPnL": 0,
+    "todayPnLPercent": 0
+  },
+  "holdings": [
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "amount": 0.04463974,
+      "avgPrice": 67204.7,
+      "currentPrice": 67211.01,
+      "value": 3000.28,
+      "pnl": 0.28,
+      "pnlPercent": 0.01
+    },
+    {
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "amount": 1.46207381,
+      "avgPrice": 2051.88,
+      "currentPrice": 2053.89,
+      "value": 3002.94,
+      "pnl": 2.94,
+      "pnlPercent": 0.1
+    },
+    {
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 8.87,
+      "value": 0.0,
+      "pnl": 0.0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "ADA",
+      "name": "Cardano",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0.2441,
+      "value": 0.0,
+      "pnl": 0.0,
+      "pnlPercent": 0
+    }
+  ],
+  "gridState": {
+    "BTC": {
+      "position": 0.04463973501853293,
+      "avgPrice": 67204.7,
+      "levels": [],
+      "lastGridIdx": null,
+      "fills": []
+    },
+    "ETH": {
+      "position": 1.4620738054857008,
+      "avgPrice": 2051.88,
+      "levels": [],
+      "lastGridIdx": null,
+      "fills": []
+    },
+    "AVAX": {
+      "levels": [
+        8.4806,
+        8.5231,
+        8.5657,
+        8.6085,
+        8.6515,
+        8.6948,
+        8.7383,
+        8.782,
+        8.8259,
+        8.87,
+        8.9143,
+        8.9589,
+        9.0037,
+        9.0487,
+        9.094,
+        9.1394,
+        9.1851,
+        9.2311,
+        9.2772,
+        9.3236
+      ],
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": 9,
+      "fills": [
+        {
+          "time": "2026-04-04T22:10:30+08:00",
+          "side": "SELL",
+          "symbol": "AVAX",
+          "amount": 22.57336343,
+          "price": 8.87,
+          "pnl": 0.23,
+          "note": "grid-8↑ PnL:$+0.23"
+        },
+        {
+          "time": "2026-04-04T22:09:49+08:00",
+          "side": "BUY",
+          "symbol": "AVAX",
+          "amount": 22.57336343,
+          "price": 8.86,
+          "note": "grid-8↓"
+        }
+      ]
+    },
+    "ADA": {
+      "levels": [
+        0.2334,
+        0.2346,
+        0.2357,
+        0.2369,
+        0.2381,
+        0.2393,
+        0.2405,
+        0.2417,
+        0.2429,
+        0.2441,
+        0.2453,
+        0.2465,
+        0.2478,
+        0.249,
+        0.2503,
+        0.2515,
+        0.2528,
+        0.254,
+        0.2553,
+        0.2566
+      ],
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": 9,
+      "fills": [
+        {
+          "time": "2026-04-04T22:09:49+08:00",
+          "side": "SELL",
+          "symbol": "ADA",
+          "amount": 819.67213115,
+          "price": 0.2442,
+          "pnl": 0.16,
+          "note": "grid-8↑ PnL:$+0.16"
+        },
+        {
+          "time": "2026-04-04T21:57:41+08:00",
+          "side": "BUY",
+          "symbol": "ADA",
+          "amount": 819.67213115,
+          "price": 0.244,
+          "note": "grid-8↓"
+        }
+      ]
+    }
+  },
+  "recentTrades": [
+    {
+      "time": "2026-04-04T22:10:30+08:00",
+      "side": "SELL",
+      "symbol": "AVAX",
+      "amount": 22.57336343,
+      "price": 8.87,
+      "pnl": 0.23,
+      "note": "grid-8↑ PnL:$+0.23"
+    },
+    {
+      "time": "2026-04-04T22:09:49+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 22.57336343,
+      "price": 8.86,
+      "note": "grid-8↓"
+    },
+    {
+      "time": "2026-04-04T22:09:49+08:00",
+      "side": "SELL",
+      "symbol": "ADA",
+      "amount": 819.67213115,
+      "price": 0.2442,
+      "pnl": 0.16,
+      "note": "grid-8↑ PnL:$+0.16"
+    },
+    {
+      "time": "2026-04-04T21:57:41+08:00",
+      "side": "BUY",
+      "symbol": "ADA",
+      "amount": 819.67213115,
+      "price": 0.244,
+      "note": "grid-8↓"
+    }
+  ],
+  "equityCurve": [
+    {
+      "date": "2026-04-04",
+      "value": 10003.61
+    }
+  ],
+  "lastUpdated": "2026-04-04T22:10:30+08:00",
+  "strategy": {
+    "name": "密集网格v4.2",
+    "version": "4.2"
+  }
+}

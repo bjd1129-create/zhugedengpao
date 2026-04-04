@@ -158,7 +158,7 @@
 | L4 | Skill优化 | skill-evolution | 变化 |
 | L5 | 自主进化 | be1human-self-evolve | 高 |
 
-**小花团队现状：L2→L3 过渡期**
+**小花团队现状：L3 进行中**（self-evolve 已安装，远程共享开启，待重启生效）
 
 ### Pre-compaction Ping 机制（内置被动学习）
 - 会话接近上下文上限时自动触发静默agentic turn
@@ -184,10 +184,12 @@
 - ✅ 2026.2.9 稳定可靠（备选）
 
 ### 立即行动清单
-1. 升级到 OpenClaw 2026.3.2+
-2. 安装 self-evolve 插件
-3. 制定团队反馈规范（明确正/负反馈）
-4. 建立 .learnings 目录结构
+1. ~~安装 self-evolve 插件~~ ✅ 2026-04-04 完成
+2. **重启 Gateway** 使 self-evolve 完全生效（openclaw gateway restart）
+3. 制定团队反馈规范（明确正/负反馈 > 模糊回应）
+4. openclaw-self-optimizing 技能安装（Meta-Learning + Behavioral Adaptation）
+5. 升级到 OpenClaw 2026.4.1（2026-04-01稳定版）
+6. AutoSkill 集成研究（ECNU-ICALK/AutoSkill）
 
 ## 内容团队当前核心问题（2026-04-04）
 - 内容团队24小时运转 = cron空转，没有真正的任务来源链条
@@ -246,6 +248,34 @@
 **稳定性最佳实践**：模型路由（省70-80%费用）、消费上限、SOUL.md 结构化、Gateway 安全（SIGUSR1重启）、SKILL.md<50行
 
 详见：`agents/洞察者/进化研究-2026-04-04.md`
+
+## OpenClaw 进化新增发现（第七轮 2026-04-04）
+
+### OpenClaw-RL（Princeton arXiv:2603.10165, 2026-03-10）
+- **核心突破**：所有交互都是训练数据——下一状态信号（用户回复/工具输出/终端状态） = 通用 RL 信号
+- **三种范式**：Binary RL（标量奖励）/ OPD（回顾引导策略蒸馏）/ Combine
+- **全异步设计**：模型服务 + PRM评判 + 训练器同时运行，零协调开销
+- **OPD意义**：不只是告诉agent"对/错"，而是恢复"应该怎么做不同"，提供token级方向性监督
+- **对我们**：建立用户反馈打分体系是落地第一步
+
+### self-evolve 关键参数（推荐值）
+- balanced模式：工具轮无门槛；无工具轮需 reward≥0.8 + confidence≥0.9
+- retrieval.tau=0.85：只注入高相似度记忆，防止低质量干扰
+- memory.maxEntries=200：定期淘汰低价值记忆
+
+### 安全警示："致命三合一"
+高风险组合：私有数据访问 + 不受信任内容暴露 + 外部通信能力
+→ 自我修改Agent叠加此三合一 = 极高风险
+→ 外部内容必须严格双重脱敏（sanitizeMemoryText + LLM二次过滤）
+
+### openclaw-self-optimizing（GitHub精英技能包）
+- Behavioral Adaptation：用户纠正累计7次 → 自动升级到SOUL.md
+- Skill Synthesizer：每周自动生成新SKILL.md
+- 建议cron：每日03:00 Meta-Learning + 每周 Skill Synthesizer
+
+### OpenClaw v2026.4.1（2026-04-01）
+- 四月迭代版本，多项功能增强和稳定性改进
+- 中文社区版（jiulingyun维护，2026-03-29）专为中文用户优化
 
 ## 2026-04-04 重要更新
 

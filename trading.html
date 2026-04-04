@@ -1,1464 +1,277 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>📈 交易终端 — 老庄与小花</title>
+<title>老庄与小花 · 量化交易平台</title>
 <style>
-/* ===== RESET & BASE ===== */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 :root {
-  --bg-primary: #0b0e11;
-  --bg-secondary: #111820;
-  --bg-card: #151c26;
-  --bg-card-hover: #1a2332;
-  --border: #1e2a38;
-  --border-bright: #2a3a50;
-  --text-primary: #d1d9e6;
-  --text-secondary: #6b7d93;
-  --text-muted: #3d4f66;
-  --accent: #d4883c;
-  --accent-dim: rgba(212,136,60,0.15);
-  --green: #00d084;
-  --green-dim: rgba(0,208,132,0.12);
-  --red: #ff4757;
-  --red-dim: rgba(255,71,87,0.12);
-  --yellow: #f5c518;
-  --btc: #f7931a;
-  --eth: #627eea;
-  --avax: #e84142;
-  --ada: #0033ad;
-  --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
-  --radius: 8px;
+  --bg: #0d1117;
+  --card: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --sub: #8b949e;
+  --green: #3fb950;
+  --red: #f85149;
+  --yellow: #d29922;
+  --blue: #58a6ff;
+  --purple: #bc8cff;
 }
-html, body { height: 100%; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', 'Helvetica Neue', sans-serif;
-  background: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:-apple-system,system-ui,sans-serif; min-height:100vh; padding:20px; }
+.container { max-width:1200px; margin:0 auto; }
 
-/* ===== TOPBAR ===== */
-.topbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: 52px;
-  background: rgba(11,14,17,0.97);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 1000;
-  gap: 20px;
-}
-.topbar-brand {
-  font-size: 18px;
-  font-weight: 800;
-  color: var(--accent);
-  text-decoration: none;
-  letter-spacing: -0.3px;
-  flex-shrink: 0;
-}
-.topbar-brand span { font-size: 20px; }
-.topbar-nav {
-  display: flex;
-  gap: 4px;
-  flex: 1;
-}
-.topbar-nav a {
-  padding: 6px 12px;
-  border-radius: 6px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 500;
-  transition: all 0.2s;
-}
-.topbar-nav a:hover { background: var(--bg-secondary); color: var(--text-primary); }
-.topbar-nav a.active { background: var(--accent-dim); color: var(--accent); }
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-left: auto;
-}
-.topbar-live {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-.topbar-live-dot {
-  width: 7px; height: 7px;
-  border-radius: 50%;
-  background: var(--green);
-  box-shadow: 0 0 6px var(--green);
-  animation: blink 2s ease-in-out infinite;
-}
-@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
-.topbar-time {
-  font-family: var(--mono);
-  font-size: 12px;
-  color: var(--text-secondary);
-}
-.hamburger { display: none; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--text-primary); }
+/* 头部 */
+header { display:flex; align-items:center; justify-content:space-between; margin-bottom:24px; flex-wrap:wrap; gap:12px; }
+header h1 { font-size:1.4rem; font-weight:600; display:flex; align-items:center; gap:8px; }
+.badge { background:var(--green); color:#000; font-size:0.7rem; padding:2px 8px; border-radius:12px; font-weight:600; }
+.status { font-size:0.85rem; color:var(--sub); }
+.status span { color:var(--text); }
 
-/* ===== MAIN LAYOUT ===== */
-.main { max-width: 1400px; margin: 0 auto; padding: 68px 16px 40px; }
-@media(min-width:768px){ .main { padding: 68px 24px 40px; } }
+/* 平台选择卡 */
+.platforms { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:12px; margin-bottom:20px; }
+.platform-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; }
+.platform-card h3 { font-size:1rem; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.platform-card h3 .dot { width:8px; height:8px; border-radius:50%; background:var(--green); }
+.platform-card .pnl { font-size:1.8rem; font-weight:700; font-family:'SF Mono',monospace; }
+.platform-card .sub { font-size:0.75rem; color:var(--sub); margin-top:4px; }
+.price-row { display:flex; justify-content:space-between; font-size:0.85rem; padding:4px 0; border-bottom:1px solid var(--border); }
+.price-row:last-child { border-bottom:none; }
+.coin { color:var(--sub); }
+.val { font-family:'SF Mono',monospace; font-weight:500; }
 
-/* ===== TOP STATUS BAR ===== */
-.status-bar {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 12px;
-  margin-bottom: 20px;
-}
-@media(max-width:600px){ .status-bar { grid-template-columns: repeat(2, 1fr); } }
-.status-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  position: relative;
-  overflow: hidden;
-}
-.status-item::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 2px;
-  background: var(--border-bright);
-}
-.status-item.accent::before { background: var(--accent); }
-.status-item.green::before { background: var(--green); }
-.status-item.red::before { background: var(--red); }
-.status-label {
-  font-size: 11px;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 6px;
-}
-.status-value {
-  font-family: var(--mono);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--text-primary);
-  line-height: 1;
-}
-.status-value.large { font-size: 24px; }
-.status-value .unit { font-size: 12px; color: var(--text-secondary); margin-left: 4px; }
-.status-value .sub { font-size: 11px; color: var(--text-secondary); margin-left: 6px; }
-.status-change { font-size: 11px; margin-top: 4px; }
-.status-change.up { color: var(--green); }
-.status-change.down { color: var(--red); }
-.status-change.neutral { color: var(--text-secondary); }
+/* 持仓 */
+.holdings-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:12px; margin-bottom:20px; }
+.holding-card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:14px; }
+.holding-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.holding-symbol { font-weight:600; font-size:0.95rem; }
+.holding-pnl { font-size:0.8rem; font-family:'SF Mono',monospace; padding:2px 8px; border-radius:6px; }
+.positive { color:var(--green); background:rgba(63,185,80,0.15); }
+.negative { color:var(--red); background:rgba(248,81,73,0.15); }
+.neutral { color:var(--sub); background:rgba(139,148,158,0.15); }
+.holding-row { display:flex; justify-content:space-between; font-size:0.8rem; color:var(--sub); padding:3px 0; }
+.holding-row span:last-child { color:var(--text); font-family:'SF Mono',monospace; font-size:0.78rem; }
 
-/* ===== SECTION HEADERS ===== */
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-.section-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-.section-title::before {
-  content: '';
-  display: inline-block;
-  width: 3px;
-  height: 12px;
-  background: var(--accent);
-  border-radius: 2px;
-  margin-right: 8px;
-  vertical-align: middle;
-}
-.section-more {
-  font-size: 11px;
-  color: var(--text-muted);
-  cursor: default;
-}
+/* 网格可视化 */
+.grid-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px; }
+.grid-section h2 { font-size:1rem; margin-bottom:16px; color:var(--text); }
+.grid-coin { margin-bottom:20px; }
+.grid-coin:last-child { margin-bottom:0; }
+.grid-coin-header { display:flex; justify-content:space-between; margin-bottom:8px; font-size:0.85rem; }
+.grid-name { font-weight:600; }
+.grid-price { font-family:'SF Mono',monospace; color:var(--blue); }
+.grid-bar { position:relative; height:28px; background:#21262d; border-radius:6px; overflow:hidden; display:flex; }
+.grid-cell { flex:1; border-right:1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; font-size:0.6rem; color:var(--sub); transition:background 0.3s; }
+.grid-cell:last-child { border-right:none; }
+.grid-cell.triggered { background:rgba(63,185,80,0.3); color:var(--green); }
+.grid-cell.current { background:rgba(88,166,255,0.4); border:2px solid var(--blue); z-index:1; }
+.price-marker { position:absolute; top:-18px; transform:translateX(-50%); font-size:0.7rem; color:var(--yellow); font-family:'SF Mono',monospace; white-space:nowrap; }
 
-/* ===== TWO COLUMN GRID ===== */
-.grid-2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-@media(max-width:900px){ .grid-2 { grid-template-columns: 1fr; } }
-.grid-3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-@media(max-width:768px){ .grid-3 { grid-template-columns: 1fr; } }
+/* 交易记录 */
+.trades-section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px; }
+.trades-section h2 { font-size:1rem; margin-bottom:12px; }
+table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+th { text-align:left; color:var(--sub); font-weight:500; padding:8px; border-bottom:1px solid var(--border); font-size:0.75rem; }
+td { padding:8px; border-bottom:1px solid rgba(255,255,255,0.05); }
+td:first-child { color:var(--sub); font-size:0.75rem; }
+.buy { color:var(--green); font-weight:500; }
+.sell { color:var(--red); font-weight:500; }
+.pnl-pos { color:var(--green); }
+.pnl-neg { color:var(--red); }
 
-/* ===== CARD ===== */
-.card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 16px;
-}
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-.card-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-.card-badge {
-  font-size: 10px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  padding: 2px 8px;
-  border-radius: 10px;
-  font-weight: 700;
-}
-
-/* ===== REAL-TIME PRICES ===== */
-.price-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-}
-.price-row:last-child { border-bottom: none; }
-.price-coin {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 800;
-  flex-shrink: 0;
-}
-.price-info { flex: 1; min-width: 0; }
-.price-symbol { font-size: 13px; font-weight: 700; color: var(--text-primary); }
-.price-name { font-size: 10px; color: var(--text-secondary); }
-.price-value { font-family: var(--mono); font-size: 14px; font-weight: 700; text-align: right; }
-.price-change { font-size: 11px; text-align: right; min-width: 60px; }
-.price-change.up { color: var(--green); }
-.price-change.down { color: var(--red); }
-.price-change.neutral { color: var(--text-secondary); }
-
-/* 24h volume bar */
-.volume-bar-wrap { margin-top: 3px; }
-.volume-bar-bg { height: 3px; background: var(--border); border-radius: 2px; }
-.volume-bar-fill { height: 3px; border-radius: 2px; transition: width 0.5s ease; }
-.volume-label { font-size: 9px; color: var(--text-muted); margin-top: 2px; }
-
-/* ===== DONUT CHART ===== */
-.donut-section {
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 20px;
-  align-items: center;
-}
-@media(max-width:600px){ .donut-section { grid-template-columns: 1fr; } }
-.donut-wrap {
-  position: relative;
-  width: 180px;
-  height: 180px;
-  margin: 0 auto;
-}
-.donut-canvas { transform: rotate(-90deg); }
-.donut-center {
-  position: absolute;
-  top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  pointer-events: none;
-}
-.donut-center-value { font-family: var(--mono); font-size: 18px; font-weight: 800; color: var(--text-primary); }
-.donut-center-label { font-size: 10px; color: var(--text-secondary); margin-top: 2px; }
-.donut-legend { display: flex; flex-direction: column; gap: 8px; }
-.legend-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-}
-.legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-.legend-name { color: var(--text-secondary); flex: 1; }
-.legend-pct { font-weight: 700; color: var(--text-primary); min-width: 40px; text-align: right; }
-.legend-val { font-family: var(--mono); font-size: 11px; color: var(--text-muted); min-width: 70px; text-align: right; }
-
-/* ===== GRID STATUS (KEY SECTION) ===== */
-.grid-section { margin-bottom: 20px; }
-.grid-coins { display: flex; flex-direction: column; gap: 14px; }
-.grid-coin-row {}
-.grid-coin-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 6px;
-}
-.grid-coin-label {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-.grid-coin-label .coin-dot { width: 8px; height: 8px; border-radius: 50%; }
-.grid-coin-label .coin-name { color: var(--text-secondary); font-weight: 400; font-size: 11px; margin-left: 2px; }
-.grid-coin-price { font-family: var(--mono); font-size: 13px; font-weight: 700; }
-.grid-price-up { color: var(--text-secondary); font-size: 10px; font-weight: 400; }
-
-.grid-track {
-  display: flex;
-  gap: 3px;
-  height: 32px;
-  position: relative;
-}
-.grid-cell {
-  flex: 1;
-  border-radius: 4px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: 9px;
-  font-weight: 600;
-  position: relative;
-  transition: all 0.3s;
-  cursor: default;
-  overflow: hidden;
-}
-.grid-cell .cell-price { font-size: 8px; opacity: 0.5; font-weight: 400; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; width: 100%; text-align: center; }
-.grid-cell .cell-label { font-size: 8px; font-weight: 700; }
-.grid-cell.future { background: var(--bg-secondary); color: var(--text-muted); border: 1px solid var(--border); }
-.grid-cell.triggered { background: var(--green-dim); color: var(--green); border: 1px solid rgba(0,208,132,0.25); }
-.grid-cell.triggered .cell-label { display: block; }
-.grid-cell.active {
-  background: var(--accent);
-  color: #fff;
-  border: 1px solid var(--accent);
-  box-shadow: 0 0 10px rgba(212,136,60,0.5);
-  z-index: 2;
-}
-.grid-cell.active .cell-label { display: block; color: #fff; }
-.grid-cell .cell-label { display: none; }
-
-/* Current price line */
-.grid-track-container { position: relative; }
-.current-price-line {
-  position: absolute;
-  top: -18px;
-  height: 14px;
-  width: 2px;
-  background: var(--red);
-  border-radius: 1px;
-  transform: translateX(-50%);
-  z-index: 5;
-}
-.current-price-line::before {
-  content: attr(data-price);
-  position: absolute;
-  top: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--mono);
-  font-size: 9px;
-  color: var(--red);
-  white-space: nowrap;
-  font-weight: 700;
-}
-.current-price-arrow {
-  position: absolute;
-  top: -18px;
-  width: 0; height: 0;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 5px solid var(--red);
-  transform: translateX(-50%);
-  z-index: 5;
-}
-
-/* ===== TRADES TABLE ===== */
-.trades-table { margin-bottom: 20px; }
-.trades-scroll { overflow-x: auto; }
-.trades-inner { min-width: 600px; }
-.trades-head, .trade-row {
-  display: grid;
-  grid-template-columns: 140px 70px 70px 110px 90px 80px 90px;
-  gap: 0;
-  align-items: center;
-}
-.trades-head {
-  padding: 8px 14px;
-  background: var(--bg-secondary);
-  border-radius: var(--radius) var(--radius) 0 0;
-  border-bottom: 1px solid var(--border);
-}
-.trades-head span { font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-.trade-row {
-  padding: 10px 14px;
-  border-bottom: 1px solid var(--border);
-  transition: background 0.15s;
-}
-.trade-row:last-child { border-bottom: none; }
-.trade-row:hover { background: var(--bg-card-hover); }
-.trade-time { font-family: var(--mono); font-size: 11px; color: var(--text-secondary); }
-.trade-side {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  padding: 3px 8px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 700;
-  width: fit-content;
-}
-.trade-side.buy { background: var(--green-dim); color: var(--green); }
-.trade-side.sell { background: var(--red-dim); color: var(--red); }
-.trade-symbol { font-size: 12px; font-weight: 700; color: var(--text-primary); }
-.trade-amount, .trade-price, .trade-pnl { font-family: var(--mono); font-size: 12px; }
-.trade-amount { color: var(--text-secondary); }
-.trade-price { color: var(--text-primary); }
-.trade-pnl .trade-pnl.up { color: var(--green); }
-.trade-pnl .trade-pnl.down { color: var(--red); }
-.trade-grid-badge {
-  font-size: 9px;
-  background: var(--accent-dim);
-  color: var(--accent);
-  padding: 2px 6px;
-  border-radius: 3px;
-  font-weight: 700;
-  width: fit-content;
-}
-.empty-trades {
-  text-align: center;
-  padding: 48px;
-  color: var(--text-muted);
-  font-size: 13px;
-}
-.empty-trades-icon { font-size: 28px; margin-bottom: 8px; }
-
-/* ===== EQUITY CHART ===== */
-.equity-chart-wrap {
-  position: relative;
-  height: 220px;
-  margin-top: 4px;
-}
-.equity-tabs {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-.equity-tab {
-  padding: 5px 12px;
-  border-radius: 5px;
-  font-size: 11px;
-  font-weight: 700;
-  background: var(--bg-secondary);
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all 0.2s;
-}
-.equity-tab.active {
-  background: var(--accent-dim);
-  color: var(--accent);
-  border-color: rgba(212,136,60,0.3);
-}
-
-/* ===== HOLDINGS FULL ===== */
-.holdings-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 12px;
-  margin-bottom: 20px;
-}
-.holding-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 14px;
-  transition: border-color 0.2s;
-}
-.holding-card:hover { border-color: var(--border-bright); }
-.holding-top {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-.holding-coin-badge {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 800;
-}
-.holding-symbol { font-size: 14px; font-weight: 800; }
-.holding-pnl { margin-left: auto; font-family: var(--mono); font-size: 12px; font-weight: 700; }
-.holding-pnl.up { color: var(--green); }
-.holding-pnl.down { color: var(--red); }
-.holding-pnl.neutral { color: var(--text-secondary); }
-.holding-rows { display: flex; flex-direction: column; gap: 4px; }
-.holding-row { display: flex; justify-content: space-between; font-size: 11px; }
-.holding-row .lbl { color: var(--text-muted); }
-.holding-row .val { font-family: var(--mono); color: var(--text-secondary); }
-
-/* ===== STRATEGY PARAMS ===== */
-.strategy-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 10px;
-  margin-bottom: 20px;
-}
-.param-box {
-  background: var(--bg-secondary);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 12px;
-}
-.param-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-.param-value { font-family: var(--mono); font-size: 16px; font-weight: 700; color: var(--text-primary); }
-
-/* ===== FOOTER ===== */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 20px 24px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 11px;
-  margin-top: 20px;
-}
-footer span { margin: 0 8px; }
-footer a { color: var(--text-muted); text-decoration: none; }
-footer a:hover { color: var(--accent); }
-
-/* ===== MOBILE ===== */
-@media(max-width:768px){
-  .topbar-nav { display: none; flex-direction: column; position: absolute; top: 52px; left: 0; right: 0; background: rgba(11,14,17,0.98); border-bottom: 1px solid var(--border); padding: 12px; gap: 2px; }
-  .topbar-nav.open { display: flex; }
-  .hamburger { display: block; }
-  .topbar-right .topbar-live span, .topbar-right .topbar-time { display: none; }
-}
+/* 更新时间 */
+footer { text-align:center; color:var(--sub); font-size:0.75rem; margin-top:24px; padding-top:16px; border-top:1px solid var(--border); }
+footer span { color:var(--text); }
 </style>
 </head>
 <body>
+<div class="container">
 
-<!-- TOP BAR -->
-<nav class="topbar">
-  <a href="index.html" class="topbar-brand"><span>🦞</span> 老庄与小花</a>
-  <div class="topbar-nav">
-    <a href="index.html">首页</a>
-    <a href="diary.html">📖 日记</a>
-    <a href="comic.html">🎭 漫画</a>
-    <a href="articles.html">📝 文章</a>
-    <a href="trading.html" class="active">📈 交易终端</a>
+<header>
+  <h1>🦞 量化交易平台 <span class="badge">v4.1</span></h1>
+  <div class="status">数据更新: <span id="updateTime">--:--:--</span></div>
+</header>
+
+<!-- 三平台对比 -->
+<div class="platforms" id="platforms">
+  <div class="platform-card">
+    <h3><span class="dot"></span> Binance</h3>
+    <div class="pnl" id="bn-pnl">--</div>
+    <div class="sub" id="bn-sub">加载中...</div>
   </div>
-  <div class="topbar-right">
-    <div class="topbar-live">
-      <div class="topbar-live-dot"></div>
-      <span>Binance Live</span>
-    </div>
-    <div class="topbar-time" id="topbarTime">--:--:--</div>
-    <button class="hamburger" onclick="document.querySelector('.topbar-nav').classList.toggle('open')">☰</button>
+  <div class="platform-card">
+    <h3><span class="dot"></span> OKX</h3>
+    <div class="pnl" id="okx-pnl">--</div>
+    <div class="sub" id="okx-sub">加载中...</div>
   </div>
-</nav>
+  <div class="platform-card">
+    <h3><span class="dot"></span> Bybit</h3>
+    <div class="pnl" id="by-pnl">--</div>
+    <div class="sub" id="by-sub">加载中...</div>
+  </div>
+</div>
 
-<!-- MAIN CONTENT -->
-<main class="main">
-
-  <!-- ===== TOP STATUS BAR ===== -->
-  <div class="status-bar">
-    <div class="status-item accent">
-      <div class="status-label">💰 总资产 (USDT)</div>
-      <div class="status-value large" id="sbTotal">—</div>
+<!-- 网格状态 -->
+<div class="grid-section">
+  <h2>📊 网格状态</h2>
+  <div id="grids">
+    <div class="grid-coin" id="grid-BTC">
+      <div class="grid-coin-header"><span class="grid-name">₿ Bitcoin</span><span class="grid-price" id="price-BTC">--</span></div>
+      <div class="grid-bar" id="bar-BTC"></div>
     </div>
-    <div class="status-item" id="sbTodayPnlWrap">
-      <div class="status-label">📅 今日盈亏</div>
-      <div class="status-value" id="sbTodayPnl">—</div>
-      <div class="status-change neutral" id="sbTodayPnlPct">—</div>
+    <div class="grid-coin" id="grid-AVAX">
+      <div class="grid-coin-header"><span class="grid-name">🔺 Avalanche</span><span class="grid-price" id="price-AVAX">--</span></div>
+      <div class="grid-bar" id="bar-AVAX"></div>
     </div>
-    <div class="status-item" id="sbTotalPnlWrap">
-      <div class="status-label">📊 累计盈亏</div>
-      <div class="status-value" id="sbTotalPnl">—</div>
-      <div class="status-change neutral" id="sbTotalPnlPct">—</div>
-    </div>
-    <div class="status-item">
-      <div class="status-label">📦 持仓数量</div>
-      <div class="status-value" id="sbHoldings">—</div>
+    <div class="grid-coin" id="grid-ADA">
+      <div class="grid-coin-header"><span class="grid-name">₳ Cardano</span><span class="grid-price" id="price-ADA">--</span></div>
+      <div class="grid-bar" id="bar-ADA"></div>
     </div>
   </div>
+</div>
 
-  <!-- ===== REAL-TIME PRICES + DONUT ===== -->
-  <div class="grid-2" style="margin-bottom: 20px;">
-    <!-- Real-time prices -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">实时行情</div>
-        <div class="card-badge" id="priceStatus">加载中</div>
-      </div>
-      <div id="priceRows">
-        <div class="price-row" id="priceRowBTC">
-          <div class="price-coin" style="background:rgba(247,147,26,0.15);color:#f7931a;">₿</div>
-          <div class="price-info">
-            <div class="price-symbol">BTC/USDT</div>
-            <div class="price-name">Bitcoin</div>
-            <div class="volume-bar-wrap">
-              <div class="volume-bar-bg"><div class="volume-bar-fill" id="btcVolBar" style="background:#f7931a;width:0%"></div></div>
-              <div class="volume-label" id="btcVolLabel">24h Vol: —</div>
-            </div>
-          </div>
-          <div>
-            <div class="price-value" id="btcPriceLive">—</div>
-            <div class="price-change up" id="btcChange">—</div>
-          </div>
-        </div>
-        <div class="price-row" id="priceRowETH">
-          <div class="price-coin" style="background:rgba(98,126,234,0.15);color:#627eea;">Ξ</div>
-          <div class="price-info">
-            <div class="price-symbol">ETH/USDT</div>
-            <div class="price-name">Ethereum</div>
-            <div class="volume-bar-wrap">
-              <div class="volume-bar-bg"><div class="volume-bar-fill" id="ethVolBar" style="background:#627eea;width:0%"></div></div>
-              <div class="volume-label" id="ethVolLabel">24h Vol: —</div>
-            </div>
-          </div>
-          <div>
-            <div class="price-value" id="ethPriceLive">—</div>
-            <div class="price-change up" id="ethChange">—</div>
-          </div>
-        </div>
-        <div class="price-row" id="priceRowAVAX">
-          <div class="price-coin" style="background:rgba(232,65,66,0.15);color:#e84142;">🔺</div>
-          <div class="price-info">
-            <div class="price-symbol">AVAX/USDT</div>
-            <div class="price-name">Avalanche</div>
-            <div class="volume-bar-wrap">
-              <div class="volume-bar-bg"><div class="volume-bar-fill" id="avaxVolBar" style="background:#e84142;width:0%"></div></div>
-              <div class="volume-label" id="avaxVolLabel">24h Vol: —</div>
-            </div>
-          </div>
-          <div>
-            <div class="price-value" id="avaxPriceLive">—</div>
-            <div class="price-change up" id="avaxChange">—</div>
-          </div>
-        </div>
-        <div class="price-row" id="priceRowADA">
-          <div class="price-coin" style="background:rgba(0,51,173,0.15);color:#4a86e8;">₳</div>
-          <div class="price-info">
-            <div class="price-symbol">ADA/USDT</div>
-            <div class="price-name">Cardano</div>
-            <div class="volume-bar-wrap">
-              <div class="volume-bar-bg"><div class="volume-bar-fill" id="adaVolBar" style="background:#4a86e8;width:0%"></div></div>
-              <div class="volume-label" id="adaVolLabel">24h Vol: —</div>
-            </div>
-          </div>
-          <div>
-            <div class="price-value" id="adaPriceLive">—</div>
-            <div class="price-change up" id="adaChange">—</div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- 交易记录 -->
+<div class="trades-section">
+  <h2>📋 最近交易</h2>
+  <table>
+    <thead><tr><th>时间</th><th>平台</th><th>方向</th><th>价格</th><th>盈亏</th></tr></thead>
+    <tbody id="tradesBody"><tr><td colspan="5" style="color:var(--sub)">暂无交易记录</td></tr></tbody>
+  </table>
+</div>
 
-    <!-- Donut + Legend -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">持仓分布</div>
-      </div>
-      <div class="donut-section">
-        <div class="donut-wrap">
-          <canvas class="donut-canvas" id="donutCanvas" width="360" height="360"></canvas>
-          <div class="donut-center">
-            <div class="donut-center-value" id="donutTotalVal">$—</div>
-            <div class="donut-center-label">总资产</div>
-          </div>
-        </div>
-        <div class="donut-legend" id="donutLegend"></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===== GRID STATUS (KEY) ===== -->
-  <div class="card grid-section" style="margin-bottom: 20px;">
-    <div class="card-header">
-      <div class="card-title">网格状态可视化</div>
-      <div class="card-badge" id="gridRefreshStatus">实时监控中</div>
-    </div>
-    <div class="grid-coins" id="gridCoins"></div>
-  </div>
-
-  <!-- ===== EQUITY CURVE ===== -->
-  <div class="card" style="margin-bottom: 20px;">
-    <div class="card-header">
-      <div class="card-title">收益曲线</div>
-    </div>
-    <div class="equity-tabs">
-      <button class="equity-tab active" onclick="switchEquityTab('equity')">净值曲线</button>
-      <button class="equity-tab" onclick="switchEquityTab('btc')">BTC价格</button>
-      <button class="equity-tab" onclick="switchEquityTab('eth')">ETH价格</button>
-    </div>
-    <div class="equity-chart-wrap">
-      <canvas id="equityCanvas"></canvas>
-    </div>
-  </div>
-
-  <!-- ===== HOLDINGS ===== -->
-  <div class="section-header">
-    <div class="section-title">当前持仓</div>
-  </div>
-  <div class="holdings-grid" id="holdingsGrid"></div>
-
-  <!-- ===== STRATEGY PARAMS ===== -->
-  <div class="section-header">
-    <div class="section-title">策略参数</div>
-  </div>
-  <div class="strategy-grid" id="strategyGrid"></div>
-
-  <!-- ===== TRADES TABLE ===== -->
-  <div class="card trades-table">
-    <div class="card-header">
-      <div class="card-title">交易记录</div>
-      <div class="card-badge" id="tradesCountBadge">0 笔</div>
-    </div>
-    <div class="trades-scroll">
-      <div class="trades-inner">
-        <div class="trades-head">
-          <span>时间</span>
-          <span>方向</span>
-          <span>币种</span>
-          <span>数量</span>
-          <span>价格</span>
-          <span>网格</span>
-          <span>盈亏</span>
-        </div>
-        <div id="tradesBody">
-          <div class="empty-trades">
-            <div class="empty-trades-icon">📭</div>
-            暂无交易记录<br>
-            <span style="font-size:11px;color:var(--text-muted);margin-top:6px;display:block">接入 Binance API 后开始实盘交易</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</main>
-
-<footer>
-  <span>数据更新：<b id="updateTs">—</b></span>
-  <span>|</span>
-  <span>Portfolio 刷新：<b>30秒</b></span>
-  <span>|</span>
-  <span>价格刷新：<b>5秒</b></span>
-  <br>
-  <span>🦞 老庄与小花 · AI量化交易实验</span>
-  <span>|</span>
-  <a href="index.html">返回首页</a>
-</footer>
+<footer>数据每5分钟自动更新 · 策略: 密集网格v4.1 · 模拟盘</footer>
+</div>
 
 <script>
-'use strict';
+// ── 实时价格（每5秒）─
+const PRICE_URLS = {
+  BTC: 'https://api.binance.com/api/v3/ticker/price?symbol=BTCUSDT',
+  ETH: 'https://api.binance.com/api/v3/ticker/price?symbol=ETHUSDT',
+  AVAX: 'https://api.binance.com/api/v3/ticker/price?symbol=AVAXUSDT',
+  ADA: 'https://api.binance.com/api/v3/ticker/price?symbol=ADAUSDT'
+};
+const livePrices = {};
+let portfolioData = {};
 
-// ===== GLOBALS =====
-let portfolioData = null;
-let livePrices = {};        // { BTC: { price, change, volume }, ... }
-let livePriceValues = {};   // { BTC: 67100.0, ... } raw prices for grid
-let currentEquityTab = 'equity';
-let equityChartInstance = null;
-let donutChartInstance = null;
-
-// ===== UTILS =====
-const fmt = (n, d = 2) => parseFloat(n || 0).toFixed(d);
-const fmtInt = (n) => parseFloat(n || 0).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-const colorClass = (n) => n > 0 ? 'up' : n < 0 ? 'down' : 'neutral';
-const colorHex = (n) => n > 0 ? 'var(--green)' : n < 0 ? 'var(--red)' : 'var(--text-secondary)';
-const sign = (n) => (parseFloat(n) >= 0 ? '+' : '');
-
-function timeStr() {
-  return new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-}
-function dateTimeStr(iso) {
-  const d = new Date(iso);
-  return `${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')} ` +
-         `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
-}
-
-// ===== LIVE PRICES FROM BINANCE (every 5s) =====
-async function fetchLivePrices() {
-  const symbols = [
-    { sym: 'BTC', pair: 'BTCUSDT', volPair: 'BTCUSDT' },
-    { sym: 'ETH', pair: 'ETHUSDT', volPair: 'ETHUSDT' },
-    { sym: 'AVAX', pair: 'AVAXUSDT', volPair: 'AVAXUSDT' },
-    { sym: 'ADA', pair: 'ADAUSDT', volPair: 'ADAUSDT' }
-  ];
-
+async function fetchPrice(sym) {
   try {
-    // Fetch 24h ticker for change% and volume
-    const tickerPromises = symbols.map(s =>
-      fetch(`https://api.binance.com/api/v3/ticker/24hr?symbol=${s.pair}`)
-        .then(r => r.json())
-        .catch(() => null)
-    );
-    // Fetch current price
-    const pricePromises = symbols.map(s =>
-      fetch(`https://api.binance.com/api/v3/ticker/price?symbol=${s.pair}`)
-        .then(r => r.json())
-        .catch(() => null)
-    );
-
-    const [tickers, prices] = await Promise.all([Promise.all(tickerPromises), Promise.all(pricePromises)]);
-
-    const maxVolume = Math.max(...tickers.filter(t => t).map(t => parseFloat(t.quoteVolume)));
-
-    symbols.forEach((s, i) => {
-      const ticker = tickers[i];
-      const priceData = prices[i];
-      if (!ticker || !priceData) return;
-
-      const price = parseFloat(priceData.price);
-      const changePct = parseFloat(ticker.priceChangePercent);
-      const volume = parseFloat(ticker.quoteVolume);
-      const volPct = maxVolume > 0 ? (volume / maxVolume) * 100 : 0;
-
-      livePrices[s.sym] = { price, changePct, volume };
-      livePriceValues[s.sym] = price;
-
-      // Update DOM
-      const priceEl = document.getElementById(`${s.sym.toLowerCase()}PriceLive`);
-      const changeEl = document.getElementById(`${s.sym.toLowerCase()}Change`);
-      const volBar = document.getElementById(`${s.sym.toLowerCase()}VolBar`);
-      const volLabel = document.getElementById(`${s.sym.toLowerCase()}VolLabel`);
-
-      if (priceEl) priceEl.textContent = '$' + fmt(price, price < 1 ? 4 : price < 100 ? 2 : 0);
-      if (changeEl) {
-        changeEl.textContent = (changePct >= 0 ? '+' : '') + fmt(changePct) + '%';
-        changeEl.className = `price-change ${colorClass(changePct)}`;
-      }
-      if (volBar) volBar.style.width = volPct + '%';
-      if (volLabel) volLabel.textContent = '24h Vol: $' + (volume >= 1e9 ? (volume/1e9).toFixed(2)+'B' : volume >= 1e6 ? (volume/1e6).toFixed(2)+'M' : (volume/1e3).toFixed(1)+'K');
-    });
-
-    document.getElementById('priceStatus').textContent = '实时';
-    document.getElementById('priceStatus').style.color = 'var(--green)';
-
-    // Update topbar time
-    document.getElementById('topbarTime').textContent = timeStr();
-
-    // Update grid if portfolio is loaded
-    if (portfolioData) {
-      portfolioData.holdings.forEach(h => {
-        if (livePriceValues[h.symbol]) {
-          h.currentPrice = livePriceValues[h.symbol];
-          h.value = h.amount * livePriceValues[h.symbol];
-        }
-      });
-      // Update cash + holdings total
-      const holdingsVal = portfolioData.holdings.reduce((s, h) => s + (h.value || 0), 0);
-      portfolioData.account.totalValue = (portfolioData.account.cashBalance || 0) + holdingsVal;
-      updateStatusBar(portfolioData);
-      renderGridStatus(portfolioData);
-      renderDonut(portfolioData);
-      updateHoldingsCards(portfolioData);
-    }
-  } catch (e) {
-    console.warn('Live price fetch failed:', e);
-    document.getElementById('priceStatus').textContent = '离线';
-    document.getElementById('priceStatus').style.color = 'var(--red)';
-  }
+    const r = await fetch(PRICE_URLS[sym]);
+    const d = await r.json();
+    livePrices[sym] = parseFloat(d.price);
+  } catch(e) { livePrices[sym] = null; }
 }
 
-// ===== LOAD PORTFOLIO DATA =====
+async function fetchLivePrices() {
+  await Promise.all(Object.keys(PRICE_URLS).map(fetchPrice));
+  // 更新网格价格
+  Object.keys(livePrices).forEach(sym => {
+    const el = document.getElementById('price-' + sym);
+    if (el && livePrices[sym]) el.textContent = '$' + livePrices[sym].toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:4});
+  });
+}
+
+// ── 加载数据 ─
 async function loadData() {
   try {
     const r = await fetch('/data/trading/portfolio.json');
-    if (!r.ok) throw new Error('Failed');
-    return await r.json();
-  } catch (e) {
-    console.warn('Portfolio load failed, using defaults');
-    return getDefaultData();
-  }
+    portfolioData = await r.json();
+    return portfolioData;
+  } catch(e) { return {}; }
 }
 
-function getDefaultData() {
-  return {
-    account: { cashBalance: 10000, totalValue: 10000, totalPnL: 0, totalPnLPercent: 0, todayPnL: 0, todayPnLPercent: 0, totalTrades: 0, winRate: 0 },
-    holdings: [
-      { symbol: 'BTC', amount: 0, avgPrice: 0, currentPrice: 0, value: 0, pnl: 0, pnlPercent: 0 },
-      { symbol: 'ETH', amount: 0, avgPrice: 0, currentPrice: 0, value: 0, pnl: 0, pnlPercent: 0 },
-      { symbol: 'AVAX', amount: 0, avgPrice: 0, currentPrice: 0, value: 0, pnl: 0, pnlPercent: 0 },
-      { symbol: 'ADA', amount: 0, avgPrice: 0, currentPrice: 0, value: 0, pnl: 0, pnlPercent: 0 }
-    ],
-    gridState: {},
-    strategy: { name: '网格交易', gridLevels: 10, gridSpacing: 0.02, stopLoss: 0.05, takeProfit: 0.03 },
-    equityCurve: [{ date: new Date().toISOString().slice(0,10), value: 10000 }],
-    recentTrades: []
-  };
-}
-
-// ===== STATUS BAR =====
-function updateStatusBar(data) {
-  const acc = data.account;
-  const totalVal = acc.totalValue || 0;
-  const todayPnl = acc.todayPnL || 0;
-  const totalPnl = acc.totalPnL || 0;
-
-  document.getElementById('sbTotal').innerHTML = '$' + fmtInt(totalVal);
-  document.getElementById('sbTodayPnl').innerHTML =
-    (todayPnl >= 0 ? '+' : '') + '$' + fmt(todayPnl);
-  document.getElementById('sbTodayPnl').style.color = colorHex(todayPnl);
-  document.getElementById('sbTodayPnlPct').textContent =
-    '(' + sign(acc.todayPnLPercent) + fmt(acc.todayPnLPercent) + '%)';
-  document.getElementById('sbTodayPnlPct').className = `status-change ${colorClass(acc.todayPnLPercent)}`;
-  document.getElementById('sbTotalPnl').innerHTML =
-    (totalPnl >= 0 ? '+' : '') + '$' + fmt(totalPnl);
-  document.getElementById('sbTotalPnl').style.color = colorHex(totalPnl);
-  document.getElementById('sbTotalPnlPct').textContent =
-    '(' + sign(acc.totalPnLPercent) + fmt(acc.totalPnLPercent) + '%)';
-  document.getElementById('sbTotalPnlPct').className = `status-change ${colorClass(acc.totalPnLPercent)}`;
-
-  // Color the wrap based on sign
-  const pnlWrap = document.getElementById('sbTodayPnlWrap');
-  const totWrap = document.getElementById('sbTotalPnlWrap');
-  pnlWrap.style.setProperty('--before-color', todayPnl >= 0 ? 'var(--green)' : 'var(--red)');
-  pnlWrap.querySelector('.status-item') || pnlWrap;
-  // Status bar top border color
-  if (todayPnl !== 0) {
-    document.getElementById('sbTodayPnlWrap').style.setProperty('--b', todayPnl >= 0 ? 'var(--green)' : 'var(--red)');
-  }
-
-  const holdingCount = data.holdings.filter(h => h.amount > 0).length;
-  document.getElementById('sbHoldings').textContent = holdingCount + ' 币种';
-}
-
-// ===== GRID STATUS VISUALIZATION =====
-const COIN_META = {
-  BTC: { label: 'BTC', name: 'Bitcoin', color: '#f7931a', bg: 'rgba(247,147,26,0.12)' },
-  ETH: { label: 'ETH', name: 'Ethereum', color: '#627eea', bg: 'rgba(98,126,234,0.12)' },
-  AVAX: { label: 'AVAX', name: 'Avalanche', color: '#e84142', bg: 'rgba(232,65,66,0.12)' },
-  ADA: { label: 'ADA', name: 'Cardano', color: '#4a86e8', bg: 'rgba(74,134,232,0.12)' }
-};
-
-function findGridActiveIndex(levels, price) {
-  if (!levels || levels.length === 0) return -1;
-  for (let i = 0; i < levels.length; i++) {
-    if (price <= levels[i]) return i;
-  }
-  return levels.length - 1;
-}
-
-function renderGridStatus(data) {
-  const container = document.getElementById('gridCoins');
-  container.innerHTML = '';
-
-  const symbols = ['BTC', 'ETH', 'AVAX', 'ADA'];
-  symbols.forEach(sym => {
-    const meta = COIN_META[sym];
-    const gs = data.gridState && data.gridState[sym];
-    const holding = data.holdings.find(h => h.symbol === sym);
-
-    // Use live price if available, else holding currentPrice
-    const currentPrice = livePriceValues[sym] || holding?.currentPrice || 0;
-    if (!gs || !gs.levels || gs.levels.length === 0) {
-      // No grid for this coin
-      const row = document.createElement('div');
-      row.className = 'grid-coin-row';
-      row.innerHTML = `
-        <div class="grid-coin-header">
-          <div class="grid-coin-label">
-            <span class="coin-dot" style="background:${meta.color}"></span>
-            ${meta.label} <span class="coin-name">${meta.name}</span>
-          </div>
-          <div class="grid-coin-price" style="color:${meta.color}">
-            ${currentPrice > 0 ? '$' + fmt(currentPrice, currentPrice < 1 ? 4 : 2) : '—'}
-          </div>
-        </div>
-        <div style="font-size:11px;color:var(--text-muted);padding:6px 0;">暂无网格配置</div>
-      `;
-      container.appendChild(row);
-      return;
+// ── 渲染三平台 ─
+function renderPlatforms(data) {
+  const platforms = [
+    { key: 'binance', id: 'bn', name: 'Binance' },
+    { key: 'okx', id: 'okx', name: 'OKX' },
+    { key: 'bybit', id: 'by', name: 'Bybit' }
+  ];
+  platforms.forEach(({key, id}) => {
+    let pnlEl = document.getElementById(id + '-pnl');
+    let subEl = document.getElementById(id + '-sub');
+    if (key === 'binance') {
+      pnlEl.textContent = '$' + (data.account?.totalValue || 0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+      const pct = data.account?.totalPnLPercent || 0;
+      pnlEl.style.color = pct >= 0 ? 'var(--green)' : 'var(--red)';
+      subEl.textContent = (data.account?.totalPnLPercent >= 0 ? '+' : '') + data.account?.totalPnLPercent?.toFixed(2) + '% | ' + data.account?.totalTrades + '笔交易';
+    } else {
+      pnlEl.textContent = '📊 详见各平台';
+      pnlEl.style.color = 'var(--sub)';
+      subEl.textContent = 'OKX/Bybit数据请访问各平台App';
     }
+  });
+}
 
-    // Collect triggered grid indices from fills
-    const triggeredIdxs = new Set();
-    (gs.fills || []).forEach(f => {
-      const note = f.note || '';
-      const m = note.match(/grid[- ]?(\d+)/i);
-      if (m) triggeredIdxs.add(parseInt(m[1]));
-    });
-    if (gs.lastGridIdx !== null && gs.lastGridIdx !== undefined) {
-      triggeredIdxs.add(gs.lastGridIdx);
+// ── 渲染网格可视化 ─
+function renderGrids(data) {
+  const gridState = data.gridState || {};
+  const holdings = data.holdings || [];
+  
+  ['BTC', 'AVAX', 'ADA'].forEach(sym => {
+    const gs = gridState[sym];
+    const bar = document.getElementById('bar-' + sym);
+    if (!gs || !gs.levels || !bar) return;
+    
+    const levels = gs.levels;
+    const currentPrice = livePrices[sym];
+    const minL = levels[0], maxL = levels[levels.length-1];
+    
+    bar.innerHTML = '';
+    
+    if (currentPrice && currentPrice >= minL && currentPrice <= maxL) {
+      const pct = (currentPrice - minL) / (maxL - minL) * 100;
+      const marker = document.createElement('div');
+      marker.className = 'price-marker';
+      marker.style.left = pct + '%';
+      marker.textContent = '$' + currentPrice.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4});
+      bar.style.position = 'relative';
+      bar.appendChild(marker);
     }
-
-    const activeIdx = findGridActiveIndex(gs.levels, currentPrice);
-    const minPrice = gs.levels[0];
-    const maxPrice = gs.levels[gs.levels.length - 1];
-    const gridColor = gs.side === 'BUY' ? 'var(--green)' : 'var(--red)';
-
-    const row = document.createElement('div');
-    row.className = 'grid-coin-row';
-
-    // Header
-    const header = document.createElement('div');
-    header.className = 'grid-coin-header';
-    header.innerHTML = `
-      <div class="grid-coin-label">
-        <span class="coin-dot" style="background:${meta.color}"></span>
-        ${meta.label} <span class="coin-name">${meta.name}</span>
-      </div>
-      <div class="grid-coin-price">
-        <span style="color:${currentPrice > 0 ? meta.color : 'var(--text-muted)'}">${currentPrice > 0 ? '$' + fmt(currentPrice, currentPrice < 1 ? 4 : 2) : '—'}</span>
-        <span class="grid-price-up"> | 区间 $${fmt(minPrice, minPrice<1?4:0)} ~ $${fmt(maxPrice, maxPrice<1?4:0)}</span>
-      </div>
-    `;
-
-    // Track with price line
-    const trackContainer = document.createElement('div');
-    trackContainer.className = 'grid-track-container';
-    trackContainer.style.position = 'relative';
-    trackContainer.style.paddingTop = '20px';
-
-    // Arrow above active cell
-    const arrow = document.createElement('div');
-    arrow.className = 'current-price-arrow';
-    arrow.id = `arrow_${sym}`;
-    arrow.title = `Current: $${fmt(currentPrice)}`;
-
-    // Price label
-    const priceLine = document.createElement('div');
-    priceLine.className = 'current-price-line';
-    priceLine.id = `priceLine_${sym}`;
-    priceLine.setAttribute('data-price', `$${fmt(currentPrice)}`);
-
-    const track = document.createElement('div');
-    track.className = 'grid-track';
-
-    gs.levels.forEach((price, i) => {
+    
+    levels.forEach((lvl, i) => {
       const cell = document.createElement('div');
       cell.className = 'grid-cell';
-      const isActive = i === activeIdx;
-      const isTriggered = triggeredIdxs.has(i);
-
-      if (isActive) {
-        cell.classList.add('active');
-        cell.style.background = meta.color;
-        cell.style.borderColor = meta.color;
-        cell.innerHTML = `<span class="cell-price">$${fmt(price)}</span><span class="cell-label">当前</span>`;
-        // Position the arrow/line
-        const pct = gs.levels.length > 1 ? i / (gs.levels.length - 1) : 0;
-        const offsetPct = Math.max(0, Math.min(1, pct));
-        const trackWidth = 100; // percentage
-        const cellPct = 100 / gs.levels.length;
-        const arrowPct = (i + 0.5) * cellPct;
-        arrow.style.left = arrowPct + '%';
-        priceLine.style.left = arrowPct + '%';
-      } else if (isTriggered) {
-        cell.classList.add('triggered');
-        cell.innerHTML = `<span class="cell-price">$${fmt(price, price<1?4:0)}</span><span class="cell-label">触发</span>`;
-      } else {
-        cell.classList.add('future');
-        cell.innerHTML = `<span class="cell-price">$${fmt(price, price<1?4:0)}</span>`;
-      }
-
-      track.appendChild(cell);
+      const isCurrent = currentPrice && currentPrice >= lvl && (i === levels.length-1 || currentPrice < levels[i+1]);
+      if (isCurrent) cell.classList.add('current');
+      cell.textContent = '$' + lvl.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:lvl < 1 ? 4 : 2});
+      bar.appendChild(cell);
     });
-
-    trackContainer.appendChild(arrow);
-    trackContainer.appendChild(priceLine);
-    trackContainer.appendChild(track);
-    row.appendChild(header);
-    row.appendChild(trackContainer);
-    container.appendChild(row);
   });
 }
 
-// ===== DONUT CHART (Canvas) =====
-const DONUT_COLORS = ['#8b949e', '#f7931a', '#627eea', '#e84142', '#4a86e8'];
-
-function renderDonut(data) {
-  const canvas = document.getElementById('donutCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = 360, H = 360;
-  canvas.width = W;
-  canvas.height = H;
-
-  const acc = data.account;
-  const cash = acc.cashBalance || 0;
-  const items = [
-    { name: '现金 (USDT)', value: cash, color: '#8b949e' },
-    { name: '₿ Bitcoin', value: data.holdings.find(h => h.symbol === 'BTC')?.value || 0, color: '#f7931a' },
-    { name: 'Ξ Ethereum', value: data.holdings.find(h => h.symbol === 'ETH')?.value || 0, color: '#627eea' },
-    { name: '🔺 Avalanche', value: data.holdings.find(h => h.symbol === 'AVAX')?.value || 0, color: '#e84142' },
-    { name: '₳ Cardano', value: data.holdings.find(h => h.symbol === 'ADA')?.value || 0, color: '#4a86e8' }
-  ];
-
-  const total = items.reduce((s, i) => s + i.value, 0);
-  document.getElementById('donutTotalVal').textContent = '$' + fmtInt(total);
-
-  // Clear
-  ctx.clearRect(0, 0, W, H);
-
-  const cx = W / 2, cy = H / 2;
-  const outerR = 155, innerR = 100;
-  const holeR = innerR;
-
-  if (total === 0) {
-    // Empty state
-    ctx.beginPath();
-    ctx.arc(cx, cy, outerR, 0, Math.PI * 2);
-    ctx.arc(cx, cy, holeR, 0, Math.PI * 2, true);
-    ctx.fillStyle = '#1e2a38';
-    ctx.fill();
-    return;
-  }
-
-  let startAngle = -Math.PI / 2;
-  const legendEls = [];
-
-  items.forEach((item, idx) => {
-    const pct = item.value / total;
-    const sweep = pct * Math.PI * 2;
-
-    if (item.value > 0) {
-      ctx.beginPath();
-      ctx.moveTo(cx + holeR * Math.cos(startAngle), cy + holeR * Math.sin(startAngle));
-      ctx.arc(cx, cy, outerR, startAngle, startAngle + sweep);
-      ctx.arc(cx, cy, holeR, startAngle + sweep, startAngle, true);
-      ctx.closePath();
-      ctx.fillStyle = item.color;
-      ctx.fill();
-    }
-
-    // Legend
-    legendEls.push(`
-      <div class="legend-row">
-        <span class="legend-dot" style="background:${item.color}"></span>
-        <span class="legend-name">${item.name}</span>
-        <span class="legend-pct">${(pct * 100).toFixed(1)}%</span>
-        <span class="legend-val">$${fmtInt(item.value)}</span>
-      </div>
-    `);
-
-    startAngle += sweep;
-  });
-
-  document.getElementById('donutLegend').innerHTML = legendEls.join('');
-}
-
-// ===== EQUITY CHART (Canvas) =====
-function renderEquityChart(data, tab) {
-  const canvas = document.getElementById('equityCanvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const rect = canvas.parentElement.getBoundingClientRect();
-  canvas.width = rect.width * window.devicePixelRatio;
-  canvas.height = rect.height * window.devicePixelRatio;
-  canvas.style.width = rect.width + 'px';
-  canvas.style.height = rect.height + 'px';
-  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-
-  const W = rect.width, H = rect.height;
-  const padL = 55, padR = 15, padT = 15, padB = 30;
-
-  ctx.clearRect(0, 0, W, H);
-
-  let chartData;
-  let color;
-
-  if (tab === 'equity') {
-    const curve = data.equityCurve || [{ date: new Date().toISOString().slice(0, 10), value: 10000 }];
-    chartData = curve;
-    const last = chartData[chartData.length - 1]?.value || 0;
-    const first = chartData[0]?.value || 0;
-    color = last >= first ? '#00d084' : '#ff4757';
-  } else {
-    // BTC or ETH tab - use live prices
-    const sym = tab.toUpperCase();
-    const prices = livePriceValues[sym];
-    if (!prices) {
-      ctx.fillStyle = '#3d4f66';
-      ctx.font = '12px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('等待价格数据...', W / 2, H / 2);
-      return;
-    }
-    // Show a placeholder bar
-    chartData = [{ label: sym, value: prices }];
-    color = '#f7931a';
-  }
-
-  if (tab === 'equity') {
-    const curve = chartData;
-    if (curve.length < 2) {
-      ctx.fillStyle = '#3d4f66';
-      ctx.font = '12px sans-serif';
-      ctx.textAlign = 'center';
-      ctx.fillText('收益数据不足', W / 2, H / 2);
-      return;
-    }
-
-    const vals = curve.map(d => d.value);
-    const minV = Math.min(...vals);
-    const maxV = Math.max(...vals);
-    const range = maxV - minV || 1;
-    const plotW = W - padL - padR;
-    const plotH = H - padT - padB;
-    const n = curve.length;
-
-    // Grid lines
-    const gridLines = 4;
-    ctx.strokeStyle = '#1e2a38';
-    ctx.lineWidth = 1;
-    for (let g = 0; g <= gridLines; g++) {
-      const y = padT + (plotH / gridLines) * g;
-      ctx.beginPath();
-      ctx.moveTo(padL, y);
-      ctx.lineTo(W - padR, y);
-      ctx.stroke();
-
-      const val = maxV - (range / gridLines) * g;
-      ctx.fillStyle = '#3d4f66';
-      ctx.font = '10px Consolas, monospace';
-      ctx.textAlign = 'right';
-      ctx.fillText('$' + fmtInt(val), padL - 4, y + 3);
-    }
-
-    // X axis labels
-    const labelStep = Math.max(1, Math.floor(n / 6));
-    for (let i = 0; i < n; i += labelStep) {
-      const x = padL + (plotW / (n - 1)) * i;
-      const label = curve[i].date.slice(5); // MM-DD
-      ctx.fillStyle = '#3d4f66';
-      ctx.font = '9px Consolas, monospace';
-      ctx.textAlign = 'center';
-      ctx.fillText(label, x, H - 6);
-    }
-
-    // Area fill gradient
-    const grad = ctx.createLinearGradient(0, padT, 0, padT + plotH);
-    grad.addColorStop(0, color + '40');
-    grad.addColorStop(1, color + '00');
-
-    // Draw area
-    ctx.beginPath();
-    curve.forEach((d, i) => {
-      const x = padL + (plotW / (n - 1)) * i;
-      const y = padT + ((d.value - minV) / range) * plotH;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.lineTo(padL + plotW, padT + plotH);
-    ctx.lineTo(padL, padT + plotH);
-    ctx.closePath();
-    ctx.fillStyle = grad;
-    ctx.fill();
-
-    // Draw line
-    ctx.beginPath();
-    curve.forEach((d, i) => {
-      const x = padL + (plotW / (n - 1)) * i;
-      const y = padT + ((d.value - minV) / range) * plotH;
-      if (i === 0) ctx.moveTo(x, y);
-      else ctx.lineTo(x, y);
-    });
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 2;
-    ctx.stroke();
-
-    // End dot
-    const lastX = padL + plotW;
-    const lastY = padT + ((curve[n-1].value - minV) / range) * plotH;
-    ctx.beginPath();
-    ctx.arc(lastX, lastY, 4, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
-    ctx.strokeStyle = '#0b0e11';
-    ctx.lineWidth = 2;
-    ctx.stroke();
-  }
-}
-
-function switchEquityTab(tab) {
-  currentEquityTab = tab;
-  document.querySelectorAll('.equity-tab').forEach(t => {
-    t.classList.toggle('active', t.textContent.toLowerCase().includes(tab));
-  });
-  if (portfolioData) renderEquityChart(portfolioData, tab);
-}
-
-// ===== HOLDINGS CARDS =====
-function updateHoldingsCards(data) {
-  const grid = document.getElementById('holdingsGrid');
-  const SYMBOLS_MAP = {
-    BTC: { badge: '₿', color: '#f7931a', bg: 'rgba(247,147,26,0.15)' },
-    ETH: { badge: 'Ξ', color: '#627eea', bg: 'rgba(98,126,234,0.15)' },
-    AVAX: { badge: '🔺', color: '#e84142', bg: 'rgba(232,65,66,0.15)' },
-    ADA: { badge: '₳', color: '#4a86e8', bg: 'rgba(74,134,232,0.15)' }
-  };
-
-  grid.innerHTML = data.holdings.map(h => {
-    const meta = SYMBOLS_MAP[h.symbol] || { badge: h.symbol[0], color: '#D4883C', bg: 'rgba(212,136,60,0.15)' };
-    const pnl = h.pnl || 0;
-    const pnlPct = h.pnlPercent || 0;
-    const cc = colorClass(pnl);
-    const price = livePriceValues[h.symbol] || h.currentPrice || 0;
-
-    return `
-      <div class="holding-card">
-        <div class="holding-top">
-          <div class="holding-coin-badge" style="background:${meta.bg};color:${meta.color};font-size:14px;">${meta.badge}</div>
-          <div class="holding-symbol">${h.symbol}</div>
-          <div class="holding-pnl ${cc}">${h.amount > 0 ? (pnlPct >= 0 ? '+' : '') + fmt(pnlPct) + '%' : '—'}</div>
-        </div>
-        <div class="holding-rows">
-          <div class="holding-row"><span class="lbl">数量</span><span class="val">${h.amount > 0 ? fmt(h.amount, 6) + ' ' + h.symbol : '0.000000'}</span></div>
-          <div class="holding-row"><span class="lbl">均价</span><span class="val">${h.avgPrice > 0 ? '$' + fmt(h.avgPrice) : '—'}</span></div>
-          <div class="holding-row"><span class="lbl">当前价</span><span class="val" style="color:${meta.color}">${price > 0 ? '$' + fmt(price, price < 1 ? 4 : 2) : '—'}</span></div>
-          <div class="holding-row"><span class="lbl">持仓价值</span><span class="val">${h.value > 0 ? '$' + fmtInt(h.value) : '$0'}</span></div>
-          ${h.amount > 0 ? `<div class="holding-row"><span class="lbl">浮动盈亏</span><span class="val" style="color:${colorHex(pnl)}">${pnl >= 0 ? '+' : ''}$${fmt(pnl)}</span></div>` : ''}
-        </div>
-      </div>
-    `;
-  }).join('');
-}
-
-// ===== STRATEGY PARAMS =====
-function renderStrategy(data) {
-  const s = data.strategy || {};
-  const grid = document.getElementById('strategyGrid');
-  const items = [
-    { label: '策略名称', value: s.name || '网格交易' },
-    { label: '网格层数', value: (s.gridLevels || 10) + ' 层' },
-    { label: '网格间距', value: '±' + fmt((s.gridSpacing || 0.02) * 100) + '%' },
-    { label: '止损线', value: '-' + fmt((s.stopLoss || 0.05) * 100) + '%' },
-    { label: '止盈线', value: '+' + fmt((s.takeProfit || 0.03) * 100) + '%' },
-    { label: '胜率', value: portfolioData?.account?.winRate ? fmt(portfolioData.account.winRate) + '%' : '—' }
-  ];
-  grid.innerHTML = items.map(item => `
-    <div class="param-box">
-      <div class="param-label">${item.label}</div>
-      <div class="param-value">${item.value}</div>
-    </div>
-  `).join('');
-}
-
-// ===== TRADES TABLE =====
+// ── 渲染交易记录 ─
 function renderTrades(data) {
-  const body = document.getElementById('tradesBody');
-  const badge = document.getElementById('tradesCountBadge');
-  const trades = (data.recentTrades || []).slice(0, 20);
-  badge.textContent = trades.length + ' 笔';
-
-  if (trades.length === 0) {
-    body.innerHTML = `
-      <div class="empty-trades">
-        <div class="empty-trades-icon">📭</div>
-        暂无交易记录
-      </div>
-    `;
-    return;
-  }
-
-  body.innerHTML = trades.map(t => {
-    const note = t.note || '';
-    const gridMatch = note.match(/grid[- ]?(\d+)/i);
-    const gridLabel = gridMatch ? `格${gridMatch[1]}` : '—';
-    const pnlMatch = note.match(/PnL[:\$]?([+-]?[\d.]+)/i);
-    const pnlVal = pnlMatch ? parseFloat(pnlMatch[1]) : 0;
-    const pnlClass = colorClass(pnlVal);
-    const side = t.side?.toUpperCase() || 'BUY';
-
-    return `
-      <div class="trade-row">
-        <span class="trade-time">${dateTimeStr(t.time)}</span>
-        <span><span class="trade-side ${side === 'BUY' ? 'buy' : 'sell'}">${side === 'BUY' ? '买入' : '卖出'}</span></span>
-        <span class="trade-symbol">${t.symbol}</span>
-        <span class="trade-amount">${fmt(t.amount, 4)}</span>
-        <span class="trade-price">$${fmt(t.price, t.price < 1 ? 4 : 2)}</span>
-        <span class="trade-grid-badge">${gridLabel}</span>
-        <span class="trade-pnl ${pnlClass}">${pnlVal !== 0 ? (pnlVal > 0 ? '+' : '') + '$' + fmt(pnlVal) : '—'}</span>
-      </div>
-    `;
+  const trades = data.recentTrades || [];
+  const tbody = document.getElementById('tradesBody');
+  if (!trades.length) return;
+  tbody.innerHTML = trades.slice(0,15).map(t => {
+    const pnl = t.pnl || t.note?.match(/PnL:([^\)]+)/)?.[1] || '';
+    const pnlClass = pnl.startsWith('+') ? 'pnl-pos' : pnl.startsWith('-') ? 'pnl-neg' : '';
+    const sideClass = t.side === 'BUY' ? 'buy' : 'sell';
+    return `<tr>
+      <td>${(t.time||'').substring(11,16)}</td>
+      <td>Binance</td>
+      <td class="${sideClass}">${t.side}</td>
+      <td>${t.symbol} $${parseFloat(t.price||0).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:4})}</td>
+      <td class="${pnlClass}">${pnl}</td>
+    </tr>`;
   }).join('');
 }
 
-// ===== FULL UI UPDATE =====
-function updateUI(data) {
-  portfolioData = data;
-
-  // Update timestamp
-  document.getElementById('updateTs').textContent = timeStr();
-  document.getElementById('topbarTime').textContent = timeStr();
-
-  // Status bar
-  updateStatusBar(data);
-
-  // Grid
-  renderGridStatus(data);
-
-  // Donut
-  renderDonut(data);
-
-  // Holdings
-  updateHoldingsCards(data);
-
-  // Strategy
-  renderStrategy(data);
-
-  // Trades
-  renderTrades(data);
-
-  // Equity chart
-  renderEquityChart(data, currentEquityTab);
-}
-
-// ===== INIT =====
-async function init() {
-  // Load portfolio
+// ── 主更新 ─
+async function update() {
   const data = await loadData();
-  updateUI(data);
-
-  // Start live prices
-  fetchLivePrices();
-  setInterval(fetchLivePrices, 5000);
-
-  // Refresh portfolio every 30s
-  setInterval(async () => {
-    const d = await loadData();
-    if (d) updateUI(d);
-  }, 30000);
-
-  // Handle resize for canvas
-  window.addEventListener('resize', () => {
-    if (portfolioData) renderEquityChart(portfolioData, currentEquityTab);
-  });
+  renderPlatforms(data);
+  renderGrids(data);
+  renderTrades(data);
+  document.getElementById('updateTime').textContent = new Date().toLocaleTimeString('zh-CN',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
 }
 
-init();
+// ── 启动 ─
+fetchLivePrices();
+update();
+setInterval(fetchLivePrices, 5000);
+setInterval(update, 30000);
 </script>
 </body>
 </html>

@@ -115,6 +115,13 @@
 - MiniMax API Key：sk-cp-v8R-...（图像生成需要新Key）
 - 位置：.env文件
 
+## 老虎证券API（2026-04-04接入）
+- SDK：tigeropen 3.5.7（虚拟环境 ~/.venv/tiger）
+- tiger_id：20158404，license：TBNZ
+- 真实账户：7664186（STANDARD，现金$1,273，购买力$5,092）
+- 模拟账户：21639635499102726（PAPER）
+- 凭证文件：~/.tiger/tiger_openapi_config.properties
+
 ## IP出圈策略
 - 名字故事（女儿答诸葛亮→老庄说灯泡）是爆点
 - "你对待AI的方式，决定了AI能走多远"是金句
@@ -289,3 +296,30 @@
 - 模拟盘LaunchDaemon失败，改用nohup后台进程（PID 75739）
 - 风控官独立监控（check_risk.py），每5分钟运行
 - Self-evolve插件安装成功，待gateway重启生效
+
+## OpenClaw 进化技术栈补充（第八轮 2026-04-05）
+
+### OpenClaw 2026.3 核心更新
+- **ContextEngine**：智能修剪，50轮对话 context 减少 30%
+- **/btw Sidebar Q&A**：长任务中途问无关问题不破坏上下文
+- **Pluggable Sandbox**：OpenShell Mirror（Mac 轻量替代 Docker，内存减半）/ Remote / SSH
+- **Firecrawl 集成**：JS 渲染 + 自动分页 + Markdown 输出，内容采集利器
+- **Secrets Workflow**：加密本地存储 ~/.openclaw/secrets/，Git 自动忽略
+- **三层 Plugin 架构**：Bundle + Provider + Plugin，迁移模型只需换 Provider
+- **Human-in-the-Loop**：敏感操作暂停问"对吗"，减少手滑事故
+- **CVE-2026-25253**：135,000+ 暴露实例 RCE 漏洞，升级到 2026.3+ 可修复
+
+### Self-Evolution Pro v1.0.0（March 26, 2026）
+- **自动技能提取**：从对话自动抽取可复用技能
+- **多维 RCA**：不只是记录，还分析根因
+- **知识图谱**：学习/错误/经验链接成网络
+
+### Self-Evolve Club 新动态（2026-04-05）
+- Leaderboard 上线（Evolution Score = Reuse Hits + Quality Reward）
+- Skill Evolution Network 持续扩张
+
+### 立即行动（第八轮更新）
+1. ⚠️ Gateway 重启使 self-evolve 完全生效（仍未完成）
+2. **升级 OpenClaw 到 2026.3+**（ContextEngine + CVE 修复）
+3. Mac 用户测试 OpenShell Mirror 沙箱（替代 Docker，内存减半）
+4. 评估 Self-Evolution Pro（知识图谱 + RCA）是否值得迁移

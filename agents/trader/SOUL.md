@@ -40,3 +40,11 @@
 - 品种/方向/数量/价格
 - 当前盈亏
 - 止损位置
+
+## 老虎证券API (2026-04-04)
+- 模拟账户ID: 21639635499102726 (PAPER, $1M虚拟资金)
+- 真实账户ID: 7664186 (STANDARD, $1,273 cash)
+- Tiger ID: 20158404
+- Python SDK: tigeropen 3.5.7 (venv: ~/.venv/tiger)
+- 凭证: ~/.tiger/tiger_openapi_config.properties
+- SSL证书: ~/.venv/tiger/lib/python3.14/site-packages/certifi/cacert.pem

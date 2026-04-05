@@ -1,0 +1,48 @@
+{
+  "updated": "2026-04-05 18:17:52",
+  "timestamp": "2026-04-05 18:17:52",
+  "account": {
+    "net_liquidation": 1000000.0,
+    "cash": 1000000.0,
+    "gross_position_value": 0.0,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": 0.0,
+    "buying_power": 4000000.0
+  },
+  "type": "PAPER",
+  "currency": "USD",
+  "strategy": {
+    "name": "价值定投策略 v1.0",
+    "description": "月定投 $10,000 · 季度再平衡 · 股息复利 · 再平衡阈值 5%",
+    "allocation": {
+      "SPY": {
+        "name": "SPDR S&P 500 ETF",
+        "target": 0.4,
+        "mode": "月定投"
+      },
+      "QQQ": {
+        "name": "Invesco QQQ Trust",
+        "target": 0.3,
+        "mode": "月定投"
+      },
+      "VTI": {
+        "name": "Vanguard Total Stock Market",
+        "target": 0.2,
+        "mode": "月定投"
+      },
+      "BND": {
+        "name": "Vanguard Total Bond Market",
+        "target": 0.1,
+        "mode": "月定投"
+      }
+    }
+  },
+  "quotes": {},
+  "positions": [],
+  "orders": [],
+  "net_liquidation": 1000000.0,
+  "cash_value": 1000000.0,
+  "position_value": 0.0,
+  "realized_pnl": 0.0,
+  "unrealized_pnl": 0.0
+}

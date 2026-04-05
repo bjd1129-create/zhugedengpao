@@ -1,11 +1,11 @@
 {
   "account": {
-    "cashBalance": 6686.49,
-    "totalValue": 9879.63,
+    "cashBalance": 6886.97,
+    "totalValue": 9877.09,
     "initialBalance": 10000.0,
-    "totalPnL": -120.37,
-    "totalPnLPercent": -1.2,
-    "totalTrades": 65,
+    "totalPnL": -122.91,
+    "totalPnLPercent": -1.23,
+    "totalTrades": 68,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
   },
@@ -15,27 +15,27 @@
       "name": "Bitcoin",
       "amount": 0.02234012,
       "avgPrice": 67143.78,
-      "currentPrice": 67054.49,
-      "value": 1498.01,
-      "pnl": -1.99,
-      "pnlPercent": -0.13
+      "currentPrice": 66989.07,
+      "value": 1496.54,
+      "pnl": -3.46,
+      "pnlPercent": -0.23
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
       "amount": 0.7313149,
       "avgPrice": 2051.1,
-      "currentPrice": 2045.24,
-      "value": 1495.71,
-      "pnl": -4.29,
-      "pnlPercent": -0.29
+      "currentPrice": 2042.32,
+      "value": 1493.58,
+      "pnl": -6.42,
+      "pnlPercent": -0.43
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 8.82,
+      "currentPrice": 8.83,
       "value": 0.0,
       "pnl": 0.0,
       "pnlPercent": 0
@@ -43,12 +43,12 @@
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 825.76383154,
-      "avgPrice": 0.2422,
-      "currentPrice": 0.2415,
-      "value": 199.42,
-      "pnl": -0.58,
-      "pnlPercent": -0.29
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0.2425,
+      "value": 0.0,
+      "pnl": 0.0,
+      "pnlPercent": 0
     }
   ],
   "gridState": {
@@ -111,6 +111,23 @@
       "avgPrice": 0,
       "lastGridIdx": 7,
       "fills": [
+        {
+          "time": "2026-04-05T19:32:11+08:00",
+          "side": "SELL",
+          "symbol": "AVAX",
+          "amount": 22.72727273,
+          "price": 8.81,
+          "pnl": 0.23,
+          "note": "grid-6↑ PnL:$+0.23"
+        },
+        {
+          "time": "2026-04-05T19:25:07+08:00",
+          "side": "BUY",
+          "symbol": "AVAX",
+          "amount": 22.72727273,
+          "price": 8.8,
+          "note": "grid-6↓"
+        },
         {
           "time": "2026-04-05T16:13:16+08:00",
           "side": "SELL",
@@ -362,10 +379,19 @@
         0.256,
         0.2573
       ],
-      "position": 825.7638315441784,
-      "avgPrice": 0.2422,
-      "lastGridIdx": 6,
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": 7,
       "fills": [
+        {
+          "time": "2026-04-05T19:51:26+08:00",
+          "side": "SELL",
+          "symbol": "ADA",
+          "amount": 825.76383154,
+          "price": 0.2425,
+          "pnl": 0.25,
+          "note": "grid-6↑ PnL:$+0.25"
+        },
         {
           "time": "2026-04-05T18:46:42+08:00",
           "side": "BUY",
@@ -674,6 +700,32 @@
   },
   "recentTrades": [
     {
+      "time": "2026-04-05T19:51:26+08:00",
+      "side": "SELL",
+      "symbol": "ADA",
+      "amount": 825.76383154,
+      "price": 0.2425,
+      "pnl": 0.25,
+      "note": "grid-6↑ PnL:$+0.25"
+    },
+    {
+      "time": "2026-04-05T19:32:11+08:00",
+      "side": "SELL",
+      "symbol": "AVAX",
+      "amount": 22.72727273,
+      "price": 8.81,
+      "pnl": 0.23,
+      "note": "grid-6↑ PnL:$+0.23"
+    },
+    {
+      "time": "2026-04-05T19:25:07+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 22.72727273,
+      "price": 8.8,
+      "note": "grid-6↓"
+    },
+    {
       "time": "2026-04-05T18:46:42+08:00",
       "side": "BUY",
       "symbol": "ADA",
@@ -689,14 +741,6 @@
       "price": 0.2426,
       "pnl": 0.25,
       "note": "grid-6↑ PnL:$+0.25"
-    },
-    {
-      "time": "2026-04-05T17:48:15+08:00",
-      "side": "BUY",
-      "symbol": "ADA",
-      "amount": 825.4230293,
-      "price": 0.2423,
-      "note": "grid-6↓"
     },
     {
       "time": "2026-04-05T17:24:26+08:00",
@@ -722,23 +766,6 @@
       "price": 8.81,
       "pnl": 0.23,
       "note": "grid-6↑ PnL:$+0.23"
-    },
-    {
-      "time": "2026-04-05T15:46:21+08:00",
-      "side": "BUY",
-      "symbol": "AVAX",
-      "amount": 22.72727273,
-      "price": 8.8,
-      "note": "grid-6↓"
-    },
-    {
-      "time": "2026-04-05T14:25:38+08:00",
-      "side": "SELL",
-      "symbol": "AVAX",
-      "amount": 112.71944793,
-      "price": 8.83,
-      "pnl": -4.69,
-      "note": "grid-6↑ PnL:$-4.69"
     }
   ],
   "equityCurve": [
@@ -748,10 +775,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 9879.63
+      "value": 9877.09
     }
   ],
-  "lastUpdated": "2026-04-05T18:51:46+08:00",
+  "lastUpdated": "2026-04-05T19:56:12+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

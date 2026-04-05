@@ -1,0 +1,12 @@
+{
+  "started_at": "2026-04-05",
+  "self_evolve_version": "byom (willificent/self-evolve-byom)",
+  "mode": "tools_only",
+  "remote_sharing": false,
+  "performance_log": [],
+  "notes": [
+    "2026-04-05: 老庄授权小花自主判断是否执行进化任务",
+    "2026-04-05: 安装 self-evolve-byom（完全本地，remote=disabled）",
+    "2026-04-05: 先用 tools_only 模式观察 Q 值再决定是否升级"
+  ]
+}

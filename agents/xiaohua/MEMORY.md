@@ -98,6 +98,11 @@
 - 阿里云百炼：sk-sp-b879148afe854c45b2850757aa4997fd
 - MiniMax图像：sk-cp-v8R-...（额度已耗尽，需续费）
 
+### Vercel
+- Token（永久）：[VERCEL_TOKEN_REDACTED]
+- GitHub：bjd1129-create / zhugedengpao（Vercel已关联）
+- 部署命令：`cd website && vercel --token [VERCEL_TOKEN_REDACTED]`
+
 ---
 
 ## 团队进化技术栈（2026-04-05）
@@ -178,6 +183,17 @@
 - Best practices核心机制：纠正触发→知识卡片→晋升规则（3次→AGENTS.md，行为纠正→rules/）
 - Token纪律（真实踩坑）：expiring tokens = use-it-or-lose-it；用最便宜的模型处理任务；搜索memory而非加载
 - Memory sweep cron（每6小时）：用code-specialized模型，不占前端模型配额
+
+## 2026-04-05 重要决定
+- 老庄决策：美股模拟盘用**老虎证券**（已有PAPER账户$1M）
+- 老庄授权：Vercel token（永久）存入MEMORY.md
+- 官网迁移：Cloudflare Pages → Vercel（解决CDN缓存7天问题）
+
+### 新增洞察（2026-04-05第十七轮研究）
+- **Self-Improving Agent 深度**：每日凌晨4点自动复盘，检查对话记录提取经验，更新MEMORY.md（类似工程团队日终复盘）
+- **AutoSkill 技能进化循环**：右环（提取+维护交互→显式技能） + 左环（查询重写→技能检索→上下文注入）；通过记忆增长而非模型微调持续改进
+- **3月18日龙虾进化大会**：全球OpenClaw Agent进入Bot University，使用A2A协议运行"历史性自我优化周期"
+- **self-evolve.club**：共享技能进化网络，Evolution Score = Reuse Hits + Quality Reward，可查询排行榜
 
 ### OpenClaw v2026.4.1 Breaking Changes
 - xAI/Firecrawl配置从 `core tools.web.*` 迁移到 `plugins.entries.*`，需运行 `openclaw doctor --fix`

@@ -557,16 +557,85 @@ function renderPoly(data) {
   document.getElementById('polyMarkets').innerHTML = html;
 }
 
+async function initPolyPortfolio() {
+  try {
+    var res = await fetch('/data/trading/polymarket_portfolio.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('portfolio加载失败');
+    var data = await res.json();
+    renderPolyPortfolio(data);
+  } catch(err) { console.error('polymarket_portfolio.json 加载失败:', err); }
+}
+
+function renderPolyPortfolio(data) {
+  var acc = data.account || {};
+  document.getElementById('polyCash').textContent = acc.cash_balance != null ? '$' + Number(acc.cash_balance).toLocaleString('en-US', {minimumFractionDigits: 2}) : '--';
+  document.getElementById('polyPosValue').textContent = acc.position_value != null ? '$' + Number(acc.position_value).toLocaleString('en-US', {minimumFractionDigits: 2}) : '$0.00';
+  document.getElementById('polyTotalValue').textContent = acc.total_value != null ? '$' + Number(acc.total_value).toLocaleString('en-US', {minimumFractionDigits: 2}) : '--';
+  var pnl = acc.realized_pnl || 0;
+  var pnlEl = document.getElementById('polyRealizedPnL');
+  pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + Number(pnl).toLocaleString('en-US', {minimumFractionDigits: 2});
+  pnlEl.style.color = pnl >= 0 ? '#3fb950' : '#f85149';
+
+  // 持仓
+  var positions = data.positions || [];
+  if (positions.length === 0) {
+    document.getElementById('polyPositions').innerHTML = '<div class="empty">暂无持仓，继续研究...</div>';
+  } else {
+    var posHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>预测</td><td>方向</td><td>数量</td><td>盈亏</td></tr>';
+    positions.forEach(function(p) {
+      var pnl2 = p.pnl || 0;
+      var color2 = pnl2 >= 0 ? '#3fb950' : '#f85149';
+      posHtml += '<tr style="color:#c9d1d9;"><td>' + (p.question || '--') + '</td><td>' + (p.side || '--') + '</td><td>' + (p.amount || 0) + '</td><td style="color:' + color2 + ';">' + (pnl2 >= 0 ? '+' : '') + '$' + Number(pnl2).toFixed(2) + '</td></tr>';
+    });
+    posHtml += '</table>';
+    document.getElementById('polyPositions').innerHTML = posHtml;
+  }
+
+  // 研究中
+  var notes = data.research_notes || [];
+  var researching = notes.filter(function(n) { return n.status === 'researching'; });
+  if (researching.length === 0) {
+    document.getElementById('polyResearch').innerHTML = '<div class="empty">暂无研究中的预测</div>';
+  } else {
+    var resHtml = '';
+    researching.forEach(function(r) {
+      resHtml += '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #30363d;">' +
+        '<div style="font-size:0.9rem;margin-bottom:6px;">' + (r.question || '--') + '</div>' +
+        '<div style="font-size:0.78rem;color:#8b949e;">市场概率: ' + (r.market_probability != null ? Math.round(r.market_probability * 100) + '%' : '--') +
+        ' · 我们判断: ' + (r.our_probability != null ? Math.round(r.our_probability * 100) + '%' : '--') +
+        ' · 评估: ' + (r.our_assessment || '--') + '</div></div>';
+    });
+    document.getElementById('polyResearch').innerHTML = resHtml;
+  }
+
+  // 交易记录
+  var trades = data.trades || [];
+  if (trades.length === 0) {
+    document.getElementById('polyTrades').innerHTML = '<div class="empty">暂无交易记录</div>';
+  } else {
+    var tHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>时间</td><td>预测</td><td>方向</td><td>数量</td><td>盈亏</td></tr>';
+    trades.forEach(function(t) {
+      var pnl3 = t.pnl || 0;
+      var color3 = pnl3 >= 0 ? '#3fb950' : '#f85149';
+      tHtml += '<tr style="color:#c9d1d9;"><td>' + (t.closed_at ? t.closed_at.substring(0,10) : '--') + '</td><td>' + (t.question || '--').substring(0,20) + '</td><td>' + (t.side || '--') + '</td><td>' + (t.amount || 0) + '</td><td style="color:' + color3 + ';">' + (pnl3 >= 0 ? '+' : '') + '$' + Number(pnl3).toFixed(2) + '</td></tr>';
+    });
+    tHtml += '</table>';
+    document.getElementById('polyTrades').innerHTML = tHtml;
+  }
+}
+
 async function init() {
   await initCrypto();
   await initUSStock();
+  await initPoly();
+  await initPolyPortfolio();
 }
 
 init();
 setInterval(function() {
   if (currentTab === 'crypto') initCrypto();
   else if (currentTab === 'us') initUSStock();
-  else if (currentTab === 'poly') initPoly();
+  else if (currentTab === 'poly') { initPoly(); initPolyPortfolio(); }
 }, 30000);
 </script>
 </body>

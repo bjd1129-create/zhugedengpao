@@ -1,11 +1,11 @@
 {
   "account": {
-    "cashBalance": 6886.97,
-    "totalValue": 9877.09,
+    "cashBalance": 6686.97,
+    "totalValue": 9871.02,
     "initialBalance": 10000.0,
-    "totalPnL": -122.91,
-    "totalPnLPercent": -1.23,
-    "totalTrades": 68,
+    "totalPnL": -128.98,
+    "totalPnLPercent": -1.29,
+    "totalTrades": 69,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
   },
@@ -15,27 +15,27 @@
       "name": "Bitcoin",
       "amount": 0.02234012,
       "avgPrice": 67143.78,
-      "currentPrice": 66989.07,
-      "value": 1496.54,
-      "pnl": -3.46,
-      "pnlPercent": -0.23
+      "currentPrice": 66895.91,
+      "value": 1494.46,
+      "pnl": -5.54,
+      "pnlPercent": -0.37
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
       "amount": 0.7313149,
       "avgPrice": 2051.1,
-      "currentPrice": 2042.32,
-      "value": 1493.58,
-      "pnl": -6.42,
-      "pnlPercent": -0.43
+      "currentPrice": 2036.63,
+      "value": 1489.42,
+      "pnl": -10.58,
+      "pnlPercent": -0.71
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 8.83,
+      "currentPrice": 8.82,
       "value": 0.0,
       "pnl": 0.0,
       "pnlPercent": 0
@@ -43,12 +43,12 @@
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 0.2425,
-      "value": 0.0,
-      "pnl": 0.0,
-      "pnlPercent": 0
+      "amount": 827.47207282,
+      "avgPrice": 0.2417,
+      "currentPrice": 0.2419,
+      "value": 200.17,
+      "pnl": 0.17,
+      "pnlPercent": 0.08
     }
   ],
   "gridState": {
@@ -379,10 +379,18 @@
         0.256,
         0.2573
       ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 7,
+      "position": 827.4720728175424,
+      "avgPrice": 0.2417,
+      "lastGridIdx": 6,
       "fills": [
+        {
+          "time": "2026-04-05T21:52:49+08:00",
+          "side": "BUY",
+          "symbol": "ADA",
+          "amount": 827.47207282,
+          "price": 0.2417,
+          "note": "grid-6↓"
+        },
         {
           "time": "2026-04-05T19:51:26+08:00",
           "side": "SELL",
@@ -700,6 +708,14 @@
   },
   "recentTrades": [
     {
+      "time": "2026-04-05T21:52:49+08:00",
+      "side": "BUY",
+      "symbol": "ADA",
+      "amount": 827.47207282,
+      "price": 0.2417,
+      "note": "grid-6↓"
+    },
+    {
       "time": "2026-04-05T19:51:26+08:00",
       "side": "SELL",
       "symbol": "ADA",
@@ -734,15 +750,6 @@
       "note": "grid-6↓"
     },
     {
-      "time": "2026-04-05T18:41:40+08:00",
-      "side": "SELL",
-      "symbol": "ADA",
-      "amount": 825.4230293,
-      "price": 0.2426,
-      "pnl": 0.25,
-      "note": "grid-6↑ PnL:$+0.25"
-    },
-    {
       "time": "2026-04-05T17:24:26+08:00",
       "side": "SELL",
       "symbol": "BTC",
@@ -775,10 +782,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 9877.09
+      "value": 9871.02
     }
   ],
-  "lastUpdated": "2026-04-05T19:56:12+08:00",
+  "lastUpdated": "2026-04-05T21:58:05+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

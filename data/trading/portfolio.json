@@ -1,11 +1,11 @@
 {
   "account": {
-    "cashBalance": 3803.98,
-    "totalValue": 10011.83,
+    "cashBalance": 3804.47,
+    "totalValue": 10006.05,
     "initialBalance": 10000.0,
-    "totalPnL": 11.83,
-    "totalPnLPercent": 0.12,
-    "totalTrades": 35,
+    "totalPnL": 6.05,
+    "totalPnLPercent": 0.06,
+    "totalTrades": 37,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
   },
@@ -15,40 +15,40 @@
       "name": "Bitcoin",
       "amount": 0.04468024,
       "avgPrice": 67143.78,
-      "currentPrice": 67105.8,
-      "value": 2998.3,
-      "pnl": -1.7,
-      "pnlPercent": -0.06
+      "currentPrice": 67027.67,
+      "value": 2994.81,
+      "pnl": -5.19,
+      "pnlPercent": -0.17
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
       "amount": 1.46262981,
       "avgPrice": 2051.1,
-      "currentPrice": 2057.63,
-      "value": 3009.55,
-      "pnl": 9.55,
-      "pnlPercent": 0.32
+      "currentPrice": 2055.73,
+      "value": 3006.77,
+      "pnl": 6.77,
+      "pnlPercent": 0.23
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 8.98,
-      "value": 0.0,
+      "amount": 22.29654404,
+      "avgPrice": 8.97,
+      "currentPrice": 8.97,
+      "value": 200.0,
       "pnl": 0.0,
-      "pnlPercent": 0
+      "pnlPercent": 0.0
     },
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 809.06148867,
-      "avgPrice": 0.2472,
-      "currentPrice": 0.2472,
-      "value": 200.0,
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0.2478,
+      "value": 0.0,
       "pnl": 0.0,
-      "pnlPercent": 0.0
+      "pnlPercent": 0
     }
   ],
   "gridState": {
@@ -89,10 +89,18 @@
         9.2981,
         9.3446
       ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 11,
+      "position": 22.29654403567447,
+      "avgPrice": 8.97,
+      "lastGridIdx": 10,
       "fills": [
+        {
+          "time": "2026-04-05T10:16:30+08:00",
+          "side": "BUY",
+          "symbol": "AVAX",
+          "amount": 22.29654404,
+          "price": 8.97,
+          "note": "grid-10↓"
+        },
         {
           "time": "2026-04-05T07:54:45+08:00",
           "side": "SELL",
@@ -261,10 +269,19 @@
         0.256,
         0.2573
       ],
-      "position": 809.0614886731391,
-      "avgPrice": 0.2472,
-      "lastGridIdx": 10,
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": 11,
       "fills": [
+        {
+          "time": "2026-04-05T10:16:30+08:00",
+          "side": "SELL",
+          "symbol": "ADA",
+          "amount": 809.06148867,
+          "price": 0.2478,
+          "pnl": 0.49,
+          "note": "grid-10↑ PnL:$+0.49"
+        },
         {
           "time": "2026-04-05T09:56:36+08:00",
           "side": "BUY",
@@ -422,6 +439,23 @@
   },
   "recentTrades": [
     {
+      "time": "2026-04-05T10:16:30+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 22.29654404,
+      "price": 8.97,
+      "note": "grid-10↓"
+    },
+    {
+      "time": "2026-04-05T10:16:30+08:00",
+      "side": "SELL",
+      "symbol": "ADA",
+      "amount": 809.06148867,
+      "price": 0.2478,
+      "pnl": 0.49,
+      "note": "grid-10↑ PnL:$+0.49"
+    },
+    {
       "time": "2026-04-05T09:56:36+08:00",
       "side": "BUY",
       "symbol": "ADA",
@@ -439,14 +473,6 @@
       "note": "grid-10↑ PnL:$+0.49"
     },
     {
-      "time": "2026-04-05T09:24:32+08:00",
-      "side": "BUY",
-      "symbol": "ADA",
-      "amount": 810.37277147,
-      "price": 0.2468,
-      "note": "grid-10↓"
-    },
-    {
       "time": "2026-04-05T07:54:45+08:00",
       "side": "SELL",
       "symbol": "AVAX",
@@ -462,15 +488,6 @@
       "amount": 22.29654404,
       "price": 8.97,
       "note": "grid-10↓"
-    },
-    {
-      "time": "2026-04-05T07:23:29+08:00",
-      "side": "SELL",
-      "symbol": "AVAX",
-      "amount": 44.4941023,
-      "price": 8.98,
-      "pnl": -0.44,
-      "note": "grid-10↑ PnL:$-0.44"
     }
   ],
   "equityCurve": [
@@ -480,10 +497,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 10011.83
+      "value": 10006.05
     }
   ],
-  "lastUpdated": "2026-04-05T09:56:36+08:00",
+  "lastUpdated": "2026-04-05T10:16:30+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

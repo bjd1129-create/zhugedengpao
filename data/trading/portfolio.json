@@ -1,11 +1,11 @@
 {
   "account": {
-    "cashBalance": 4004.92,
-    "totalValue": 10018.12,
+    "cashBalance": 3604.92,
+    "totalValue": 10008.74,
     "initialBalance": 10000.0,
-    "totalPnL": 18.12,
-    "totalPnLPercent": 0.18,
-    "totalTrades": 38,
+    "totalPnL": 8.74,
+    "totalPnLPercent": 0.09,
+    "totalTrades": 40,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
   },
@@ -15,40 +15,40 @@
       "name": "Bitcoin",
       "amount": 0.04468024,
       "avgPrice": 67143.78,
-      "currentPrice": 67159.99,
-      "value": 3000.72,
-      "pnl": 0.72,
-      "pnlPercent": 0.02
+      "currentPrice": 67089.34,
+      "value": 2997.57,
+      "pnl": -2.43,
+      "pnlPercent": -0.08
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
       "amount": 1.46262981,
       "avgPrice": 2051.1,
-      "currentPrice": 2059.63,
-      "value": 3012.48,
-      "pnl": 12.48,
-      "pnlPercent": 0.42
+      "currentPrice": 2055.37,
+      "value": 3006.25,
+      "pnl": 6.25,
+      "pnlPercent": 0.21
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 8.99,
-      "value": 0.0,
+      "amount": 22.34636872,
+      "avgPrice": 8.95,
+      "currentPrice": 8.95,
+      "value": 200.0,
       "pnl": 0.0,
-      "pnlPercent": 0
+      "pnlPercent": 0.0
     },
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 0.2479,
-      "value": 0.0,
+      "amount": 810.37277147,
+      "avgPrice": 0.2468,
+      "currentPrice": 0.2468,
+      "value": 200.0,
       "pnl": 0.0,
-      "pnlPercent": 0
+      "pnlPercent": 0.0
     }
   ],
   "gridState": {
@@ -89,10 +89,18 @@
         9.2981,
         9.3446
       ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 11,
+      "position": 22.346368715083802,
+      "avgPrice": 8.95,
+      "lastGridIdx": 10,
       "fills": [
+        {
+          "time": "2026-04-05T11:35:28+08:00",
+          "side": "BUY",
+          "symbol": "AVAX",
+          "amount": 22.34636872,
+          "price": 8.95,
+          "note": "grid-10↓"
+        },
         {
           "time": "2026-04-05T10:32:50+08:00",
           "side": "SELL",
@@ -278,10 +286,18 @@
         0.256,
         0.2573
       ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 11,
+      "position": 810.3727714748785,
+      "avgPrice": 0.2468,
+      "lastGridIdx": 10,
       "fills": [
+        {
+          "time": "2026-04-05T11:35:28+08:00",
+          "side": "BUY",
+          "symbol": "ADA",
+          "amount": 810.37277147,
+          "price": 0.2468,
+          "note": "grid-10↓"
+        },
         {
           "time": "2026-04-05T10:16:30+08:00",
           "side": "SELL",
@@ -448,6 +464,22 @@
   },
   "recentTrades": [
     {
+      "time": "2026-04-05T11:35:28+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 22.34636872,
+      "price": 8.95,
+      "note": "grid-10↓"
+    },
+    {
+      "time": "2026-04-05T11:35:28+08:00",
+      "side": "BUY",
+      "symbol": "ADA",
+      "amount": 810.37277147,
+      "price": 0.2468,
+      "note": "grid-10↓"
+    },
+    {
       "time": "2026-04-05T10:32:50+08:00",
       "side": "SELL",
       "symbol": "AVAX",
@@ -480,24 +512,6 @@
       "amount": 809.06148867,
       "price": 0.2472,
       "note": "grid-10↓"
-    },
-    {
-      "time": "2026-04-05T09:47:47+08:00",
-      "side": "SELL",
-      "symbol": "ADA",
-      "amount": 810.37277147,
-      "price": 0.2474,
-      "pnl": 0.49,
-      "note": "grid-10↑ PnL:$+0.49"
-    },
-    {
-      "time": "2026-04-05T07:54:45+08:00",
-      "side": "SELL",
-      "symbol": "AVAX",
-      "amount": 22.29654404,
-      "price": 8.99,
-      "pnl": 0.45,
-      "note": "grid-10↑ PnL:$+0.45"
     }
   ],
   "equityCurve": [
@@ -507,10 +521,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 10018.12
+      "value": 10008.74
     }
   ],
-  "lastUpdated": "2026-04-05T10:32:50+08:00",
+  "lastUpdated": "2026-04-05T11:35:28+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

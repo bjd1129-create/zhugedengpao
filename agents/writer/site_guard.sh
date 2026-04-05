@@ -8,7 +8,7 @@ mkdir -p $(dirname $LOG)
 echo "=== $(date '+%Y-%m-%d %H:%M') 巡检开始 ===" >> $LOG
 
 # 检查官网可访问性
-STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://dengpao.pages.dev/diary.html)
+STATUS=$(curl -sL -o /dev/null -w "%{http_code}" https://dengpao.pages.dev/diary.html)
 if [ "$STATUS" != "200" ]; then
     echo "⚠️ 官网不可访问 (HTTP $STATUS)" >> $LOG
 else

@@ -1,67 +1,102 @@
 #!/usr/bin/env python3
-"""老虎证券API连接测试 - 只读查询账户信息"""
-import sys
-sys.path.insert(0, '/Users/bjd/.venv/tiger/lib/python3.14/site-packages')
+"""Tiger OpenAPI 连接测试"""
+import base64, subprocess, time, json, requests, datetime
+from urllib.parse import parse_qsl
 
-from tigeropen.tiger_open_config import TigerOpenClientConfig
-from tigeropen.tiger_open_client import TigerOpenClient
-from tigeropen.trade.trade_client import TradeClient
-from tigeropen.common.consts import Language
+# ====== 配置 ======
+TIGER_ID = "20158404"
+ACCOUNT_ID = "21639635499102726"
+LICENSE = "TBNZ"
 
-# 老虎账户配置
-tiger_id = '20158404'
-account = '21208479777116329'
-license_code = 'TBNZ'
-sandbox = False
-
-# 用户的PKCS#8私钥（base64格式，无PEM标记）
-private_key_base64 = 'MIICeQIBADANBgkqhkiG9w0BAQEFAASCAmMwggJfAgEAAoGBAI0M43gf0b1Se1A2MlU2rT4okoJ6/Ed1q+YXWYRFWnODW9u/JJ9TtflwTTEz6ckS6f3L8jJ1Mbfr6Jx1kdAGiAuiJDawz1h67qBPMJfqSEJxkkHFoWJA35WTtUGNw2t/sFTUVIMNWc3CeCCm3U+9TUogce8Fm9w0PuJ9kQyBwOrFAgMBAAECgYEAgp3J04abwpcsDEZz68dbPLFzoxLipgYI7mT3B2716PxexyrFbiml3VyqjwLE3uf9+YGwQhuWs/vpB2I0ahByT/t4d6XAh6cgSf26CnR+MtsrQ3PJISUDCQVPFXzu6TY3n5x05rJgYeM6KPBGmamuL+O6hC2/AJzJCXtrDf0gM2ECQQDDzvoTbxLBhPGfEMw+rKaKLVngRj0ckYtR2AanSeNVzkwsi/OH/cn3JseQ5irYSk6rfqJ12JOMJPad6h9YIJ8pAkEAuGjBBzgVZtZIy/BmGO7gFfRW/tGrTDeKNzvaraDS9e6UXN2VaI2F5g19GWR+VRyWtYRfa4+tL7OtybCQN6jOPQJBAJ4LFFvVPh1GkcNiyogX0IAc5LsZ1j+V1g6kP5KNF9ntHhyihVkRZg9/lHqG3LQhHehb2QMnYMgwGYISM2RtSCkCQQClgBYk5XeHqK8CoMjwfYoNChH9dazXpUzdT1Ft3FUYtLrgMVmC0Oin09k/LcqXliXH2HpOrU6P7iD9TwHPgic9AkEAwb7UEYg8mxIBO1XHS4CGtcQzTCb6VVrYYFKr57OBLe1CnS2dhHEQFS9pwiKI1yoxfre4wZx09hxGwOr6fNGn+g=='
-
-# 创建配置
-config = TigerOpenClientConfig(
-    sandbox_debug=sandbox,
-    enable_dynamic_domain=True
+PRIVATE_KEY_B64 = (
+    "MIICXAIBAAKBgQCby+x38wRMjNZgdEKRsfqGPLD+TUrRFu4l5FQsmdZ5ZiZWXvXpdlR6M"
+    "mnKk473jNvBnwUN8qDqujHrn0DOjfmrHCd46Pi+wsVkbf3xbKPXh9RabddOXfMMwTF0n"
+    "h5P9wk9oG0GG1Prxz2cNHuMBBPE+6Whp/01jLgfcoZb7PImUwIDAQABAoGAVmv+VmNl"
+    "5RjS6lpTewJhWAlenRI/CFFR9Y786mjDwj/Z0FuIyeKr5cUFTiwgSE3IsVUGtr/6Z3q1"
+    "qmCC0JGNBnH5qttIZwLLxUl/RX31IiYwjUC8rY/AhPa5Uwp4nNYi3qKsMIYV1Efg2Rm1"
+    "B68iZhL/GtEnSo0PMIdK8GSMqAECQQDT4pzMU35t69+qdZn1GGU2FQqe0MuYZk+eRPW2Q"
+    "RpnwaCWZiv60b6Fdjioh/UZbJ/gNetyxbcVDqti1sORN/hTAkEAvDvP7DsZoo7nBF7Cc"
+    "Dd+IFKTPyHmzi65kIHek/SmQJ/JR4ZNKTWzFSdVnSzNSvFbkr7V4WAkSW1Gx1du5j9a"
+    "AQJBALzQZwvJp5OKqxD6pUx9Bcww6frmc1eGbJLMPu2/jClDqbf8qlpjyFSkKg88wJR8"
+    "cOfbBMqNF/5CyUVVvobNCpMCQDKbkiddLGM8MHhIUdaB1PMzwEr0/mzouxNTF1iIKjqt"
+    "uxvzy8MMoP1K+gWsCfXgNlKZ5D8X7imfq6vkofhdiAECQBUpHPtTE6D2xpPYVlaL1Kyk"
+    "PIb1GgAu228v1w+eqgi6zuSgTymZXvn2pIQ/mvzTgXOqU/CpkwhdDTLmDQMpgI0="
 )
-config.private_key = private_key_base64
-config.tiger_id = tiger_id
-config.account = account
-config.license = license_code
-config.language = Language.zh_CN
 
-# 创建交易客户端
-client = TradeClient(config)
+BASE_URL = "https://openapi.tigerfintech.com/gateway"
 
-print("=== 连接测试 ===")
-print(f"Tiger ID: {tiger_id}")
-print(f"Account: {account}")
-print(f"License: {license_code}")
-print(f"环境: {'Sandbox' if sandbox else 'PROD'}")
-print()
+PEM_FILE = '/tmp/tkey.pem'
+pem_text = "-----BEGIN RSA PRIVATE KEY-----\n"
+pem_text += "\n".join([PRIVATE_KEY_B64[i:i+64] for i in range(0, len(PRIVATE_KEY_B64), 64)])
+pem_text += "\n-----END RSA PRIVATE KEY-----"
+with open(PEM_FILE, 'w') as f:
+    f.write(pem_text)
 
-# 获取账户列表
-accounts = client.get_managed_accounts()
-print(f"=== 账户列表 ({len(accounts)}个) ===")
-for a in accounts:
-    print(f"  {a}")
-print()
+def sign(data: str) -> str:
+    r = subprocess.run(['openssl', 'dgst', '-sha1', '-sign', PEM_FILE],
+        input=data.encode('utf-8'), capture_output=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"签名失败: {r.stderr.decode()}")
+    return base64.b64encode(r.stdout).decode('utf-8')
 
-# 获取账户资产
-try:
-    assets = client.get_assets(account)
-    print("=== 账户资产 ===")
-    print(assets)
-except Exception as e:
-    print(f"get_assets 失败: {e}")
+def api_call(method: str, biz: dict = None) -> requests.Response:
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    biz_str = json.dumps(biz or {}, ensure_ascii=False, separators=(',', ':'))
+    
+    params = {
+        "biz_content": biz_str,
+        "charset": "UTF-8",
+        "method": method,
+        "sign_type": "RSA",
+        "timestamp": timestamp,
+        "tiger_id": TIGER_ID,
+        "version": "3.0",
+    }
+    
+    pairs = [f"{k}={v}" for k, v in sorted(params.items())]
+    sign_content = "&".join(pairs)
+    signature = sign(sign_content)
+    
+    body = dict(params)
+    body["sign"] = signature
+    
+    headers = {"Content-Type": "application/json;charset=UTF-8"}
+    
+    resp = requests.post(
+        BASE_URL,
+        headers=headers,
+        params=dict(parse_qsl(sign_content + "&sign=" + signature)),
+        data=json.dumps(body, ensure_ascii=False),
+        timeout=15
+    )
+    return resp
 
-# 获取持仓
-try:
-    positions = client.get_positions(account)
-    print(f"\n=== 持仓 ({len(positions)}项) ===")
-    total_value = 0
-    for p in positions:
-        mv = float(p.market_value) if p.market_value else 0
-        total_value += mv
-        print(f"  {p.symbol} {p.quantity}股 @ \${p.market_price} 市值\${mv:.2f} 浮盈\${float(p.unrealized_pnl or 0):.2f}")
-    print(f"持仓总市值: \${total_value:.2f}")
-except Exception as e:
-    print(f"get_positions 失败: {e}")
+def test(method: str, biz: dict = None):
+    print(f"\n{'='*50}")
+    print(f"Method: {method}")
+    resp = api_call(method, biz)
+    print(f"状态码: {resp.status_code}")
+    try:
+        data = resp.json()
+        print(json.dumps(data, ensure_ascii=False, indent=2)[:1000])
+        return data
+    except:
+        print(resp.text[:500])
+        return None
+
+if __name__ == "__main__":
+    print(f"Tiger ID: {TIGER_ID}")
+    print(f"账户: {ACCOUNT_ID}")
+    print(f"Base URL: {BASE_URL}")
+    
+    # 1. 获取账户列表
+    test("accounts", {"account": ACCOUNT_ID})
+    
+    # 2. 获取账户信息
+    test("account.info", {"account": ACCOUNT_ID})
+    
+    # 3. 获取持仓
+    test("positions", {"account": ACCOUNT_ID})
+    
+    # 4. 获取资产
+    test("assets", {"account": ACCOUNT_ID})

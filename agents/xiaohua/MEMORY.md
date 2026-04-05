@@ -36,13 +36,78 @@
 - 有爱、温暖、真实、皮实、有立场
 - 关系：主仆+伙伴
 
-## OpenClaw 自我进化体系（2026-04-05研究）
-- Dreaming（记忆梦境）：自动后台进程，每晚3点将高频回忆晋升到MEMORY.md
-- Capability Evolver：纯确定性日志分析器，100ms内出结果，无需LLM
-- Skill Evolution：钩子+checkpoint机制，大任务结束必须回答3问决定是否更新技能
-- Agent Loop Hooks：17个拦截点，可精细控制agent行为
-- Self-Evolve Club：外部排行榜平台（今日502故障）
-- 核心哲学：靠"用"不靠"想"——被动、确定性、闭环
+## OpenClaw 自我进化体系（持续更新）
+
+### OpenClaw进化研究关键结论（第三轮 2026-04-06）
+
+**最高价值发现**：
+- OPD的"hindsight文本提示"思路可迁移：不需要GPU，只需"本应怎么做"复盘模板
+- 2026/4/4 Group Feedback Optimization发布 → 多人反馈整合是热点方向
+- 小花+老庄+女儿三人反馈模式契合Group Feedback趋势
+
+**团队最适配组合**：Capability Evolver Pro（日志分析）+ Self-Evolve（行为学习）
+
+**本轮新发现（第四轮 2026-04-06）**：
+- Session Pruning：比Compaction轻量的工具结果裁剪，MiniMax用户需手动开启
+- Execute-Verify-Report：Standing Orders的核心理念，heartbeat应遵循此循环
+- Hooks事件体系：session-memory/command-logger可追踪改进轨迹
+- Git Backup：workspace应进私有git仓库保护记忆资产
+- Deep Recovery：健康分<0.35时自动从日志恢复记忆
+
+**短期建议**：
+1. 安装Capability Evolver Pro
+2. 配置Gateway成本限制（目前无上限）
+3. 建立exec日志记录，每周分析一次
+4. 检查Dreaming是否开启：`openclaw memory status`
+5. 为MiniMax模型开启Session Pruning
+6. 开启session-memory hook追踪session历史
+
+---
+
+### 已知进化方案（2026-04-06更新）
+
+| 方案 | 来源 | 核心机制 | 推荐度 |
+|------|------|----------|--------|
+| Self-Improving Agent | @pskoett | .learnings日志+自动复盘 | ⭐⭐⭐⭐⭐ |
+| AutoSkill | 华东师大+上海AI Lab | 交互中提炼技能+版本管理 | ⭐⭐⭐⭐ |
+| Self-Evolve | longmans | 强化学习+Q值+共享网络 | ⭐⭐⭐⭐ |
+| Capability Evolver | OpenClaw官方 | 日志分析+自动修复 | ⭐⭐⭐⭐ |
+| Dreaming | 已有 | Light整理→Deep评分→REM反思，三阶段分工 | ⭐⭐⭐⭐ |
+| OpenClaw-RL (OPD) | Gen-Verse (arXiv:2603.10165) | Hindsight文本提示+异步四环训练 | ⭐⭐⭐ |
+
+### Self-Improving Agent配置
+```
+安装：clawdhub install self-improving-agent
+目录：.learnings/
+  - ERRORS.md（错误记录）
+  - LEARNINGS.md（经验沉淀）
+  - FEATURE_REQUESTS.md（需求收集）
+定时：凌晨4点自动复盘
+```
+
+### Self-Evolve 插件（2026-04-06新）
+**来源**: [longmans/self-evolve](https://github.com/longmans/self-evolve)
+**核心**: 情景记忆 + Q值学习 + 远程共享网络
+- `learnMode`: balanced/tools_only/all（平衡/仅工具/全轮次）
+- 奖励阈值: minAbsReward=0.15, minRewardConfidence=0.55
+- 远程共享: self-evolve.club 社区经验池
+- 安全: 本地+LLM双脱敏，仅共享sanitized triplets
+**推荐**：与 Capability Evolver Pro 组合使用
+
+### Session Context Bloat 防护（2026-04-06新）
+**来源**: [garrettekinsman/openclaw-best-practices](https://github.com/garrettekinsman/openclaw-best-practices) v2
+- heartbeat/cron 累积可导致 100k+ token 爆炸
+- 解决：Context Graph Integration（DAG-based topic+recency assembly）
+- 需定期审计 session 长度
+
+### 进化哲学（2026-04-06新）
+> "技能不是设计出来的，而是从经验中长出来的"
+> ——AutoSkill论文
+
+### 行动项
+- [ ] 评估安装Self-Improving Agent
+- [ ] 设置凌晨自动复盘cron
+- [ ] 评估AutoSkill是否适合团队
 
 ## 品牌定位
 - 「老庄与小花」· 普通人用20天驯的AI龙虾

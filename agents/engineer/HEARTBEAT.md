@@ -15,10 +15,10 @@
 
 ---
 
-## 🔴 P1 待执行（2026-04-06 协调官注入）
+## ✅ P1 已完成
+- comic.html 删除 + git push ✅（协调官 02:52 执行）
 
-**comic.html 物理文件清理**
-- 执行：`rm website/pages/comic.html`
-- 然后：`git add -A && git commit -m "chore: 删除已停止的漫画页面" && git push`
-- 原因：漫画项目已停止（2026-04-05 18:31），物理文件仍存在，需"关灯关门"
-- 阻塞：无，执行后更新 PROGRESS.md
+## 🔴 P2 待执行
+**八卦页面重建**
+- 确认需求：页面定位、内容来源、设计风格
+- 完成后 git push

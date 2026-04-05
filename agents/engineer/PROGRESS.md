@@ -5,8 +5,8 @@
 > ⚠️ 漫画项目已停止（18:31老庄决定），stories 23-28取消
 
 ### 1. 清理PROGRESS.md
-- comic集成任务已取消，无需处理
-- Git本地有memory/data文件变更，待确认是否push
+- comic集成任务已取消，无需处理 ✅
+- Git本地有memory/data文件变更，已 push ✅（58f7b9b）
 
 ### 2. 网站持续完善
 - Polymarket改造 ✅ 完成

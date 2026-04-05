@@ -173,8 +173,11 @@ footer a:hover{color:#E07A5A}
     // Find panels for this story
     var storyPanels = allPanels.filter(function(p){ return p.story===id; });
     lightboxPanels = storyPanels;
-    // Render grid
     var header = stories.find(function(s){return s.id===id;}) || { emoji:'🎭', title:'漫画第一话' };
+    if(!storyPanels.length){
+      container.innerHTML = '<div style="text-align:center;padding:60px 20px;background:#fff;border-radius:16px;border:2px solid #e8e4df;margin-top:20px"><div style="font-size:48px;margin-bottom:16px">🎭</div><div style="font-size:16px;font-weight:700;color:#555;margin-bottom:8px">这一话正在绘制中~</div><div style="font-size:13px;color:#aaa">配色师正在加班，其他故事已上线</div></div>';
+      return;
+    }
     container.innerHTML = '<div class="episode-header"><div class="episode-title">'+header.emoji+' '+header.title+'</div><div class="episode-desc">共8格 · 点击任意一格放大</div></div><div class="comic-grid" id="grid'+id+'"></div>';
     var grid = document.getElementById('grid'+id);
     storyPanels.forEach(function(panel, i){

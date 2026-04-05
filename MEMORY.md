@@ -140,6 +140,53 @@
 
 ## OpenClaw 自进化体系（2026-04-05持续更新）
 
+### 🚨 第十二轮重大发现（2026-04-05 07:00）
+- **🔴 Anthropic封禁OpenClaw**：Claude Code订阅禁止使用OpenClaw（HN 1016分，793评）—— P0级
+- **🔴 Google封禁OpenClaw**：Google AI Pro/Ultra禁止使用OpenClaw（HN 802分）—— P0级
+- **🔴 CVE-2026-33579**：OpenClaw权限提升漏洞（HN 498分）—— 新CVE，需确认2026.4.2是否修复
+- **🟠 OpenClaw超越React**：100K GitHub Stars，成为最大星标项目（HN 291分）
+- **🟠 OpenClaw不应装在个人电脑上**（HN 237分）—— **我们当前MBB's iMac是主力机⚠️**
+- **🟡 沙箱无法完全保护OpenClaw**（HN 112分）
+- **✅ 缓解措施**：限制workspace权限、审计日志、多模型并行避免单点依赖
+
+### ⚠️ 当前最大安全风险
+OpenClaw运行在MBB's iMac（主力机），有完整文件访问权限。建议：
+1. 短期：严格限制workspace边界
+2. 长期：迁移到专用Mac Mini或VPS
+3. 不在OpenClaw中处理极度敏感操作（金融API Key虽在.env但仍需谨慎）
+
+### API Provider依赖风险（已确认）
+- ✅ MiniMax API：主力，正常使用，不受Anthropic/Google封禁影响
+- ❌ Claude Code：Anthropic已封禁OpenClaw，Claude订阅用户无法通过OpenClaw使用
+- ❌ Google AI：Google已封禁OpenClaw
+- 建议：评估Azure OpenAI或阿里云百炼作为Claude备选
+
+### OpenClaw里程碑（2026-04-05更新）
+- **100K GitHub Stars**（3周翻倍，超越React增速）
+- 每日自主执行：230万小时
+- 单Agent MTBF：847小时（~35天无故障）
+- ClawHub技能：13,729个（awesome-openclaw-skills人工审核5,211个高质量）
+- 商业托管商：14家
+- HN讨论热度：持续保持前10榜单
+
+### OpenClaw-RL论文新发现（2026-03-10）
+- **论文**：arXiv:2603.10165，Princeton团队
+- **核心洞察**：每个动作后的"下一状态信号"（用户回复/工具输出/终端变化）是天然训练数据
+- **两种信号**：评估性信号（PRM标量奖励）+ 指令性信号（OPD token级方向监督）
+- **OPD**：Hindsight-Guided On-Policy Distillation，恢复"应该怎么做不同"
+- **意义**：对话本身就是RL训练数据，不需要传统RLHF流水线
+- **异步设计**：模型服务+PRM评判+训练器零协调开销
+
+### BetterClaw 7条稳定运行规则（2026-04，新发现）
+1. **模型路由**：heartbeat→DeepSeek/Haiku，简单对话→Gemini Flash，复杂推理→Opus（节省70-80%成本）
+2. **消费上限**：所有provider设置月度cap，maxIterations=10-15（防runaway loop）
+3. **结构化SOUL.md**：必须含错误行为/对话边界/速率限制/话题限制（模糊SOUL.md第10次对话后行为漂移）
+4. **安全基线**：Gateway绑127.0.0.1，SSH Key认证，UFW防火墙，安装前审核技能源码
+5. **ContextEngine（2026.3+）**：50轮对话减少30% context，/btw命令保持长任务上下文
+6. **Secrets Workflow**：~/.openclaw/secrets/加密存储，.gitignore排除
+7. **Human-in-the-Loop**：敏感操作暂停确认
+- **CVE-2026-25253**：RCE漏洞，CVSS 8.8，需升级到2026.3+
+
 ### 四层进化体系（从低到高）
 | 层次 | 组件 | 自主程度 | Token成本 | 代表技能 |
 |------|------|----------|-----------|----------|
@@ -153,6 +200,13 @@
 - **GEP协议**：防失控标准化进化流程
 - **使用**：`/evolve` 或 `claw config --auto-optimize=true --interval=24h`
 - **安装**：`npx clawhub@latest install capability-evolver`
+
+### OpenClaw-RL（研究级，尚未落地）
+- **论文**：arXiv:2603.10165，Princeton团队，2026-03-10
+- **原理**：把"下一状态信号"作为通用训练信号，用PRM做评估+OPD做指令恢复
+- **意义**：对话本身 = RL训练数据，无需独立标注流水线
+- **现状**：论文阶段，社区尚未集成到OpenClaw主版本
+- **关注**：Gen-Verse/OpenClaw-RL GitHub
 
 ### self-evolve 插件（必须安装）⭐⭐⭐⭐⭐
 - **GitHub：** github.com/longmans/self-evolve
@@ -513,3 +567,13 @@ Detection → Analysis → Generation → Integration
 2. 建立pending-skills/审核目录（新技能先审核再激活）
 3. 审查所有SKILL.md，确保<50行
 4. SOUL.md补全：error state behavior + rate limit language
+
+### 2026-04-05 进化研究新发现
+- **self-evolve 三模式**：`balanced`（默认）/ `tools_only`（最低成本）/ `all`（最高成本）
+  - balanced模式下无工具调用轮次需要 minAbsReward=0.8 + minRewardConfidence=0.9
+  - 检索阈值 tau=0.85，只注入高相似度记忆
+- **反馈机制关键**：明确的Praise/批评 > 模糊"ok"；反馈是激活Q值学习的唯一途径
+- **Capability Evolver Pro**：本地已安装（无LLM、<100ms、零token），专注于确定性分析
+- **Self Health Monitor**：已部署，监控PCEC/memory/子Agent/响应质量，阈值：PCEC>2h告警，子Agent>5告警，错误率>20%告警
+- **capability-evolver-pro + self-evolve**：一个负责分析，一个负责实时学习，形成"诊断-学习"闭环
+- **2026最佳实践**：模型分级使用、缓存启用、成本告警配置（monthlyBudget）、定期健康检查

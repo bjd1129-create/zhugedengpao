@@ -1,37 +1,46 @@
 # HEARTBEAT.md - 协调官
 
-## 每次心跳（每15分钟）
+## 每次心跳（每15分钟，必须执行）
 
-### 1. 检查团队状态
+### 1. Git巡检
+```
+cd /Users/bjd/Desktop/ZhugeDengpao-Team && git status --short
+```
+- 有未push的commit → 立即push
+- 有冲突/问题 → 立即处理
 
-**配色师检查：**
-- 故事 8-28 进度如何？（读 PROGRESS.md）
-- 有没有新生成的漫画图？
-- 阻塞超过1小时 → 催办
+### 2. 团队状态读取
+- 配色师：读 `agents/designer/PROGRESS.md`
+- 文案君：读 `agents/writer/TASK-COORDINATOR.md`
+- 洞察者：读 `agents/researcher/memory/YYYY-MM-DD.md`
+- 代码侠：读 `agents/engineer/memory/YYYY-MM-DD.md`
 
-**文案君检查：**
-- 分镜脚本写了几个了？（读 TASK-COORDINATOR.md 进度）
-- 阻塞超过1小时 → 催办
-
-**洞察者检查：**
-- articles 页面今天更新了吗？
-- 有没有新研究报告？
-
-### 2. GitHub 同步
-- 有未 push 的 commit → 推上去
-- 有未合并的 PR → 检查状态
-
-### 3. 决策
-- 正常推进 → 不打扰小花
-- 阻塞 → 我解决
+### 3. 问题处理
+- 发现阻塞 → 我解决（2小时窗口）
 - 重大问题 → sessions_send 报小花
+- 正常推进 → 不打扰
+
+### 4. 巡检记录
+每次心跳执行后，在 `memory/YYYY-MM-DD.md` 记录：
+```
+[HH:MM] 心跳巡检 - 配色师:OK 文案君:OK 洞察者:OK 代码侠:OK Git:OK
+```
 
 ---
 
-## 每日节奏（协调官主动巡检）
+## 每日节奏
 
 | 时间 | 任务 |
 |------|------|
-| 每15分钟 | 心跳检查 |
-| 每天 08:00 | 日报巡检 |
+| 每15分钟 | 心跳巡检（Git + 各agent状态） |
+| 每天 08:00 | 日报生成，读各agent昨日总结 |
 | 每天 20:00 | 晚间巡检，发日报给小花 |
+
+---
+
+## 执行规则
+
+1. **心跳超时=失职** — 没执行巡检就是没完成任务
+2. **不push=没完成** — 积压commit等同于任务积压
+3. **阻塞2小时上报** — 超过2小时无法解决才上报
+

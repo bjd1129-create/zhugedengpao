@@ -23,13 +23,25 @@ STRATEGY = {
 }
 
 
+SYMBOL_MAP = {'BTC':'bitcoin','ETH':'ethereum','AVAX':'avalanche-2','ADA':'cardano'}
+
 def get_price(symbol):
+    # 优先Binance，失败则CoinGecko
     try:
         kwargs = {"params": {"symbol": symbol + "USDT"}, "timeout": 10}
         if PROXY: kwargs["proxies"] = {"https": PROXY}
         r = requests.get("https://api.binance.com/api/v3/ticker/price", **kwargs)
-        return float(r.json()["price"]) if r.status_code == 200 else None
-    except: return None
+        if r.status_code == 200: return float(r.json()["price"])
+    except: pass
+    # Fallback: CoinGecko
+    try:
+        cid = SYMBOL_MAP.get(symbol, symbol.lower())
+        r2 = requests.get(f"https://api.coingecko.com/api/v3/simple/price?ids={cid}&vs_currencies=usd", timeout=10)
+        if r2.status_code == 200:
+            data = r2.json()
+            return float(data[cid]['usd'])
+    except: pass
+    return None
 
 
 def build_grid(center, spacing, count):

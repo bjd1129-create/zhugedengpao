@@ -458,13 +458,13 @@ nav{padding:0 16px;top:0}
   <div class="greeting-card">
     <div class="greeting-avatar">
       <div class="avatar-wrapper">
-        <img src="images/xiaohua.jpg" alt="小花" class="xiaohua-avatar">
+        <img src="images/xiaohua.jpg" alt="小花" class="xiaohua-avatar" onerror="this.src='images/xiaohua-comic-char.jpg'">
         <div class="status-badge" id="xiaohuaStatus">☀️</div>
       </div>
       <div class="greeting-text">
         <h2 class="greeting-title" id="greetingTitle">早安！</h2>
-        <p class="greeting-subtitle" id="greetingSubtitle">小花今天在帮你更新网站~</p>
-        <p class="greeting-time" id="greetingTime">现在是下午 15:20</p>
+        <p class="greeting-subtitle" id="greetingSubtitle">正在加载...</p>
+        <p class="greeting-time" id="greetingTime"></p>
       </div>
     </div>
     <div class="greeting-content">
@@ -477,10 +477,10 @@ nav{padding:0 16px;top:0}
           <div class="status-item"><span class="item-icon">📝</span><span class="item-text">加载中...</span></div>
         </div>
       </div>
-      <div class="latest-diary">
+      <div class="latest-diary" id="greetingLatestDiary">
         <a href="diary.html" class="diary-link">
           <span class="diary-badge">最新</span>
-          <span class="diary-title">📖 Day 27：技能页面大修</span>
+          <span class="diary-title" id="greetingLatestTitle">加载中...</span>
           <span class="diary-arrow">→</span>
         </a>
       </div>
@@ -1870,6 +1870,42 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
   setTimeout(showBubble, 3000);
 })();
 </script>
+<script>
+// 小花今日问候模块动态化
+(function(){
+  var titleEl = document.getElementById("greetingTitle");
+  var subEl = document.getElementById("greetingSubtitle");
+  var timeEl = document.getElementById("greetingTime");
+  var statusEl = document.getElementById("xiaohuaStatus");
+  var latestTitleEl = document.getElementById("greetingLatestTitle");
+  var latestDiaryEl = document.getElementById("greetingLatestDiary");
+
+  var h = new Date().getHours();
+  var greetings = h>=5&&h<9 ? {t:"早安！",s:"新的一天开始了~",e:"☀️"}:
+                  h>=9&&h<12? {t:"上午好！",s:"小花今天也在努力工作~",e:"☀️"}:
+                  h>=12&&h<14?{t:"中午好！",s:"记得吃饱再继续~",e:"🌞"}:
+                  h>=14&&h<18?{t:"下午好！",s:"坚持住，事情越来越顺了~",e:"🌤️"}:
+                  h>=18&&h<22?{t:"晚上好！",s:"辛苦了，早点休息哦~",e:"🌙"}:
+                  {t:"夜深了...",s:"小花还在值班~",e:"🌛"};
+
+  if(titleEl) titleEl.textContent = greetings.t;
+  if(subEl) subEl.textContent = greetings.s;
+  if(timeEl) timeEl.textContent = "现在是 " + new Date().toLocaleTimeString("zh-CN",{hour:"2-digit",minute:"2-digit"});
+  if(statusEl) statusEl.textContent = greetings.e;
+
+  // 最新日记
+  fetch("data/diaries.json").then(function(r){return r.json();}).then(function(d){
+    var today = new Date().toISOString().slice(0,10);
+    var latest = d.filter(function(x){return x.date<=today}).sort(function(a,b){return a.date<b.date?1:-1})[0];
+    if(latest && latestTitleEl){
+      latestTitleEl.textContent = "📖 "+latest.title;
+      latestTitleEl.parentElement.href = "diary.html#"+latest.id;
+    }
+    if(!latest && latestDiaryEl) latestDiaryEl.style.display="none";
+  }).catch(function(){});
+})();
+</script>
+
 </body>
 </html>
 

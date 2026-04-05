@@ -1,10 +1,10 @@
 {
   "account": {
-    "cashBalance": 9890.53,
-    "totalValue": 9890.53,
+    "cashBalance": 6289.37,
+    "totalValue": 9890.54,
     "initialBalance": 10000.0,
-    "totalPnL": -109.47,
-    "totalPnLPercent": -1.0947,
+    "totalPnL": -109.46,
+    "totalPnLPercent": -1.09,
     "totalTrades": 77,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
@@ -13,48 +13,48 @@
     {
       "symbol": "BTC",
       "name": "Bitcoin",
-      "amount": 0,
+      "amount": 0.02234012,
       "avgPrice": 67143.78,
       "currentPrice": 67209.81,
-      "value": 0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "value": 1501.48,
+      "pnl": 1.48,
+      "pnlPercent": 0.1
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
-      "amount": 0,
+      "amount": 0.7313149,
       "avgPrice": 2051.1,
       "currentPrice": 2052.13,
-      "value": 0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "value": 1500.75,
+      "pnl": 0.75,
+      "pnlPercent": 0.05
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
-      "amount": 0,
+      "amount": 45.14695691,
       "avgPrice": 8.86,
       "currentPrice": 8.84,
-      "value": 0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "value": 399.1,
+      "pnl": -0.9,
+      "pnlPercent": -0.23
     },
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 0,
+      "amount": 821.69268694,
       "avgPrice": 0.2434,
       "currentPrice": 0.2432,
-      "value": 0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "value": 199.84,
+      "pnl": -0.16,
+      "pnlPercent": -0.08
     }
   ],
   "gridState": {
     "BTC": {
       "levels": [],
-      "position": 0,
+      "position": 0.02234012,
       "avgPrice": 67143.78,
       "lastGridIdx": null,
       "fills": [
@@ -70,7 +70,7 @@
     },
     "ETH": {
       "levels": [],
-      "position": 0,
+      "position": 0.7313149,
       "avgPrice": 2051.1,
       "lastGridIdx": null,
       "fills": [
@@ -107,7 +107,7 @@
         9.2981,
         9.3446
       ],
-      "position": 0,
+      "position": 45.1469569116628,
       "avgPrice": 8.859954853273138,
       "lastGridIdx": 7,
       "fills": [
@@ -395,7 +395,7 @@
         0.256,
         0.2573
       ],
-      "position": 0,
+      "position": 821.6926869350863,
       "avgPrice": 0.2434,
       "lastGridIdx": 7,
       "fills": [
@@ -855,7 +855,7 @@
       "value": 9890.54
     }
   ],
-  "lastUpdated": "2026-04-06T01:42:42+08:00",
+  "lastUpdated": "2026-04-06T00:57:04+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

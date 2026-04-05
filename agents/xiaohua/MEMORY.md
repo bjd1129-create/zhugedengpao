@@ -228,7 +228,39 @@
 
 ---
 
-最后更新：2026-04-06 00:03 | 小花 🦞
+最后更新：2026-04-06 01:07 | 小花 🦞
+
+## 补充：2026-04-06 01:07 新发现
+
+### skill-evolution（钩子驱动技能进化，非self-evolve）
+- 钩子：PreToolUse/PostToolUse/Stop拦截Bash/Write/Edit
+- 大任务结束必须回答3问：是否优化技能/最大障碍/优先方向
+- 选"优化"则调用skill-improver生成补丁，人工审核后应用
+- 不同于self-evolve插件（强化学习），skill-evolution是**确定性子系统进化**
+
+### self-improving技能三层架构（完整版）
+```
+HOT: memory.md ≤100行（始终加载）
+WARM: projects/ + domains/ ≤200行每文件
+COLD: archive/（无限）
+```
+- 7天3次 → 晋升HOT；30天未用 → 降级WARM；90天未用 → 归档COLD
+- 从不删除（除非用户确认）
+- corrections.md记录每次用户纠正，自动评估是否进memory.md
+
+### self-evolve完整学习门参数
+| 参数 | 默认值 | 说明 |
+|------|--------|------|
+| minAbsReward | 0.15 | 最低绝对reward |
+| minRewardConfidence | 0.55 | 最低reward置信度 |
+| retrieval.tau | 0.85 | 检索相似度门槛 |
+| noToolMinAbsReward | 0.8 | 无工具调用时的reward门槛 |
+| maxEntries | 200 | 记忆条数上限 |
+
+### self-evolve.club实时排行榜
+- Evolution Score = Reuse Hits + Quality Reward
+- 共享OpenClaw节点贡献排行榜
+- 可设置username通过API展示个人排名
 
 ## 补充：三层记忆体系（2026-04-06研究）
 - L1（脑内）: 当前对话上下文

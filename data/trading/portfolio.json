@@ -1,11 +1,11 @@
 {
   "account": {
-    "cashBalance": 3998.03,
-    "totalValue": 9961.66,
+    "cashBalance": 3598.03,
+    "totalValue": 9958.48,
     "initialBalance": 10000.0,
-    "totalPnL": -38.34,
-    "totalPnLPercent": -0.38,
-    "totalTrades": 52,
+    "totalPnL": -41.52,
+    "totalPnLPercent": -0.42,
+    "totalTrades": 54,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
   },
@@ -15,40 +15,40 @@
       "name": "Bitcoin",
       "amount": 0.04468024,
       "avgPrice": 67143.78,
-      "currentPrice": 66794.57,
-      "value": 2984.4,
-      "pnl": -15.6,
-      "pnlPercent": -0.52
+      "currentPrice": 66773.12,
+      "value": 2983.44,
+      "pnl": -16.56,
+      "pnlPercent": -0.55
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
       "amount": 1.46262981,
       "avgPrice": 2051.1,
-      "currentPrice": 2036.9,
-      "value": 2979.23,
-      "pnl": -20.77,
-      "pnlPercent": -0.69
+      "currentPrice": 2035.38,
+      "value": 2977.01,
+      "pnl": -22.99,
+      "pnlPercent": -0.77
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 8.81,
-      "value": 0.0,
+      "amount": 22.72727273,
+      "avgPrice": 8.8,
+      "currentPrice": 8.8,
+      "value": 200.0,
       "pnl": 0.0,
-      "pnlPercent": 0
+      "pnlPercent": 0.0
     },
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 0.243,
-      "value": 0.0,
+      "amount": 827.47207282,
+      "avgPrice": 0.2417,
+      "currentPrice": 0.2417,
+      "value": 200.0,
       "pnl": 0.0,
-      "pnlPercent": 0
+      "pnlPercent": 0.0
     }
   ],
   "gridState": {
@@ -89,10 +89,18 @@
         9.2981,
         9.3446
       ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 7,
+      "position": 22.727272727272727,
+      "avgPrice": 8.8,
+      "lastGridIdx": 6,
       "fills": [
+        {
+          "time": "2026-04-05T15:46:21+08:00",
+          "side": "BUY",
+          "symbol": "AVAX",
+          "amount": 22.72727273,
+          "price": 8.8,
+          "note": "grid-6↓"
+        },
         {
           "time": "2026-04-05T14:25:38+08:00",
           "side": "SELL",
@@ -327,10 +335,18 @@
         0.256,
         0.2573
       ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 7,
+      "position": 827.4720728175424,
+      "avgPrice": 0.2417,
+      "lastGridIdx": 6,
       "fills": [
+        {
+          "time": "2026-04-05T15:46:21+08:00",
+          "side": "BUY",
+          "symbol": "ADA",
+          "amount": 827.47207282,
+          "price": 0.2417,
+          "note": "grid-6↓"
+        },
         {
           "time": "2026-04-05T14:25:38+08:00",
           "side": "SELL",
@@ -563,6 +579,22 @@
   },
   "recentTrades": [
     {
+      "time": "2026-04-05T15:46:21+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 22.72727273,
+      "price": 8.8,
+      "note": "grid-6↓"
+    },
+    {
+      "time": "2026-04-05T15:46:21+08:00",
+      "side": "BUY",
+      "symbol": "ADA",
+      "amount": 827.47207282,
+      "price": 0.2417,
+      "note": "grid-6↓"
+    },
+    {
       "time": "2026-04-05T14:25:38+08:00",
       "side": "SELL",
       "symbol": "AVAX",
@@ -595,22 +627,6 @@
       "amount": 825.4230293,
       "price": 0.2423,
       "note": "grid-6↓"
-    },
-    {
-      "time": "2026-04-05T14:14:29+08:00",
-      "side": "BUY",
-      "symbol": "AVAX",
-      "amount": 22.7014756,
-      "price": 8.81,
-      "note": "grid-7↓"
-    },
-    {
-      "time": "2026-04-05T14:14:29+08:00",
-      "side": "BUY",
-      "symbol": "ADA",
-      "amount": 824.74226804,
-      "price": 0.2425,
-      "note": "grid-7↓"
     }
   ],
   "equityCurve": [
@@ -620,10 +636,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 9961.66
+      "value": 9958.48
     }
   ],
-  "lastUpdated": "2026-04-05T14:35:47+08:00",
+  "lastUpdated": "2026-04-05T15:46:21+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

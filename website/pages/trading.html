@@ -256,19 +256,44 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
 
   <!-- ═══ Polymarket 预测市场 ═══ -->
   <div class="poly-section" id="polySection">
-    <!-- 免责声明 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-bottom:20px;text-align:center;">
-      <span style="font-size:0.75rem;color:#8b949e;">📌 仅供研究参考 · 不构成投资建议 · 我们不下注只研究</span>
+
+    <!-- 账户总览 -->
+    <div class="account-grid" style="margin-bottom:20px;">
+      <div class="account-card">
+        <div class="label">账户现金 (USDC)</div>
+        <div class="value" id="polyCash">--</div>
+      </div>
+      <div class="account-card">
+        <div class="label">持仓市值 (USDC)</div>
+        <div class="value" id="polyPosValue">--</div>
+      </div>
+      <div class="account-card">
+        <div class="label">总净值 (USDC)</div>
+        <div class="value" id="polyTotalValue">--</div>
+      </div>
+      <div class="account-card">
+        <div class="label">已实现PnL</div>
+        <div class="value" id="polyRealizedPnL">--</div>
+      </div>
     </div>
 
-    <!-- 策略信号 -->
+    <!-- 我的预测持仓 -->
     <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:12px;">🦞 策略信号</h2>
-      <p id="polySignal" style="font-size:0.85rem;color:#8b949e;line-height:1.6;">加载中...</p>
+      <h2 style="font-size:1rem;margin-bottom:16px;">📌 我的预测持仓</h2>
+      <div id="polyPositions"><div class="empty">暂无持仓，继续研究...</div></div>
     </div>
 
-    <!-- 热门预测 -->
-    <div id="polyMarkets"></div>
+    <!-- 研究中 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:1rem;margin-bottom:16px;">🔬 研究中</h2>
+      <div id="polyResearch"><div class="empty">暂无研究中的预测</div></div>
+    </div>
+
+    <!-- 交易记录 -->
+    <div class="trades-section">
+      <h2>📋 交易记录</h2>
+      <div id="polyTrades"><div class="empty">暂无交易记录</div></div>
+    </div>
 
     <footer>数据来源: Polymarket.com · 每6小时由策略师更新<br>⚠️ 预测市场反映的是交易员的预测概率，不是事实</footer>
   </div>

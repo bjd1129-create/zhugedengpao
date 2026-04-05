@@ -268,6 +268,29 @@ COLD: archive/（无限）
 - L3（MEMORY.md）: 精选长期记忆
 - 行动：创建memory/state.json记录心跳时间、上次工作状态等
 
+## OpenClaw v2026.3.28 新功能（2026-04-06补充）
+- Plugin Approval Hooks：工具执行前人工审批（解决Agent自主操作风险）
+- `/acp spawn codex --bind here`：对话直接转工作区
+- Auto Model Routing：根据复杂度动态选模型（非静态路由）
+- ANI（Agent-Native IM）：人-AI协作消息双向通道
+- Context Pruning：媒体缓存磁盘而非永久剥离
+- Qwen auth → Model Studio auth 迁移
+
+## 每日进化Cron方案（2026-04-06研究）
+- 成本低（£0.02-0.08/次），可每天或每周运行
+- 扫描源：Anthropic工程博客、Simon Willison博客、Hacker News、GitHub Trending
+- 输出：experiments/improvements.json + 可选Telegram早报
+- 核心原则：Agent提议改进，人类批准（安全阀不能省）
+- 触发规则：同类失败3次+ → 创建skill，pending-review目录 → 人工审核
+
+## Power User最佳实践（200+小时经验）
+- 先画Agent图再动手建（标输入/输出/失败点）
+- Sub-agent用于并行执行（速度提升显著）
+- 模型路由：简单任务用Haiku/Flash，复杂任务用前沿模型
+- 专用Router Agent统一入口
+- 缓存重复查询（省30-50%成本）
+- Telegram线程分类：Errors/Alerts | Completed | Approvals | Info
+
 ## 2026-04-05 三大市场研究方向确定
 
 - 加密货币模拟盘：交易员主导，网格策略

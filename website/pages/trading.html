@@ -79,6 +79,8 @@ td { padding:8px; border-bottom:1px solid rgba(255,255,255,0.05); }
 /* 美股区块 */
 .us-stock-section { display:none; }
 .us-stock-section.active { display:block; }
+.poly-section { display:none; }
+.poly-section.active { display:block; }
 .crypto-section { display:none; }
 .crypto-section.active { display:block; }
 
@@ -139,6 +141,7 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
     <div class="tab-bar">
       <button class="tab active" id="tabCrypto" onclick="switchTab('crypto')">₿ 加密货币</button>
       <button class="tab" id="tabUS" onclick="switchTab('us')">🇺🇸 美股模拟</button>
+      <button class="tab" id="tabPoly" onclick="switchTab('poly')">📊 Polymarket</button>
     </div>
   </h1>
 
@@ -250,6 +253,25 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
 
     <footer>策略: 价值定投策略v1.0 · 老虎证券模拟账户<br>数据每5分钟自动刷新 · 行情来源: Yahoo Finance</footer>
   </div>
+
+  <!-- ═══ Polymarket 预测市场 ═══ -->
+  <div class="poly-section" id="polySection">
+    <!-- 免责声明 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:16px;margin-bottom:20px;text-align:center;">
+      <span style="font-size:0.75rem;color:#8b949e;">📌 仅供研究参考 · 不构成投资建议 · 我们不下注只研究</span>
+    </div>
+
+    <!-- 策略信号 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:1rem;margin-bottom:12px;">🦞 策略信号</h2>
+      <p id="polySignal" style="font-size:0.85rem;color:#8b949e;line-height:1.6;">加载中...</p>
+    </div>
+
+    <!-- 热门预测 -->
+    <div id="polyMarkets"></div>
+
+    <footer>数据来源: Polymarket.com · 每6小时由策略师更新<br>⚠️ 预测市场反映的是交易员的预测概率，不是事实</footer>
+  </div>
 </div>
 
 <script>
@@ -266,8 +288,10 @@ function switchTab(tab) {
   currentTab = tab;
   document.getElementById('tabCrypto').className = 'tab' + (tab === 'crypto' ? ' active' : '');
   document.getElementById('tabUS').className = 'tab' + (tab === 'us' ? ' active' : '');
+  document.getElementById('tabPoly').className = 'tab' + (tab === 'poly' ? ' active' : '');
   document.getElementById('cryptoSection').className = 'crypto-section' + (tab === 'crypto' ? ' active' : '');
   document.getElementById('usSection').className = 'us-stock-section' + (tab === 'us' ? ' active' : '');
+  document.getElementById('polySection').className = 'poly-section' + (tab === 'poly' ? ' active' : '');
 }
 
 // ─── 加密货币渲染 ───
@@ -476,6 +500,38 @@ async function initUSStock() {
   } catch(err) { console.error('tiger_us_paper.json 加载失败:', err); }
 }
 
+async function initPoly() {
+  try {
+    var res = await fetch('/data/trading/polymarket_data.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('加载失败');
+    var data = await res.json();
+    renderPoly(data);
+    document.getElementById('updateTime').textContent = data.timestamp ? data.timestamp.substring(11, 16) : '--:--';
+  } catch(err) { console.error('polymarket_data.json 加载失败:', err); }
+}
+
+function renderPoly(data) {
+  var sig = data.summary || {};
+  document.getElementById('polySignal').innerHTML =
+    '<strong>市场情绪:</strong> ' + (sig.crypto_outlook || '加载中') + '<br>' +
+    '<strong>策略信号:</strong> ' + (sig.strategy_signal || '--');
+
+  var markets = data.markets || [];
+  var html = '';
+  markets.forEach(function(m) {
+    var pct = m.probability_pct || '--';
+    var color = m.probability >= 0.6 ? '#3fb950' : m.probability >= 0.4 ? '#eab308' : '#f85149';
+    var sentimentIcon = m.sentiment === 'bullish' ? '📈' : m.sentiment === 'bearish' ? '📉' : '➡️';
+    html += '<div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:14px;">' +
+      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
+      '<h3 style="font-size:0.95rem;flex:1;">' + sentimentIcon + ' ' + m.question + '</h3>' +
+      '<span style="font-size:1.2rem;font-weight:700;color:' + color + ';">' + pct + '</span></div>' +
+      '<div style="font-size:0.8rem;color:#8b949e;">成交量: ' + m.volume + ' · 更新: ' + m.last_update + '</div>' +
+      '<div style="margin-top:8px;font-size:0.82rem;color:#8b949e;line-height:1.5;">' + (m.note || '') + '</div></div>';
+  });
+  document.getElementById('polyMarkets').innerHTML = html;
+}
+
 async function init() {
   await initCrypto();
   await initUSStock();
@@ -484,7 +540,8 @@ async function init() {
 init();
 setInterval(function() {
   if (currentTab === 'crypto') initCrypto();
-  else initUSStock();
+  else if (currentTab === 'us') initUSStock();
+  else if (currentTab === 'poly') initPoly();
 }, 30000);
 </script>
 </body>

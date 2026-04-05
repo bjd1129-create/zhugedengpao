@@ -2,15 +2,13 @@
 
 ## 当前优先级
 
-### 1. Git同步 (进行中)
-- 本地与origin/main divergence
-- 待推送: 60f7413(话题库), f9be7f7(nav修复)
-- 配色师8张漫画图待提交: images/comic-episode1-*.jpg
+> ⚠️ 漫画项目已停止（18:31老庄决定），stories 23-28取消
 
-### 2. 配色师产出集成
-- 8张漫画中文标注图已生成，待集成到comic.html
-- 需要更新comic.html引用这些图片
+### 1. 清理PROGRESS.md
+- comic集成任务已取消，无需处理
+- Git本地有memory/data文件变更，待确认是否push
 
-### 3. 网站持续完善
-- 配色师漫画Story1完成后集成上线
-- 监控网站可优化点
+### 2. 网站持续完善
+- Polymarket改造 ✅ 完成
+- comic.html已移除 ✅ 完成
+- 监控网站可优化点（下次3小时巡检时重点关注）

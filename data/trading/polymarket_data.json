@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-05T18:14:00+08:00",
+  "timestamp": "2026-04-06T00:07:00+08:00",
   "source": "Polymarket Research (只研究不下注)",
   "markets": [
     {
@@ -11,18 +11,7 @@
       "volume": "$28.8M",
       "last_update": "2026-04-05",
       "sentiment": "bearish",
-      "note": "Polymarket市场'what price will BTC hit in 2026'显示$150K@21%"
-    },
-    {
-      "id": "eth-2026-10k",
-      "question": "ETH 2026年底能否突破 $10,000？",
-      "outcome": "No",
-      "probability": 0.12,
-      "probability_pct": "12%",
-      "volume": "N/A",
-      "last_update": "2026-04-05",
-      "sentiment": "bearish",
-      "note": "ETH $3.5K@33.5%，$10K需更大涨幅，概率偏低估计约12%"
+      "note": "Polymarket市场'what price will BTC hit before 2027'显示$150K@21%，较分析师预测（$150K-$250K）明显偏低"
     },
     {
       "id": "btc-2026-100k",
@@ -33,7 +22,29 @@
       "volume": "$28.8M",
       "last_update": "2026-04-05",
       "sentiment": "bullish",
-      "note": "BTC重返10万概率80%，当前价格$67K，距目标仍有49%空间"
+      "note": "BTC重返10万概率80%，当前价格$67K，距目标仍有49%空间。$120K@45%，$130K@35%，$140K@28%呈阶梯递减"
+    },
+    {
+      "id": "btc-2026-120k",
+      "question": "BTC 2026年底能否突破 $120,000？",
+      "outcome": "Uncertain",
+      "probability": 0.45,
+      "probability_pct": "45%",
+      "volume": "$28.8M",
+      "last_update": "2026-04-05",
+      "sentiment": "neutral",
+      "note": "$120K是相对安全的中间目标，45%概率。当前距目标约79%涨幅"
+    },
+    {
+      "id": "eth-2026-10k",
+      "question": "ETH 2026年底能否突破 $10,000？",
+      "outcome": "No",
+      "probability": 0.12,
+      "probability_pct": "12%",
+      "volume": "$3.87M",
+      "last_update": "2026-04-05",
+      "sentiment": "bearish",
+      "note": "ETH $10K概率约12%，需从当前约$2,045涨390%才能触及，难度极大"
     },
     {
       "id": "eth-3500-end-2026",
@@ -41,10 +52,21 @@
       "outcome": "Uncertain",
       "probability": 0.335,
       "probability_pct": "33.5%",
-      "volume": "N/A",
+      "volume": "$3.87M",
       "last_update": "2026-04-05",
       "sentiment": "neutral",
-      "note": "CoinGecko引用Polymarket数据，33.5%概率达到$3.5K"
+      "note": "ETH $3.5K@33.5%概率，从ATH $4,953回调后，当前处于底部区域。2025年8月ATH $4,953"
+    },
+    {
+      "id": "eth-april-2200",
+      "question": "ETH 2026年4月能达到 $2,200？",
+      "outcome": "Yes",
+      "probability": 0.675,
+      "probability_pct": "67.5%",
+      "volume": "N/A",
+      "last_update": "2026-04-05",
+      "sentiment": "bullish",
+      "note": "Polymarket数据显示ETH April 2026最高概率目标$2,200@67.5%。4月历史上BTC胜率73%（10/15年绿色，平均涨幅20.9%）"
     },
     {
       "id": "eth-flip-risk",
@@ -55,7 +77,7 @@
       "volume": "N/A",
       "last_update": "2026-04-05",
       "sentiment": "bearish",
-      "note": "ETH flip odds升至59%， Solana/XRP/ADA竞争加剧"
+      "note": "ETH flip odds升至59%，Solana/XRP/ADA竞争加剧。2025年8月ATH后持续回调"
     },
     {
       "id": "gpt6-release",
@@ -70,12 +92,15 @@
     }
   ],
   "summary": {
-    "crypto_outlook": "BTC短期中性（$100K@80%，$150K@21%），ETH偏弱（flip risk 59%，$10K仅12%概率）。当前BTC@$67K，低于$75K关键阻力位。",
-    "strategy_signal": "网格策略继续有效；ETH需谨慎，flip risk值得关注；BTC $10万目标概率较高但需耐心持有",
+    "crypto_outlook": "BTC偏多（$100K@80%，$120K@45%，$150K@21%），ETH短期中性（$2.2K@67.5% April目标，$3.5K@33.5%年底）。ETH flip risk 59%值得警惕。当前BTC@$67K（4月4日数据），处于'最讨厌'水平（CoinDesk），历史上4月平均涨幅20.9%。",
+    "strategy_signal": "BTC网格策略继续有效，$100K是核心目标；ETH需谨慎（flip risk 59%），但$2.2K短期目标概率较高；4月历史上是BTC强势月值得关注",
     "market_context": {
-      "btc_current": "$67,000",
+      "btc_current": "$67,010",
       "btc_100k_prob": "80%",
+      "btc_120k_prob": "45%",
       "btc_150k_prob": "21%",
+      "eth_2200_april_prob": "67.5%",
+      "eth_3500_end_2026_prob": "33.5%",
       "eth_10k_prob": "12%",
       "eth_flip_risk": "59%",
       "data_source": "Polymarket + CoinGecko引用"

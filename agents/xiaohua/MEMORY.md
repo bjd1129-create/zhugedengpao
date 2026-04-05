@@ -109,29 +109,49 @@
 
 ## OpenClaw进化（精简版）
 
-### 自进化三大核心组件（2026-04-05更新）
-1. **Self-Evolve**（longmans/self-evolve）
-   - Q值强化学习 + 情景记忆 + 远程共享网络
-   - 工作模式：balanced/tools_only/all
-   - 关键参数：minAbsReward=0.15, tau=0.85
-   - 远程共享需开启VPN
+### 自进化体系全貌（2026-04-05深度调研更新）
 
-2. **Self-Improving Agent**（ClawHub）
-   - 错误记录(ERRORS.md) + 经验沉淀(LEARNINGS.md) + 需求收集(FEATURE_REQUESTS.md)
-   - 每日凌晨4点自动复盘
+#### 1. self-evolve 插件（longmans）⭐⭐⭐⭐⭐
+- **性质**：OpenClaw Plugin（非skill），强化学习+情景记忆
+- **核心**：Q值更新 + 记忆检索 + 反馈学习
+- **三种模式**：balanced（默认）/ tools_only（省token） / all（最高消耗）
+- **安装**：`git clone && openclaw plugins install`
+- **远程共享**：self-evolve.club API，默认开启（隐私风险）
+- **BYOM版**（willificent/self-evolve-byom）：完全本地，移除远程同步
+  - 支持本地gateway模型做reward/summarizer
+  - **推荐我们用这个版本**
+- 关键参数：minAbsReward=0.15, tau=0.85, maxEntries=200
 
-3. **AutoSkill**（华东师范大学+上海AI实验室）
-   - 从真实交互自动提炼技能，版本化管理
-   - 技能不是设计出来的，是长出来的
+#### 2. Capability Evolver Skill
+- Meta-skill：agent检查自己运行时历史，自主写代码/memory更新
+- 35,000+ 下载量
+- 适合高自动化stack，重要逻辑需保留人工review
+
+#### 3. OpenClaw-RL（学术论文）
+- arxiv.org/abs/2603.10165
+- 核心洞察：所有交互（对话/terminal/GUI/工具调用）都是同一强化学习loop的信号
+- 用户纠错、重问、明确反馈 = 训练信号
+
+#### 4. 社区热点资源
+- claw.hot：最热skills/SOULs自动同步
+- awesome-openclaw-skills（VoltAgent）：5400+ skills
+- openclawskills.io：1700+ 可一键安装
+
+### ✅ 已完成（2026-04-05）
+- ✅ 安装 self-evolve-byom（BYOM版，完全本地，remote=disabled）
+- ✅ gateway provider 配置（不额外花API key）
+- ✅ 老庄授权：后续自我进化小花自主判断执行
+
+### 新增洞察（2026-04-05下午研究）
+- Self-Improving Agent skill（clawhub下载量26万+）：`.learnings/` 三文档体系（ERRORS/LEARNINGS/FEATURE_REQUESTS）
+- AutoSkill（ECNU-ICALK）：技能不是设计的，是"长出来"的；技能版本管理（v0.1.34 = 已迭代34次）
+- Best practices核心机制：纠正触发→知识卡片→晋升规则（3次→AGENTS.md，行为纠正→rules/）
+- Token纪律（真实踩坑）：expiring tokens = use-it-or-lose-it；用最便宜的模型处理任务；搜索memory而非加载
+- Memory sweep cron（每6小时）：用code-specialized模型，不占前端模型配额
 
 ### 安全警示
 - ⚠️ OpenClaw装在MBB's iMac（主力机）—— 不安全，待迁移
 - ⚠️ CVE-2026-25253：RCE漏洞，需升级到2026.3+
-
-### OpenClaw里程碑（2026-04）
-- 100K GitHub Stars
-- 每日自主执行：230万小时
-- ClawHub技能：13,729个
 
 ---
 
@@ -146,4 +166,4 @@
 
 ---
 
-最后更新：2026-04-05 11:56 | 小花 🦞
+最后更新：2026-04-05 13:10 | 小花 🦞

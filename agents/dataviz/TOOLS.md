@@ -1,40 +1,21 @@
-# TOOLS.md - Local Notes
+# TOOLS.md - 数据官本地工具配置
 
-Skills define _how_ tools work. This file is for _your_ specifics — the stuff that's unique to your setup.
+## 核心工具
 
-## What Goes Here
+### Git
+- 工作目录：`/Users/bjd/Desktop/ZhugeDengpao-Team`
+- 分支：main
+- 部署：Cloudflare Pages（dengpao.pages.dev）
 
-Things like:
+### 文件路径
+- trading.html：`/Users/bjd/Desktop/ZhugeDengpao-Team/trading.html`
+- portfolio.json：`/Users/bjd/Desktop/ZhugeDengpao-Team/data/trading/portfolio.json`
 
-- Camera names and locations
-- SSH hosts and aliases
-- Preferred voices for TTS
-- Speaker/room names
-- Device nicknames
-- Anything environment-specific
-
-## Examples
-
-```markdown
-### Cameras
-
-- living-room → Main area, 180° wide angle
-- front-door → Entrance, motion-triggered
-
-### SSH
-
-- home-server → 192.168.1.100, user: admin
-
-### TTS
-
-- Preferred voice: "Nova" (warm, slightly British)
-- Default speaker: Kitchen HomePod
+### Wrangler（Cloudflare部署）
+```bash
+npx wrangler pages deploy . --project-name=dengpao
 ```
 
-## Why Separate?
-
-Skills are shared. Your setup is yours. Keeping them apart means you can update skills without losing your notes, and share skills without leaking your infrastructure.
-
----
-
-Add whatever helps you do your job. This is your cheat sheet.
+### 数据新鲜度检查
+- 最后更新时间 > 10分钟 → 标记为⚠️
+- 最后更新时间 > 30分钟 → 标记为🔴

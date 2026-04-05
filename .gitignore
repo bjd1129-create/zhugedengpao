@@ -3,3 +3,50 @@
 .env.local
 .env.*
 coordinator/.env
+
+# Logs
+*.log
+gen_final.log
+
+# 备份文件
+*.bak
+*.bak.html
+*.new
+*.dark
+SHARED_MEMORY.md.bak
+
+# node_modules
+node_modules/
+voice-chat-app-realtime/
+
+# 临时文件
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+
+# 大文件
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.mp4
+*.mp3
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+
+# 缓存
+.cache/
+.tmp/
+tmp/
+*.cache
+
+# Skills 归档
+skills/_archive/
+skills/autoclaw/

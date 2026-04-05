@@ -22,12 +22,15 @@ from tiger_connection import get_assets, get_positions
 - **老虎数据**：`/Users/bjd/Desktop/ZhugeDengpao-Team/website/data/trading/tiger_us_paper.json`
 - **加密组合**：`/Users/bjd/Desktop/ZhugeDengpao-Team/data/trading/portfolio.json`
 
-### 风控参数（速查）
-- 止损线：$9,500
-- 止盈线：$10,500
-- 警告线：$10,000
-- 单笔上限：$300
-- 单日最大亏损：$500（5%）
+### 风控参数（美股模拟盘 $1M 基准）
+| 参数 | 阈值 | 说明 |
+|------|------|------|
+| 止损线 | $950,000（-5%） | 触发全仓止损，禁止新开仓 |
+| 警告线 | $980,000（-2%） | 降低50%仓位，禁止新开仓 |
+| 止盈线 | $1,050,000（+5%） | 可考虑部分止盈 |
+| 单笔上限 | $50,000（5%） | 单笔不超过账户净值5% |
+| 单日最大亏损 | $20,000（2%） | 达2%立即停止交易 |
+| 同时持仓上限 | 4个ETF | SPY/QQQ/VTI/BND最多各1个 |
 
 ### 汇报目标
 - 小花：sessions_send(sessionKey: agent:main:main)

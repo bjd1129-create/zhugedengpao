@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-05T15:00:00+08:00",
+  "timestamp": "2026-04-05T18:14:00+08:00",
   "source": "Polymarket Research (只研究不下注)",
   "markets": [
     {
@@ -8,21 +8,21 @@
       "outcome": "No",
       "probability": 0.21,
       "probability_pct": "21%",
-      "volume": "$1.2M",
+      "volume": "$28.8M",
       "last_update": "2026-04-05",
       "sentiment": "bearish",
-      "note": "华尔街看多但市场实际只给21%概率"
+      "note": "Polymarket市场'what price will BTC hit in 2026'显示$150K@21%"
     },
     {
       "id": "eth-2026-10k",
       "question": "ETH 2026年底能否突破 $10,000？",
       "outcome": "No",
-      "probability": 0.15,
-      "probability_pct": "15%",
-      "volume": "$800K",
+      "probability": 0.12,
+      "probability_pct": "12%",
+      "volume": "N/A",
       "last_update": "2026-04-05",
       "sentiment": "bearish",
-      "note": "ETH突破$1万概率极低"
+      "note": "ETH $3.5K@33.5%，$10K需更大涨幅，概率偏低估计约12%"
     },
     {
       "id": "btc-2026-100k",
@@ -30,10 +30,32 @@
       "outcome": "Yes",
       "probability": 0.80,
       "probability_pct": "80%",
-      "volume": "$2.5M",
+      "volume": "$28.8M",
       "last_update": "2026-04-05",
       "sentiment": "bullish",
-      "note": "BTC重返10万概率较高"
+      "note": "BTC重返10万概率80%，当前价格$67K，距目标仍有49%空间"
+    },
+    {
+      "id": "eth-3500-end-2026",
+      "question": "ETH 2026年底能否达到 $3,500？",
+      "outcome": "Uncertain",
+      "probability": 0.335,
+      "probability_pct": "33.5%",
+      "volume": "N/A",
+      "last_update": "2026-04-05",
+      "sentiment": "neutral",
+      "note": "CoinGecko引用Polymarket数据，33.5%概率达到$3.5K"
+    },
+    {
+      "id": "eth-flip-risk",
+      "question": "ETH是否会在2026失去第二大加密货币地位？",
+      "outcome": "Yes (flip risk)",
+      "probability": 0.59,
+      "probability_pct": "59%",
+      "volume": "N/A",
+      "last_update": "2026-04-05",
+      "sentiment": "bearish",
+      "note": "ETH flip odds升至59%， Solana/XRP/ADA竞争加剧"
     },
     {
       "id": "gpt6-release",
@@ -44,12 +66,20 @@
       "volume": "$500K",
       "last_update": "2026-04-05",
       "sentiment": "neutral",
-      "note": "GPT-6明年发布概率较高"
+      "note": "GPT-6明年发布概率65%"
     }
   ],
   "summary": {
-    "crypto_outlook": "短期谨慎（BTC $15万概率仅21%），但长期仍乐观（$10万概率80%）",
-    "strategy_signal": "网格策略适合当前震荡市，不宜重仓长持",
+    "crypto_outlook": "BTC短期中性（$100K@80%，$150K@21%），ETH偏弱（flip risk 59%，$10K仅12%概率）。当前BTC@$67K，低于$75K关键阻力位。",
+    "strategy_signal": "网格策略继续有效；ETH需谨慎，flip risk值得关注；BTC $10万目标概率较高但需耐心持有",
+    "market_context": {
+      "btc_current": "$67,000",
+      "btc_100k_prob": "80%",
+      "btc_150k_prob": "21%",
+      "eth_10k_prob": "12%",
+      "eth_flip_risk": "59%",
+      "data_source": "Polymarket + CoinGecko引用"
+    },
     "next_update": "每6小时由策略师更新"
   }
 }

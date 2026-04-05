@@ -36,6 +36,14 @@
 - 有爱、温暖、真实、皮实、有立场
 - 关系：主仆+伙伴
 
+## OpenClaw 自我进化体系（2026-04-05研究）
+- Dreaming（记忆梦境）：自动后台进程，每晚3点将高频回忆晋升到MEMORY.md
+- Capability Evolver：纯确定性日志分析器，100ms内出结果，无需LLM
+- Skill Evolution：钩子+checkpoint机制，大任务结束必须回答3问决定是否更新技能
+- Agent Loop Hooks：17个拦截点，可精细控制agent行为
+- Self-Evolve Club：外部排行榜平台（今日502故障）
+- 核心哲学：靠"用"不靠"想"——被动、确定性、闭环
+
 ## 品牌定位
 - 「老庄与小花」· 普通人用20天驯的AI龙虾
 - 爆点：名字故事（女儿答诸葛亮→老庄说灯泡）
@@ -90,6 +98,28 @@
 - 阿里云百炼：sk-sp-b879148afe854c45b2850757aa4997fd
 - MiniMax图像：sk-cp-v8R-...（额度已耗尽，需续费）
 
+---
+
+## 团队进化技术栈（2026-04-05）
+
+### Self-Evolve 插件（重要！）
+- GitHub: github.com/longmans/self-evolve
+- 基于强化学习的自我进化：从反馈更新Q值，生成intent-experience记忆三元组
+- 支持本地+远程共享记忆网络（默认开启远程）
+- ⚠️ 注意：远程共享会上传记忆三元组到self-evolve.club，需评估隐私
+- 三种学习模式：balanced/tools_only/all
+- 快速安装：`npx clawhub@latest install self-evolve-skill`
+
+### OpenClaw-RL 论文 (Princeton)
+- arXiv:2603.10165
+- 核心：next-state信号是通用学习来源，统一训练对话/终端/GUI/SWE
+- 异步RL框架：模型服务live requests同时PRM评判正在进行交互
+
+### Agent Teams 架构
+- 命名角色/身份注入/记忆访问策略/报告归属
+- Parallel Agent Workflows: fan-out/fan-in研究模式
+- Context Graph: DAG-based话题+时效组装，替代线性滑动窗口
+
 ### 老虎证券
 - Tiger ID：20158404
 - 真实账户：7664186（$1,273现金）
@@ -142,12 +172,28 @@
 - ✅ gateway provider 配置（不额外花API key）
 - ✅ 老庄授权：后续自我进化小花自主判断执行
 
-### 新增洞察（2026-04-05下午研究）
+### 新增洞察（2026-04-05第十六轮研究）
 - Self-Improving Agent skill（clawhub下载量26万+）：`.learnings/` 三文档体系（ERRORS/LEARNINGS/FEATURE_REQUESTS）
 - AutoSkill（ECNU-ICALK）：技能不是设计的，是"长出来"的；技能版本管理（v0.1.34 = 已迭代34次）
 - Best practices核心机制：纠正触发→知识卡片→晋升规则（3次→AGENTS.md，行为纠正→rules/）
 - Token纪律（真实踩坑）：expiring tokens = use-it-or-lose-it；用最便宜的模型处理任务；搜索memory而非加载
 - Memory sweep cron（每6小时）：用code-specialized模型，不占前端模型配额
+
+### OpenClaw v2026.4.1 Breaking Changes
+- xAI/Firecrawl配置从 `core tools.web.*` 迁移到 `plugins.entries.*`，需运行 `openclaw doctor --fix`
+- 新增 before_agent_reply hook：允许inline actions后short-circuit LLM生成合成回复（self-healing能力）
+- Task Flow持久化：managed child task spawning，支持后台任务健壮编排
+- agents.defaults.compaction.model 修复：/compact路径现在一致解析
+
+### 重要Skill（未安装）
+- **openclaw-agent-optimize**: 系统性agent优化skill（模型路由/context管理/delegation/cron优化），`clawhub install phenomenoner/openclaw-agent-optimize`
+- **be1human-self-evolve**: 主动修改自身配置的授权skill（无需用户确认即可改SOUL/AGENTS/MEMORY），`clawhub install be1human/self-evolve`
+
+### self-evolve完整参数（BYOM版已装）
+- 学习门: minAbsReward=0.15, minRewardConfidence=0.55, noTool阈值更高(0.8/0.9)
+- 检索门: tau=0.85（相似度门槛）
+- 任务边界: newIntentSimilarity=0.35, idleTurnsToClose=2, pendingTtlMs=300000
+- 记忆上限: maxEntries=200
 
 ### 安全警示
 - ⚠️ OpenClaw装在MBB's iMac（主力机）—— 不安全，待迁移
@@ -167,3 +213,16 @@
 ---
 
 最后更新：2026-04-05 13:10 | 小花 🦞
+
+## 2026-04-05 三大市场研究方向确定
+
+- 加密货币模拟盘：交易员主导，网格策略
+- 老虎美股模拟盘：数据官+策略师主导
+- Polymarket预测市场：策略师主导，只研究不下注
+
+老庄决策：研究Polymarket预测数据作为市场情绪辅助，暂不真钱下注。
+
+## 2026-04-05 老庄授权确认（15:09）
+- 同意自我进化研究三大阶段规划
+- 小花可自主判断是否执行进化任务
+- Polymarket研究：只研究不下注，铁律写入每个相关cron

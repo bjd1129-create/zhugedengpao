@@ -1,10 +1,10 @@
 {
   "account": {
     "cashBalance": 3604.92,
-    "totalValue": 10008.74,
+    "totalValue": 10012.63,
     "initialBalance": 10000.0,
-    "totalPnL": 8.74,
-    "totalPnLPercent": 0.09,
+    "totalPnL": 12.63,
+    "totalPnLPercent": 0.13,
     "totalTrades": 40,
     "todayPnL": 0.0,
     "todayPnLPercent": 0.0
@@ -15,40 +15,40 @@
       "name": "Bitcoin",
       "amount": 0.04468024,
       "avgPrice": 67143.78,
-      "currentPrice": 67089.34,
-      "value": 2997.57,
-      "pnl": -2.43,
-      "pnlPercent": -0.08
+      "currentPrice": 67153.8,
+      "value": 3000.45,
+      "pnl": 0.45,
+      "pnlPercent": 0.01
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
       "amount": 1.46262981,
       "avgPrice": 2051.1,
-      "currentPrice": 2055.37,
-      "value": 3006.25,
-      "pnl": 6.25,
-      "pnlPercent": 0.21
+      "currentPrice": 2056.38,
+      "value": 3007.72,
+      "pnl": 7.72,
+      "pnlPercent": 0.26
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
       "amount": 22.34636872,
       "avgPrice": 8.95,
-      "currentPrice": 8.95,
-      "value": 200.0,
-      "pnl": 0.0,
-      "pnlPercent": 0.0
+      "currentPrice": 8.94,
+      "value": 199.78,
+      "pnl": -0.22,
+      "pnlPercent": -0.11
     },
     {
       "symbol": "ADA",
       "name": "Cardano",
       "amount": 810.37277147,
       "avgPrice": 0.2468,
-      "currentPrice": 0.2468,
-      "value": 200.0,
-      "pnl": 0.0,
-      "pnlPercent": 0.0
+      "currentPrice": 0.2465,
+      "value": 199.76,
+      "pnl": -0.24,
+      "pnlPercent": -0.12
     }
   ],
   "gridState": {
@@ -521,10 +521,10 @@
     },
     {
       "date": "2026-04-05",
-      "value": 10008.74
+      "value": 10012.63
     }
   ],
-  "lastUpdated": "2026-04-05T11:35:28+08:00",
+  "lastUpdated": "2026-04-05T12:36:16+08:00",
   "strategy": {
     "name": "密集网格v4.2",
     "version": "4.2"

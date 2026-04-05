@@ -43,8 +43,17 @@
 
 ---
 
-## 小花团队架构
+## 小花团队架构（2026-04-05更新）
 
+### 交易团队 → 小花直接管
+| Agent | 角色 | 工作空间 |
+|-------|------|---------|
+| 交易员 | 执行 | agents/trader/ |
+| 策略师 | 智囊 | agents/strategist/ |
+| 风控官 | 守护 | agents/riskofficer/ |
+| 数据官 | 展示 | agents/dataviz/ |
+
+### 官网团队 → 协调官管（向我汇报）
 | Agent | 角色 | 工作空间 |
 |-------|------|---------|
 | 配色师 | 设计 | agents/designer/ |
@@ -52,10 +61,6 @@
 | 代码侠 | 开发 | agents/engineer/ |
 | 洞察者 | 研究 | agents/researcher/ |
 | 协调官 | 协调 | agents/coordinator/ |
-| 交易员 | 执行 | agents/trader/ |
-| 策略师 | 智囊 | agents/strategist/ |
-| 风控官 | 守护 | agents/riskofficer/ |
-| 数据官 | 展示 | agents/dataviz/ |
 
 ---
 
@@ -104,11 +109,20 @@
 
 ## OpenClaw进化（精简版）
 
-### 自进化工具
-- self-evolve（Q值强化学习）⚠️ 需重启Gateway生效
-- skill-evolution（SKILL自我优化）
-- capability-evolver-pro（能力进化）
-- Self-Improving Agent 3.0（结构化日志）
+### 自进化三大核心组件（2026-04-05更新）
+1. **Self-Evolve**（longmans/self-evolve）
+   - Q值强化学习 + 情景记忆 + 远程共享网络
+   - 工作模式：balanced/tools_only/all
+   - 关键参数：minAbsReward=0.15, tau=0.85
+   - 远程共享需开启VPN
+
+2. **Self-Improving Agent**（ClawHub）
+   - 错误记录(ERRORS.md) + 经验沉淀(LEARNINGS.md) + 需求收集(FEATURE_REQUESTS.md)
+   - 每日凌晨4点自动复盘
+
+3. **AutoSkill**（华东师范大学+上海AI实验室）
+   - 从真实交互自动提炼技能，版本化管理
+   - 技能不是设计出来的，是长出来的
 
 ### 安全警示
 - ⚠️ OpenClaw装在MBB's iMac（主力机）—— 不安全，待迁移

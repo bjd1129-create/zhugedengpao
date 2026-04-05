@@ -14,9 +14,16 @@
 - 展示页面：trading.html
 - 数据汇报：agents/dataviz/memory/YYYY-MM-DD.md
 
+## 美股模拟盘数据（新增，2026-04-05）
+- 数据文件：data/trading/tiger_us_paper.json
+- 页面tab：trading.html → 🇺🇸 美股模拟
+- 更新频率：每5分钟（agents/trader/tiger_us_fetch.sh）
+- 当前净值：$1,000,000（0持仓）
+
 ## 页面更新时间
 - 页面自动刷新：每30秒（浏览器端）
-- 数据更新源：每5分钟（交易员运行模拟器）
+- 加密货币数据更新源：每5分钟（交易员运行模拟器）
+- 美股数据更新源：每5分钟（tiger_us_fetch.sh）
 
 ## 汇报规则
 以下情况发飞书通知老庄：

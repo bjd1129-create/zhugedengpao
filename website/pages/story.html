@@ -138,14 +138,16 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 <script>
 (function(){
   // Comic data: 7 stories × 8 panels
+  // Story images: ../images/comic-lobster-storyN-pX.jpg
+  // Note: stories 8-14 not yet on disk (task P0-1 - server files not synced)
   var stories = [
-    ['images/comic-ep1-p1.png','images/comic-ep1-p2.png','images/comic-ep1-p3.png','images/comic-ep1-p4.png','images/comic-ep1-p5.png','images/comic-ep1-p6.png','images/comic-ep1-p7.png','images/comic-ep1-p8.png','images/comic-ep1-p9.png','images/comic-ep1-p10.png','images/comic-ep1-p11.png','images/comic-ep1-p12.png','images/comic-ep1-p13.png','images/comic-ep1-p14.png','images/comic-ep1-p15.png','images/comic-ep1-p16.png','images/comic-ep1-p17.png','images/comic-ep1-p18.png'],
-    ['images/comic/story2-1.png','images/comic/story2-2.png','images/comic/story2-3.png','images/comic/story2-4.png','images/comic/story2-5.png','images/comic/story2-6.png','images/comic/story2-7.png','images/comic/story2-8.png'],
-    ['images/comic/story3-1.png','images/comic/story3-2.png','images/comic/story3-3.png','images/comic/story3-4.png','images/comic/story3-5.png','images/comic/story3-6.png','images/comic/story3-7.png','images/comic/story3-8.png'],
-    ['images/comic/story4-1.png','images/comic/story4-2.png','images/comic/story4-3.png','images/comic/story4-4.png','images/comic/story4-5.png','images/comic/story4-6.png','images/comic/story4-7.png','images/comic/story4-8.png'],
-    ['images/comic/story5-1.png','images/comic/story5-2.png','images/comic/story5-3.png','images/comic/story5-4.png','images/comic/story5-5.png','images/comic/story5-6.png','images/comic/story5-7.png','images/comic/story5-8.png'],
-    ['images/comic/story6-1.png','images/comic/story6-2.png','images/comic/story6-3.png','images/comic/story6-4.png','images/comic/story6-5.png','images/comic/story6-6.png','images/comic/story6-7.png','images/comic/story6-8.png'],
-    ['images/comic/story7-1.png','images/comic/story7-2.png','images/comic/story7-3.png','images/comic/story7-4.png','images/comic/story7-5.png','images/comic/story7-6.png','images/comic/story7-7.png','images/comic/story7-8.png']
+    ['../images/comic-lobster-story1-p1.jpg','../images/comic-lobster-story1-p2.jpg','../images/comic-lobster-story1-p3.jpg','../images/comic-lobster-story1-p4.jpg','../images/comic-lobster-story1-p5.jpg','../images/comic-lobster-story1-p6.jpg','../images/comic-lobster-story1-p7.jpg','../images/comic-lobster-story1-p8.jpg'],
+    ['../images/comic-lobster-story2-p1.jpg','../images/comic-lobster-story2-p2.jpg','../images/comic-lobster-story2-p3.jpg','../images/comic-lobster-story2-p4.jpg','../images/comic-lobster-story2-p5.jpg','../images/comic-lobster-story2-p6.jpg','../images/comic-lobster-story2-p7.jpg','../images/comic-lobster-story2-p8.jpg'],
+    ['../images/comic-lobster-story3-p1-cn.jpg','../images/comic-lobster-story3-p2-cn.jpg','../images/comic-lobster-story3-p3-cn.jpg','../images/comic-lobster-story3-p4-cn.jpg','../images/comic-lobster-story3-p5-cn.jpg','../images/comic-lobster-story3-p6-cn.jpg','../images/comic-lobster-story3-p7-cn.jpg','../images/comic-lobster-story3-p8-cn.jpg'],
+    ['../images/comic-lobster-story4-p1-cn.jpg','../images/comic-lobster-story4-p2-cn.jpg','../images/comic-lobster-story4-p3-cn.jpg','../images/comic-lobster-story4-p4-cn.jpg','../images/comic-lobster-story4-p5-cn.jpg','../images/comic-lobster-story4-p6-cn.jpg','../images/comic-lobster-story4-p7-cn.jpg','../images/comic-lobster-story4-p8-cn.jpg'],
+    ['../images/comic-lobster-story5-p1-cn.jpg','../images/comic-lobster-story5-p2-cn.jpg','../images/comic-lobster-story5-p3-cn.jpg','../images/comic-lobster-story5-p4-cn.jpg','../images/comic-lobster-story5-p5-cn.jpg','../images/comic-lobster-story5-p6-cn.jpg','../images/comic-lobster-story5-p7-cn.jpg','../images/comic-lobster-story5-p8-cn.jpg'],
+    ['../images/comic-lobster-story6-p1-cn.jpg','../images/comic-lobster-story6-p2-cn.jpg','../images/comic-lobster-story6-p3-cn.jpg','../images/comic-lobster-story6-p4-cn.jpg','../images/comic-lobster-story6-p5-cn.jpg','../images/comic-lobster-story6-p6-cn.jpg','../images/comic-lobster-story6-p7-cn.jpg','../images/comic-lobster-story6-p8-cn.jpg'],
+    ['../images/comic-lobster-story7-p1-cn.jpg','../images/comic-lobster-story7-p2-cn.jpg','../images/comic-lobster-story7-p3-cn.jpg','../images/comic-lobster-story7-p4-cn.jpg','../images/comic-lobster-story7-p5-cn.jpg','../images/comic-lobster-story7-p6-cn.jpg','../images/comic-lobster-story7-p7-cn.jpg','../images/comic-lobster-story7-p8-cn.jpg']
   ];
 
   function renderStory(n) {

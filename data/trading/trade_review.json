@@ -1,0 +1,38 @@
+{
+  "summary": {
+    "period": "2026-04-04 ~ 2026-04-06",
+    "initialBalance": 10000.00,
+    "finalValue": 6884.53,
+    "totalPnL": -3115.47,
+    "totalPnLPct": -31.15,
+    "totalTrades": 81,
+    "realizedPnL": -0.20,
+    "estimatedFees": -80.00,
+    "mainLossCause": "网格逆势加仓，单边下跌市场持续买入摊薄成本"
+  },
+  "byCoin": {
+    "AVAX": { "buys": 20, "sells": 11, "realizedPnL": -1.43, "startPrice": 9.26, "lowestPrice": 8.50, "endPrice": 9.24 },
+    "ADA": { "buys": 31, "sells": 19, "realizedPnL": 1.23, "startPrice": 0.265, "lowestPrice": 0.240, "endPrice": 0.250 },
+    "BTC": { "buys": 0, "sells": 0, "realizedPnL": 0.00, "startPrice": 0, "lowestPrice": 0, "endPrice": 69327 },
+    "ETH": { "buys": 0, "sells": 0, "realizedPnL": 0.00, "startPrice": 0, "lowestPrice": 0, "endPrice": 2131 }
+  },
+  "worstTrades": [
+    { "id": 47, "time": "2026-04-05T14:25", "side": "SELL", "symbol": "AVAX", "amount": 112.72, "price": 8.83, "pnl": -4.69, "note": "网格低位堆积后被迫平仓，单笔最大亏损" },
+    { "id": 78, "time": "2026-04-06T15:31", "side": "SELL", "symbol": "ADA", "amount": 4675.04, "price": 0.256, "pnl": -3.19, "note": "ADA网格在0.24-0.26区间加仓后，平仓亏损" }
+  ],
+  "lessons": [
+    "网格策略不适合单边下跌市场：AVAX从$9.26跌到$8.50过程中持续买入，成本越买越高",
+    "每次下跌都加仓不是套利，是追跌：资金效率低，仓位越来越重",
+    "手续费累积惊人：81笔交易≈$50-100手续费，占真实亏损的2-3%",
+    "止损机制缺失：没有预设止损点，亏损后选择死扛",
+    "仓位控制不当：低价位时仓位过重，导致大额亏损"
+  ],
+  "strategyFlaws": [
+    { "flaw": "无止损", "impact": "亏损无限放大" },
+    { "flaw": "逆势加仓", "impact": "单边行情必亏" },
+    { "flaw": "网格间距过密", "impact": "交易过于频繁，手续费高" },
+    { "flaw": "无仓位管理", "impact": "低位重仓风险极高" }
+  ],
+  "strategy": "密集网格v4.2",
+  "status": "STOP_FILE生效，已冻结交易"
+}

@@ -83,6 +83,8 @@ td { padding:8px; border-bottom:1px solid rgba(255,255,255,0.05); }
 .poly-section.active { display:block; }
 .crypto-section { display:none; }
 .crypto-section.active { display:block; }
+.review-section { display:none; }
+.review-section.active { display:block; }
 
 .us-strategy { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
 .us-strategy h2 { font-size:1rem; margin-bottom:16px; }
@@ -154,6 +156,7 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
       <button class="tab active" id="tabCrypto" onclick="switchTab('crypto')">₿ 加密货币</button>
       <button class="tab" id="tabUS" onclick="switchTab('us')">🇺🇸 美股模拟</button>
       <button class="tab" id="tabPoly" onclick="switchTab('poly')">📊 Polymarket</button>
+      <button class="tab" id="tabReview" onclick="switchTab('review')">📝 复盘</button>
     </div>
   </h1>
 
@@ -309,6 +312,49 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
 
     <footer>数据来源: Polymarket.com · 每6小时由策略师更新<br>⚠️ 预测市场反映的是交易员的预测概率，不是事实</footer>
   </div>
+
+  <!-- ═══ 复盘区块 ═══ -->
+  <div class="review-section" id="reviewSection">
+    <!-- 总体亏损 -->
+    <div style="background:#161b22;border:2px solid #f85149;border-radius:12px;padding:24px;margin-bottom:20px;text-align:center;">
+      <div style="font-size:0.8rem;color:#8b949e;margin-bottom:8px;">策略: 密集网格v4.2 · 2026-04-04 ~ 2026-04-06</div>
+      <div style="font-size:2rem;font-weight:700;color:#f85149;margin-bottom:4px;" id="reviewPnL">--</div>
+      <div style="font-size:0.9rem;color:#8b949e;margin-bottom:16px;">总亏损 · 81笔交易</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;">
+        <div><div style="font-size:1.1rem;font-weight:700;color:#c9d1d9;" id="reviewInit">--</div><div style="font-size:0.7rem;color:#8b949e;">初始资金</div></div>
+        <div><div style="font-size:1.1rem;font-weight:700;color:#c9d1d9;" id="reviewFinal">--</div><div style="font-size:0.7rem;color:#8b949e;">当前价值</div></div>
+        <div><div style="font-size:1.1rem;font-weight:700;color:#f85149;" id="reviewFees">--</div><div style="font-size:0.7rem;color:#8b949e;">手续费估算</div></div>
+        <div><div style="font-size:1.1rem;font-weight:700;color:#c9d1d9;" id="reviewTrades">--</div><div style="font-size:0.7rem;color:#8b949e;">交易笔数</div></div>
+      </div>
+      <div style="margin-top:16px;padding:12px;background:#1c2128;border-radius:8px;font-size:0.82rem;color:#f85149;">⚠️ 核心问题: <span id="reviewCause">加载中...</span></div>
+    </div>
+
+    <!-- 按币种统计 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:1rem;margin-bottom:16px;">📊 按币种盈亏</h2>
+      <div id="reviewCoinStats"><div class="empty">加载中...</div></div>
+    </div>
+
+    <!-- 最大亏损单 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:1rem;margin-bottom:16px;color:#f85149;">💀 最大亏损单</h2>
+      <div id="reviewWorstTrades"><div class="empty">加载中...</div></div>
+    </div>
+
+    <!-- 核心教训 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:1rem;margin-bottom:16px;">🔍 核心教训</h2>
+      <div id="reviewLessons"><div class="empty">加载中...</div></div>
+    </div>
+
+    <!-- 策略问题 -->
+    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
+      <h2 style="font-size:1rem;margin-bottom:16px;">⚙️ 策略缺陷</h2>
+      <div id="reviewStrategy"><div class="empty">加载中...</div></div>
+    </div>
+
+    <footer style="text-align:center;color:#484f58;font-size:0.75rem;margin-top:12px;">交易已冻结 · STOP_FILE生效 · 数据更新时间: 2026-04-07</footer>
+  </div>
 </div>
 
 <script>
@@ -329,6 +375,9 @@ function switchTab(tab) {
   document.getElementById('cryptoSection').className = 'crypto-section' + (tab === 'crypto' ? ' active' : '');
   document.getElementById('usSection').className = 'us-stock-section' + (tab === 'us' ? ' active' : '');
   document.getElementById('polySection').className = 'poly-section' + (tab === 'poly' ? ' active' : '');
+  document.getElementById('tabReview').className = 'tab' + (tab === 'review' ? ' active' : '');
+  document.getElementById('reviewSection').className = 'review-section' + (tab === 'review' ? ' active' : '');
+  if (tab === 'review') initReview();
 }
 
 // ─── 加密货币渲染 ───
@@ -641,6 +690,71 @@ async function init() {
   await initUSStock();
   await initPoly();
   await initPolyPortfolio();
+}
+
+var _reviewLoaded = false;
+async function initReview() {
+  if (_reviewLoaded) return;
+  _reviewLoaded = true;
+  try {
+    var res = await fetch('/data/trading/trade_review.json?t=' + Date.now(), { cache: 'no-store' });
+    if (!res.ok) throw new Error('加载失败');
+    var d = await res.json();
+    renderReview(d);
+  } catch(err) { console.error('trade_review.json 加载失败:', err); }
+}
+
+function renderReview(d) {
+  var s = d.summary || {};
+  document.getElementById('reviewPnL').textContent = (s.totalPnL >= 0 ? '+' : '') + '$' + Number(s.totalPnL).toLocaleString('en-US', {minimumFractionDigits:2}) + ' (' + (s.totalPnLPct >= 0 ? '+' : '') + s.totalPnLPct.toFixed(1) + '%)';
+  document.getElementById('reviewPnL').style.color = s.totalPnL >= 0 ? '#3fb950' : '#f85149';
+  document.getElementById('reviewInit').textContent = '$' + Number(s.initialBalance).toLocaleString('en-US', {minimumFractionDigits:0});
+  document.getElementById('reviewFinal').textContent = '$' + Number(d.summary.finalValue || 0).toLocaleString('en-US', {minimumFractionDigits:0});
+  document.getElementById('reviewFees').textContent = '-$' + (s.estimatedFees || 0);
+  document.getElementById('reviewTrades').textContent = s.totalTrades + '笔';
+  document.getElementById('reviewCause').textContent = s.mainLossCause || '--';
+
+  // 按币种
+  var coinHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>币种</td><td>买入</td><td>卖出</td><td>已实现PnL</td></tr>';
+  var coins = d.byCoin || {};
+  Object.keys(coins).forEach(function(sym) {
+    var c = coins[sym];
+    var pnlColor = c.realizedPnL >= 0 ? '#3fb950' : '#f85149';
+    coinHtml += '<tr style="color:#c9d1d9;"><td>' + sym + '</td><td>' + c.buys + '笔</td><td>' + c.sells + '笔</td><td style="color:' + pnlColor + ';">' + (c.realizedPnL >= 0 ? '+' : '') + '$' + c.realizedPnL.toFixed(2) + '</td></tr>';
+  });
+  coinHtml += '</table>';
+  document.getElementById('reviewCoinStats').innerHTML = coinHtml;
+
+  // 最大亏损单
+  var worst = d.worstTrades || [];
+  if (worst.length === 0) {
+    document.getElementById('reviewWorstTrades').innerHTML = '<div class="empty">无重大亏损</div>';
+  } else {
+    var wHtml = '';
+    worst.forEach(function(w) {
+      wHtml += '<div style="background:#1c2128;border-radius:8px;padding:14px;margin-bottom:10px;border-left:3px solid #f85149;">' +
+        '<div style="display:flex;justify-content:space-between;margin-bottom:6px;">' +
+        '<span style="font-weight:700;color:#f85149;">' + w.side + ' ' + w.symbol + '</span>' +
+        '<span style="color:#f85149;font-weight:700;">$' + Number(w.pnl).toFixed(2) + '</span></div>' +
+        '<div style="font-size:0.8rem;color:#8b949e;">' + w.time.substring(0,16) + ' · 数量:' + w.amount.toFixed(4) + ' · 价格:$' + w.price + '</div>' +
+        '<div style="font-size:0.78rem;color:#8b949e;margin-top:4px;">' + w.note + '</div></div>';
+    });
+    document.getElementById('reviewWorstTrades').innerHTML = wHtml;
+  }
+
+  // 教训
+  var lessons = d.lessons || [];
+  var lHtml = '<ul style="padding-left:20px;line-height:2;">';
+  lessons.forEach(function(l) { lHtml += '<li style="margin-bottom:8px;color:#c9d1d9;font-size:0.88rem;">' + l + '</li>'; });
+  lHtml += '</ul>';
+  document.getElementById('reviewLessons').innerHTML = lHtml;
+
+  // 策略缺陷
+  var flaws = d.strategyFlaws || [];
+  var fHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>缺陷</td><td>影响</td></tr>';
+  flaws.forEach(function(f) { fHtml += '<tr style="color:#c9d1d9;"><td style="color:#f85149;">' + f.flaw + '</td><td>' + f.impact + '</td></tr>'; });
+  fHtml += '</table>';
+  document.getElementById('reviewStrategy').innerHTML = fHtml;
 }
 
 init();

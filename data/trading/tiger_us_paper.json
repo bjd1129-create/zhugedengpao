@@ -1,26 +1,46 @@
 {
-  "timestamp": "2026-04-06T03:32:41+08:00",
+  "timestamp": "2026-04-06T22:16:00+08:00",
   "strategy": {
-    "name": "价值定投策略v1.0",
+    "name": "\u4ef7\u503c\u5b9a\u6295\u7b56\u7565v1.0",
     "version": "1.0",
-    "description": "月定投指数ETF + 季度再平衡 + 股息复利",
+    "description": "\u6708\u5b9a\u6295\u6307\u6570ETF + \u5b63\u5ea6\u518d\u5e73\u8861 + \u80a1\u606f\u590d\u5229",
     "initial_cash": 1000000,
     "allocation": {
-      "SPY":  {"target": 0.40, "name": "标普500ETF", "mode": "定投"},
-      "QQQ":  {"target": 0.30, "name": "纳斯达克100ETF", "mode": "定投"},
-      "VTI":  {"target": 0.20, "name": "全市场ETF", "mode": "定投"},
-      "BND":  {"target": 0.10, "name": "债券ETF", "mode": "定投"}
+      "SPY": {
+        "target": 0.4,
+        "name": "\u6807\u666e500ETF",
+        "mode": "\u5b9a\u6295"
+      },
+      "QQQ": {
+        "target": 0.3,
+        "name": "\u7eb3\u65af\u8fbe\u514b100ETF",
+        "mode": "\u5b9a\u6295"
+      },
+      "VTI": {
+        "target": 0.2,
+        "name": "\u5168\u5e02\u573aETF",
+        "mode": "\u5b9a\u6295"
+      },
+      "BND": {
+        "target": 0.1,
+        "name": "\u503a\u5238ETF",
+        "mode": "\u5b9a\u6295"
+      }
     },
     "monthly_invest": 10000,
     "rebalance_threshold": 0.05
   },
-  "account": Traceback (most recent call last):
-  File "<string>", line 17, in <module>
-    assets = client.get_assets('21639635499102726')
-  File "/Users/bjd/.venv/tiger/lib/python3.14/site-packages/tigeropen/trade/trade_client.py", line 383, in get_assets
-    raise ApiException(response.code, response.message)
-tigeropen.common.exceptions.ApiException: code=1000 msg=common param error(failed to verify signature, please make sure you use the correct rsa private key, if you use python sdk, the private key is in pkcs#1 format),
+  "account": {
+    "account": "21639635499102726",
+    "name": "\u8001\u864e\u8bc1\u5238-\u6a21\u62df\u8d26\u6237",
+    "initial_balance": 1000000,
+    "cash_balance": 1000000.0,
+    "total_value": 1000000.0,
+    "buying_power": 4000000.0,
+    "realized_pnl": 0.0,
+    "unrealized_pnl": 0.0,
+    "currency": "USD"
+  },
   "positions": [],
-  "quotes": {"SPY": {"last":655.83,"prev_close":655.24,"change":0.59,"change_pct":0.09},"QQQ": {"last":584.98,"prev_close":584.31,"change":0.67,"change_pct":0.11},"VTI": {"last":323.76,"prev_close":323.24,"change":0.52,"change_pct":0.16},"BND": {"last":73.58,"prev_close":73.42,"change":0.16,"change_pct":0.22},"AAPL": {"last":255.92,"prev_close":255.63,"change":0.29,"change_pct":0.11},"MSFT": {"last":373.46,"prev_close":369.37,"change":4.09,"change_pct":1.11},"GOOGL": {"last":295.77,"prev_close":297.38998,"change":-1.62,"change_pct":-0.54},"AMZN": {"last":209.77,"prev_close":210.57,"change":-0.8,"change_pct":-0.38},"NVDA": {"last":177.39,"prev_close":175.75,"change":1.64,"change_pct":0.93},"META": {"last":574.46,"prev_close":579.23,"change":-4.77,"change_pct":-0.82},"TSLA": {"last":360.59,"prev_close":381.26,"change":-20.67,"change_pct":-5.42},"JPM": {"last":294.6,"prev_close":295.38,"change":-0.78,"change_pct":-0.26},"V": {"last":300.8,"prev_close":298.51,"change":2.29,"change_pct":0.77},"JNJ": {"last":243.04,"prev_close":244.12,"change":-1.08,"change_pct":-0.44}},
-  "allocation": []
+  "trades": []
 }

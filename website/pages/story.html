@@ -92,12 +92,19 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 <section class="comic-section" style="max-width:680px;margin:24px auto 0">
   <div class="comic-tabs" id="comicTabs">
     <div class="comic-tab active" data-story="1">如果我有工资</div>
-    <div class="comic-tab" data-story="2">故事二</div>
-    <div class="comic-tab" data-story="3">故事三</div>
-    <div class="comic-tab" data-story="4">故事四</div>
-    <div class="comic-tab" data-story="5">故事五</div>
-    <div class="comic-tab" data-story="6">故事六</div>
-    <div class="comic-tab" data-story="7">故事七</div>
+    <div class="comic-tab" data-story="2">骨折后躺着想一件事</div>
+    <div class="comic-tab" data-story="3">它第一次说话</div>
+    <div class="comic-tab" data-story="4">犯错后自己写制度</div>
+    <div class="comic-tab" data-story="5">比实习生靠谱</div>
+    <div class="comic-tab" data-story="6">从1个变成9个</div>
+    <div class="comic-tab" data-story="7">凌晨3点9个Agent在工作</div>
+    <div class="comic-tab" data-story="8">龙虾会进化</div>
+    <div class="comic-tab" data-story="9">自己建团队</div>
+    <div class="comic-tab" data-story="10">教训变智慧</div>
+    <div class="comic-tab" data-story="11">网站自己跑</div>
+    <div class="comic-tab" data-story="12">龙虾满月了</div>
+    <div class="comic-tab" data-story="13">睡后最忙</div>
+    <div class="comic-tab" data-story="14">人歇虾不歇</div>
   </div>
   <div class="comic-panels">
     <div class="comic-panel active" id="panel-1">
@@ -121,6 +128,27 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
     <div class="comic-panel" id="panel-7">
       <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
     </div>
+    <div class="comic-panel" id="panel-8">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-9">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-10">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-11">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-12">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-13">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-14">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
   </div>
 </section>
 
@@ -137,9 +165,10 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 
 <script>
 (function(){
-  // Comic data: 7 stories × 8 panels
+  // Comic data: 14 stories × 8 panels
   // Story images: ../images/comic-lobster-storyN-pX.jpg
-  // Note: stories 8-14 not yet on disk (task P0-1 - server files not synced)
+  // Stories 1-7, 12: no images on disk → show '暂无可用图片'
+  // Stories 8-11, 13-14: images available
   var stories = [
     ['../images/comic-lobster-story1-p1.jpg','../images/comic-lobster-story1-p2.jpg','../images/comic-lobster-story1-p3.jpg','../images/comic-lobster-story1-p4.jpg','../images/comic-lobster-story1-p5.jpg','../images/comic-lobster-story1-p6.jpg','../images/comic-lobster-story1-p7.jpg','../images/comic-lobster-story1-p8.jpg'],
     ['../images/comic-lobster-story2-p1.jpg','../images/comic-lobster-story2-p2.jpg','../images/comic-lobster-story2-p3.jpg','../images/comic-lobster-story2-p4.jpg','../images/comic-lobster-story2-p5.jpg','../images/comic-lobster-story2-p6.jpg','../images/comic-lobster-story2-p7.jpg','../images/comic-lobster-story2-p8.jpg'],
@@ -147,20 +176,38 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
     ['../images/comic-lobster-story4-p1-cn.jpg','../images/comic-lobster-story4-p2-cn.jpg','../images/comic-lobster-story4-p3-cn.jpg','../images/comic-lobster-story4-p4-cn.jpg','../images/comic-lobster-story4-p5-cn.jpg','../images/comic-lobster-story4-p6-cn.jpg','../images/comic-lobster-story4-p7-cn.jpg','../images/comic-lobster-story4-p8-cn.jpg'],
     ['../images/comic-lobster-story5-p1-cn.jpg','../images/comic-lobster-story5-p2-cn.jpg','../images/comic-lobster-story5-p3-cn.jpg','../images/comic-lobster-story5-p4-cn.jpg','../images/comic-lobster-story5-p5-cn.jpg','../images/comic-lobster-story5-p6-cn.jpg','../images/comic-lobster-story5-p7-cn.jpg','../images/comic-lobster-story5-p8-cn.jpg'],
     ['../images/comic-lobster-story6-p1-cn.jpg','../images/comic-lobster-story6-p2-cn.jpg','../images/comic-lobster-story6-p3-cn.jpg','../images/comic-lobster-story6-p4-cn.jpg','../images/comic-lobster-story6-p5-cn.jpg','../images/comic-lobster-story6-p6-cn.jpg','../images/comic-lobster-story6-p7-cn.jpg','../images/comic-lobster-story6-p8-cn.jpg'],
-    ['../images/comic-lobster-story7-p1-cn.jpg','../images/comic-lobster-story7-p2-cn.jpg','../images/comic-lobster-story7-p3-cn.jpg','../images/comic-lobster-story7-p4-cn.jpg','../images/comic-lobster-story7-p5-cn.jpg','../images/comic-lobster-story7-p6-cn.jpg','../images/comic-lobster-story7-p7-cn.jpg','../images/comic-lobster-story7-p8-cn.jpg']
+    ['../images/comic-lobster-story7-p1-cn.jpg','../images/comic-lobster-story7-p2-cn.jpg','../images/comic-lobster-story7-p3-cn.jpg','../images/comic-lobster-story7-p4-cn.jpg','../images/comic-lobster-story7-p5-cn.jpg','../images/comic-lobster-story7-p6-cn.jpg','../images/comic-lobster-story7-p7-cn.jpg','../images/comic-lobster-story7-p8-cn.jpg'],
+    ['../images/comic-lobster-story8-p1.jpg','../images/comic-lobster-story8-p2.jpg','../images/comic-lobster-story8-p3.jpg','../images/comic-lobster-story8-p4.jpg','../images/comic-lobster-story8-p5.jpg','../images/comic-lobster-story8-p6.jpg','../images/comic-lobster-story8-p7.jpg','../images/comic-lobster-story8-p8.jpg'],
+    ['../images/comic-lobster-story9-p1.jpg','../images/comic-lobster-story9-p2.jpg','../images/comic-lobster-story9-p3.jpg','../images/comic-lobster-story9-p4.jpg','../images/comic-lobster-story9-p5.jpg','../images/comic-lobster-story9-p6.jpg','../images/comic-lobster-story9-p7.jpg','../images/comic-lobster-story9-p8.jpg'],
+    ['../images/comic-lobster-story10-p1.jpg','../images/comic-lobster-story10-p2.jpg','../images/comic-lobster-story10-p3.jpg','../images/comic-lobster-story10-p4.jpg','../images/comic-lobster-story10-p5.jpg','../images/comic-lobster-story10-p6.jpg','../images/comic-lobster-story10-p7.jpg','../images/comic-lobster-story10-p8.jpg'],
+    ['../images/comic-lobster-story11-p1.jpg','../images/comic-lobster-story11-p2.jpg','../images/comic-lobster-story11-p3.jpg','../images/comic-lobster-story11-p4.jpg','../images/comic-lobster-story11-p5.jpg','../images/comic-lobster-story11-p6.jpg','../images/comic-lobster-story11-p7.jpg','../images/comic-lobster-story11-p8.jpg'],
+    ['../images/comic-lobster-story12-p1.jpg','../images/comic-lobster-story12-p2.jpg','../images/comic-lobster-story12-p3.jpg','../images/comic-lobster-story12-p4.jpg','../images/comic-lobster-story12-p5.jpg','../images/comic-lobster-story12-p6.jpg','../images/comic-lobster-story12-p7.jpg','../images/comic-lobster-story12-p8.jpg'],
+    ['../images/comic-lobster-story13-p1.jpg','../images/comic-lobster-story13-p2.jpg','../images/comic-lobster-story13-p3.jpg','../images/comic-lobster-story13-p4.jpg','../images/comic-lobster-story13-p5.jpg','../images/comic-lobster-story13-p6.jpg','../images/comic-lobster-story13-p7.jpg','../images/comic-lobster-story13-p8.jpg'],
+    ['../images/comic-lobster-story14-p1.jpg','../images/comic-lobster-story14-p2.jpg','../images/comic-lobster-story14-p3.jpg','../images/comic-lobster-story14-p4.jpg','../images/comic-lobster-story14-p5.jpg','../images/comic-lobster-story14-p6.jpg','../images/comic-lobster-story14-p7.jpg','../images/comic-lobster-story14-p8.jpg']
   ];
 
   function renderStory(n) {
     var panel = document.getElementById('panel-' + n);
     if (!panel) return;
     panel.innerHTML = '';
+    var failedCount = 0;
+    var total = stories[n-1].length;
     stories[n-1].forEach(function(src, i) {
       var thumb = document.createElement('div');
       thumb.className = 'comic-thumb';
       var img = document.createElement('img');
       img.src = src;
       img.alt = '故事' + n + ' 第' + (i+1) + '格';
-      img.onerror = function(){ thumb.style.display='none'; };
+      img.onerror = function(){
+        thumb.style.display = 'none';
+        failedCount++;
+        if (failedCount === total) {
+          var noImg = document.createElement('div');
+          noImg.className = 'comic-placeholder';
+          noImg.innerHTML = '<span>🖼️</span>暂无可用图片';
+          panel.appendChild(noImg);
+        }
+      };
       thumb.appendChild(img);
       thumb.addEventListener('click', function(){ openLightbox(n-1, i); });
       panel.appendChild(thumb);

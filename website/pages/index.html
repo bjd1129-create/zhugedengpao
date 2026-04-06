@@ -119,6 +119,8 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 .char-lobster{font-size:72px;line-height:1;margin:0 -10px;position:relative;z-index:2;animation:bounce 2s ease-in-out infinite}
 .char-dog{font-size:48px;line-height:1}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+@keyframes wiggle{0%,100%{transform:rotate(0deg)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)}}
+#floatLobster:hover{animation:wiggle .6s ease}
 .speech-bubble{position:absolute;top:8%;right:8%;background:white;border:1.5px solid #333;border-radius:12px;padding:8px 12px;font-size:12px;font-weight:700;color:#4A2508;opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease;pointer-events:none;max-width:200px;text-align:center;line-height:1.5}
 .speech-bubble::after{content:'';position:absolute;bottom:-8px;left:20px;border:6px solid transparent;border-top-color:#333}
 .speech-bubble.visible{opacity:1;transform:translateY(0)}
@@ -1641,6 +1643,16 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
 
   if (lb) {
     lb.addEventListener("click", showBubble);
+    lb.addEventListener("mouseenter", function() {
+      if (!bubble || !text) return;
+      text.textContent = "你好呀！";
+      bubble.classList.add("visible");
+      clearTimeout(autoTimer);
+    });
+    lb.addEventListener("mouseleave", function() {
+      if (!bubble) return;
+      bubble.classList.remove("visible");
+    });
   }
 
   setTimeout(showBubble, 3000);

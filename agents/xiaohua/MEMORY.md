@@ -72,9 +72,16 @@
 | Capability Evolver | OpenClaw官方 | 日志分析+自动修复 |
 | Self-Improving Agent | pskoett | .learnings三文档体系 |
 
+### OpenClaw v2026.4.5（2026-04-06发布）
+- **/dreaming**：记忆巩固系统，AI睡觉三阶段自动凝固高价值信息到DREAMS.md
+- SOUL.md升级为官方唯一人格入口
+- ClawHub安全审核制建立
+- 多媒体生成（视频/音乐）入核心工具
+
 ### 关键参数
 - Self-Evolve：minAbsReward=0.15, tau=0.85, maxEntries=200
 - Self-Evolve用bailian/qwen3.5-plus做reward/summarizer
+- **建议切换tools_only模式降token成本**
 
 ### 进阶框架（待评估）
 | 框架 | 来源 | 状态 |

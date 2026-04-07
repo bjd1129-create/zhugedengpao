@@ -1,48 +1,26 @@
 {
-  "updated": "2026-04-06 18:43:50",
-  "timestamp": "2026-04-06 18:43:50",
-  "account": {
-    "net_liquidation": 1000000.0,
-    "cash": 1000000.0,
-    "gross_position_value": 0.0,
-    "realized_pnl": 0.0,
-    "unrealized_pnl": 0.0,
-    "buying_power": 4000000.0
-  },
-  "type": "PAPER",
-  "currency": "USD",
+  "timestamp": "2026-04-07T22:05:53+08:00",
   "strategy": {
-    "name": "价值定投策略 v1.0",
-    "description": "月定投 $10,000 · 季度再平衡 · 股息复利 · 再平衡阈值 5%",
+    "name": "价值定投策略v1.0",
+    "version": "1.0",
+    "description": "月定投指数ETF + 季度再平衡 + 股息复利",
+    "initial_cash": 1000000,
     "allocation": {
-      "SPY": {
-        "name": "SPDR S&P 500 ETF",
-        "target": 0.4,
-        "mode": "月定投"
-      },
-      "QQQ": {
-        "name": "Invesco QQQ Trust",
-        "target": 0.3,
-        "mode": "月定投"
-      },
-      "VTI": {
-        "name": "Vanguard Total Stock Market",
-        "target": 0.2,
-        "mode": "月定投"
-      },
-      "BND": {
-        "name": "Vanguard Total Bond Market",
-        "target": 0.1,
-        "mode": "月定投"
-      }
-    }
+      "SPY":  {"target": 0.40, "name": "标普500ETF", "mode": "定投"},
+      "QQQ":  {"target": 0.30, "name": "纳斯达克100ETF", "mode": "定投"},
+      "VTI":  {"target": 0.20, "name": "全市场ETF", "mode": "定投"},
+      "BND":  {"target": 0.10, "name": "债券ETF", "mode": "定投"}
+    },
+    "monthly_invest": 10000,
+    "rebalance_threshold": 0.05
   },
-  "quotes": {},
+  "account": Traceback (most recent call last):
+  File "<string>", line 17, in <module>
+    assets = client.get_assets('21639635499102726')
+  File "/Users/bjd/.venv/tiger/lib/python3.14/site-packages/tigeropen/trade/trade_client.py", line 383, in get_assets
+    raise ApiException(response.code, response.message)
+tigeropen.common.exceptions.ApiException: code=1000 msg=common param error(failed to verify signature, please make sure you use the correct rsa private key, if you use python sdk, the private key is in pkcs#1 format),
   "positions": [],
-  "orders": [],
-  "net_liquidation": 1000000.0,
-  "cash_value": 1000000.0,
-  "position_value": 0.0,
-  "realized_pnl": 0.0,
-  "unrealized_pnl": 0.0
+  "quotes": {"SPY": {"last":653.44,"prev_close":658.93,"change":-5.49,"change_pct":-0.83},"QQQ": {"last":581.515,"prev_close":588.5,"change":-6.99,"change_pct":-1.19},"VTI": {"last":322.62,"prev_close":325.21,"change":-2.59,"change_pct":-0.8},"BND": {"last":73.375,"prev_close":73.47,"change":-0.09,"change_pct":-0.13},"AAPL": {"last":249.45,"prev_close":258.86,"change":-9.41,"change_pct":-3.64},"MSFT": {"last":368.866,"prev_close":372.88,"change":-4.01,"change_pct":-1.08},"GOOGL": {"last":298.7,"prev_close":299.99,"change":-1.29,"change_pct":-0.43},"AMZN": {"last":210.305,"prev_close":212.79,"change":-2.48,"change_pct":-1.17},"NVDA": {"last":174.96,"prev_close":177.64,"change":-2.68,"change_pct":-1.51},"META": {"last":567.03,"prev_close":573.02,"change":-5.99,"change_pct":-1.05},"TSLA": {"last":341.91,"prev_close":352.82,"change":-10.91,"change_pct":-3.09},"JPM": {"last":294.66,"prev_close":295.45,"change":-0.79,"change_pct":-0.27},"V": {"last":303.77,"prev_close":303.33,"change":0.44,"change_pct":0.15},"JNJ": {"last":238.405,"prev_close":240.97,"change":-2.56,"change_pct":-1.06}},
+  "allocation": []
 }

@@ -48,7 +48,7 @@ _init_pem()
 
 def sign(data: str) -> str:
     r = subprocess.run(
-        ['openssl', 'dgst', '-sha1', '-sign', PEM_FILE],
+        ['openssl', 'dgst', '-sha256', '-sign', PEM_FILE],
         input=data.encode('utf-8'), capture_output=True
     )
     if r.returncode != 0:

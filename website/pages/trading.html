@@ -1,769 +1,216 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦞</text></svg>">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>老庄与小花 · 量化交易</title>
+<meta property="og:title" content="操盘实录 | 老庄与小花">
+<meta property="og:description" content="3 个模拟盘实时追踪：美股、加密货币、Polymarket">
+<title>操盘实录 | 老庄与小花</title>
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-body { font-family:-apple-system,system-ui,sans-serif; background:#0d1117; color:#e6edf3; padding:20px; }
-.container { max-width:1200px; margin:0 auto; }
-h1 { font-size:1.5rem; margin-bottom:20px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-h1 span.green { background:#3fb950; color:#000; font-size:0.7rem; padding:2px 8px; border-radius:12px; font-weight:700; }
-h1 .tab-bar { display:flex; gap:4px; margin-left:auto; }
-h1 .tab { padding:4px 12px; border-radius:8px; font-size:0.8rem; cursor:pointer; border:none; background:#21262d; color:#8b949e; transition:all 0.2s; }
-h1 .tab.active { background:#58a6ff; color:#000; font-weight:600; }
-#updateTime { font-size:0.8rem; color:#8b949e; margin-left:8px; font-family:monospace; }
+@font-face {
+  font-family: 'Smiley Sans';
+  src: url('fonts/smiley-sans.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-size:16px;font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;color:#222;overflow-x:hidden}
+.container{max-width:900px;margin:0 auto;padding:20px}
 
-/* 账户卡片 */
-.account-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:20px; }
-.account-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; text-align:center; }
-.account-card .label { font-size:0.75rem; color:#8b949e; margin-bottom:8px; }
-.account-card .value { font-size:1.5rem; font-weight:700; font-family:'SF Mono',monospace; }
-.account-card .value.green { color:#3fb950; }
-.account-card .value.red { color:#f85149; }
-.account-card .sub { font-size:0.7rem; color:#8b949e; margin-top:4px; }
+/* Header */
+.page-header{text-align:center;padding:60px 20px 40px}
+.page-title{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,5vw,42px);color:#4A2508;margin-bottom:12px}
+.page-subtitle{font-size:15px;color:#666;max-width:600px;margin:0 auto}
 
-/* 持仓 */
-.holdings-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin-bottom:20px; }
-.holding-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:16px; }
-.holding-card h3 { font-size:1rem; font-weight:600; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; }
-.holding-card h3 .badge { font-size:0.7rem; padding:2px 8px; border-radius:6px; font-weight:600; }
-.holding-card h3 .badge.hold { background:rgba(234,179,8,0.15); color:#eab308; }
-.holding-card h3 .badge.grid { background:rgba(88,166,255,0.15); color:#58a6ff; }
-.holding-card h3 .badge.stock { background:rgba(168,85,247,0.15); color:#a855f7; }
-.holding-card .amount { font-family:'SF Mono',monospace; font-size:0.85rem; color:#8b949e; margin-bottom:4px; }
-.holding-card .price-row { display:flex; justify-content:space-between; font-size:0.85rem; padding:3px 0; }
-.holding-card .price-row span:first-child { color:#8b949e; }
-.holding-card .price-row span:last-child { font-family:'SF Mono',monospace; }
-.holding-card .pnl { margin-top:10px; font-size:0.85rem; font-weight:600; font-family:'SF Mono',monospace; }
-.holding-card .pnl.up { color:#3fb950; }
-.holding-card .pnl.down { color:#f85149; }
+/* Cards Grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:30px}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:transform 0.3s}
+.card:hover{transform:translateY(-4px)}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f0ebe6}
+.card-icon{font-size:32px}
+.card-title{font-size:18px;font-weight:700;color:#4A2508}
+.card-provider{font-size:12px;color:#999;margin-top:2px}
 
-/* 网格 */
-.grid-section { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
-.grid-section h2 { font-size:1rem; margin-bottom:16px; }
-.grid-coin { margin-bottom:16px; }
-.grid-coin:last-child { margin-bottom:0; }
-.grid-header { display:flex; justify-content:space-between; font-size:0.85rem; margin-bottom:6px; }
-.grid-name { font-weight:600; }
-.grid-range { color:#8b949e; font-family:'SF Mono',monospace; font-size:0.8rem; }
-.grid-bar { height:24px; background:#21262d; border-radius:6px; position:relative; overflow:hidden; display:flex; }
-.grid-cell { flex:1; border-right:1px solid rgba(255,255,255,0.05); }
-.grid-cell.filled { background:rgba(63,185,80,0.2); }
-.grid-cell.now { background:rgba(88,166,255,0.4); border:2px solid #58a6ff; position:absolute; width:4px; height:100%; left:50%; transform:translateX(-50%); border-radius:4px; }
+/* Stats */
+.stat-row{display:flex;justify-content:space-between;margin-bottom:12px;padding:10px;background:#f9f7f4;border-radius:8px}
+.stat-label{font-size:13px;color:#666}
+.stat-value{font-size:15px;font-weight:700;color:#222}
+.stat-value.large{font-size:20px;color:#4A2508}
 
-/* 三平台价格 */
-.platforms { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:20px; }
-.platform-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:16px; }
-.platform-card h3 { font-size:1rem; font-weight:600; margin-bottom:12px; display:flex; align-items:center; gap:8px; }
-.platform-card h3 .dot { width:8px; height:8px; border-radius:50%; background:#3fb950; animation:pulse 2s infinite; }
-.platform-card h3 .dot.offline { background:#f85149; animation:none; }
-.platform-card .price-row { display:flex; justify-content:space-between; font-size:0.82rem; padding:5px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
-.platform-card .price-row:last-child { border-bottom:none; }
-.platform-card .coin { color:#8b949e; }
-.platform-card .price { font-family:'SF Mono',monospace; }
+/* Status Badge */
+.status-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700;margin-top:12px}
+.status-stopped{background:#fee2e2;color:#dc2626}
+.status-running{background:#dcfce7;color:#16a34a}
 
-/* 交易记录 */
-.trades-section { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
-.trades-section h2 { font-size:1rem; margin-bottom:12px; }
-table { width:100%; border-collapse:collapse; font-size:0.85rem; }
-th { text-align:left; color:#8b949e; font-weight:500; padding:8px; border-bottom:1px solid #30363d; }
-td { padding:8px; border-bottom:1px solid rgba(255,255,255,0.05); }
-.buy { color:#3fb950; font-weight:600; }
-.sell { color:#f85149; font-weight:600; }
-.pnl-up { color:#3fb950; }
-.pnl-down { color:#f85149; }
-.empty { color:#8b949e; text-align:center; padding:20px; }
+/* Positions Table */
+.positions-section{margin-top:20px;padding-top:16px;border-top:2px solid #f0ebe6}
+.positions-title{font-size:14px;font-weight:700;color:#666;margin-bottom:12px}
+.position-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:13px}
+.position-item:last-child{border-bottom:none}
+.position-market{color:#333}
+.position-return{color:#16a34a;font-weight:600}
 
-/* 美股区块 */
-.us-stock-section { display:none; }
-.us-stock-section.active { display:block; }
-.poly-section { display:none; }
-.poly-section.active { display:block; }
-.crypto-section { display:none; }
-.crypto-section.active { display:block; }
-.review-section { display:none; }
-.review-section.active { display:block; }
+/* Footer */
+.page-footer{text-align:center;padding:40px 20px;color:#999;font-size:13px}
+.back-link{display:inline-block;margin-top:12px;color:#4A2508;text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
 
-.us-strategy { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
-.us-strategy h2 { font-size:1rem; margin-bottom:16px; }
-.strategy-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; }
-.strategy-card { background:#21262d; border-radius:8px; padding:14px; text-align:center; }
-.strategy-card .etf-name { font-size:0.9rem; font-weight:600; margin-bottom:4px; }
-.strategy-card .etf-full { font-size:0.7rem; color:#8b949e; margin-bottom:8px; }
-.strategy-card .target { font-size:1.2rem; font-weight:700; color:#a855f7; font-family:'SF Mono',monospace; }
-.strategy-card .target-label { font-size:0.65rem; color:#8b949e; }
+/* Loading */
+.loading{text-align:center;padding:60px 20px;color:#999}
+.loading-spinner{display:inline-block;width:40px;height:40px;border:4px solid #f0ebe6;border-top-color:#4A2508;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* ETF行情 */
-.etf-quotes { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
-.etf-quotes h2 { font-size:1rem; margin-bottom:16px; }
-.etf-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; }
-.etf-card { background:#21262d; border-radius:8px; padding:14px; text-align:center; }
-.etf-card .symbol { font-size:0.9rem; font-weight:700; margin-bottom:4px; }
-.etf-card .price { font-size:1.3rem; font-weight:700; font-family:'SF Mono',monospace; margin-bottom:4px; }
-.etf-card .change { font-size:0.8rem; font-family:'SF Mono',monospace; }
-.etf-card .change.up { color:#3fb950; }
-.etf-card .change.down { color:#f85149; }
-.etf-card .mode { font-size:0.65rem; color:#8b949e; margin-top:6px; }
-
-/* 所有股票行情 */
-.all-quotes { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:20px; margin-bottom:20px; }
-.all-quotes h2 { font-size:1rem; margin-bottom:16px; }
-.quotes-scroll { display:flex; gap:12px; overflow-x:auto; padding-bottom:8px; }
-.quote-tile { min-width:120px; background:#21262d; border-radius:8px; padding:12px; text-align:center; }
-.quote-tile .sym { font-size:0.8rem; font-weight:600; color:#58a6ff; margin-bottom:4px; }
-.quote-tile .px { font-size:1rem; font-weight:700; font-family:'SF Mono',monospace; }
-.quote-tile .ch { font-size:0.72rem; font-family:'SF Mono',monospace; }
-.quote-tile .ch.up { color:#3fb950; }
-.quote-tile .ch.down { color:#f85149; }
-
-footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; border-top:1px solid #30363d; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-@media(max-width:768px) { .account-grid{grid-template-columns:repeat(2,1fr)} .platforms{grid-template-columns:1fr} .strategy-grid{grid-template-columns:repeat(2,1fr)} }
+@media(max-width:600px){
+  .cards-grid{grid-template-columns:1fr}
+  .page-header{padding:40px 16px 24px}
+}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" media="print" onload="this.media='all'">
 </head>
-<body style="padding-top:56px">
-<nav style="position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;">
-  <span style="font-size:20px">🦞</span>
-  <div style="display:flex;gap:4px">
-    <a href="index.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">首页</a>
-    <a href="diary.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📖 日记</a>
-<a href="articles.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📝 文章</a>
-    <a href="science.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">🔰 科普</a>
-    <a href="bagua.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">🎯 八卦</a>
-    <a href="trading.html" style="font-size:14px;color:#58a6ff;text-decoration:none;padding:6px 8px;font-weight:600">📈 操盘</a>
-  </div>
-</nav>
-<nav style="position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(13,17,23,0.97);backdrop-filter:blur(12px);border-bottom:1px solid #30363d;display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;">
-  <a href="index.html" style="font-size:20px;text-decoration:none">🦞</a>
-  <div style="display:flex;gap:4px">
-    <a href="index.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">首页</a>
-    <a href="diary.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📖 日记</a>
-    <a href="articles.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📝 文章</a>
-    <a href="skills.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">🎨 技能</a>
-    <a href="about.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">关于</a>
-    <a href="tongtong-letters.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">💌 桐桐</a>
-    <a href="trading.html" style="font-size:14px;color:#58a6ff;text-decoration:none;padding:6px 8px;font-weight:600">📈 操盘</a>
-    <a href="contact.html" style="font-size:14px;color:#8b949e;text-decoration:none;padding:6px 8px;font-weight:500">📮 联系</a>
-  </div>
-</nav>
-<div class="container" style="padding-top:76px">
-  <h1>
-    🦞 量化交易
-    <span class="green" id="updateTime">--:--:--</span>
-    <div class="tab-bar">
-      <button class="tab active" id="tabUS" onclick="switchTab('us')">🇺🇸 美股模拟</button>
-      <button class="tab" id="tabPoly" onclick="switchTab('poly')">📊 Polymarket</button>
-      <button class="tab" id="tabCrypto" onclick="switchTab('crypto')">₿ 加密货币</button>
-      <button class="tab" id="tabReview" onclick="switchTab('review')">📝 复盘</button>
-    </div>
-  </h1>
+<body>
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">🦞 操盘实录</h1>
+    <p class="page-subtitle">3 个模拟盘实时追踪 · 美股 / 加密货币 / Polymarket</p>
+  </header>
 
-  <!-- ═══ 加密货币区块 ═══ -->
-  <div class="crypto-section" id="cryptoSection">
-    <!-- 账户总览 -->
-    <div class="account-grid">
-      <div class="account-card">
-        <div class="label">总资产 (USDT)</div>
-        <div class="value" id="totalValue">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">累计盈亏</div>
-        <div class="value" id="totalPnL">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">可用现金</div>
-        <div class="value" id="cashBalance">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">网格交易</div>
-        <div class="value" id="tradeCount">--</div>
-      </div>
-    </div>
-
-    <!-- 三平台实时价格 -->
-    <div class="platforms">
-      <div class="platform-card">
-        <h3><span class="dot" id="bn-dot"></span> Binance</h3>
-        <div class="price-row"><span class="coin">₿ BTC</span><span class="price" id="bn-btc">--</span></div>
-        <div class="price-row"><span class="coin">Ξ ETH</span><span class="price" id="bn-eth">--</span></div>
-        <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price" id="bn-avax">--</span></div>
-        <div class="price-row"><span class="coin">₳ ADA</span><span class="price" id="bn-ada">--</span></div>
-      </div>
-      <div class="platform-card">
-        <h3><span class="dot" id="okx-dot"></span> OKX</h3>
-        <div class="price-row"><span class="coin">₿ BTC</span><span class="price" id="okx-btc">--</span></div>
-        <div class="price-row"><span class="coin">Ξ ETH</span><span class="price" id="okx-eth">--</span></div>
-        <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price" id="okx-avax">--</span></div>
-        <div class="price-row"><span class="coin">₳ ADA</span><span class="price" id="okx-ada">--</span></div>
-      </div>
-      <div class="platform-card">
-        <h3><span class="dot" id="by-dot"></span> Bybit</h3>
-        <div class="price-row"><span class="coin">₿ BTC</span><span class="price" id="by-btc">--</span></div>
-        <div class="price-row"><span class="coin">Ξ ETH</span><span class="price" id="by-eth">--</span></div>
-        <div class="price-row"><span class="coin">🔺 AVAX</span><span class="price" id="by-avax">--</span></div>
-        <div class="price-row"><span class="coin">₳ ADA</span><span class="price" id="by-ada">--</span></div>
-      </div>
-    </div>
-
-    <!-- 持仓 -->
-    <div class="holdings-grid" id="holdingsGrid"></div>
-
-    <!-- 网格状态 -->
-    <div class="grid-section">
-      <h2>📊 网格状态</h2>
-      <div id="gridsContainer"></div>
-    </div>
-
-    <!-- 交易记录 -->
-    <div class="trades-section">
-      <h2>📋 交易记录</h2>
-      <div id="tradesContainer"><div class="empty">暂无交易记录</div></div>
-    </div>
-
-    <footer>策略: 密集网格v4.2 · BTC/ETH持有 + AVAX/ADA网格<br>数据每30秒自动刷新</footer>
+  <div id="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p style="margin-top:16px">加载数据中...</p>
   </div>
 
-  <!-- ═══ 美股模拟区块 ═══ -->
-  <div class="us-stock-section" id="usSection" style="display:none">
-    <!-- 账户总览 -->
-    <div class="account-grid">
-      <div class="account-card">
-        <div class="label">账户净值 (USD)</div>
-        <div class="value" id="usNetLiq">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">现金余额 (USD)</div>
-        <div class="value" id="usCash">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">持仓市值 (USD)</div>
-        <div class="value" id="usPosValue">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">已实现PnL</div>
-        <div class="value" id="usRealPnL">--</div>
-      </div>
-    </div>
+  <div id="cards" class="cards-grid" style="display:none"></div>
 
-    <!-- 策略配置 -->
-    <div class="us-strategy">
-      <h2>🎯 价值定投策略 v1.0</h2>
-      <p style="font-size:0.8rem; color:#8b949e; margin-bottom:14px;">月定投 $10,000 · 季度再平衡 · 股息复利 · 再平衡阈值 5%</p>
-      <div class="strategy-grid" id="strategyGrid"></div>
-    </div>
-
-    <!-- 核心ETF行情 -->
-    <div class="etf-quotes">
-      <h2>📊 核心ETF实时行情</h2>
-      <div class="etf-grid" id="etfGrid"></div>
-    </div>
-
-    <!-- 全股票行情滚动条 -->
-    <div class="all-quotes">
-      <h2>📈 关注股票</h2>
-      <div class="quotes-scroll" id="quotesScroll"></div>
-    </div>
-
-    <footer>策略: 价值定投策略v1.0 · 老虎证券模拟账户<br>数据每5分钟自动刷新 · 行情来源: Yahoo Finance</footer>
-  </div>
-
-  <!-- ═══ Polymarket 预测市场 ═══ -->
-  <div class="poly-section" id="polySection">
-
-    <!-- 账户总览 -->
-    <div class="account-grid" style="margin-bottom:20px;">
-      <div class="account-card">
-        <div class="label">账户现金 (USDC)</div>
-        <div class="value" id="polyCash">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">持仓市值 (USDC)</div>
-        <div class="value" id="polyPosValue">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">总净值 (USDC)</div>
-        <div class="value" id="polyTotalValue">--</div>
-      </div>
-      <div class="account-card">
-        <div class="label">已实现PnL</div>
-        <div class="value" id="polyRealizedPnL">--</div>
-      </div>
-    </div>
-
-    <!-- 我的预测持仓 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:16px;">📌 我的预测持仓</h2>
-      <div id="polyPositions"><div class="empty">暂无持仓，继续研究...</div></div>
-    </div>
-
-    <!-- 研究中 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:16px;">🔬 研究中</h2>
-      <div id="polyResearch"><div class="empty">暂无研究中的预测</div></div>
-    </div>
-
-    <!-- 交易记录 -->
-    <div class="trades-section">
-      <h2>📋 交易记录</h2>
-      <div id="polyTrades"><div class="empty">暂无交易记录</div></div>
-    </div>
-
-    <footer>数据来源: Polymarket.com · 每6小时由策略师更新<br>⚠️ 预测市场反映的是交易员的预测概率，不是事实</footer>
-  </div>
-
-  <!-- ═══ 复盘区块 ═══ -->
-  <div class="review-section" id="reviewSection">
-    <!-- 总体亏损 -->
-    <div style="background:#161b22;border:2px solid #f85149;border-radius:12px;padding:24px;margin-bottom:20px;text-align:center;">
-      <div style="font-size:0.8rem;color:#8b949e;margin-bottom:8px;">策略: 密集网格v4.2 · 2026-04-04 ~ 2026-04-06</div>
-      <div style="font-size:2rem;font-weight:700;color:#f85149;margin-bottom:4px;" id="reviewPnL">--</div>
-      <div style="font-size:0.9rem;color:#8b949e;margin-bottom:16px;">总亏损 · 81笔交易</div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;text-align:center;">
-        <div><div style="font-size:1.1rem;font-weight:700;color:#c9d1d9;" id="reviewInit">--</div><div style="font-size:0.7rem;color:#8b949e;">初始资金</div></div>
-        <div><div style="font-size:1.1rem;font-weight:700;color:#c9d1d9;" id="reviewFinal">--</div><div style="font-size:0.7rem;color:#8b949e;">当前价值</div></div>
-        <div><div style="font-size:1.1rem;font-weight:700;color:#f85149;" id="reviewFees">--</div><div style="font-size:0.7rem;color:#8b949e;">手续费估算</div></div>
-        <div><div style="font-size:1.1rem;font-weight:700;color:#c9d1d9;" id="reviewTrades">--</div><div style="font-size:0.7rem;color:#8b949e;">交易笔数</div></div>
-      </div>
-      <div style="margin-top:16px;padding:12px;background:#1c2128;border-radius:8px;font-size:0.82rem;color:#f85149;">⚠️ 核心问题: <span id="reviewCause">加载中...</span></div>
-    </div>
-
-    <!-- 按币种统计 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:16px;">📊 按币种盈亏</h2>
-      <div id="reviewCoinStats"><div class="empty">加载中...</div></div>
-    </div>
-
-    <!-- 最大亏损单 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:16px;color:#f85149;">💀 最大亏损单</h2>
-      <div id="reviewWorstTrades"><div class="empty">加载中...</div></div>
-    </div>
-
-    <!-- 核心教训 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:16px;">🔍 核心教训</h2>
-      <div id="reviewLessons"><div class="empty">加载中...</div></div>
-    </div>
-
-    <!-- 策略问题 -->
-    <div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:20px;">
-      <h2 style="font-size:1rem;margin-bottom:16px;">⚙️ 策略缺陷</h2>
-      <div id="reviewStrategy"><div class="empty">加载中...</div></div>
-    </div>
-
-    <footer style="text-align:center;color:#484f58;font-size:0.75rem;margin-top:12px;">交易已冻结 · STOP_FILE生效 · 数据更新时间: 2026-04-07</footer>
-  </div>
+  <footer class="page-footer">
+    <p>数据更新时间：<span id="lastUpdate">-</span></p>
+    <a href="index.html" class="back-link">← 返回首页</a>
+  </footer>
 </div>
 
 <script>
-// ─── 工具函数 ───
-function fmt(n, decimals) {
-  if (n === null || n === undefined || isNaN(n)) return '--';
-  return Number(n).toFixed(decimals || 2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-}
-function sign(n) { return n >= 0 ? '+' : ''; }
+// 模拟数据（实际会从 JSON 文件加载）
+const simulations = {
+  us: {
+    name: "美股模拟盘",
+    provider: "老虎证券",
+    icon: "📈",
+    initialCapital: 1000000,
+    currentValue: 1000000,
+    cash: 1000000,
+    currency: "USD",
+    status: "running"
+  },
+  crypto: {
+    name: "加密货币网格",
+    provider: "Binance",
+    icon: "₿",
+    cash: 9500,
+    currency: "USDT",
+    status: "stopped",
+    stopFile: "data/trading/STOP_TRADING.flag"
+  },
+  polymarket: {
+    name: "Polymarket 模拟盘",
+    provider: "Polymarket",
+    icon: "🎯",
+    initialCapital: 100000,
+    invested: 2710,
+    cash: 97290,
+    currency: "USD",
+    status: "running",
+    positions: [
+      {market: "BTC<$65K", direction: "NO", invested: 700, potentialReturn: 10000},
+      {market: "ETH<$2000", direction: "NO", invested: 600, potentialReturn: 15000},
+      {market: "SOL>$80", direction: "NO", invested: 650, potentialReturn: 5000},
+      {market: "US enters Iran Apr30", direction: "NO", invested: 760, potentialReturn: 2000}
+    ]
+  }
+};
 
-// ─── Tab切换 ───
-var currentTab = 'crypto';
-function switchTab(tab) {
-  currentTab = tab;
-  document.getElementById('tabCrypto').className = 'tab' + (tab === 'crypto' ? ' active' : '');
-  document.getElementById('tabUS').className = 'tab' + (tab === 'us' ? ' active' : '');
-  document.getElementById('tabPoly').className = 'tab' + (tab === 'poly' ? ' active' : '');
-  document.getElementById('cryptoSection').className = 'crypto-section' + (tab === 'crypto' ? ' active' : '');
-  document.getElementById('usSection').className = 'us-stock-section' + (tab === 'us' ? ' active' : '');
-  document.getElementById('polySection').className = 'poly-section' + (tab === 'poly' ? ' active' : '');
-  document.getElementById('tabReview').className = 'tab' + (tab === 'review' ? ' active' : '');
-  document.getElementById('reviewSection').className = 'review-section' + (tab === 'review' ? ' active' : '');
-  if (tab === 'review') initReview();
-}
-
-// ─── 加密货币渲染 ───
-function renderAccount(data) {
-  var acc = data.account || {};
-  var total = acc.totalValue || 0;
-  var pnl = acc.totalPnL || 0;
-  var pnlPct = acc.totalPnLPercent || 0;
-  var cash = acc.cashBalance || 0;
-  var trades = acc.totalTrades || 0;
-  document.getElementById('totalValue').textContent = '$' + fmt(total);
-  document.getElementById('cashBalance').textContent = '$' + fmt(cash);
-  document.getElementById('tradeCount').textContent = trades + '笔';
-  var pnlEl = document.getElementById('totalPnL');
-  pnlEl.textContent = sign(pnl) + '$' + fmt(Math.abs(pnl)) + ' (' + sign(pnlPct) + fmt(pnlPct) + '%)';
-  pnlEl.className = 'value ' + (pnl >= 0 ? 'green' : 'red');
-}
-
-function renderHoldings(data) {
-  var container = document.getElementById('holdingsGrid');
-  var holdings = data.holdings || [];
-  var html = '';
-  holdings.forEach(function(h) {
-    var sym = h.symbol;
-    var gs = data.gridState ? data.gridState[sym] : {};
-    var levels = gs.levels || [];
-    var mode = levels.length > 0 ? '网格' : '持有';
-    var badgeClass = mode === '持有' ? 'hold' : 'grid';
-    var amount = h.amount || 0;
-    var currPrice = h.currentPrice || 0;
-    var value = h.value || 0;
-    var pnl = h.pnl || 0;
-    var pnlClass = pnl > 0 ? 'up' : (pnl < 0 ? 'down' : '');
-    html += '<div class="holding-card"><h3>' + sym + ' <span class="badge ' + badgeClass + '">' + mode + '</span></h3>' +
-      '<div class="amount">' + fmt(amount, 6) + ' ' + sym + '</div>' +
-      '<div class="price-row"><span>当前价</span><span>$' + fmt(currPrice, 4) + '</span></div>' +
-      '<div class="price-row"><span>持仓价值</span><span>$' + fmt(value, 2) + '</span></div>' +
-      '<div class="price-row"><span>浮动盈亏</span><span class="' + pnlClass + '">' + sign(pnl) + '$' + fmt(Math.abs(pnl), 2) + '</span></div></div>';
-  });
-  container.innerHTML = html;
+function formatMoney(amount, currency) {
+  const symbols = {USD: '$', USDT: '₮', CNY: '¥'};
+  return (symbols[currency] || '$') + amount.toLocaleString();
 }
 
-function renderGrids(data, livePrices) {
-  var container = document.getElementById('gridsContainer');
-  var gridState = data.gridState || {};
-  var symbols = ['BTC', 'ETH', 'AVAX', 'ADA'];
-  var html = '';
-  symbols.forEach(function(sym) {
-    var gs = gridState[sym] || {};
-    var levels = gs.levels || [];
-    var mode = levels.length > 0 ? '网格' : '持有';
-    var price = livePrices[sym] || 0;
-    if (mode === '持有') {
-      html += '<div class="grid-coin"><div class="grid-header"><span class="grid-name">₿ ' + sym + '</span><span class="grid-range">持有模式 · 不参与网格</span></div>' +
-        '<div class="grid-bar" style="align-items:center;justify-content:center;color:#eab308;font-size:0.8rem">长期持有，静待趋势</div></div>';
-    } else {
-      var rangeStr = levels.length > 0 ? levels[0].toFixed(4) + ' ~ ' + levels[levels.length-1].toFixed(4) : '--';
-      html += '<div class="grid-coin"><div class="grid-header"><span class="grid-name">🔺 ' + sym + '</span><span class="grid-range">' + rangeStr + '</span></div>' +
-        '<div class="grid-bar" style="position:relative">';
-      levels.forEach(function(lvl, i) {
-        var isNow = price >= lvl && (i === levels.length-1 || price < levels[i+1]);
-        var filled = gs.fills && gs.fills.some(function(f) { return f.note && f.note.indexOf('grid-' + i) !== -1; });
-        var cls = isNow ? 'grid-cell now' : (filled ? 'grid-cell filled' : 'grid-cell');
-        html += '<div class="' + cls + '"></div>';
-      });
-      html += '</div></div>';
+function createCard(key, data) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  
+  let statsHtml = `
+    <div class="stat-row">
+      <span class="stat-label">初始资金</span>
+      <span class="stat-value">${data.initialCapital ? formatMoney(data.initialCapital, data.currency) : '-'}</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">当前价值</span>
+      <span class="stat-value large">${data.currentValue ? formatMoney(data.currentValue, data.currency) : formatMoney(data.cash, data.currency)}</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">可用现金</span>
+      <span class="stat-value">${formatMoney(data.cash, data.currency)}</span>
+    </div>
+  `;
+
+  if (data.status === 'stopped') {
+    statsHtml += `<div class="status-badge status-stopped">⏸️ 已停止</div>`;
+    if (data.stopFile) {
+      statsHtml += `<p style="font-size:11px;color:#999;margin-top:8px">原因：${data.stopFile}</p>`;
     }
-  });
-  container.innerHTML = html;
-}
-
-function renderPrices(platforms) {
-  var syms = ['BTC', 'ETH', 'AVX', 'ADA'];
-  var dots = { 'Binance': 'bn-dot', 'OKX': 'okx-dot', 'Bybit': 'by-dot' };
-  Object.keys(dots).forEach(function(p) {
-    var dot = document.getElementById(dots[p]);
-    if (dot) dot.className = 'dot' + (platforms[p] && platforms[p].BTC ? '' : ' offline');
-  });
-  ['btc', 'eth', 'avax', 'ada'].forEach(function(s, i) {
-    var sym = ['BTC','ETH','AVAX','ADA'][i];
-    ['bn', 'okx', 'by'].forEach(function(p) {
-      var el = document.getElementById(p + '-' + s);
-      if (el && platforms[p === 'bn' ? 'Binance' : p === 'okx' ? 'OKX' : 'Bybit']) {
-        var price = platforms[p === 'bn' ? 'Binance' : p === 'okx' ? 'OKX' : 'Bybit'][sym];
-        if (price) el.textContent = '$' + (price < 1 ? fmt(price, 4) : fmt(price, 2));
-      }
-    });
-  });
-}
-
-function renderTrades(data) {
-  var container = document.getElementById('tradesContainer');
-  var fills = [];
-  Object.keys(data.gridState || {}).forEach(function(sym) {
-    (data.gridState[sym].fills || []).forEach(function(f) { fills.push(f); });
-  });
-  fills.sort(function(a, b) { return (b.time || '').localeCompare(a.time || ''); });
-  if (fills.length === 0) { container.innerHTML = '<div class="empty">暂无交易记录</div>'; return; }
-  var html = '<table><thead><tr><th>时间</th><th>方向</th><th>币种</th><th>价格</th><th>数量</th><th>盈亏</th></tr></thead><tbody>';
-  fills.slice(0, 20).forEach(function(f) {
-    var time = f.time ? f.time.substring(11, 16) : '--:--';
-    var pnlStr = f.pnl !== undefined ? sign(f.pnl) + '$' + fmt(Math.abs(f.pnl), 2) : '';
-    var pnlClass = f.pnl > 0 ? 'pnl-up' : (f.pnl < 0 ? 'pnl-down' : '');
-    html += '<tr><td>' + time + '</td><td class="' + (f.side === 'BUY' ? 'buy' : 'sell') + '">' + f.side + '</td><td>' + f.symbol + '</td>' +
-      '<td>$' + fmt(f.price, 4) + '</td><td>' + fmt(f.amount, 4) + '</td><td class="' + pnlClass + '">' + pnlStr + '</td></tr>';
-  });
-  html += '</tbody></table>';
-  container.innerHTML = html;
-}
-
-// ─── 美股渲染 ───
-function renderUSStock(data) {
-  var acc = data.account || {};
-  var netLiq = acc.net_liquidation || 0;
-  var cash = acc.cash || 0;
-  var posValue = acc.gross_position_value || 0;
-  var realPnL = acc.realized_pnl || 0;
-  var unrealPnL = acc.unrealized_pnl || 0;
-
-  document.getElementById('usNetLiq').textContent = '$' + fmt(netLiq);
-  document.getElementById('usCash').textContent = '$' + fmt(cash);
-  document.getElementById('usPosValue').textContent = '$' + fmt(posValue);
-  var pnlEl = document.getElementById('usRealPnL');
-  pnlEl.textContent = sign(realPnL) + '$' + fmt(Math.abs(realPnL));
-  pnlEl.className = 'value ' + (realPnL >= 0 ? 'green' : 'red');
-
-  // 策略卡片
-  var strat = data.strategy || {};
-  var alloc = strat.allocation || {};
-  var sg = document.getElementById('strategyGrid');
-  var html = '';
-  Object.keys(alloc).forEach(function(sym) {
-    var cfg = alloc[sym];
-    var targetPct = cfg.target * 100;
-    html += '<div class="strategy-card"><div class="etf-name">' + sym + '</div><div class="etf-full">' + cfg.name + '</div>' +
-      '<div class="target">' + targetPct.toFixed(0) + '%</div><div class="target-label">目标权重</div></div>';
-  });
-  sg.innerHTML = html;
-
-  // 核心ETF
-  var quotes = data.quotes || {};
-  var coreETFs = ['SPY', 'QQQ', 'VTI', 'BND'];
-  var eg = document.getElementById('etfGrid');
-  var eh = '';
-  coreETFs.forEach(function(sym) {
-    var q = quotes[sym];
-    if (q) {
-      var chClass = q.change_pct >= 0 ? 'up' : 'down';
-      eh += '<div class="etf-card"><div class="symbol">' + sym + '</div>' +
-        '<div class="price">$' + fmt(q.last, 2) + '</div>' +
-        '<div class="change ' + chClass + '">' + sign(q.change_pct) + fmt(q.change_pct) + '%</div>' +
-        '<div class="mode">' + (alloc[sym] ? alloc[sym].mode : '') + '</div></div>';
-    }
-  });
-  eg.innerHTML = eh;
-
-  // 关注股票滚动
-  var allSyms = Object.keys(quotes).filter(function(s) { return coreETFs.indexOf(s) === -1; });
-  var qs = document.getElementById('quotesScroll');
-  var qh = '';
-  allSyms.forEach(function(sym) {
-    var q = quotes[sym];
-    if (q) {
-      var chClass = q.change_pct >= 0 ? 'up' : 'down';
-      qh += '<div class="quote-tile"><div class="sym">' + sym + '</div>' +
-        '<div class="px">$' + (q.last < 10 ? fmt(q.last, 2) : fmt(q.last)) + '</div>' +
-        '<div class="ch ' + chClass + '">' + sign(q.change_pct) + fmt(q.change_pct) + '%</div></div>';
-    }
-  });
-  qs.innerHTML = qh;
-}
-
-// ─── 主初始化 ───
-var livePrices = {};
-
-async function initCrypto() {
-  try {
-    var priceRes = await fetch('/data/trading/price_aggregate.json?t=' + Date.now(), { cache: 'no-store' });
-    var priceData = await priceRes.json();
-    if (priceData && priceData.platforms) {
-      renderPrices(priceData.platforms);
-      Object.keys(priceData.platforms.Binance || {}).forEach(function(s) { livePrices[s] = priceData.platforms.Binance[s]; });
-    }
-    if (priceData && priceData.timestamp) document.getElementById('updateTime').textContent = priceData.timestamp;
-  } catch(e) { console.warn('price_aggregate.json 加载失败', e); }
-
-  try {
-    var portfolioRes = await fetch('/data/trading/portfolio.json?t=' + Date.now(), { cache: 'no-store' });
-    var data = await portfolioRes.json();
-    renderAccount(data);
-    renderHoldings(data);
-    renderGrids(data, livePrices);
-    renderTrades(data);
-  } catch(err) { console.error('portfolio.json 加载失败:', err); }
-}
-
-async function initUSStock() {
-  try {
-    var res = await fetch('/data/trading/tiger_us_paper.json?t=' + Date.now(), { cache: 'no-store' });
-    var data = await res.json();
-    renderUSStock(data);
-    if (data.timestamp) {
-      var ts = data.timestamp.substring(11, 16);
-      document.getElementById('updateTime').textContent = ts;
-    }
-  } catch(err) { console.error('tiger_us_paper.json 加载失败:', err); }
-}
-
-async function initPoly() {
-  try {
-    var res = await fetch('/data/trading/polymarket_data.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw new Error('加载失败');
-    var data = await res.json();
-    renderPoly(data);
-    document.getElementById('updateTime').textContent = data.timestamp ? data.timestamp.substring(11, 16) : '--:--';
-  } catch(err) { console.error('polymarket_data.json 加载失败:', err); }
-}
-
-function renderPoly(data) {
-  var sig = data.summary || {};
-  document.getElementById('polySignal').innerHTML =
-    '<strong>市场情绪:</strong> ' + (sig.crypto_outlook || '加载中') + '<br>' +
-    '<strong>策略信号:</strong> ' + (sig.strategy_signal || '--');
-
-  var markets = data.markets || [];
-  var html = '';
-  markets.forEach(function(m) {
-    var pct = m.probability_pct || '--';
-    var color = m.probability >= 0.6 ? '#3fb950' : m.probability >= 0.4 ? '#eab308' : '#f85149';
-    var sentimentIcon = m.sentiment === 'bullish' ? '📈' : m.sentiment === 'bearish' ? '📉' : '➡️';
-    html += '<div style="background:#161b22;border:1px solid #30363d;border-radius:12px;padding:20px;margin-bottom:14px;">' +
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">' +
-      '<h3 style="font-size:0.95rem;flex:1;">' + sentimentIcon + ' ' + m.question + '</h3>' +
-      '<span style="font-size:1.2rem;font-weight:700;color:' + color + ';">' + pct + '</span></div>' +
-      '<div style="font-size:0.8rem;color:#8b949e;">成交量: ' + m.volume + ' · 更新: ' + m.last_update + '</div>' +
-      '<div style="margin-top:8px;font-size:0.82rem;color:#8b949e;line-height:1.5;">' + (m.note || '') + '</div></div>';
-  });
-  document.getElementById('polyMarkets').innerHTML = html;
-}
-
-async function initPolyPortfolio() {
-  try {
-    var res = await fetch('/data/trading/polymarket_portfolio.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw new Error('portfolio加载失败');
-    var data = await res.json();
-    renderPolyPortfolio(data);
-  } catch(err) { console.error('polymarket_portfolio.json 加载失败:', err); }
-}
-
-function renderPolyPortfolio(data) {
-  var acc = data.account || {};
-  document.getElementById('polyCash').textContent = acc.cash_balance != null ? '$' + Number(acc.cash_balance).toLocaleString('en-US', {minimumFractionDigits: 2}) : '--';
-  document.getElementById('polyPosValue').textContent = acc.position_value != null ? '$' + Number(acc.position_value).toLocaleString('en-US', {minimumFractionDigits: 2}) : '$0.00';
-  document.getElementById('polyTotalValue').textContent = acc.total_value != null ? '$' + Number(acc.total_value).toLocaleString('en-US', {minimumFractionDigits: 2}) : '--';
-  var pnl = acc.realized_pnl || 0;
-  var pnlEl = document.getElementById('polyRealizedPnL');
-  pnlEl.textContent = (pnl >= 0 ? '+' : '') + '$' + Number(pnl).toLocaleString('en-US', {minimumFractionDigits: 2});
-  pnlEl.style.color = pnl >= 0 ? '#3fb950' : '#f85149';
-
-  // 持仓
-  var positions = data.positions || [];
-  if (positions.length === 0) {
-    document.getElementById('polyPositions').innerHTML = '<div class="empty">暂无持仓，继续研究...</div>';
   } else {
-    var posHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>预测</td><td>方向</td><td>数量</td><td>盈亏</td></tr>';
-    positions.forEach(function(p) {
-      var pnl2 = p.pnl || 0;
-      var color2 = pnl2 >= 0 ? '#3fb950' : '#f85149';
-      posHtml += '<tr style="color:#c9d1d9;"><td>' + (p.question || '--') + '</td><td>' + (p.side || '--') + '</td><td>' + (p.amount || 0) + '</td><td style="color:' + color2 + ';">' + (pnl2 >= 0 ? '+' : '') + '$' + Number(pnl2).toFixed(2) + '</td></tr>';
-    });
-    posHtml += '</table>';
-    document.getElementById('polyPositions').innerHTML = posHtml;
+    statsHtml += `<div class="status-badge status-running">▶️ 运行中</div>`;
   }
 
-  // 研究中
-  var notes = data.research_notes || [];
-  var researching = notes.filter(function(n) { return n.status === 'researching'; });
-  if (researching.length === 0) {
-    document.getElementById('polyResearch').innerHTML = '<div class="empty">暂无研究中的预测</div>';
-  } else {
-    var resHtml = '';
-    researching.forEach(function(r) {
-      resHtml += '<div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #30363d;">' +
-        '<div style="font-size:0.9rem;margin-bottom:6px;">' + (r.question || '--') + '</div>' +
-        '<div style="font-size:0.78rem;color:#8b949e;">市场概率: ' + (r.market_probability != null ? Math.round(r.market_probability * 100) + '%' : '--') +
-        ' · 我们判断: ' + (r.our_probability != null ? Math.round(r.our_probability * 100) + '%' : '--') +
-        ' · 评估: ' + (r.our_assessment || '--') + '</div></div>';
+  if (data.positions) {
+    statsHtml += `<div class="positions-section">
+      <div class="positions-title">持仓 (${data.positions.length}个)</div>`;
+    data.positions.forEach(pos => {
+      statsHtml += `
+        <div class="position-item">
+          <span class="position-market">${pos.direction} ${pos.market}</span>
+          <span class="position-return">潜在${formatMoney(pos.potentialReturn, data.currency)}</span>
+        </div>`;
     });
-    document.getElementById('polyResearch').innerHTML = resHtml;
+    statsHtml += `</div>`;
   }
 
-  // 交易记录
-  var trades = data.trades || [];
-  if (trades.length === 0) {
-    document.getElementById('polyTrades').innerHTML = '<div class="empty">暂无交易记录</div>';
-  } else {
-    var tHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>时间</td><td>预测</td><td>方向</td><td>数量</td><td>盈亏</td></tr>';
-    trades.forEach(function(t) {
-      var pnl3 = t.pnl || 0;
-      var color3 = pnl3 >= 0 ? '#3fb950' : '#f85149';
-      tHtml += '<tr style="color:#c9d1d9;"><td>' + (t.closed_at ? t.closed_at.substring(0,10) : '--') + '</td><td>' + (t.question || '--').substring(0,20) + '</td><td>' + (t.side || '--') + '</td><td>' + (t.amount || 0) + '</td><td style="color:' + color3 + ';">' + (pnl3 >= 0 ? '+' : '') + '$' + Number(pnl3).toFixed(2) + '</td></tr>';
-    });
-    tHtml += '</table>';
-    document.getElementById('polyTrades').innerHTML = tHtml;
-  }
+  card.innerHTML = `
+    <div class="card-header">
+      <span class="card-icon">${data.icon}</span>
+      <div>
+        <div class="card-title">${data.name}</div>
+        <div class="card-provider">${data.provider}</div>
+      </div>
+    </div>
+    ${statsHtml}
+  `;
+  
+  return card;
 }
 
-async function init() {
-  switchTab('us'); // 默认显示美股
-  await initUSStock();
-  await initCrypto();
-  await initPoly();
-  await initPolyPortfolio();
-}
-
-var _reviewLoaded = false;
-async function initReview() {
-  if (_reviewLoaded) return;
-  _reviewLoaded = true;
-  try {
-    var res = await fetch('/data/trading/trade_review.json?t=' + Date.now(), { cache: 'no-store' });
-    if (!res.ok) throw new Error('加载失败');
-    var d = await res.json();
-    renderReview(d);
-  } catch(err) { console.error('trade_review.json 加载失败:', err); }
-}
-
-function renderReview(d) {
-  var s = d.summary || {};
-  document.getElementById('reviewPnL').textContent = (s.totalPnL >= 0 ? '+' : '') + '$' + Number(s.totalPnL).toLocaleString('en-US', {minimumFractionDigits:2}) + ' (' + (s.totalPnLPct >= 0 ? '+' : '') + s.totalPnLPct.toFixed(1) + '%)';
-  document.getElementById('reviewPnL').style.color = s.totalPnL >= 0 ? '#3fb950' : '#f85149';
-  document.getElementById('reviewInit').textContent = '$' + Number(s.initialBalance).toLocaleString('en-US', {minimumFractionDigits:0});
-  document.getElementById('reviewFinal').textContent = '$' + Number(d.summary.finalValue || 0).toLocaleString('en-US', {minimumFractionDigits:0});
-  document.getElementById('reviewFees').textContent = '-$' + (s.estimatedFees || 0);
-  document.getElementById('reviewTrades').textContent = s.totalTrades + '笔';
-  document.getElementById('reviewCause').textContent = s.mainLossCause || '--';
-
-  // 按币种
-  var coinHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>币种</td><td>买入</td><td>卖出</td><td>已实现PnL</td></tr>';
-  var coins = d.byCoin || {};
-  Object.keys(coins).forEach(function(sym) {
-    var c = coins[sym];
-    var pnlColor = c.realizedPnL >= 0 ? '#3fb950' : '#f85149';
-    coinHtml += '<tr style="color:#c9d1d9;"><td>' + sym + '</td><td>' + c.buys + '笔</td><td>' + c.sells + '笔</td><td style="color:' + pnlColor + ';">' + (c.realizedPnL >= 0 ? '+' : '') + '$' + c.realizedPnL.toFixed(2) + '</td></tr>';
+// 渲染页面
+function render() {
+  const container = document.getElementById('cards');
+  const loading = document.getElementById('loading');
+  
+  Object.keys(simulations).forEach(key => {
+    container.appendChild(createCard(key, simulations[key]));
   });
-  coinHtml += '</table>';
-  document.getElementById('reviewCoinStats').innerHTML = coinHtml;
-
-  // 最大亏损单
-  var worst = d.worstTrades || [];
-  if (worst.length === 0) {
-    document.getElementById('reviewWorstTrades').innerHTML = '<div class="empty">无重大亏损</div>';
-  } else {
-    var wHtml = '';
-    worst.forEach(function(w) {
-      wHtml += '<div style="background:#1c2128;border-radius:8px;padding:14px;margin-bottom:10px;border-left:3px solid #f85149;">' +
-        '<div style="display:flex;justify-content:space-between;margin-bottom:6px;">' +
-        '<span style="font-weight:700;color:#f85149;">' + w.side + ' ' + w.symbol + '</span>' +
-        '<span style="color:#f85149;font-weight:700;">$' + Number(w.pnl).toFixed(2) + '</span></div>' +
-        '<div style="font-size:0.8rem;color:#8b949e;">' + w.time.substring(0,16) + ' · 数量:' + w.amount.toFixed(4) + ' · 价格:$' + w.price + '</div>' +
-        '<div style="font-size:0.78rem;color:#8b949e;margin-top:4px;">' + w.note + '</div></div>';
-    });
-    document.getElementById('reviewWorstTrades').innerHTML = wHtml;
-  }
-
-  // 教训
-  var lessons = d.lessons || [];
-  var lHtml = '<ul style="padding-left:20px;line-height:2;">';
-  lessons.forEach(function(l) { lHtml += '<li style="margin-bottom:8px;color:#c9d1d9;font-size:0.88rem;">' + l + '</li>'; });
-  lHtml += '</ul>';
-  document.getElementById('reviewLessons').innerHTML = lHtml;
-
-  // 策略缺陷
-  var flaws = d.strategyFlaws || [];
-  var fHtml = '<table style="width:100%;font-size:0.85rem;"><tr style="color:#8b949e;"><td>缺陷</td><td>影响</td></tr>';
-  flaws.forEach(function(f) { fHtml += '<tr style="color:#c9d1d9;"><td style="color:#f85149;">' + f.flaw + '</td><td>' + f.impact + '</td></tr>'; });
-  fHtml += '</table>';
-  document.getElementById('reviewStrategy').innerHTML = fHtml;
+  
+  loading.style.display = 'none';
+  container.style.display = 'grid';
+  
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleString('zh-CN', {
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit'
+  });
 }
 
-init();
-setInterval(function() {
-  if (currentTab === 'crypto') initCrypto();
-  else if (currentTab === 'us') initUSStock();
-  else if (currentTab === 'poly') { initPoly(); initPolyPortfolio(); }
-}, 30000);
+// 初始化
+render();
 </script>
 </body>
 </html>

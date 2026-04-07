@@ -1,0 +1,10 @@
+{
+  "name": "美股模拟盘",
+  "provider": "老虎证券",
+  "accountId": "21639635499102726",
+  "initialCapital": 1000000,
+  "currentValue": 1000000,
+  "cash": 1000000,
+  "currency": "USD",
+  "lastUpdate": "2026-04-08T00:00:00+08:00"
+}

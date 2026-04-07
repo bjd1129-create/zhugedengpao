@@ -153,15 +153,15 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
     🦞 量化交易
     <span class="green" id="updateTime">--:--:--</span>
     <div class="tab-bar">
-      <button class="tab active" id="tabCrypto" onclick="switchTab('crypto')">₿ 加密货币</button>
-      <button class="tab" id="tabUS" onclick="switchTab('us')">🇺🇸 美股模拟</button>
+      <button class="tab active" id="tabUS" onclick="switchTab('us')">🇺🇸 美股模拟</button>
       <button class="tab" id="tabPoly" onclick="switchTab('poly')">📊 Polymarket</button>
+      <button class="tab" id="tabCrypto" onclick="switchTab('crypto')">₿ 加密货币</button>
       <button class="tab" id="tabReview" onclick="switchTab('review')">📝 复盘</button>
     </div>
   </h1>
 
   <!-- ═══ 加密货币区块 ═══ -->
-  <div class="crypto-section active" id="cryptoSection">
+  <div class="crypto-section" id="cryptoSection">
     <!-- 账户总览 -->
     <div class="account-grid">
       <div class="account-card">
@@ -226,7 +226,7 @@ footer { text-align:center; color:#8b949e; font-size:0.75rem; padding-top:20px; 
   </div>
 
   <!-- ═══ 美股模拟区块 ═══ -->
-  <div class="us-stock-section" id="usSection">
+  <div class="us-stock-section" id="usSection" style="display:none">
     <!-- 账户总览 -->
     <div class="account-grid">
       <div class="account-card">
@@ -686,8 +686,9 @@ function renderPolyPortfolio(data) {
 }
 
 async function init() {
-  await initCrypto();
+  switchTab('us'); // 默认显示美股
   await initUSStock();
+  await initCrypto();
   await initPoly();
   await initPolyPortfolio();
 }

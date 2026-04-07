@@ -41,10 +41,13 @@ agents/strategist/
 
 | 数据源 | 用途 | 获取方式 |
 |--------|------|---------|
-| Binance API | 实时价格/K线/RSI | SKILL.md 里的 python 脚本 |
-| portfolio.json | 账户状态 | 读文件 |
-| tiger_us_paper.json | 美股模拟持仓 | 读文件 |
-| 网格参数 | AVAX/ADA网格状态 | 读 portfolio.json |
+| Yahoo Finance | 美股ETF/个股/期货实时价格 | SKILL.md python脚本（无API_key） |
+| Binance API | 加密货币实时价格/K线/RSI | SKILL.md python脚本 |
+| stockanalysis.com | 分析师评级、目标价、研报摘要 | web_search |
+| news.google.com | 市场新闻快讯 | web_search |
+| portfolio.json | 账户状态（加密货币） | 读文件 |
+| tiger_us_paper.json | 美股模拟账户持仓 | 读文件 |
+| Tiger Open API | 真实账户/模拟账户行情 | trader/tiger_api.py |
 
 ## 团队协作
 

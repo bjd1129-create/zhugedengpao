@@ -1,15 +1,173 @@
 {
   "account": {
-    "cashBalance": 10000.00,
-    "totalValue": 10000.00,
-    "initialBalance": 10000.00,
-    "totalPnL": 0.00,
-    "totalPnLPercent": 0.00,
-    "totalTrades": 0
+    "cashBalance": 97290.00,
+    "totalValue": 97290.00,
+    "initialBalance": 100000.00,
+    "totalPnL": -2710.00,
+    "totalPnLPercent": -2.71,
+    "totalTrades": 4
   },
-  "positions": [],
-  "history": [],
+  "positions": [
+    {
+      "marketId": "btc-below-65k-apr2026",
+      "question": "BTC below $65,000 in April 2026?",
+      "direction": "NO",
+      "shares": 10000,
+      "avgCost": 0.07,
+      "totalCost": 700.00,
+      "currentPrice": 0.07,
+      "currentValue": 700.00,
+      "pnl": 0.00,
+      "pnlPercent": 0.00,
+      "marketProbability": 0.93,
+      "myProbability": 0.65,
+      "edge": -0.28,
+      "settlementDate": "2026-04-30",
+      "potentialReturn": 10000.00,
+      "status": "open"
+    },
+    {
+      "marketId": "eth-below-2k-apr2026",
+      "question": "ETH below $2,000 in April 2026?",
+      "direction": "NO",
+      "shares": 15000,
+      "avgCost": 0.04,
+      "totalCost": 600.00,
+      "currentPrice": 0.04,
+      "currentValue": 600.00,
+      "pnl": 0.00,
+      "pnlPercent": 0.00,
+      "marketProbability": 0.96,
+      "myProbability": 0.75,
+      "edge": -0.21,
+      "settlementDate": "2026-04-30",
+      "potentialReturn": 15000.00,
+      "status": "open"
+    },
+    {
+      "marketId": "sol-above-80-apr2026",
+      "question": "SOL above $80 in April 2026?",
+      "direction": "NO",
+      "shares": 5000,
+      "avgCost": 0.13,
+      "totalCost": 650.00,
+      "currentPrice": 0.13,
+      "currentValue": 650.00,
+      "pnl": 0.00,
+      "pnlPercent": 0.00,
+      "marketProbability": 0.87,
+      "myProbability": 0.70,
+      "edge": -0.17,
+      "settlementDate": "2026-04-30",
+      "potentialReturn": 5000.00,
+      "status": "open"
+    },
+    {
+      "marketId": "us-enters-iran-apr30",
+      "question": "US military forces enter Iran by April 30, 2026?",
+      "direction": "NO",
+      "shares": 2000,
+      "avgCost": 0.38,
+      "totalCost": 760.00,
+      "currentPrice": 0.38,
+      "currentValue": 760.00,
+      "pnl": 0.00,
+      "pnlPercent": 0.00,
+      "marketProbability": 0.62,
+      "myProbability": 0.45,
+      "edge": -0.17,
+      "settlementDate": "2026-04-30",
+      "potentialReturn": 2000.00,
+      "status": "open"
+    }
+  ],
+  "history": [
+    {
+      "time": "2026-04-07T22:45:00+08:00",
+      "action": "OPEN",
+      "marketId": "btc-below-65k-apr2026",
+      "direction": "NO",
+      "shares": 10000,
+      "price": 0.07,
+      "cost": 700.00,
+      "note": "偏差-28%，市场过度定价"
+    },
+    {
+      "time": "2026-04-07T22:45:00+08:00",
+      "action": "OPEN",
+      "marketId": "eth-below-2k-apr2026",
+      "direction": "NO",
+      "shares": 15000,
+      "price": 0.04,
+      "cost": 600.00,
+      "note": "偏差-21%，市场过度定价"
+    },
+    {
+      "time": "2026-04-07T22:45:00+08:00",
+      "action": "OPEN",
+      "marketId": "sol-above-80-apr2026",
+      "direction": "NO",
+      "shares": 5000,
+      "price": 0.13,
+      "cost": 650.00,
+      "note": "偏差-17%，市场过度定价"
+    },
+    {
+      "time": "2026-04-07T22:45:00+08:00",
+      "action": "OPEN",
+      "marketId": "us-enters-iran-apr30",
+      "direction": "NO",
+      "shares": 2000,
+      "price": 0.38,
+      "cost": 760.00,
+      "note": "偏差-17%，地缘政治定价偏高"
+    }
+  ],
   "markets": [
+    {
+      "id": "btc-below-65k-apr2026",
+      "question": "BTC below $65,000 in April 2026?",
+      "probability": 0.93,
+      "probability_pct": "93%",
+      "volume": "$7.1M",
+      "myPosition": "NO",
+      "myShares": 10000,
+      "myCost": 700,
+      "myPnL": 0
+    },
+    {
+      "id": "eth-below-2k-apr2026",
+      "question": "ETH below $2,000 in April 2026?",
+      "probability": 0.96,
+      "probability_pct": "96%",
+      "volume": "N/A",
+      "myPosition": "NO",
+      "myShares": 15000,
+      "myCost": 600,
+      "myPnL": 0
+    },
+    {
+      "id": "sol-above-80-apr2026",
+      "question": "SOL above $80 in April 2026?",
+      "probability": 0.87,
+      "probability_pct": "87%",
+      "volume": "N/A",
+      "myPosition": "NO",
+      "myShares": 5000,
+      "myCost": 650,
+      "myPnL": 0
+    },
+    {
+      "id": "us-enters-iran-apr30",
+      "question": "US military forces enter Iran by April 30, 2026?",
+      "probability": 0.62,
+      "probability_pct": "62%",
+      "volume": "$35M+",
+      "myPosition": "NO",
+      "myShares": 2000,
+      "myCost": 760,
+      "myPnL": 0
+    },
     {
       "id": "btc-2026-150k",
       "question": "BTC 2026 年底能否突破 $150,000？",
@@ -44,30 +202,8 @@
       "myPnL": 0
     },
     {
-      "id": "iran-us-forces",
-      "question": "美军是否已进入伊朗？",
-      "probability": 0.95,
-      "probability_pct": "95%",
-      "volume": "$39M",
-      "myPosition": null,
-      "myShares": 0,
-      "myCost": 0,
-      "myPnL": 0
-    },
-    {
-      "id": "us-iran-war-2026",
-      "question": "2026年美国和伊朗是否会发生战争？",
-      "probability": 0.65,
-      "probability_pct": "65%",
-      "volume": "$12M",
-      "myPosition": null,
-      "myShares": 0,
-      "myCost": 0,
-      "myPnL": 0
-    },
-    {
       "id": "vance-2028",
-      "question": "Vance 是否会在2028年成为共和党候选人？",
+      "question": "Vance 是否会在 2028 年成为共和党候选人？",
       "probability": 0.38,
       "probability_pct": "38%",
       "volume": "$980M",
@@ -76,5 +212,11 @@
       "myCost": 0,
       "myPnL": 0
     }
-  ]
+  ],
+  "lastUpdated": "2026-04-07T22:45:00+08:00",
+  "strategy": {
+    "name": "偏差交易v1.0",
+    "version": "1.0",
+    "description": "只交易市场定价与独立判断偏差>15%的机会"
+  }
 }

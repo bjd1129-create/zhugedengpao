@@ -42,10 +42,10 @@ curl -s "https://gamma-api.polymarket.com/markets?limit=50&closed=false" | pytho
 import sys,json
 data=json.load(sys.stdin)
 by_vol=sorted(data,key=lambda x:float(x.get('volume24hr',0)),reverse=True)
-for m in by_vol[:10]:
+for m in by_vol[:20]:
     p=json.loads(m.get('outcomePrices','[]'))
     vol=float(m.get('volume24hr',0))
-    print(f'[\${vol:,.0f}] {m[\"question\"][:60]}')
+    print(f'[\${vol:,.0f}] {m[\"question\"][:70]}')
     print(f'  YES={float(p[0]):.1%} NO={float(p[1]):.1%}' if len(p)==2 else '')
 "
 ```
@@ -54,44 +54,22 @@ for m in by_vol[:10]:
 
 ## Polymarket深度研究框架（核心技能）
 
-### 研究流程
-```
-1. 获取热门市场 → 找出有价值的预测话题
-2. 深度搜索研究 → 用Web搜索深入了解事件背景
-3. 独立概率分析 → 不看市场定价，先自己算一个
-4. 对比偏差 → 我的判断 vs 市场定价
-5. 识别机会 → 偏差>15%时记录为候选
-```
+完整版研究流程见：`SKILLS/POLYMARKET.md`
 
-### 研究单个市场的模板
+### 快速判断标准
+| 偏差范围 | 结论 | 仓位建议 |
+|---------|------|---------|
+| >+20% | 市场低估NO | 轻仓BET NO |
+| >+15% | 可能低估NO | 观察 |
+| -15%~+15% | 无偏差 | 不下注 |
+| <-15% | 市场高估YES | 轻仓BET YES |
+| <-20% | 严重高估YES | 稍大仓位 |
+
+**仓位原则：** 总资金5-10%，不重仓
+
+### 研究流程（简版）
 ```
-【Polymarket市场分析】
-市场：<市场URL>
-问题：<核心问题>
-市场定价：YES=<X>% NO=<Y>%
-
-【我的研究】
-1. 背景：<事件背景>
-2. 关键因素：
-   - 支持YES的证据：
-   - 支持NO的证据：
-3. 我的概率判断：YES=<A>%
-
-【对比】
-- 我的判断：<A>%
-- 市场定价：<X>%
-- 偏差：<A-X>%
-- 结论：【有机会】/【无机会】
-```
-
-### Web搜索技巧（深度研究用）
-```bash
-# 英文搜索结果更准
-web_search: "bitcoin price prediction 2026 analysis"
-web_search: "site:polymarket.com bitcoin"
-web_search: "Trump 2025 Polymarket odds analysis"
-web_search: "BTC ETF inflow data 2026"
-web_search: "cryptocurrency market cycle analysis 2026"
+获取市场 → 深度搜索 → 独立判断 → 对比偏差>15% → 写报告
 ```
 
 ### 市场状态判断

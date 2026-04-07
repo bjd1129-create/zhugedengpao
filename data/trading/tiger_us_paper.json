@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-07T08:51:27+08:00",
+  "timestamp": "2026-04-07T22:03:13+08:00",
   "strategy": {
     "name": "价值定投策略v1.0",
     "version": "1.0",
@@ -21,6 +21,6 @@
     raise ApiException(response.code, response.message)
 tigeropen.common.exceptions.ApiException: code=1000 msg=common param error(failed to verify signature, please make sure you use the correct rsa private key, if you use python sdk, the private key is in pkcs#1 format),
   "positions": [],
-  "quotes": {"SPY": {"last":658.93,"prev_close":655.83,"change":3.1,"change_pct":0.47},"QQQ": {"last":588.5,"prev_close":584.98,"change":3.52,"change_pct":0.6},"VTI": {"last":325.21,"prev_close":323.76,"change":1.45,"change_pct":0.45},"BND": {"last":73.47,"prev_close":73.58,"change":-0.11,"change_pct":-0.15},"AAPL": {"last":258.86,"prev_close":255.91998,"change":2.94,"change_pct":1.15},"MSFT": {"last":372.88,"prev_close":373.46,"change":-0.58,"change_pct":-0.16},"GOOGL": {"last":299.99,"prev_close":295.77,"change":4.22,"change_pct":1.43},"AMZN": {"last":212.79,"prev_close":209.76999,"change":3.02,"change_pct":1.44},"NVDA": {"last":177.64,"prev_close":177.39,"change":0.25,"change_pct":0.14},"META": {"last":573.02,"prev_close":574.46,"change":-1.44,"change_pct":-0.25},"TSLA": {"last":352.82,"prev_close":360.59,"change":-7.77,"change_pct":-2.15},"JPM": {"last":295.45,"prev_close":293.1,"change":2.35,"change_pct":0.8},"V": {"last":303.33,"prev_close":300.8,"change":2.53,"change_pct":0.84},"JNJ": {"last":240.97,"prev_close":243.04,"change":-2.07,"change_pct":-0.85}},
+  "quotes": {"SPY": {"last":653.65,"prev_close":658.93,"change":-5.28,"change_pct":-0.8},"QQQ": {"last":582.11,"prev_close":588.5,"change":-6.39,"change_pct":-1.09},"VTI": {"last":322.71,"prev_close":325.21,"change":-2.5,"change_pct":-0.77},"BND": {"last":73.38,"prev_close":73.47,"change":-0.09,"change_pct":-0.12},"AAPL": {"last":249.63,"prev_close":258.86,"change":-9.23,"change_pct":-3.57},"MSFT": {"last":369.11,"prev_close":372.88,"change":-3.77,"change_pct":-1.01},"GOOGL": {"last":299.026,"prev_close":299.99,"change":-0.96,"change_pct":-0.32},"AMZN": {"last":210.53,"prev_close":212.79,"change":-2.26,"change_pct":-1.06},"NVDA": {"last":175.18,"prev_close":177.64,"change":-2.46,"change_pct":-1.38},"META": {"last":568.59,"prev_close":573.02,"change":-4.43,"change_pct":-0.77},"TSLA": {"last":342.625,"prev_close":352.82,"change":-10.19,"change_pct":-2.89},"JPM": {"last":294.78,"prev_close":295.45,"change":-0.67,"change_pct":-0.23},"V": {"last":304.0,"prev_close":303.33,"change":0.67,"change_pct":0.22},"JNJ": {"last":238.385,"prev_close":240.97,"change":-2.59,"change_pct":-1.07}},
   "allocation": []
 }

@@ -1,29 +1,43 @@
-# ERRORS.md - 小花错误记录
+# Errors
 
-> 每次犯错后必填。错误不丢人，重复犯错才丢人。
-
----
-
-## 2026-04-07
-
-### 协调官cron任务过度复杂
-- **错误**：协调官12:00/15:00等cron设计太重，isolated session跑不完就timeout
-- **教训**：cron任务必须简洁，isolated session timeout要预设够
-- **修复**：删除冗余cron，精简payload，增加timeout
-
-### 网格策略逆势加仓
-- **错误**：AVAX/ADA网格在单边下跌市场持续加仓，越买越亏
-- **教训**：网格不是万能的，单边行情要用止损
-- **状态**：STOP_FILE已生效
+命令失败、工具报错、推理偏差记录。
 
 ---
 
-## 2026-04-06
+## 格式模板
 
-### 加密模拟盘止损过晚
-- **错误**：账户从$10,000跌到$6,884才发现问题
-- **教训**：要有预警机制，不能等跌到止损线才停
+```markdown
+## [ERR-YYYYMMDD-XXX] skill_or_command_name
+
+**Logged**: ISO-8601 timestamp
+**Priority**: high
+**Status**: pending
+**Area**: frontend | backend | infra | tests | docs | config
+
+### Summary
+Brief description of what failed
+
+### Error
+```
+Actual error message or output
+```
+
+### Context
+- Command/operation attempted
+- Input or parameters used
+- Environment details if relevant
+
+### Suggested Fix
+If identifiable, what might resolve this
+
+### Metadata
+- Reproducible: yes | no | unknown
+- Related Files: path/to/file.ext
+- See Also: ERR-20250110-001 (if recurring)
+
+---
+```
 
 ---
 
-最后更新：2026-04-07 | 小花 🦞
+*Last updated: 2026-04-07 | 小花 🦞*

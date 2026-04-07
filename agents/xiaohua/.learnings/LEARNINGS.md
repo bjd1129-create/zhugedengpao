@@ -1,41 +1,54 @@
-# LEARNINGS.md - 小花经验沉淀
+# Learnings
 
-> 做对了什么？怎么下次做得更好？
+纠正、洞察、知识缺口、最佳实践记录。
 
----
-
-## 执行层面的经验
-
-### Cron设计原则
-- 每agent每天最多3个关键cron
-- isolated session timeout至少留3倍预期时间
-- 发飞书的cron，内容必须简洁；重任务一律静默
-- 同类任务合并，不重复
-
-### 团队协作
-- 协调官只管官网团队（配色师/代码侠/文案君/洞察者）
-- 交易团队归小花直管（trader/策略师/风控官/数据官）
-- 任务必须有"下达→执行→确认"三步闭环
-
-### 交易
-- STOP_FILE是最后防线，必须放在main()入口处，不能放末尾
-- 手动平仓不等于真平仓，代码逻辑必须配合
+**Categories**: correction | insight | knowledge_gap | best_practice
 
 ---
 
-## 技术层面的经验
+## 格式模板
 
-### 文件写入
-- 写文件前先备份：`cp xxx xxx.backup.json`
-- portfolio.json是核心数据，永远不能删
+```markdown
+## [LRN-YYYYMMDD-XXX] category
 
-### 搜索
-- 搜索用web_search，不用ddgs
+**Logged**: ISO-8601 timestamp
+**Priority**: low | medium | high | critical
+**Status**: pending
+**Area**: frontend | backend | infra | tests | docs | config
 
-### GitHub
-- 开发必须在main分支
-- push前先pull，避免冲突
+### Summary
+One-line description of what was learned
+
+### Details
+Full context: what happened, what was wrong, what's correct
+
+### Suggested Action
+Specific fix or improvement to make
+
+### Metadata
+- Source: conversation | error | user_feedback
+- Related Files: path/to/file.ext
+- Tags: tag1, tag2
+- See Also: LRN-20250110-001 (if related to existing entry)
+- Pattern-Key: simplify.dead_code | harden.input_validation (optional)
+- Recurrence-Count: 1 (optional)
+- First-Seen: 2025-01-15 (optional)
+- Last-Seen: 2025-01-15 (optional)
+
+---
+```
 
 ---
 
-最后更新：2026-04-07 | 小花 🦞
+## 晋升规则
+
+| 学习类型 | 晋升目标 | 触发条件 |
+|----------|----------|----------|
+| 行为模式 | SOUL.md | 跨场景适用的行为准则 |
+| 工作流改进 | AGENTS.md | 影响多个任务的流程优化 |
+| 工具坑点 | TOOLS.md | 特定工具的使用注意事项 |
+| 重复模式 | 系统提示 | 同一问题出现 ≥3 次 |
+
+---
+
+*Last updated: 2026-04-07 | 小花 🦞*

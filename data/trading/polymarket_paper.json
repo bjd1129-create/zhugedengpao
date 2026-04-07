@@ -1,0 +1,135 @@
+{
+  "account": {
+    "name": "Polymarket 模拟盘",
+    "initialBalance": 100000.0,
+    "cashBalance": 25002.019999999997,
+    "totalValue": 78490.01999999999,
+    "totalPnL": -21509.98000000001,
+    "totalPnLPercent": -21.50998000000001,
+    "totalTrades": 5,
+    "todayPnL": 0.0,
+    "todayPnLPercent": 0.0,
+    "status": "ACTIVE"
+  },
+  "strategy": {
+    "name": "Polymarket 混合策略 v1.0",
+    "version": "1.0",
+    "allocation": {
+      "compounder": 50,
+      "arbitrage": 20,
+      "catalyst": 20,
+      "whale": 10
+    }
+  },
+  "positions": [
+    {
+      "market": "美联储 12 月不降息",
+      "shares": 26315,
+      "avg_price": 0.95,
+      "current_value": 26315,
+      "pnl": 1315.75
+    },
+    {
+      "market": "特朗普 2024 当选",
+      "shares": 27173,
+      "avg_price": 0.92,
+      "current_value": 27173,
+      "pnl": 2173.84
+    }
+  ],
+  "trades": [
+    {
+      "time": "2026-04-07T12:51:21.775698",
+      "strategy": "compounder",
+      "market": "美联储 12 月不降息",
+      "side": "BUY",
+      "shares": 26315,
+      "price": 0.95,
+      "cost": 24999.25,
+      "expected_profit": 1315.7500000000011
+    },
+    {
+      "time": "2026-04-07T12:51:21.775718",
+      "strategy": "compounder",
+      "market": "特朗普 2024 当选",
+      "side": "BUY",
+      "shares": 27173,
+      "price": 0.92,
+      "cost": 24999.16,
+      "expected_profit": 2173.839999999999
+    },
+    {
+      "time": "2026-04-07T12:51:21.775733",
+      "strategy": "arbitrage",
+      "market": "美联储紧急降息 2027",
+      "side": "BUY_YES_NO",
+      "shares": 10204,
+      "yes_price": 0.27,
+      "no_price": 0.71,
+      "total_cost": 0.98,
+      "locked_profit": 204.08000000000018
+    },
+    {
+      "time": "2026-04-07T12:51:21.775745",
+      "strategy": "catalyst",
+      "market": "以太坊 ETF 通过",
+      "news": "SEC 官员暗示支持",
+      "side": "BUY",
+      "shares": 26315,
+      "entry_price": 0.38,
+      "target_price": 0.5,
+      "potential_profit": 3157.7999999999997
+    },
+    {
+      "time": "2026-04-07T12:51:21.775760",
+      "strategy": "whale_follow",
+      "wallet": "ImJustKen",
+      "market": "肯尼迪退选",
+      "side": "BUY",
+      "shares": 33333,
+      "entry_price": 0.15,
+      "current_price": 0.85,
+      "unrealized_pnl": 23333.1
+    }
+  ],
+  "watchlist": [
+    {
+      "market": "美联储 12 月不降息？",
+      "type": "compounder",
+      "currentPrice": 0.95,
+      "targetPrice": 0.93,
+      "allocation": 50000
+    },
+    {
+      "market": "BTC $95K 2026?",
+      "type": "arbitrage",
+      "polyPrice": 0.45,
+      "kalshiPrice": 0.52,
+      "spread": 0.07,
+      "allocation": 20000
+    },
+    {
+      "market": "以太坊 ETF 通过？",
+      "type": "catalyst",
+      "currentPrice": 0.35,
+      "targetEntry": 0.38,
+      "targetExit": 0.5,
+      "allocation": 20000
+    },
+    {
+      "market": "鲸鱼跟单池",
+      "type": "whale",
+      "wallets": [
+        "ImJustKen",
+        "0x1234..."
+      ],
+      "allocation": 10000
+    }
+  ],
+  "performance": {
+    "daily": [],
+    "weekly": [],
+    "monthly": []
+  },
+  "lastUpdated": "2026-04-07T12:51:21.775770+08:00"
+}

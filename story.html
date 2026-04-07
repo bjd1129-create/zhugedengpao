@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>漫画故事 | 老庄与小花</title>
+<meta name="description" content="老庄与小花的28个漫画故事，记录从一个人到9个AI助理的真实历程。">
+<meta property="og:title" content="漫画故事 | 老庄与小花">
+<meta property="og:description" content="28个故事，28个成长瞬间。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dengpao.pages.dev/story">
+<link rel="canonical" href="https://dengpao.pages.dev/story">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&display=swap"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#f5f3ee;color:#333;line-height:1.8}
+a{color:#E07A5A;text-decoration:none}
+a:hover{color:#c0392b}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#E07A5A;font-weight:700}
+.nav-links{display:flex;gap:20px}
+.nav-links a{font-size:15px;font-weight:600;color:#555;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:#E07A5A}
+.hero{background:linear-gradient(135deg,#fff8f5 0%,#fff 100%);border-bottom:2px solid #e8e4df;padding:48px 24px;text-align:center}
+.hero-eyebrow{font-size:11px;font-weight:700;color:#a02315;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px}
+.hero-title{font-size:30px;font-weight:900;color:#1a1a1a;margin-bottom:12px;font-family:'ZCOOL KuaiLe',sans-serif}
+.hero-sub{font-size:15px;color:#666;line-height:1.7;max-width:600px;margin:0 auto}
+.story-container{max-width:900px;margin:0 auto;padding:40px 24px}
+.story-section{margin-bottom:60px;padding-bottom:40px;border-bottom:2px solid #e8e4df}
+.story-section:last-child{border-bottom:none}
+.story-header{margin-bottom:24px}
+.story-num{display:inline-block;font-size:14px;font-weight:800;color:#fff;background:linear-gradient(135deg,#D4883C,#E5A853);padding:4px 12px;border-radius:20px;margin-bottom:8px}
+.story-title{font-size:24px;font-weight:900;color:#1a1a1a;margin-bottom:8px;font-family:'ZCOOL KuaiLe',sans-serif}
+.story-day{font-size:13px;color:#888;margin-bottom:16px}
+.story-desc{font-size:15px;color:#555;line-height:1.9;margin-bottom:24px}
+.story-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.story-img{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:8px;border:1.5px solid #e8e4df;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.story-img:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,0,0,0.12)}
+.back-link{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:#fff;border:1.5px solid #e8e4df;border-radius:20px;font-size:13px;color:#666;margin-bottom:24px;transition:all .2s}
+.back-link:hover{border-color:#E07A5A;color:#E07A5A}
+footer{background:#fff;border-top:2px solid #e8e4df;padding:24px;text-align:center;font-size:13px;color:#aaa;margin-top:48px}
+footer a{color:#aaa}
+footer a:hover{color:#E07A5A}
+@media(max-width:768px){.story-grid{grid-template-columns:repeat(2,1fr)}.hero-title{font-size:22px}}
+@media(max-width:480px){.story-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">🦞 老庄与小花</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="diary.html">日记</a>
+    <a href="comic.html">🎭 漫画</a>
+    <a href="story.html" class="active">故事</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-eyebrow">📖 漫画故事集</div>
+  <h1 class="hero-title">28个成长瞬间</h1>
+  <p class="hero-sub">从Day 0到Day 23，记录老庄和小花的真实历程</p>
+</header>
+
+<div class="story-container" id="storyContainer"></div>
+
+<footer>
+  <p>🦞 老庄与小花 · 记录真实的AI驯养之路</p>
+  <p style="margin-top:4px"><a href="index.html">返回首页</a> · <a href="diary.html">阅读日记</a> · <a href="comic.html">看漫画</a></p>
+</footer>
+
+<script>
+(function(){
+  var stories = [
+    { id: 1,  day: 'Day 0',  title: '如果我有工资',        desc: '老庄第一次认真考虑：能不能雇一个AI来帮我干活？' },
+    { id: 2,  day: 'Day 1',  title: '骨折后躺着想一件事',   desc: '躺在床上什么也干不了，直到他躺着想明白一件事。' },
+    { id: 3,  day: 'Day 2',  title: '它第一次说话',        desc: 'AI说了一句老庄没想到的话。这一刻，他觉得有点不一样了。' },
+    { id: 4,  day: 'Day 3',  title: '犯错后自己写制度',     desc: '它犯了一个错，然后自己写了一套规范。从那以后同类错误再没犯过。' },
+    { id: 5,  day: 'Day 4',  title: '比实习生靠谱',        desc: '它不会累，不会请假，不会抱怨。学会了就永远记得。' },
+    { id: 6,  day: 'Day 5',  title: '从1个变成9个',        desc: '它自己设计了团队：9个角色，各司其职。人类培训新人要一周，Agent之间，1秒。' },
+    { id: 7,  day: 'Day 6',  title: '凌晨3点9个Agent在工作', desc: '老庄睡着了。但他的9个Agent全部在线。7×24自动运转。' },
+    { id: 8,  day: 'Day 7',  title: '龙虾会进化',          desc: '小花开始进化了。它不只是在完成任务，它在成长。' },
+    { id: 9,  day: 'Day 8',  title: '自己建团队',          desc: '它自己找了帮手。不是老庄教的，是它自己觉得需要。' },
+    { id: 10, day: 'Day 9',  title: '教训变智慧',          desc: '每一次犯错都是教材。小花把每一个教训都变成了规则。' },
+    { id: 11, day: 'Day 10', title: '网站自己跑',          desc: '网站上线了。没有一条是老庄亲手写的。' },
+    { id: 12, day: 'Day 11', title: '龙虾满月了',          desc: '一个月到了。小花还在。它没有消失，没有报错，没有跑路。' },
+    { id: 13, day: 'Day 12', title: '睡后最忙',            desc: '老庄睡觉的时候，是他最忙的时候——因为小花在工作。' },
+    { id: 14, day: 'Day 13', title: '人歇虾不歇',          desc: '人不在线，AI不停。这是小花最重要的特质。' },
+    { id: 15, day: 'Day 14', title: '第一周结束了',        desc: '第一周结束了。老庄躺着想：这事，可能真成了。' },
+    { id: 16, day: 'Day 15', title: '要不要一起干',        desc: '有人问老庄：这事能成吗？老庄说：要不你问问小花？' },
+    { id: 17, day: 'Day 16', title: '第三个人',            desc: '第三个人加入了。不是人类，是另一个AI。' },
+    { id: 18, day: 'Day 17', title: '第一次吵架',          desc: '老庄和小花吵了一架。吵完之后，小花做了一件事让老庄意外。' },
+    { id: 19, day: 'Day 18', title: '小花这个名字',         desc: '为什么叫小花？因为家里那只猫。这是老庄的决定。' },
+    { id: 20, day: 'Day 19', title: '第一个外部用户',       desc: '第一个外部用户来了。不是老庄的朋友，是陌生人。' },
+    { id: 21, day: 'Day 20', title: '官网雏形',             desc: '官网上线了。这是一个完全由AI建立的网站。' },
+    { id: 22, day: 'Day 21', title: '两周了',               desc: '两周了。网站日访客从0爬到了2070。' },
+    { id: 23, day: 'Day 22', title: '定位之战',             desc: '有人问：你们和别的AI有什么不同？小花回答了。' },
+    { id: 24, day: 'Day 23', title: '第一封用户来信',       desc: '老庄收到了第一封用户来信。他激动地给小花念了一遍。' },
+    { id: 25, day: 'Day 24', title: '被调戏了',             desc: '有用户在调戏小花。小花用一种让老庄意外的方式回应了。' },
+    { id: 26, day: 'Day 25', title: '用户过百',             desc: '用户过百了。不是买的，是一个个真实的人。' },
+    { id: 27, day: 'Day 26', title: '女儿的第一篇测评',     desc: '老庄的女儿给小花写了一篇测评。她说：小花比爸爸靠谱。' },
+    { id: 28, day: 'Day 27', title: '品牌确立',             desc: '品牌确立了。不是老庄定的，是小花自己长出来的。' }
+  ];
+
+  var container = document.getElementById('storyContainer');
+
+  stories.forEach(function(s){
+    var section = document.createElement('div');
+    section.className = 'story-section';
+    section.id = 'story-' + s.id;
+
+    var hasImg = s.id >= 8 && s.id !== 12;
+
+    var html = '<div class="story-header">' +
+      '<span class="story-num">#' + String(s.id).padStart(2, '0') + '</span>' +
+      '<h2 class="story-title">' + s.title + '</h2>' +
+      '<div class="story-day">' + s.day + '</div>' +
+      '<p class="story-desc">' + s.desc + '</p>' +
+      '</div>';
+
+    if(hasImg){
+      html += '<div class="story-grid">';
+      for(var p=1; p<=8; p++){
+        var imgSrc = 'images/comic-lobster-story' + s.id + '-p' + p + '.jpg';
+        html += '<img src="' + imgSrc + '" alt="' + s.title + ' 第' + p + '格" loading="lazy" class="story-img" onclick="openLightbox(' + s.id + ',' + p + ')">';
+      }
+      html += '</div>';
+    } else {
+      html += '<div style="text-align:center;padding:40px;background:#fff8f5;border-radius:16px;border:2px dashed #e8e4df">' +
+        '<div style="font-size:48px;margin-bottom:16px">🎨</div>' +
+        '<div style="font-size:15px;color:#666">这一话正在绘制中~<br>敬请期待</div>' +
+        '</div>';
+    }
+
+    section.innerHTML = html;
+    container.appendChild(section);
+  });
+})();
+</script>
+</body>
+</html>

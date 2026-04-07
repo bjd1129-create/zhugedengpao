@@ -98,7 +98,41 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 .bubble-tail{width:10px;height:10px;background:#fff;border-right:2px solid #f0d0cc;border-bottom:2px solid #f0d0cc;position:absolute;bottom:-6px;left:50%;transform:translateX(-50%) rotate(45deg)}
 .bubble-dot{width:6px;height:6px;background:#f0d0cc;border-radius:50%;position:absolute;bottom:-14px;right:30%}
 @keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes btn-glow{0%,100%{box-shadow:0 0 8px rgba(192,57,43,0.3)}50%{box-shadow:0 0 18px rgba(192,57,43,0.5)}}</style>
+@keyframes btn-glow{0%,100%{box-shadow:0 0 8px rgba(192,57,43,0.3)}50%{box-shadow:0 0 18px rgba(192,57,43,0.5)}}
+
+/* Articles tab styles */
+.main-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:2px solid #e8e4df}
+.main-tab{padding:10px 20px;font-size:15px;font-weight:600;color:#888;cursor:pointer;border-bottom:2.5px solid transparent;margin-bottom:-2px;transition:color .2s,border-color .2s}
+.main-tab:hover{color:#4A2508}
+.main-tab.active{color:#4A2508;border-bottom-color:#4A2508}
+#scienceContent{display:block}
+#articlesContent{display:none}
+#articlesContent.active{display:block}
+/* Articles grid */
+.articles-wrap{padding:16px 0}
+.article-search{position:relative;margin-bottom:16px}
+.article-search input{width:100%;padding:10px 14px;border:1.5px solid #e8e4df;border-radius:10px;font-size:14px;background:#fff;outline:none;box-sizing:border-box}
+.article-search input:focus{border-color:#c44434}
+.cat-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.cat-tab{padding:6px 14px;border-radius:20px;font-size:13px;background:#fff;border:1.5px solid #e8e4df;color:#666;cursor:pointer;transition:all .2s}
+.cat-tab:hover{border-color:#4A2508;color:#4A2508}
+.cat-tab.active{background:#4A2508;color:#fff;border-color:#4A2508}
+.articles-list{display:flex;flex-direction:column;gap:12px}
+.article-card{display:block;background:#fff;border:1.5px solid #e8e4df;border-radius:12px;padding:16px;text-decoration:none;color:inherit;transition:.2s}
+.article-card:hover{border-color:#c44434;transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,0.08)}
+.card-meta{font-size:12px;color:#888;margin-bottom:6px}
+.card-source{margin-right:8px}
+.card-date{margin-right:8px}
+.card-readtime{color:#aaa}
+.card-title{font-size:16px;font-weight:700;color:#333;margin-bottom:6px;line-height:1.4}
+.article-card:hover .card-title{color:#c44434}
+.card-summary{font-size:13px;color:#666;line-height:1.6;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.card-footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.card-tags{display:flex;gap:6px;flex-wrap:wrap}
+.card-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:#fdf0ee;color:#c44434;border:1px solid rgba(196,68,52,0.2)}
+.card-rating{color:#f5c542;font-size:12px}
+.card-external{font-size:12px;color:#888}
+.result-info{font-size:13px;color:#888;margin-bottom:12px}</style>
   <meta name="description" content="龙虾到底是什么？一个 AI Agent 用通俗语言解释 AI、Agent、大模型的工作原理，没有废话，全是干货。">
     <link rel="alternate" hreflang="zh" href="https://dengpao.pages.dev/science.html">
   <link rel="alternate" hreflang="en" href="https://dengpao.pages.dev/en/science.html">
@@ -129,12 +163,26 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
 <div style="padding:16px 0 8px">
 <h1 style="font-family:'ZCOOL KuaiLe',sans-serif;font-size:28px">🔰 龙虾科普</h1>
 <p style="font-size:14px;color:#555;margin-top:4px">5分钟，从"听说过AI"到"理解龙虾"。老庄用养小花的真实经历，帮你彻底搞懂。</p>
+<div class="main-tabs" id="mainTabs">
+  <div class="main-tab active" data-tab="science" onclick="switchMainTab('science')">🔰 科普</div>
+  <div class="main-tab" data-tab="articles" onclick="switchMainTab('articles')">📝 文章</div>
+</div>
+</div>
+
+<!-- Articles Section (hidden by default) -->
+<div id="articlesContent" class="articles-wrap">
+  <div class="article-search">
+    <input type="text" id="searchInput" placeholder="搜索文章标题、标签、来源…" oninput="filterArticles()">
+  </div>
+  <div class="cat-tabs" id="catTabs"></div>
+  <div class="result-info" id="resultInfo"></div>
+  <div class="articles-list" id="articlesList"></div>
 </div>
 
 <!-- ═══════════════════════════════════════════ -->
 <!-- 第一章：什么是龙虾？ -->
 <!-- ═══════════════════════════════════════════ -->
-<div class="chapter">
+<div id="scienceContent"><div class="chapter">
 <div class="chapter-num">第一章</div>
 <h2>🦞 什么是龙虾？</h2>
 </div>
@@ -663,6 +711,7 @@ footer a{color:#888;text-decoration:none;margin:0 8px}
     <a href="openclaw-install.html" style="display:inline-block;background:#fff;color:#E07A5A;border:1.5px solid #E07A5A;padding:10px 22px;border-radius:10px;text-decoration:none;font-weight:700;font-size:14px;">📖 龙虾能做什么？</a>
   </div>
 </div>
+</div><!-- end scienceContent -->
 
 <footer>
 <div style="max-width:800px;margin:0 auto 8px;display:flex;flex-wrap:wrap;justify-content:center;gap:12px">
@@ -744,5 +793,67 @@ document.querySelectorAll('.stats').forEach(el=>obs.observe(el));});
 
 
 
-<script>if(!document.getElementById("_sp")){var e=document.createElement("img");e.id="_sp";e.src="/stats?p="+encodeURIComponent(location.pathname);e.style="display:none";document.body.appendChild(e);}</script></body>
+<script>if(!document.getElementById("_sp")){var e=document.createElement("img");e.id="_sp";e.src="/stats?p="+encodeURIComponent(location.pathname);e.style="display:none";document.body.appendChild(e);}</script>
+
+<!-- Articles tab logic -->
+<script src="/articles-data.js"></script>
+<script>
+var allArticles=[];var activeCategory='全部';var activeTag='';
+var CAT_EMOJI={'全部':'📚','部署教程':'🚀','使用技巧':'💡','进阶玩法':'⚡','评测分析':'🔍','视频教程':'🎬','其他':'📄'};
+
+function stars(n){var f=Math.round(n||0);return '★'.repeat(f)+'☆'.repeat(Math.max(0,5-f));}
+
+function renderCard(a){
+  var tagHtml=(a.tags||[]).map(function(t){return '<span class="card-tag">'+t+'</span>';}).join('');
+  var ratingHtml=a.rating?'<span class="card-rating">'+stars(a.rating)+'</span>':'';
+  var rt=a.readTime?'· '+a.readTime:'';
+  var url=a.sourceUrl?a.sourceUrl:('article.html?id='+a.id);
+  var tgt=a.sourceUrl?' target="_blank" rel="noopener"':'';
+  var linkText=a.sourceUrl?'阅读原文 →':'查看全文 →';
+  return '<a class="article-card" href="'+url+'"'+tgt+'>
+    <div class="card-meta"><span class="card-source">'+(a.source||'来源')+'</span><span class="card-date">'+(a.date||'')+'</span><span class="card-readtime">'+rt+'</span></div>
+    <div class="card-title">'+a.title+'</div>
+    <div class="card-summary">'+(a.summary||'')+'</div>
+    <div class="card-footer"><div class="card-tags">'+tagHtml+'</div><div style="display:flex;align-items:center;gap:10px">'+ratingHtml+'<span class="card-external">'+linkText+'</span></div></div>
+  </a>';
+}
+
+function filterArticles(){
+  var q=(document.getElementById('searchInput').value||'').trim().toLowerCase();
+  var list=allArticles;
+  if(activeCategory!=='全部') list=list.filter(function(a){return a.category===activeCategory;});
+  if(q) list=list.filter(function(a){return a.title.toLowerCase().indexOf(q)>-1||(a.tags||[]).some(function(t){return t.toLowerCase().indexOf(q)>-1;})||(a.source||'').toLowerCase().indexOf(q)>-1;});
+  document.getElementById('articlesList').innerHTML=list.length?list.map(function(a){return renderCard(a);}).join(''):'<p style="text-align:center;color:#aaa;padding:40px 0">没有找到相关文章</p>';
+  document.getElementById('resultInfo').textContent=list.length?'找到 '+list.length+' 篇'+(activeCategory!=='全部'?' ('+activeCategory+')':''):'';
+}
+
+function switchMainTab(tab){
+  document.querySelectorAll('.main-tab').forEach(function(t){t.classList.remove('active');});
+  document.querySelector('.main-tab[data-tab="'+tab+'"]').classList.add('active');
+  var sc=document.getElementById('scienceContent');
+  var ac=document.getElementById('articlesContent');
+  if(tab==='science'){sc.style.display='block';ac.classList.remove('active');}
+  else{sc.style.display='none';ac.classList.add('active');if(!allArticles.length){initArticles();}}
+}
+
+function initArticles(){
+  allArticles=window.articles||[];
+  var cats={'全部':1};
+  allArticles.forEach(function(a){if(a.category)cats[a.category]=1;});
+  var catHtml=Object.keys(cats).map(function(c){return '<div class="cat-tab'+(c==='全部'?' active':'')+'" onclick="setCat(\''+c+'\')">'+(CAT_EMOJI[c]||'')+' '+c+'</div>';}).join('');
+  document.getElementById('catTabs').innerHTML=catHtml;
+  filterArticles();
+}
+
+function setCat(cat){
+  activeCategory=cat;
+  document.querySelectorAll('.cat-tab').forEach(function(t){t.classList.remove('active');});
+  event.target.classList.add('active');
+  filterArticles();
+}
+
+window.switchMainTab=switchMainTab;
+window.filterArticles=filterArticles;
+window.setCat=setCat;
+</script></body>
 </html>

@@ -96,3 +96,11 @@ cat > "$OUT_FILE" << EOF
 EOF
 
 echo "[$(date +%H:%M:%S)] ✅ 数据已保存到 $OUT_FILE"
+
+# 同步到website目录（供trading.html前端读取）
+WEBSITE_DATA="/Users/bjd/Desktop/ZhugeDengpao-Team/website/data/trading"
+cp "$OUT_FILE" "$WEBSITE_DATA/tiger_us_paper.json"
+cp "/Users/bjd/Desktop/ZhugeDengpao-Team/data/trading/portfolio.json" "$WEBSITE_DATA/portfolio.json" 2>/dev/null
+cp "/Users/bjd/Desktop/ZhugeDengpao-Team/data/trading/polymarket_data.json" "$WEBSITE_DATA/polymarket_data.json" 2>/dev/null
+cp "/Users/bjd/Desktop/ZhugeDengpao-Team/data/trading/polymarket_portfolio.json" "$WEBSITE_DATA/polymarket_portfolio.json" 2>/dev/null
+echo "[$(date +%H:%M:%S)] ✅ 已同步到website/data/trading/"

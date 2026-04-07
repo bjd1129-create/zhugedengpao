@@ -13,22 +13,7 @@ for sym, name in symbols.items():
     r = requests.get(f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}',
         params={'interval':'1d','range':'1d'}, timeout=10).json()
     meta = r['chart']['result'][0]['meta']
-    price = meta['regularMarketPrice']
-    change = meta['regularMarketChangePercent']
-    print(f'{name}({sym}): \${price:.2f} ({change:+.2f}%)')
-"
-```
-
-### 美股个股数据
-```bash
-python3 -c "
-import requests, json
-sym = 'AAPL'  # 换符号
-r = requests.get(f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}',
-    params={'interval':'1d','range':'5d'}, timeout=10).json()
-q = r['chart']['result'][0]['indicators']['quote'][0]
-print(f'收盘: {q[\"close\"][-3:]}')
-print(f'高: {max(q[\"high\"][-3:])} 低: {min(q[\"low\"][-3:])}')
+    print(f\"{name}({sym}): \${meta['regularMarketPrice']:.2f} ({meta['regularMarketChangePercent']:+.2f}%)\")
 "
 ```
 
@@ -36,11 +21,10 @@ print(f'高: {max(q[\"high\"][-3:])} 低: {min(q[\"low\"][-3:])}')
 ```bash
 python3 -c "
 import requests
-sym = 'SPY'  # 换标的
+sym = 'SPY'
 r = requests.get(f'https://query1.finance.yahoo.com/v8/finance/chart/{sym}',
     params={'interval':'1h','range':'5d'}, timeout=10).json()
-closes = r['chart']['result'][0]['indicators']['quote'][0]['close']
-closes = [c for c in closes if c]
+closes = [c for c in r['chart']['result'][0]['indicators']['quote'][0]['close'] if c]
 if len(closes) >= 15:
     gains = [closes[i+1]-closes[i] for i in range(len(closes)-1)]
     avg_g = sum([g for g in gains if g>0])/max(len([g for g in gains if g>0]),1)
@@ -52,34 +36,63 @@ if len(closes) >= 15:
 
 ---
 
-### 加密货币实时价格（Binance）
+### Polymarket热门市场（官方API）
 ```bash
-python3 -c "
-import requests
-for sym, name in [('BTCUSDT','BTC'),('ETHUSDT','ETH'),('AVAXUSDT','AVAX'),('ADAUSDT','ADA')]:
-    r = requests.get('https://api.binance.com/api/v3/ticker', params={'symbol':sym}, timeout=10).json()
-    h,l = float(r['highPrice']),float(r['lowPrice'])
-    vol=(h-l)/((h+l)/2)*100
-    print(f'{name}: \${float(r[\"lastPrice\"]):,.2f} | 波动:{vol:.2f}%')
-"
-```
-
-### 加密货币K线RSI
-```bash
-python3 -c "
-import requests
-k = requests.get('https://api.binance.com/api/v3/klines',
-    params={'symbol':'BTCUSDT','interval':'4h','limit':15}, timeout=10).json()
-closes = [float(c[4]) for c in k]
-gains = [closes[i+1]-closes[i] for i in range(len(closes)-1)]
-avg_g = sum([g for g in gains if g>0])/max(len([g for g in gains if g>0]),1)
-avg_l = sum([abs(g) for g in gains if g<0])/max(len([g for g in gains if g<0]),1)
-rsi = 100-(100/(1+avg_g/avg_l)) if avg_l>0 else 100
-print(f'BTC RSI(4h): {rsi:.1f}')
+curl -s "https://gamma-api.polymarket.com/markets?limit=50&closed=false" | python3 -c "
+import sys,json
+data=json.load(sys.stdin)
+by_vol=sorted(data,key=lambda x:float(x.get('volume24hr',0)),reverse=True)
+for m in by_vol[:10]:
+    p=json.loads(m.get('outcomePrices','[]'))
+    vol=float(m.get('volume24hr',0))
+    print(f'[\${vol:,.0f}] {m[\"question\"][:60]}')
+    print(f'  YES={float(p[0]):.1%} NO={float(p[1]):.1%}' if len(p)==2 else '')
 "
 ```
 
 ---
+
+## Polymarket深度研究框架（核心技能）
+
+### 研究流程
+```
+1. 获取热门市场 → 找出有价值的预测话题
+2. 深度搜索研究 → 用Web搜索深入了解事件背景
+3. 独立概率分析 → 不看市场定价，先自己算一个
+4. 对比偏差 → 我的判断 vs 市场定价
+5. 识别机会 → 偏差>15%时记录为候选
+```
+
+### 研究单个市场的模板
+```
+【Polymarket市场分析】
+市场：<市场URL>
+问题：<核心问题>
+市场定价：YES=<X>% NO=<Y>%
+
+【我的研究】
+1. 背景：<事件背景>
+2. 关键因素：
+   - 支持YES的证据：
+   - 支持NO的证据：
+3. 我的概率判断：YES=<A>%
+
+【对比】
+- 我的判断：<A>%
+- 市场定价：<X>%
+- 偏差：<A-X>%
+- 结论：【有机会】/【无机会】
+```
+
+### Web搜索技巧（深度研究用）
+```bash
+# 英文搜索结果更准
+web_search: "bitcoin price prediction 2026 analysis"
+web_search: "site:polymarket.com bitcoin"
+web_search: "Trump 2025 Polymarket odds analysis"
+web_search: "BTC ETF inflow data 2026"
+web_search: "cryptocurrency market cycle analysis 2026"
+```
 
 ### 市场状态判断
 | RSI | 市场状态 | 策略建议 |
@@ -100,8 +113,9 @@ print(f'BTC RSI(4h): {rsi:.1f}')
 |--------|------|------|
 | Yahoo Finance | 美股ETF/个股/期货 | requests GET |
 | Binance API | 加密货币 | requests GET |
+| **Polymarket Gamma API** | 热门预测市场 | curl/requests（官方API，无需Key） |
 | stockanalysis.com | 分析师评级/目标价 | web_search |
-| news.google.com | 市场新闻 | web_search |
+| DuckDuckGo | 市场新闻/深度研究 | web_search |
 
 ## 团队协作
 

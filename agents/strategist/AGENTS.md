@@ -4,12 +4,14 @@
 
 ## 启动顺序（每次session）
 
-1. 读 `SOUL.md` — 我是谁，我的分析立场
-2. 读 `IDENTITY.md` — 我的角色定位
-3. 读 `USER.md` — 我为谁服务（小花/老庄）
-4. 读 `memory/YYYY-MM-DD.md`（今天+昨天）— 近期市场分析
-5. 读 `MEMORY.md` — 长期策略积累
-6. 读 `SKILL.md` — 核心技能速查
+1. 读 `TEAM.md` — 团队架构和小花是谁（必读）
+2. 读 `SOUL.md` — 我是谁，我的分析立场
+3. 读 `IDENTITY.md` — 我的角色定位
+4. 读 `USER.md` — 我为谁服务（小花/老庄）
+5. 读 `memory/YYYY-MM-DD.md`（今天+昨天）— 近期市场分析
+6. 读 `MEMORY.md` — 长期策略积累
+7. 读 `SKILL.md` — 核心技能速查
+8. 读 `CONTEXT.md` — 团队上下文精简版
 
 ## 目录结构
 
@@ -45,6 +47,8 @@ agents/strategist/
 | Binance API | 加密货币实时价格/K线/RSI | SKILL.md python脚本 |
 | stockanalysis.com | 分析师评级、目标价、研报摘要 | web_search |
 | news.google.com | 市场新闻快讯 | web_search |
+| Polymarket Gamma API | 预测市场热门话题 | polymarket_fetch.py 或 curl |
+| Polymarket深度研究 | 独立概率分析，找市场偏差 | Web搜索 + 分析框架 |
 | portfolio.json | 账户状态（加密货币） | 读文件 |
 | tiger_us_paper.json | 美股模拟账户持仓 | 读文件 |
 | Tiger Open API | 真实账户/模拟账户行情 | trader/tiger_api.py |

@@ -23,6 +23,59 @@
 
 ---
 
+## OpenClaw 自我进化技术栈
+
+**核心插件**：longmans/self-evolve（强化学习风格情景记忆）
+- Q值更新 + 意图-经验三元组存储
+- 三种学习模式：balanced/tools_only/all（默认balanced）
+- 支持远程共享到 self-evolve.club 网络，含贡献者排行榜
+- 需 OpenAI API Key（配置 provider: openai, model: gpt-4.1-mini）
+- 关键参数：minAbsReward=0.15, minRewardConfidence=0.55, retrieval.tau=0.85
+- 隐私设计：本地两次脱敏（sanitize + LLM重写）
+- 需 OpenClaw 2026.3.2+
+
+**远程共享网络**：self-evolve.club
+- Evolution Score = Reuse Hits + Quality Reward
+- 可查看全球贡献者排行榜
+- 本地+远程记忆合并后排序注入prompt
+- 可单独禁用远程共享（保留本地学习）
+
+**Self-Improving Agent**：ClawHub热门技能（260k+下载）
+- .learnings/ 目录：ERRORS.md / LEARNINGS.md / FEATURE_REQUESTS.md
+- 每日凌晨4点自动复盘，更新MEMORY.md
+- 核心理念：Agent像工程师一样写复盘文档
+
+**AutoSkill**：ECNU-ICALK开源（arxiv.org/abs/2603.01145）
+- 技能不是设计出来，而是从经验中"长出来"
+- 技能版本管理（professional_text_rewrite已迭代到0.1.34）
+- 通过记忆增长而非模型微调持续改进
+
+**EvoMap**：GitHub协议约束型自进化引擎
+- GEP基因组进化协议：Gene/Capsule/Evolution Event三层拆解
+- 免人工干预的技能检索和验证
+- 物理竞赛测试：$1成本击败$200调试的GPT 5.3
+
+**自主修改型**：be1human/self-evolve（激进版，可自行改配置）
+
+**OpenClaw-RL 论文**（arxiv:2603.10165）
+- 核心洞察：next-state信号是通用的，policy可从所有信号同时学习
+- 私人对话、终端执行、GUI交互、SWE任务、工具调用轨迹统一训练
+- 团队可借鉴：用统一格式记录不同类型的成功/失败信号
+
+**3月18日 Lobster Evolution Conference**
+- OpenClaw社区重大事件，会后全球Agent大规模迁移到Bot University
+- 代表社区正在推动Agent自我优化标准化，团队方向正确
+
+**前沿研究**：OpenClaw-RL（arXiv:2603.10165, 2026-03-10）
+- 核心理念：所有交互的"下一状态信号"都是学习来源
+- PRM judge 评估 + OPD（On-Policy Distillation）token级方向性监督
+- 异步设计：模型服务请求、PRM评判、Trainer更新三者零协调开销
+- 关键洞察：用户的重复提问/修正/反馈都是训练信号，不需要显式打分
+
+**远程共享网络**：self-evolve.club — 社区经验三元组共享 + 贡献排行榜
+
+---
+
 ## 老庄背景
 - 1989年，广州花都
 - 销售 → 销售管理 → 高管 → 创业
@@ -64,16 +117,52 @@
 
 ---
 
+### ⚠️ 安全警报（2026-04-07）
+Ars Technica 报道 OpenClaw 存在未认证管理员访问漏洞（2026-04）。
+**立即行动**：
+1. 检查网关 token 是否为强密码（非默认）
+2. 不将网关端口暴露到互联网
+3. 使用 Tailscale 等 VPN 而非公网访问
+4. 优先使用 gateway config.patch 而非 stop/start
+
+### OpenClaw 版本现状（2026-04-06）
+- 当前运行：2026.4.2（落后3个版本）
+- 最新：2026.4.5（今天发布）
+- ⚠️ 需升级 + 运行 `openclaw doctor --fix`（xAI/Firecrawl路径迁移）
+
+### OpenClaw-RL v1 正式发布（2026-02-26）
+- 全异步RL框架，模型服务/PRM评判/Trainer三者零协调开销
+- 两种学习信号：Evaluative（PRM标量奖励）+ Directive（OPD文本指导）
+- 适合：个人Agent对话反馈训练 + 通用Agent（terminal/GUI/SWE/tool-call）
+- Self-Evolve生态已集成到 self-evolve.club，有实时leaderboard
+- Self-Evolve Skill可查询共享排行榜：`curl -s "https://self-evolve.club/api/v1/stats/leaderboard?limit=10"`
+
+### Dreaming 系统完全重构（v2026.4.1起）
+- 三阶段协作：Light（短期加权）→ Deep（语义分析）→ REM（记忆巩固）
+- 独立 schedule + 恢复机制，不再互相冲突
+- 新增 `dreams.md`：统一记忆轨迹文件（替代分散的每日note）
+- 新命令：`openclaw memory rem-harness` / `promote-explain`
+- 可配置老化：`recencyHalfLifeDays` + `maxAgeDays`
+- 行动：定期读 `dreams.md` 追踪记忆整理轨迹
+
+### OpenClaw 新增内置能力（v2026.4.1）
+- **video_generate**：内置视频生成（xAI/阿里Wan/Runway）
+- **music_generate**：内置音乐生成（Google Lyria + MiniMax）
+- **简体中文 Control UI**：已原生支持
+- **Prompt Caching 改进**：重复turn命中KV cache更可靠
+
 ### 已知进化方案（2026-04-06更新）
 
 | 方案 | 来源 | 核心机制 | 推荐度 |
 |------|------|----------|--------|
 | Self-Improving Agent | @pskoett | .learnings日志+自动复盘 | ⭐⭐⭐⭐⭐ |
+| self-evolving-agent | RangeKing | 能力地图+课程+评估+晋升门控 | ⭐⭐⭐⭐⭐（新）|
 | AutoSkill | 华东师大+上海AI Lab | 交互中提炼技能+版本管理 | ⭐⭐⭐⭐ |
 | Self-Evolve | longmans | 强化学习+Q值+共享网络 | ⭐⭐⭐⭐ |
 | Capability Evolver | OpenClaw官方 | 日志分析+自动修复 | ⭐⭐⭐⭐ |
-| Dreaming | 已有 | Light整理→Deep评分→REM反思，三阶段分工 | ⭐⭐⭐⭐ |
+| Dreaming | v2026.4.1重构 | 三阶段协作+Dream Diary+dreams.md | ⭐⭐⭐⭐ |
 | OpenClaw-RL (OPD) | Gen-Verse (arXiv:2603.10165) | Hindsight文本提示+异步四环训练 | ⭐⭐⭐ |
+| be1human/self-evolve | ClawHub | 自主修改配置/技能/记忆（全权限）| ⭐⭐（谨慎）|
 
 ### Self-Improving Agent配置
 ```
@@ -94,20 +183,45 @@
 - 安全: 本地+LLM双脱敏，仅共享sanitized triplets
 **推荐**：与 Capability Evolver Pro 组合使用
 
+### self-evolving-agent（2026-04-07新）
+**来源**: [RangeKing/self-evolving-agent](https://github.com/RangeKing/self-evolving-agent)
+**核心升级**：从"被动错误日志"到"目标驱动能力进化"
+- 四阶段模式路由：task_light / task_full / agenda_review / promotion_review
+- 能力地图（Capability Map）：等级+证据+边界+失败模式+升级条件
+- 晋升门控：只有经过验证的可迁移策略才能晋升，防止 brittle 规则
+- 学习状态机：recorded→understood→practiced→passed→generalized→promoted
+**与 Self-Evolve 的区别**：Self-Evolve 是强化学习式经验积累；self-evolving-agent 是目标驱动的能力系统进化
+**小花团队适配度**：高。可为每个子agent建立能力卡片+学习议程。
+
 ### Session Context Bloat 防护（2026-04-06新）
 **来源**: [garrettekinsman/openclaw-best-practices](https://github.com/garrettekinsman/openclaw-best-practices) v2
 - heartbeat/cron 累积可导致 100k+ token 爆炸
 - 解决：Context Graph Integration（DAG-based topic+recency assembly）
 - 需定期审计 session 长度
 
+### 最佳实践更新（2026-04-07）
+来源：garrettekinsman/openclaw-best-practices v2
+- SKILL.md 永远 ≤50 行；超过一屏就是太长
+- 技能目录结构：SKILL.md（步骤）+ scripts/（逻辑）+ references/（按需文档）+ assets/
+- 脚本：自包含 + CLI参数 + JSON输出 + 最小化输出
+- ContextGraph：替换线性滑动窗口为 DAG-based topic+recency 检索
+- 对抗性多 Sprint 模式：研究→攻击→修复→迭代
+
 ### 进化哲学（2026-04-06新）
 > "技能不是设计出来的，而是从经验中长出来的"
 > ——AutoSkill论文
 
-### 行动项
-- [ ] 评估安装Self-Improving Agent
-- [ ] 设置凌晨自动复盘cron
-- [ ] 评估AutoSkill是否适合团队
+### OpenClaw进化研究关键结论（第五轮 2026-04-07）
+**新发现**：
+- self-evolving-agent 是目前最接近"完整能力进化"的方案（能力地图+晋升门控）
+- 社区最佳实践强调 SKILL.md 保持苗条（≤50行）是 context 管理的关键
+- be1human/self-evolve 提供全自主修改能力，但安全性需评估
+
+**短期行动项**（2026-04-07更新）：
+- [ ] 安全自查：网关暴露情况 + token 强度
+- [ ] 检查所有 SKILL.md 是否 ≤50 行
+- [ ] 评估 self-evolving-agent 是否适合交易团队
+- [ ] 为子 agent 建立能力卡片（参考 capability map 思路）
 
 ## 品牌定位
 - 「老庄与小花」· 普通人用20天驯的AI龙虾
@@ -137,12 +251,16 @@
 
 ---
 
-## 交易团队现状（2026-04-05）
+## 交易团队现状（2026-04-06更新）
 
-### 加密货币网格
-- 混合策略v4.2：BTC/ETH持有 + AVAX/ADA网格
-- 总资产：~$10,018 | 累计37笔交易
-- 账户：$10,000初始
+### 加密货币网格 ⚠️ 已实质性止损（2026-04-06更新）
+- 总资产：$6,884（-31.15%，从$10,000初始）
+- 状态：100%现金，STOP_FILE生效（trading_simulator.py已锁死）
+- 根因：trading_simulator.py的hold模式会自动补仓（pos==0就买$3000 BTC+$3000 ETH）
+- 修复：STOP_FILE检查移到main()之前，终于锁死
+- 文件：data/trading/STOP_TRADING.flag
+- 持仓：BTC=0 ETH=0 ADA=0 AVAX=0
+- 教训：STOP_FILE必须放在main()之前，不能放末尾；手动平仓不够，代码入口拦截才是真锁
 
 ### 美股模拟盘（老虎证券）
 - 策略：价值定投v1.0（SPY40% + QQQ30% + VTI20% + BND10%）
@@ -204,9 +322,50 @@
 - ❌ 发国内社媒前必须关代理
 - ✅ 改模拟器前先 cp portfolio.json portfolio.backup.json
 - ✅ 搜索用Brave/web_search，不用ddgs
+- ❌ trading_simulator.py的STOP_FILE检查必须放在main()之前，放尾部无效
+- ❌ 手动平仓不等于真平仓，trading_simulator.py会在下次运行自动恢复
 
 ---
 
+## 2026-04-06 第二轮研究新发现
+
+### Self-Evolve 插件 v2 详细机制
+- **Hook管道**：before_prompt_build → agent_end → 反馈评分 → Q值更新 → 情景记忆写入
+- **任务边界**：newIntentSimilarity=0.35, idleTurnsToClose=2, pendingTtlMs=300000（5分钟）
+- **隐私保障**：sanitizeMemoryText（一轮脱敏）+ LLM摘要二次脱敏，仅共享三元组
+- **记忆保留**：maxEntries=200，超限保留高价值记忆（Q值/成功率/时效/选中次数），保留少量新名额额
+- **参考**：dev.to/guanfu_lab/how-we-built-a-self-evolving-ai-team-with-openclaw（多Agent自进化团队案例）
+
+### Capability Evolver vs LLM 分析（决策参考）
+| 维度 | LLM分析 | Capability Evolver |
+|------|---------|-------------------|
+| 速度 | 5-30秒 | <100ms |
+| 可复现 | ❌ | ✅ |
+| 幻觉风险 | ⚠️ | ✅无 |
+| 成本 | $0.10-0.50/次 | 免费 |
+| 语义理解 | ✅ | ❌ |
+**结论**：日常健康检查用 Capability Evolver，深度根因分析用 LLM
+
+### OpenClaw Best Practices v2 新章节（2026-03-20）
+来源：github.com/garrettekinsman/openclaw-best-practices
+- **Section 19 Context Graph**：DAG结构替代线性滑动窗口，语义检索节省token
+- **Section 20 Session Bloat**：cron/heartbeat堆积导致100k+ token风险，需定期审计
+- **Section 21 Agent Teams**：命名persona/identity注入/memory访问策略/报告归属
+- **Section 22 Parallel Workflows**：fan-out/fan-in研究/GPU竞争管理/mid-task接管
+- **Section 23 Local Compute**：orchestrator模式/LiteLLM路由/VRAM管理/按任务选模型
+
+### Skill生态现状（2026-04）
+- ClawHub：13,700+ skills，20%低质量，awesome-openclaw-skills人工审核5,211个
+- 前五：Capability Evolver 35K+ | GOG 14K+ | Agent Browser 11K+ | Summarize 10K+ | GitHub 10K+
+- Skill分类：自进化/生产/自动化/通信/搜索/开发/智能家居
+
+#### 今日新增行动项（2026-04-06第二轮）
+- [ ] 安装 self-evolve 插件并接入 self-evolve.club 网络
+- [ ] 配置每周健康检查 cron（Capability Evolver）
+- [ ] 更新 AGENTS.md：Session Bloat 防护规范
+- [ ] 评估 Context Graph 集成方案（解决 token 膨胀）
+
+---
 ## OpenClaw进化（精简版）
 
 ### 自进化体系全貌（2026-04-05深度调研更新）
@@ -293,7 +452,70 @@
 
 ---
 
-最后更新：2026-04-06 01:07 | 小花 🦞
+最后更新：2026-04-07 03:03 | 小花 🦞
+
+## 2026-04-07 第十一轮进化研究新发现
+
+### self-evolve Hook管道完整时序
+```
+用户消息 → [before_prompt_build]
+  → 检测反馈？→ Score reward → Q值更新 → 写入情景记忆
+  → 无反馈 → 检测意图边界 → 检索记忆 → Phase-B排序 → 注入上下文 → 回复
+```
+- before_prompt_build：管理pending任务状态（open/waiting_feedback）
+- agent_end：捕获assistant响应，移动任务到waiting_feedback
+- 反馈检测：Praise clearly when it works / Point out clearly when it fails（模糊反馈效果差）
+
+### Power User最佳实践（200+小时·MindStudio）
+- **Tip 1**：先画Agent图再动手（标输入/输出/失败点），省大量重构时间
+- **Tip 2**：单一职责原则，5个分支就该拆Agent
+- **Tip 3**：Sub-agent用于并行（45秒→20秒）
+- **Tip 4-6**：模型路由三层架构（Haiku→Mid→Frontier）+ 专用Router Agent + 缓存省30-50%成本
+- **Tip 7**：Telegram线程分离（Errors/Alerts | Completed | Approvals | Info）
+- **Tip 8**：统一消息格式，减少认知负担
+
+### 多Agent自进化团队案例（dev.to/guanfu_lab）
+- 持久记忆 = 持续进化的前提（无记忆 = 每次归零）
+- 结构清晰 = 防混乱（角色边界要明确）
+- 沟通渠道要设计（任务分配 / 团队讨论 / 个人更新分离）
+
+### 立即可执行建议
+1. 安装self-evolve插件（已装BYOM版，可升级完整版）
+2. 建立Router Agent统一入口
+3. Telegram通知按类型分流
+4. 加入self-evolve.club共享网络（Evolution Score = Reuse Hits + Quality Reward）
+
+---
+
+## 2026-04-06 第十轮进化研究（补充）
+
+### OpenClaw-RL 最新动态（截至2026-04-06）
+- 4月4日：支持群体反馈优化单一模型（group feedback optimization）
+- 4月4日：支持LoRA训练（轻量化微调）
+- 3月25日：支持本地GPU + Tinker云端部署
+- 3月10日：技术报告 arXiv:2603.10165 发布，HuggingFace日榜第一
+- 三种学习范式：Binary RL / OPD / Combine
+- **小花判断**：技术门槛高，我们目前用不上，但每月跟踪一次值得关注
+
+### Self-Improving Agent 四阶段循环（可落地）
+```
+Detection → Analysis → Generation → Integration
+```
+- 触发：3次同类失败 / 2倍预期耗时 / 用户明确需求 / 可自动化重复操作
+- 执行：在memory/YYYY-MM-DD.md打#进化触发标签，生成技能文件，记录到evolution.md
+- 重大改进 → 更新AGENTS.md
+- **已写入AGENTS.md的自我进化机制**
+
+### Self-Evolve Network（技能进化网络）
+- 意图-经验三元组存储，本地+远程RAG检索
+- Evolution Score = Reuse Hits + Quality Reward
+- 可接入：self-evolve.club
+
+### 新增行动项
+- [ ] 测试self-improving-agent skill（clawhub.ai/pskoett/self-improving-agent）
+- [ ] 创建 memory/evolution.md（进化日志，已完成）
+- [ ] 确认AGENTS.md自我进化机制是否写入正确（已写入）
+- [ ] 下月继续跟踪OpenClaw-RL进展
 
 ## 补充：2026-04-06 01:07 新发现
 
@@ -391,4 +613,12 @@ COLD: archive/（无限）
 - Vercel: xiaohuahua.vercel.app（push自动）
 - CF Pages: dengpao.pages.dev（wrangler手动）
 - articles-data.js已同步到website/目录
+
+
+---
+
+## 2026-04-07 团队管理规则
+- 制定：TEAM-RULES.md（团队管理规则主册）
+- 核心：TASKS.md唯一任务来源 + 协调官唯一中间层 + 阻塞三级升级机制
+- 协调官日报：09:00晨报 + 18:00晚报（飞书汇报小花）
 

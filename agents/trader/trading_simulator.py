@@ -229,4 +229,45 @@ def main():
 
 
 if __name__ == '__main__':
+    # ==========小花添加：紧急停止开关（必须在main()之前）==========
+    STOP_FILE = os.path.join(os.path.dirname(PATH), 'STOP_TRADING.flag')
+    if os.path.exists(STOP_FILE):
+        print("🛑 STOP_TRADING.flag 存在，仅更新价格，不交易")
+        p = load()
+        prices = {}
+        for sym in STRATEGY:
+            prices[sym] = get_price(sym)
+            if prices[sym]:
+                for h in p['holdings']:
+                    if h['symbol'] == sym:
+                        h['currentPrice'] = round(prices[sym], 4)
+                        h['value'] = round(h['amount'] * prices[sym], 2)
+        holdings_value = sum(h.get('value', 0) for h in p['holdings'])
+        p['account']['totalValue'] = round(p['account']['cashBalance'] + holdings_value, 2)
+        p['lastUpdated'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S+08:00")
+        save(p)
+        print(f"  仅更新价格完成，总资产: ${p['account']['totalValue']:,.2f}")
+        exit(0)
+    # ==========停止开关结束==========
     main()
+
+# 旧版停止开关（兼容保留）
+STOP_FILE = os.path.join(os.path.dirname(PATH), 'STOP_TRADING.flag')
+if os.path.exists(STOP_FILE):
+    print("🛑 STOP_TRADING.flag 存在，仅更新价格，不交易")
+    p = load()
+    prices = {}
+    for sym in STRATEGY:
+        prices[sym] = get_price(sym)
+        if prices[sym]:
+            for h in p['holdings']:
+                if h['symbol'] == sym:
+                    h['currentPrice'] = round(prices[sym], 4)
+                    h['value'] = round(h['amount'] * prices[sym], 2)
+    holdings_value = sum(h.get('value', 0) for h in p['holdings'])
+    p['account']['totalValue'] = round(p['account']['cashBalance'] + holdings_value, 2)
+    p['lastUpdated'] = datetime.now().strftime("%Y-%m-%dT%H:%M:%S+08:00")
+    save(p)
+    print(f"  仅更新价格完成，总资产: ${p['account']['totalValue']:,.2f}")
+    exit(0)
+# ==========停止开关结束==========

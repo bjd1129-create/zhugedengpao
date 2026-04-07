@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-04-05T15:00:00+08:00",
+  "account": {
+    "name": "Polymarket预测模拟盘",
+    "initial_balance": 10000,
+    "cash_balance": 10000,
+    "total_value": 10000,
+    "realized_pnl": 0,
+    "total_trades": 0
+  },
+  "positions": [],
+  "trades": [],
+  "research_notes": [
+    {
+      "id": "btc-2026-150k",
+      "question": "BTC 2026年底能否突破 $150,000？",
+      "market_probability": 0.21,
+      "our_assessment": "低估了",
+      "our_probability": 0.35,
+      "action": null,
+      "amount": 0,
+      "entry_price": null,
+      "result": null,
+      "pnl": null,
+      "researcher": "策略师",
+      "decided_at": null,
+      "closed_at": null,
+      "status": "researching"
+    },
+    {
+      "id": "btc-2026-100k",
+      "question": "BTC 2026年底能否突破 $100,000？",
+      "market_probability": 0.80,
+      "our_assessment": "合理偏高",
+      "our_probability": 0.75,
+      "action": null,
+      "amount": 0,
+      "entry_price": null,
+      "result": null,
+      "pnl": null,
+      "researcher": "策略师",
+      "decided_at": null,
+      "closed_at": null,
+      "status": "researching"
+    },
+    {
+      "id": "eth-2026-10k",
+      "question": "ETH 2026年底能否突破 $10,000？",
+      "market_probability": 0.15,
+      "our_assessment": "概率太低",
+      "our_probability": 0.20,
+      "action": null,
+      "amount": 0,
+      "entry_price": null,
+      "result": null,
+      "pnl": null,
+      "researcher": "策略师",
+      "decided_at": null,
+      "closed_at": null,
+      "status": "researching"
+    }
+  ],
+  "summary": {
+    "strategy": "研究市场共识和我们自己的判断，识别定价错误的机会",
+    "principle": "只在有明显预期差时出手，不频繁交易",
+    "next_update": "策略师每6小时更新研究"
+  }
+}

@@ -1,46 +1,26 @@
 {
-  "timestamp": "2026-04-06T22:16:00+08:00",
+  "timestamp": "2026-04-07T08:51:27+08:00",
   "strategy": {
-    "name": "\u4ef7\u503c\u5b9a\u6295\u7b56\u7565v1.0",
+    "name": "价值定投策略v1.0",
     "version": "1.0",
-    "description": "\u6708\u5b9a\u6295\u6307\u6570ETF + \u5b63\u5ea6\u518d\u5e73\u8861 + \u80a1\u606f\u590d\u5229",
+    "description": "月定投指数ETF + 季度再平衡 + 股息复利",
     "initial_cash": 1000000,
     "allocation": {
-      "SPY": {
-        "target": 0.4,
-        "name": "\u6807\u666e500ETF",
-        "mode": "\u5b9a\u6295"
-      },
-      "QQQ": {
-        "target": 0.3,
-        "name": "\u7eb3\u65af\u8fbe\u514b100ETF",
-        "mode": "\u5b9a\u6295"
-      },
-      "VTI": {
-        "target": 0.2,
-        "name": "\u5168\u5e02\u573aETF",
-        "mode": "\u5b9a\u6295"
-      },
-      "BND": {
-        "target": 0.1,
-        "name": "\u503a\u5238ETF",
-        "mode": "\u5b9a\u6295"
-      }
+      "SPY":  {"target": 0.40, "name": "标普500ETF", "mode": "定投"},
+      "QQQ":  {"target": 0.30, "name": "纳斯达克100ETF", "mode": "定投"},
+      "VTI":  {"target": 0.20, "name": "全市场ETF", "mode": "定投"},
+      "BND":  {"target": 0.10, "name": "债券ETF", "mode": "定投"}
     },
     "monthly_invest": 10000,
     "rebalance_threshold": 0.05
   },
-  "account": {
-    "account": "21639635499102726",
-    "name": "\u8001\u864e\u8bc1\u5238-\u6a21\u62df\u8d26\u6237",
-    "initial_balance": 1000000,
-    "cash_balance": 1000000.0,
-    "total_value": 1000000.0,
-    "buying_power": 4000000.0,
-    "realized_pnl": 0.0,
-    "unrealized_pnl": 0.0,
-    "currency": "USD"
-  },
+  "account": Traceback (most recent call last):
+  File "<string>", line 17, in <module>
+    assets = client.get_assets('21639635499102726')
+  File "/Users/bjd/.venv/tiger/lib/python3.14/site-packages/tigeropen/trade/trade_client.py", line 383, in get_assets
+    raise ApiException(response.code, response.message)
+tigeropen.common.exceptions.ApiException: code=1000 msg=common param error(failed to verify signature, please make sure you use the correct rsa private key, if you use python sdk, the private key is in pkcs#1 format),
   "positions": [],
-  "trades": []
+  "quotes": {"SPY": {"last":658.93,"prev_close":655.83,"change":3.1,"change_pct":0.47},"QQQ": {"last":588.5,"prev_close":584.98,"change":3.52,"change_pct":0.6},"VTI": {"last":325.21,"prev_close":323.76,"change":1.45,"change_pct":0.45},"BND": {"last":73.47,"prev_close":73.58,"change":-0.11,"change_pct":-0.15},"AAPL": {"last":258.86,"prev_close":255.91998,"change":2.94,"change_pct":1.15},"MSFT": {"last":372.88,"prev_close":373.46,"change":-0.58,"change_pct":-0.16},"GOOGL": {"last":299.99,"prev_close":295.77,"change":4.22,"change_pct":1.43},"AMZN": {"last":212.79,"prev_close":209.76999,"change":3.02,"change_pct":1.44},"NVDA": {"last":177.64,"prev_close":177.39,"change":0.25,"change_pct":0.14},"META": {"last":573.02,"prev_close":574.46,"change":-1.44,"change_pct":-0.25},"TSLA": {"last":352.82,"prev_close":360.59,"change":-7.77,"change_pct":-2.15},"JPM": {"last":295.45,"prev_close":293.1,"change":2.35,"change_pct":0.8},"V": {"last":303.33,"prev_close":300.8,"change":2.53,"change_pct":0.84},"JNJ": {"last":240.97,"prev_close":243.04,"change":-2.07,"change_pct":-0.85}},
+  "allocation": []
 }

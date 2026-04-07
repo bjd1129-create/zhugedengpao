@@ -14,13 +14,13 @@ total = p['account']['totalValue']
 initial = p['account']['initialBalance']
 cash = p['account']['cashBalance']
 
-if total <= initial * 0.95:
+if total <= 9500:
     status = "🔴"
     msg = f"止损! 总值=${total:.2f}"
-elif total <= initial * 0.98:
+elif total <= 10000:
     status = "🟡"
     msg = f"警告! 总值=${total:.2f}"
-elif total >= initial * 1.05:
+elif total >= 10500:
     status = "🎯"
     msg = f"止盈! 总值=${total:.2f}"
 else:

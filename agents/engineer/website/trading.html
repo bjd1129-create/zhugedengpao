@@ -245,18 +245,31 @@ const polymarketData = await polymarketRes.json();
 simulations = {};
 
 // 加密货币网格
+const cryptoInitial = cryptoData.account?.initialBalance || 10000;
+const cryptoCash = cryptoData.cash || cryptoData.account?.cashBalance || 0;
 simulations.crypto = {
 name: cryptoData.name || '加密货币网格',
 provider: cryptoData.provider || 'Binance',
 icon: '₿',
-initialCapital: 10000,
-currentValue: cryptoData.cash || 0,
-cash: cryptoData.cash || 0,
+initialCapital: cryptoInitial,
+currentValue: cryptoCash,
+cash: cryptoCash,
 currency: 'USDT',
-status: cryptoData.status === 'STOPPED' ? 'stopped' : 'running',
+status: cryptoData.status === 'STOPPED' ? 'stopped' : (cryptoData.status === 'RESTARTING' ? 'restarting' : 'running'),
 stopFile: cryptoData.stopFile || '',
+restartNotice: cryptoData.status === 'RESTARTING' ? '策略修正重启中' : null,
+restartReason: cryptoData.status === 'RESTARTING' ? '通过复盘修正优化策略' : null,
 positions: [],
-trades: []
+trades: cryptoData.recentTrades?.map(t => ({
+time: t.time.replace(/T/, ' ').substring(0, 16),
+type: t.side?.toLowerCase() || t.type,
+symbol: t.symbol,
+shares: t.amount,
+price: t.price,
+total: t.amount * t.price,
+note: t.note || '',
+review: t.review || ''
+})) || []
 };
 
 // 美股模拟盘

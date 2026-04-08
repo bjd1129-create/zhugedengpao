@@ -8,14 +8,17 @@
   "lastUpdate": "2026-04-09T07:18:40+08:00",
   "account": {
     "initialBalance": 10000.0,
+    "cashBalance": 6848.44,
     "totalPnL": -3151.56,
     "totalPnLPercent": -31.52,
     "totalTrades": 84
   },
   "recentTrades": [
-    {"time": "2026-04-07 13:36", "type": "buy", "symbol": "AVAX", "shares": 23.23, "price": 8.61, "total": 200, "note": "网格买入", "review": ""},
-    {"time": "2026-04-07 13:16", "type": "buy", "symbol": "AVAX", "shares": 23.07, "price": 8.67, "total": 200, "note": "网格买入", "review": ""},
-    {"time": "2026-04-06 16:42", "type": "buy", "symbol": "ADA", "shares": 781.86, "price": 0.2558, "total": 200, "note": "网格买入", "review": ""},
-    {"time": "2026-04-06 16:32", "type": "sell", "symbol": "ADA", "shares": 784.31, "price": 0.256, "total": 200.78, "note": "网格卖出", "review": "止盈正确"}
+    {"time": "2026-04-07T13:36:05+08:00", "side": "BUY", "symbol": "AVAX", "amount": 23.23, "price": 8.61, "note": "网格买入", "review": ""},
+    {"time": "2026-04-07T13:15:59+08:00", "side": "BUY", "symbol": "AVAX", "amount": 23.07, "price": 8.67, "note": "网格买入", "review": ""},
+    {"time": "2026-04-07T12:35:52+08:00", "side": "BUY", "symbol": "AVAX", "amount": 23.01, "price": 8.69, "note": "网格买入", "review": ""},
+    {"time": "2026-04-07T12:35:52+08:00", "side": "BUY", "symbol": "ADA", "amount": 815.33, "price": 0.2453, "note": "网格买入", "review": ""},
+    {"time": "2026-04-06T16:42:02+08:00", "side": "BUY", "symbol": "ADA", "amount": 781.86, "price": 0.2558, "note": "网格买入", "review": ""},
+    {"time": "2026-04-06T16:31:59+08:00", "side": "SELL", "symbol": "ADA", "amount": 784.31, "price": 0.256, "pnl": 0.78, "note": "网格卖出 PnL: $+0.78", "review": "止盈正确"}
   ]
 }

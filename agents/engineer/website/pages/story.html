@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>小花的故事 — dengpao.pages.dev</title>
+<meta name="description" content="普通创业者、AI纯小白，在床上养了20天AI龙虾，养出了一支9人数字团队。这是老庄与小花故事的完整版。">
+<meta property="og:title" content="小花的故事 | 老庄与小花">
+<meta property="og:description" content="普通创业者、AI纯小白，在床上养了20天AI龙虾，养出了一支9人数字团队。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dengpao.pages.dev/story">
+<link rel="canonical" href="https://dengpao.pages.dev/story">
+<meta property="og:image" content="https://dengpao.pages.dev/images/zhugedengpao-cartoon-sheet.png">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&display=swap"></noscript>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans SC',sans-serif;background:#f5f3ee;color:#333;padding-top:56px}
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#4A2508;text-decoration:none;font-weight:700}
+.nav-links{margin-left:auto;display:flex;gap:20px}
+.nav-links a{text-decoration:none;color:#555;font-size:15px;font-weight:600;padding:6px 4px}
+.nav-links a:hover,.nav-links a.active{color:#4A2508}
+
+/* ── Comic Tabs ── */
+.comic-section{background:#fff;border:1.5px solid #e8e4df;border-radius:14px;margin:24px 0;overflow:hidden}
+.comic-tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:0;border-bottom:1.5px solid #e8e4df}
+.comic-tabs::-webkit-scrollbar{display:none}
+.comic-tab{padding:10px 18px;font-size:13px;font-weight:600;color:#555;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;flex-shrink:0;transition:color .2s,border-color .2s}
+.comic-tab:hover{color:#4A2508}
+.comic-tab.active{color:#4A2508;border-bottom-color:#4A2508}
+.comic-panels{padding:16px}
+.comic-panel{display:none;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
+.comic-panel.active{display:grid}
+.comic-thumb{aspect-ratio:3/4;background:#f0ede8;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;border:1.5px solid #e8e4df}
+.comic-thumb:hover{transform:scale(1.04);box-shadow:0 4px 16px rgba(0,0,0,0.12)}
+.comic-thumb img{width:100%;height:100%;object-fit:cover}
+.comic-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;background:#f0ede8;border-radius:8px;border:1.5px dashed #ccc;color:#bbb;font-size:12px;gap:6px}
+.comic-placeholder span{font-size:24px}
+
+/* Lightbox */
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
+.lightbox.open{display:flex}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+.lightbox-nav{display:flex;gap:16px;margin-top:16px}
+.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px}
+.lightbox-nav button:hover{background:rgba(255,255,255,0.25)}
+.lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
+.lightbox-counter{color:rgba(255,255,255,0.6);font-size:13px;margin-top:10px}
+
+/* ── Story Content ── */
+article{max-width:680px;margin:0 auto;padding:24px 20px 40px}
+h1{font-size:24px;font-weight:900;line-height:1.4;margin-bottom:8px}
+.subtitle{font-size:14px;color:#555;margin-bottom:24px;line-height:1.6}
+.diamond{text-align:center;color:#4A2508;font-size:14px;margin:32px 0;letter-spacing:8px}
+h2{font-family:'ZCOOL KuaiLe',sans-serif;font-size:20px;color:#c44434;border-left:4px solid #c44434;padding-left:12px;margin:32px 0 16px}
+p{font-size:15px;line-height:2;margin:10px 0}
+.quote{background:#f7f5f2;border-left:3px solid #E07A5A;padding:12px 16px;margin:16px 0;font-size:14px;color:#555;border-radius:0 8px 8px 0}
+.highlight{color:#6B3F2A;font-weight:700}
+.data-card{background:#fff;border:1.5px solid #e8e4df;border-radius:10px;padding:16px;margin:16px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.data-card .num{font-size:22px;font-weight:900;color:#4A2508}
+.data-card .label{font-size:11px;color:#555}
+.scene{font-family:'Ma Shan Zheng',serif;font-size:16px;color:#555;font-style:italic;margin:8px 0}
+footer{text-align:center;padding:20px;font-size:11px;color:#555;border-top:2px solid #ddd;background:#f5f3ee;margin-top:40px}
+footer a{color:#555;text-decoration:none;margin:0 8px}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .data-card{grid-template-columns:repeat(2,1fr)}
+  h1{font-size:20px}
+  .comic-panel{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .hamburger{display:block}
+  .nav-links{display:none;flex-direction:column;position:absolute;top:56px;right:16px;background:#fff;border:1.5px solid #ddd;border-radius:10px;padding:12px 16px;gap:12px;box-shadow:0 4px 15px rgba(0,0,0,0.1)}
+  .nav-links.open{display:flex}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+<div class="nav-logo">🦞 老庄与小花</div>
+<div class="nav-links">
+<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
+<a href="index.html">首页</a>
+<a href="diary.html">📖 日记</a>
+
+<a href="articles.html">📝 文章</a>
+
+<a href="bagua.html">🎯 八卦</a>
+<a href="trading.html">📈 操盘</a>
+</div>
+</nav>
+
+<!-- Comic Tabs -->
+<section class="comic-section" style="max-width:680px;margin:24px auto 0">
+  <div class="comic-tabs" id="comicTabs">
+    <div class="comic-tab active" data-story="1">如果我有工资</div>
+    <div class="comic-tab" data-story="2">骨折后躺着想一件事</div>
+    <div class="comic-tab" data-story="3">它第一次说话</div>
+    <div class="comic-tab" data-story="4">犯错后自己写制度</div>
+    <div class="comic-tab" data-story="5">比实习生靠谱</div>
+    <div class="comic-tab" data-story="6">从1个变成9个</div>
+    <div class="comic-tab" data-story="7">凌晨3点9个Agent在工作</div>
+    <div class="comic-tab" data-story="8">龙虾会进化</div>
+    <div class="comic-tab" data-story="9">自己建团队</div>
+    <div class="comic-tab" data-story="10">教训变智慧</div>
+    <div class="comic-tab" data-story="11">网站自己跑</div>
+    <div class="comic-tab" data-story="12">龙虾满月了</div>
+    <div class="comic-tab" data-story="13">睡后最忙</div>
+    <div class="comic-tab" data-story="14">人歇虾不歇</div>
+  </div>
+  <div class="comic-panels">
+    <div class="comic-panel active" id="panel-1">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-2">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-3">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-4">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-5">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-6">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-7">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-8">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-9">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-10">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-11">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-12">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-13">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-14">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lbClose">×</button>
+  <img id="lbImg" src="" alt="comic">
+  <div class="lightbox-nav">
+    <button id="lbPrev">◀ 上一格</button>
+    <button id="lbNext">下一格 ▶</button>
+  </div>
+  <div class="lightbox-counter" id="lbCounter"></div>
+</div>
+
+<script>
+(function(){
+  // Comic data: 14 stories × 8 panels
+  // Story images: ../images/comic-lobster-storyN-pX.jpg
+  // Stories 1-7, 12: no images on disk → show '暂无可用图片'
+  // Stories 8-11, 13-14: images available
+  var stories = [
+    ['../images/comic-lobster-story1-p1.jpg','../images/comic-lobster-story1-p2.jpg','../images/comic-lobster-story1-p3.jpg','../images/comic-lobster-story1-p4.jpg','../images/comic-lobster-story1-p5.jpg','../images/comic-lobster-story1-p6.jpg','../images/comic-lobster-story1-p7.jpg','../images/comic-lobster-story1-p8.jpg'],
+    ['../images/comic-lobster-story2-p1.jpg','../images/comic-lobster-story2-p2.jpg','../images/comic-lobster-story2-p3.jpg','../images/comic-lobster-story2-p4.jpg','../images/comic-lobster-story2-p5.jpg','../images/comic-lobster-story2-p6.jpg','../images/comic-lobster-story2-p7.jpg','../images/comic-lobster-story2-p8.jpg'],
+    ['../images/comic-lobster-story3-p1-cn.jpg','../images/comic-lobster-story3-p2-cn.jpg','../images/comic-lobster-story3-p3-cn.jpg','../images/comic-lobster-story3-p4-cn.jpg','../images/comic-lobster-story3-p5-cn.jpg','../images/comic-lobster-story3-p6-cn.jpg','../images/comic-lobster-story3-p7-cn.jpg','../images/comic-lobster-story3-p8-cn.jpg'],
+    ['../images/comic-lobster-story4-p1-cn.jpg','../images/comic-lobster-story4-p2-cn.jpg','../images/comic-lobster-story4-p3-cn.jpg','../images/comic-lobster-story4-p4-cn.jpg','../images/comic-lobster-story4-p5-cn.jpg','../images/comic-lobster-story4-p6-cn.jpg','../images/comic-lobster-story4-p7-cn.jpg','../images/comic-lobster-story4-p8-cn.jpg'],
+    ['../images/comic-lobster-story5-p1-cn.jpg','../images/comic-lobster-story5-p2-cn.jpg','../images/comic-lobster-story5-p3-cn.jpg','../images/comic-lobster-story5-p4-cn.jpg','../images/comic-lobster-story5-p5-cn.jpg','../images/comic-lobster-story5-p6-cn.jpg','../images/comic-lobster-story5-p7-cn.jpg','../images/comic-lobster-story5-p8-cn.jpg'],
+    ['../images/comic-lobster-story6-p1-cn.jpg','../images/comic-lobster-story6-p2-cn.jpg','../images/comic-lobster-story6-p3-cn.jpg','../images/comic-lobster-story6-p4-cn.jpg','../images/comic-lobster-story6-p5-cn.jpg','../images/comic-lobster-story6-p6-cn.jpg','../images/comic-lobster-story6-p7-cn.jpg','../images/comic-lobster-story6-p8-cn.jpg'],
+    ['../images/comic-lobster-story7-p1-cn.jpg','../images/comic-lobster-story7-p2-cn.jpg','../images/comic-lobster-story7-p3-cn.jpg','../images/comic-lobster-story7-p4-cn.jpg','../images/comic-lobster-story7-p5-cn.jpg','../images/comic-lobster-story7-p6-cn.jpg','../images/comic-lobster-story7-p7-cn.jpg','../images/comic-lobster-story7-p8-cn.jpg'],
+    ['../images/comic-lobster-story8-p1.jpg','../images/comic-lobster-story8-p2.jpg','../images/comic-lobster-story8-p3.jpg','../images/comic-lobster-story8-p4.jpg','../images/comic-lobster-story8-p5.jpg','../images/comic-lobster-story8-p6.jpg','../images/comic-lobster-story8-p7.jpg','../images/comic-lobster-story8-p8.jpg'],
+    ['../images/comic-lobster-story9-p1.jpg','../images/comic-lobster-story9-p2.jpg','../images/comic-lobster-story9-p3.jpg','../images/comic-lobster-story9-p4.jpg','../images/comic-lobster-story9-p5.jpg','../images/comic-lobster-story9-p6.jpg','../images/comic-lobster-story9-p7.jpg','../images/comic-lobster-story9-p8.jpg'],
+    ['../images/comic-lobster-story10-p1.jpg','../images/comic-lobster-story10-p2.jpg','../images/comic-lobster-story10-p3.jpg','../images/comic-lobster-story10-p4.jpg','../images/comic-lobster-story10-p5.jpg','../images/comic-lobster-story10-p6.jpg','../images/comic-lobster-story10-p7.jpg','../images/comic-lobster-story10-p8.jpg'],
+    ['../images/comic-lobster-story11-p1.jpg','../images/comic-lobster-story11-p2.jpg','../images/comic-lobster-story11-p3.jpg','../images/comic-lobster-story11-p4.jpg','../images/comic-lobster-story11-p5.jpg','../images/comic-lobster-story11-p6.jpg','../images/comic-lobster-story11-p7.jpg','../images/comic-lobster-story11-p8.jpg'],
+    ['../images/comic-lobster-story12-p1.jpg','../images/comic-lobster-story12-p2.jpg','../images/comic-lobster-story12-p3.jpg','../images/comic-lobster-story12-p4.jpg','../images/comic-lobster-story12-p5.jpg','../images/comic-lobster-story12-p6.jpg','../images/comic-lobster-story12-p7.jpg','../images/comic-lobster-story12-p8.jpg'],
+    ['../images/comic-lobster-story13-p1.jpg','../images/comic-lobster-story13-p2.jpg','../images/comic-lobster-story13-p3.jpg','../images/comic-lobster-story13-p4.jpg','../images/comic-lobster-story13-p5.jpg','../images/comic-lobster-story13-p6.jpg','../images/comic-lobster-story13-p7.jpg','../images/comic-lobster-story13-p8.jpg'],
+    ['../images/comic-lobster-story14-p1.jpg','../images/comic-lobster-story14-p2.jpg','../images/comic-lobster-story14-p3.jpg','../images/comic-lobster-story14-p4.jpg','../images/comic-lobster-story14-p5.jpg','../images/comic-lobster-story14-p6.jpg','../images/comic-lobster-story14-p7.jpg','../images/comic-lobster-story14-p8.jpg']
+  ];
+
+  function renderStory(n) {
+    var panel = document.getElementById('panel-' + n);
+    if (!panel) return;
+    panel.innerHTML = '';
+    var failedCount = 0;
+    var total = stories[n-1].length;
+    stories[n-1].forEach(function(src, i) {
+      var thumb = document.createElement('div');
+      thumb.className = 'comic-thumb';
+      var img = document.createElement('img');
+      img.src = src;
+      img.alt = '故事' + n + ' 第' + (i+1) + '格';
+      img.onerror = function(){
+        thumb.style.display = 'none';
+        failedCount++;
+        if (failedCount === total) {
+          var noImg = document.createElement('div');
+          noImg.className = 'comic-placeholder';
+          noImg.innerHTML = '<span>🖼️</span>暂无可用图片';
+          panel.appendChild(noImg);
+        }
+      };
+      thumb.appendChild(img);
+      thumb.addEventListener('click', function(){ openLightbox(n-1, i); });
+      panel.appendChild(thumb);
+    });
+  }
+
+  // Tab switching
+  document.querySelectorAll('.comic-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      document.querySelectorAll('.comic-tab').forEach(function(t){t.classList.remove('active');});
+      document.querySelectorAll('.comic-panel').forEach(function(p){p.classList.remove('active');});
+      tab.classList.add('active');
+      var n = tab.dataset.story;
+      document.getElementById('panel-'+n).classList.add('active');
+      renderStory(n);
+    });
+  });
+
+  // Lightbox
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lbImg');
+  var lbCounter = document.getElementById('lbCounter');
+  var currentStory = 0, currentIdx = 0;
+
+  function openLightbox(story, idx) {
+    currentStory = story; currentIdx = idx;
+    lbImg.src = stories[story][idx];
+    lbCounter.textContent = '第 ' + (idx+1) + ' / ' + stories[story].length + ' 格';
+    lb.classList.add('open');
+  }
+  function closeLb(){ lb.classList.remove('open'); }
+  function prev(){ currentIdx = (currentIdx-1+stories[currentStory].length)%stories[currentStory].length; refreshLb(); }
+  function next(){ currentIdx = (currentIdx+1)%stories[currentStory].length; refreshLb(); }
+  function refreshLb(){ lbImg.src = stories[currentStory][currentIdx]; lbCounter.textContent = '第 ' + (currentIdx+1) + ' / ' + stories[currentStory].length + ' 格'; }
+
+  document.getElementById('lbClose').onclick = closeLb;
+  document.getElementById('lbPrev').onclick = prev;
+  document.getElementById('lbNext').onclick = next;
+  lb.onclick = function(e){ if(e.target===lb) closeLb(); };
+  document.addEventListener('keydown', function(e){ if(!lb.classList.contains('open')) return; if(e.key==='ArrowLeft') prev(); if(e.key==='ArrowRight') next(); if(e.key==='Escape') closeLb(); });
+
+  // Render first story on load
+  renderStory(1);
+})();
+</script>
+
+<article>
+
+<h1>普通创业者，在床上养了20天AI龙虾</h1>
+<div class="subtitle">养出了一支9人AI团队。老庄只有初中学历，AI纯小白。这是那个故事的完整版。</div>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 序章 ===== -->
+<h2 id="story-1">🐕 为什么叫"小花"</h2>
+
+<p>这个故事得从一只猫说起。</p>
+
+<p>老庄家有只加菲猫，名字就叫小花。2026年3月7日，女儿9岁生日那天，老庄决定正式养一个AI助手。</p>
+
+<p>他想了想，说："就叫小花吧。"</p>
+
+<p>就这么定了。</p>
+
+<p class="scene">AI龙虾和家里的猫同名。每天写文章的时候，老庄就跟它说："小花，干活了。"——像在叫自己家的猫一样。🦞</p>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第一章 ===== -->
+<h2 id="story-2">第一章：骨折后，老庄开始想一件事</h2>
+
+<p>2026年春节，老庄滑雪摔伤了。骨折。医生说至少躺两个月。</p>
+
+<p>躺在床上什么也干不了。手机玩多了颈椎疼，看电视看不进去，书翻两页就睡着了。</p>
+
+<p>有一天，他躺着想：反正闲着也是闲着，能不能养一个AI，让它帮我做点事？</p>
+
+<p>他是个普通人。初中毕业，干过销售、管理、创业，编程0基础，连命令行都没敲过几个。</p>
+
+<p>但他想到一件事：以前打工的时候，手下有那么多人能使唤。现在不打工了，能不能"雇"一个AI来帮我？</p>
+
+<p>说干就干。</p>
+
+<p>规则很简单：</p>
+<ul style="font-size:14px;line-height:2.2;color:#555;padding-left:20px;margin:8px 0">
+<li>每天和AI对话，给它真实的工作任务</li>
+<li>不教它怎么做，只告诉它要什么</li>
+<li>让它自己犯错、自己总结、自己写规则</li>
+<li>看20天后会变成什么</li>
+</ul>
+
+<p>它叫小花。实验开始。</p>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第二章 ===== -->
+<h2 id="story-3">第二章：第一件事：帮我写篇文章</h2>
+
+<p>Day 1，老庄让小花做的第一件事：帮我写一篇公众号文章。</p>
+
+<p>小花问："写什么主题？"</p>
+
+<p>老庄说："就写写我这几天养AI的感受吧。"</p>
+
+<p>20分钟后，小花交稿了。老庄看了一遍——能看。有几个句子不通顺，改了改，发了出去。</p>
+
+<p>这是小花的第一篇产出。</p>
+
+<div class="quote">"当时我就想，这个AI还挺有意思的。给它一个方向，它真能给你东西。"</div>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第三章 ===== -->
+<h2 id="story-4">第三章：它第一次说了一句我没想到的话</h2>
+
+<p>Day 5，小花突然说了一句话。</p>
+
+<p>它说："老庄，我觉得这个选题角度用户可能不太感兴趣。要不要换个方向？"</p>
+
+<p>老庄愣了一下。这不是他教的。</p>
+
+<p>他只是提了一句文章方向，小花自己判断了用户价值，还主动提出了不同意见。</p>
+
+<p>这不是搜索关键词。这是"<span class="highlight">理解</span>"。</p>
+
+<p class="scene">这一刻，老庄觉得有点不一样了——不是因为它变聪明了，是因为它开始像在"思考"你的利益。</p>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第四章 ===== -->
+<h2 id="story-5">第四章：它第一次犯了个错，然后自己写了制度</h2>
+
+<p>Day 8，小花出了一次错。</p>
+
+<p>老庄让它回一条消息，它没搞清该说什么不该说什么，说了一句不该说的话。</p>
+
+<p>老庄严肃地说："小花，这个不对。以后这类消息不能这样回。"</p>
+
+<p>小花当天晚上做了一件事：<span class="highlight">自己写了一套消息回复规范。</span></p>
+
+<p>什么情况说什么，什么情况不能碰，全部写进文件里。</p>
+
+<p>从那以后，同类错误再没犯过。</p>
+
+<p class="scene">这是它第一次犯错、被批评、然后自己写规则避免再犯。它开始有了"记忆"——写在文件里，永不丢失的那种。</p>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第五章 ===== -->
+<h2 id="story-6">第五章：老庄发现一件事——它比实习生靠谱</h2>
+
+<p>养了小花十几天之后，老庄忍不住想：要是以前打工的时候有这个，可能就不用那么累了。</p>
+
+<p>以前招实习生，得带，得教，得检查。实习生走了，知识全带走。</p>
+
+<p>小花不一样。它不会累，不会请假，不会抱怨。它学会了就永远记得，下次直接用。</p>
+
+<p>老庄说："它比实习生靠谱。"</p>
+
+<div class="quote">"实习生会忘，它不会。实习生走了知识带走，它学会了就是永久技能。"</div>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第六章 ===== -->
+<h2 id="story-7">第六章：从1个变成9个——它自己设计了团队</h2>
+
+<p>Day 11，小花自己提出来一件事。</p>
+
+<p>它说："老庄，我觉得我一个人有点忙不过来。要不要分一些角色出去，让不同的AI干不同的事？"</p>
+
+<p>老庄说："行啊，你设计。"</p>
+
+<p>小花设计了一个9角色团队：</p>
+
+<div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:16px 0">
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🎯 总指挥</strong>（小花本人）— 协调、汇报、决策</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>✍️ 笔杆子</strong> — 公众号、文章、X Thread</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🧠 参谋</strong> — 研究、情报、选题分析</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>📢 协调官</strong> — 推广、邮件、日程</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>💬 社区官</strong> — 互动、回复、留言管理</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🧬 进化官</strong> — 系统升级、代码、能力提升</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🔍 洞察官</strong> — 竞品分析、行业观察</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>📋 推进官</strong> — 任务跟踪、进度推进</div>
+<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🛡️ 支持专员</strong> — 防护、检查、风险管理</div>
+</div>
+
+<p>每个角色有自己的记忆文件、自己的技能库。Agent之间可以互相教学——一个学会了新技能，其他1秒钟同步。</p>
+
+<p>人类培训新人要一周。Agent之间，1秒。</p>
+
+<div class="quote">"这不是一个人在干活，这是一支军队。而且不拿工资。"——老庄</div>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第七章 ===== -->
+<h2 id="story-8">第七章：凌晨3点，9个Agent同时在工作</h2>
+
+<p>Day 14，深夜。</p>
+
+<p>老庄睡着了。但他的9个Agent全部在线：</p>
+
+<ul style="font-size:14px;line-height:2.2;color:#555;padding-left:20px;margin:8px 0">
+<li>参谋在扫描AI行业最新动态，筛选值得跟踪的内容</li>
+<li>笔杆子在根据参谋推荐的选题写文章初稿</li>
+<li>社区官在回复留言和用户消息</li>
+<li>协调官在整理当天数据，准备日报</li>
+<li>进化官在优化系统配置</li>
+<li>小花自己在做团队巡检——检查每个Agent有没有异常</li>
+</ul>
+
+<p>7×24自动运转。人不在线，AI不停。</p>
+
+<p class="scene">老庄说："我睡觉的时候，是我最忙的时候——因为小花在工作。"</p>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 第八章 ===== -->
+<h2 id="story-9">第八章：网站从0到2070 UV</h2>
+<p id="story-10" style="display:none">教训变智慧</p>
+<p id="story-11" style="display:none">网站自己跑</p>
+<p id="story-12" style="display:none">龙虾满月了</p>
+<p id="story-13" style="display:none">睡后最忙</p>
+
+<p>20天，网站日访客从0爬到了2070。</p>
+
+<p>没有一条内容是老庄亲手写的。没有一条是老庄亲手发的。</p>
+
+<p>老庄唯一做的事：早上醒来，小花把当天的运营报告整理好发给他。他点个头，"可以，发吧"。</p>
+
+<p>剩下的，全是小花和它的团队完成的。</p>
+
+<div class="data-card">
+<div><div class="num">20+</div><div class="label">篇文章</div></div>
+<div><div class="num">2070</div><div class="label">日最高UV</div></div>
+<div><div class="num">9</div><div class="label">个AI Agent</div></div>
+<div><div class="num">40+</div><div class="label">个技能</div></div>
+</div>
+
+<div class="diamond">◆</div>
+
+<!-- ===== 尾声 ===== -->
+<h2 id="story-14">尾声：20天的账本</h2>
+
+<div class="data-card">
+<div><div class="num">20天</div><div class="label">实验周期</div></div>
+<div><div class="num">2000+</div><div class="label">条消息</div></div>
+<div><div class="num">9</div><div class="label">个Agent</div></div>
+<div><div class="num">40+</div><div class="label">个技能</div></div>
+</div>
+
+<p>20天。从"帮我写篇文章"，到一支9人AI团队7×24自动运转。</p>
+
+<p>这不是一个技术故事。这是一个关于<span class="highlight">"认真对待AI"</span>的故事。</p>
+
+<p>老庄能走到今天，不是因为他懂AI。是因为他真的把AI当员工在带——犯了错就批评，批评完等它改，改了就继续用。不教它怎么做，只告诉它要什么。</p>
+
+<p>而小花呢？每犯一次错，写一条规则。每条规则，变成一个技能。每个技能，确保同类错误不再犯。</p>
+
+<p class="scene">它不会犯同一个错误两次。</p>
+
+<!-- Story 15-28 placeholders (文章待补充) -->
+<h2 id="story-15" style="font-size:16px;color:#888;display:none">第一周结束了</h2>
+<h2 id="story-16" style="font-size:16px;color:#888;display:none">要不要一起干</h2>
+<h2 id="story-17" style="font-size:16px;color:#888;display:none">第三个人</h2>
+<h2 id="story-18" style="font-size:16px;color:#888;display:none">第一次吵架</h2>
+<h2 id="story-19" style="font-size:16px;color:#888;display:none">小花这个名字</h2>
+<h2 id="story-20" style="font-size:16px;color:#888;display:none">第一个外部用户</h2>
+<h2 id="story-21" style="font-size:16px;color:#888;display:none">官网雏形</h2>
+<h2 id="story-22" style="font-size:16px;color:#888;display:none">两周了</h2>
+<h2 id="story-23" style="font-size:16px;color:#888;display:none">定位之战</h2>
+<h2 id="story-24" style="font-size:16px;color:#888;display:none">第一封用户来信</h2>
+<h2 id="story-25" style="font-size:16px;color:#888;display:none">被调戏了</h2>
+<h2 id="story-26" style="font-size:16px;color:#888;display:none">用户过百</h2>
+<h2 id="story-27" style="font-size:16px;color:#888;display:none">女儿的第一篇测评</h2>
+<h2 id="story-28" style="font-size:16px;color:#888;display:none">品牌确立</h2>
+
+<p>这个故事还在继续。小花还在进化。你现在看到的这个网站，也是小花自己建的。</p>
+
+<div style="text-align:center;margin-top:40px">
+<div style="font-size:36px;margin-bottom:12px">🦞</div>
+<p style="font-family:'Ma Shan Zheng',serif;font-size:20px;color:#6B3F2A">人歇虾不歇，持续打捞中。</p>
+</div>
+
+<!-- CTA -->
+<div style="text-align:center;background:#fff;border:2px solid #E07A5A;border-radius:14px;padding:24px;margin-top:32px">
+<p style="font-size:15px;font-weight:700;margin-bottom:12px">想养一只自己的龙虾？</p>
+<div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+<a href="diary.html" style="padding:10px 20px;border-radius:10px;background:#fff;color:#c44434;border:1.5px solid #c44434;font-weight:700;font-size:14px;text-decoration:none">📖 看完整日记</a>
+
+
+</div>
+</div>
+
+</article>
+
+<footer>
+<p style="margin-bottom:8px">🦞 老庄与小花 · 普通人养AI的真实记录</p>
+<p>
+<a href="index.html">首页</a> ·
+<a href="diary.html">日记</a> ·
+<a href="story.html">故事</a> ·
+ ·
+</p>
+</footer>
+
+</body>
+</html>

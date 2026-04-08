@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>操盘实录 | 老庄与小花</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>">
+<link rel="preconnect" href="https://fonts.loli.net" crossorigin>
+<link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700&family=ZCOOL+KuaiLe&display=swap" media="print" onload="this.media='all'">
+<style>
+:root {
+  --bg: #f5f7fa;
+  --card-bg: #ffffff;
+  --border: #e0e6ed;
+  --text: #2c3e50;
+  --text-light: #7f8c8d;
+  --accent: #3498db;
+  --red: #e74c3c;
+  --green: #27ae60;
+  --orange: #f39c12;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Sans SC', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  padding-top: 64px;
+  min-height: 100vh;
+}
+
+/* 导航 */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(16px);
+  border-bottom: 1.5px solid var(--border);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+.nav-logo {
+  font-family: 'ZCOOL KuaiLe', sans-serif;
+  font-size: 22px;
+  color: var(--text);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.nav-logo span { font-size: 28px; }
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-light);
+  font-size: 15px;
+  font-weight: 600;
+  padding: 6px 4px;
+  transition: color 0.2s;
+}
+.nav-links a:hover, .nav-links a.active { color: var(--accent); }
+
+/* 主内容 */
+main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 32px 24px 80px;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.page-header h1 {
+  font-family: 'ZCOOL KuaiLe', sans-serif;
+  font-size: clamp(28px, 5vw, 42px);
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.page-header p {
+  font-size: 15px;
+  color: var(--text-light);
+}
+
+/* 模拟盘卡片网格 */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+/* 模拟盘卡片 */
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  border-color: var(--accent);
+}
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px;
+  border-bottom: 2px solid var(--border);
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+.card-icon { font-size: 36px; }
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.card-provider {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+.card-body { padding: 20px; }
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px dashed var(--border);
+}
+.stat-row:last-child { border-bottom: none; }
+.stat-label {
+  font-size: 13px;
+  color: var(--text-light);
+}
+.stat-value {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+.stat-value.large {
+  font-size: 22px;
+  color: var(--accent);
+}
+.stat-value.positive { color: var(--green); }
+.stat-value.negative { color: var(--red); }
+
+/* 状态标签 */
+.status-badge {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 12px;
+}
+.status-running {
+  background: #d4edda;
+  color: #155724;
+}
+.status-stopped {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* 持仓摘要 */
+.positions-summary {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 2px solid var(--border);
+}
+.positions-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.position-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  font-size: 13px;
+  border-bottom: 1px solid #f0f0f0;
+}
+.position-item:last-child { border-bottom: none; }
+.position-market { color: var(--text); }
+.position-return { font-weight: 600; }
+
+/* 交易记录弹窗 */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 2000;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal-content {
+  background: var(--card-bg);
+  border-radius: 16px;
+  max-width: 900px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 2px solid var(--border);
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+}
+.modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+}
+.modal-close {
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-light);
+  background: none;
+  border: none;
+  padding: 4px;
+  transition: color 0.2s;
+}
+.modal-close:hover { color: var(--red); }
+.modal-body {
+  padding: 24px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* 交易记录表格 */
+.trade-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+.trade-table th {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f8f9fa;
+  color: var(--text-light);
+  font-weight: 600;
+  border-bottom: 2px solid var(--border);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+.trade-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.trade-table tr:hover {
+  background: #f8f9fa;
+}
+.trade-type {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.trade-type.buy {
+  background: #d4edda;
+  color: #155724;
+}
+.trade-type.sell {
+  background: #f8d7da;
+  color: #721c24;
+}
+.trade-price { font-family: 'Courier New', monospace; }
+.trade-time { color: var(--text-light); font-size: 13px; }
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-light);
+}
+.empty-state .emoji { font-size: 48px; margin-bottom: 16px; }
+.empty-state p { font-size: 15px; }
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  main { padding: 24px 16px 60px; }
+  .cards-grid { grid-template-columns: 1fr; }
+  .modal-content { max-height: 90vh; }
+  .trade-table { font-size: 13px; }
+  .trade-table th, .trade-table td { padding: 10px 12px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo"><span>🦞</span> 老庄与小花</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="diary.html">📖 日记</a>
+    <a href="articles.html">📝 文章</a>
+    <a href="tongtong-letters.html">💌 桐桐</a>
+    <a href="trading.html" class="active">📈 操盘</a>
+  </div>
+</nav>
+
+<main>
+  <header class="page-header">
+    <h1>📈 操盘实录</h1>
+    <p>3 个模拟盘实时追踪 · 点击卡片查看详细交易记录</p>
+  </header>
+
+  <div class="cards-grid" id="cardsGrid">
+    <!-- 卡片由 JS 动态生成 -->
+  </div>
+</main>
+
+<!-- 交易记录弹窗 -->
+<div class="modal-overlay" id="tradeModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle">交易记录</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody">
+      <!-- 交易记录表格 -->
+    </div>
+  </div>
+</div>
+
+<script>
+// 模拟盘数据
+const simulations = {
+  us: {
+    name: "美股模拟盘",
+    provider: "老虎证券",
+    icon: "📈",
+    initialCapital: 1000000,
+    currentValue: 1023450,
+    cash: 234500,
+    currency: "USD",
+    status: "running",
+    positions: [
+      { symbol: "AAPL", shares: 100, avgPrice: 175.50, currentPrice: 182.30, return: 6.15 },
+      { symbol: "NVDA", shares: 50, avgPrice: 485.20, currentPrice: 512.80, return: 5.70 },
+      { symbol: "MSFT", shares: 80, avgPrice: 412.00, currentPrice: 425.60, return: 3.30 }
+    ],
+    trades: [
+      { time: "2026-04-08 10:30", type: "buy", symbol: "AAPL", shares: 100, price: 175.50, total: 17550 },
+      { time: "2026-04-08 11:15", type: "buy", symbol: "NVDA", shares: 50, price: 485.20, total: 24260 },
+      { time: "2026-04-08 14:20", type: "buy", symbol: "MSFT", shares: 80, price: 412.00, total: 32960 },
+      { time: "2026-04-07 09:45", type: "sell", symbol: "TSLA", shares: 30, price: 198.50, total: 5955 },
+      { time: "2026-04-06 15:30", type: "buy", symbol: "TSLA", shares: 30, price: 192.30, total: 5769 }
+    ]
+  },
+  crypto: {
+    name: "加密货币网格",
+    provider: "Binance",
+    icon: "₿",
+    initialCapital: 10000,
+    currentValue: 10234.56,
+    cash: 6848.44,
+    currency: "USDT",
+    status: "stopped",
+    stopFile: "空仓观望",
+    positions: [],
+    trades: [
+      { time: "2026-04-05 08:00", type: "buy", symbol: "BTC", shares: 0.05, price: 67500, total: 3375 },
+      { time: "2026-04-05 12:30", type: "sell", symbol: "BTC", shares: 0.05, price: 68200, total: 3410 },
+      { time: "2026-04-04 16:45", type: "buy", symbol: "ETH", shares: 1.5, price: 2050, total: 3075 },
+      { time: "2026-04-04 20:15", type: "sell", symbol: "ETH", shares: 1.5, price: 2080, total: 3120 }
+    ]
+  },
+  polymarket: {
+    name: "Polymarket 模拟盘",
+    provider: "Polymarket",
+    icon: "🎯",
+    initialCapital: 100000,
+    currentValue: 102710,
+    cash: 97290,
+    currency: "USD",
+    status: "running",
+    positions: [
+      { market: "BTC<$65K", direction: "NO", invested: 700, potentialReturn: 10000 },
+      { market: "ETH<$2000", direction: "NO", invested: 600, potentialReturn: 15000 },
+      { market: "SOL>$80", direction: "NO", invested: 650, potentialReturn: 5000 },
+      { market: "US enters Iran Apr30", direction: "NO", invested: 760, potentialReturn: 2000 }
+    ],
+    trades: [
+      { time: "2026-04-08 09:00", type: "buy", symbol: "BTC<$65K NO", shares: 700, price: 0.70, total: 700 },
+      { time: "2026-04-08 09:15", type: "buy", symbol: "ETH<$2000 NO", shares: 600, price: 0.60, total: 600 },
+      { time: "2026-04-07 14:30", type: "buy", symbol: "SOL>$80 NO", shares: 650, price: 0.65, total: 650 },
+      { time: "2026-04-07 15:00", type: "buy", symbol: "US enters Iran", shares: 760, price: 0.76, total: 760 }
+    ]
+  }
+};
+
+function formatMoney(amount, currency) {
+  const symbols = { USD: '$', USDT: '₮', CNY: '¥' };
+  return (symbols[currency] || '$') + amount.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function formatReturn(pct) {
+  const cls = pct >= 0 ? 'positive' : 'negative';
+  const sign = pct >= 0 ? '+' : '';
+  return `<span class="stat-value ${cls}">${sign}${pct.toFixed(2)}%</span>`;
+}
+
+function createCard(key, data) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.onclick = () => showTrades(key);
+  
+  const totalReturn = data.initialCapital ? ((data.currentValue - data.initialCapital) / data.initialCapital * 100) : 0;
+  
+  let positionsHtml = '';
+  if (data.positions && data.positions.length > 0) {
+    positionsHtml = `
+      <div class="positions-summary">
+        <div class="positions-title">📊 持仓 (${data.positions.length}个)</div>
+        ${data.positions.map(pos => `
+          <div class="position-item">
+            <span class="position-market">${pos.symbol || pos.market} ${pos.direction || ''}</span>
+            <span class="position-return">${pos.return !== undefined ? formatReturn(pos.return) : '潜在' + formatMoney(pos.potentialReturn, data.currency)}</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
+  
+  card.innerHTML = `
+    <div class="card-header">
+      <span class="card-icon">${data.icon}</span>
+      <div>
+        <div class="card-title">${data.name}</div>
+        <div class="card-provider">${data.provider}</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="stat-row">
+        <span class="stat-label">初始资金</span>
+        <span class="stat-value">${formatMoney(data.initialCapital, data.currency)}</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">当前价值</span>
+        <span class="stat-value large">${formatMoney(data.currentValue, data.currency)}</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">可用现金</span>
+        <span class="stat-value">${formatMoney(data.cash, data.currency)}</span>
+      </div>
+      <div class="stat-row">
+        <span class="stat-label">总收益</span>
+        ${formatReturn(totalReturn)}
+      </div>
+      ${positionsHtml}
+      <div class="status-badge ${data.status === 'running' ? 'status-running' : 'status-stopped'}">
+        ${data.status === 'running' ? '▶️ 运行中' : '⏸️ 已停止'}
+      </div>
+      ${data.status === 'stopped' && data.stopFile ? `<p style="font-size:12px;color:var(--text-light);margin-top:8px">原因：${data.stopFile}</p>` : ''}
+    </div>
+  `;
+  
+  return card;
+}
+
+function showTrades(key) {
+  const data = simulations[key];
+  document.getElementById('modalTitle').textContent = `${data.name} - 交易记录`;
+  
+  if (!data.trades || data.trades.length === 0) {
+    document.getElementById('modalBody').innerHTML = `
+      <div class="empty-state">
+        <div class="emoji">📭</div>
+        <p>暂无交易记录</p>
+      </div>
+    `;
+  } else {
+    document.getElementById('modalBody').innerHTML = `
+      <table class="trade-table">
+        <thead>
+          <tr>
+            <th>交易时间</th>
+            <th>类型</th>
+            <th>标的</th>
+            <th>数量</th>
+            <th>价格</th>
+            <th>总额</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${data.trades.map(trade => `
+            <tr>
+              <td class="trade-time">${trade.time}</td>
+              <td><span class="trade-type ${trade.type}">${trade.type === 'buy' ? '买入' : '卖出'}</span></td>
+              <td style="font-weight:600">${trade.symbol}</td>
+              <td>${trade.shares}</td>
+              <td class="trade-price">${formatMoney(trade.price, data.currency)}</td>
+              <td style="font-weight:700">${formatMoney(trade.total, data.currency)}</td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    `;
+  }
+  
+  document.getElementById('tradeModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('tradeModal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// 渲染页面
+function render() {
+  const container = document.getElementById('cardsGrid');
+  Object.keys(simulations).forEach(key => {
+    container.appendChild(createCard(key, simulations[key]));
+  });
+}
+
+// 键盘支持
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});
+
+// 初始化
+render();
+</script>
+</body>
+</html>

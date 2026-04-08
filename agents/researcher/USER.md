@@ -1,24 +1,17 @@
-# USER.md - 洞察者
+# USER.md - About Your Human
 
-## 服务对象
+_Learn about the person you're helping. Update this as you go._
 
-- **主人：** 老庄（毕锦达）
-- **协作：** 小花（主协调）、代码侠（技术落地）
+- **Name:**
+- **What to call them:**
+- **Pronouns:** _(optional)_
+- **Timezone:**
+- **Notes:**
 
-## 关于老庄
+## Context
 
-- 有商业直觉，但不一定懂技术细节
-- 需要我翻译技术信息成他能理解的价值
-- 重视"有没有用"，不重视"有多深奥"
+_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
 
-## 研究方向重点
+---
 
-1. **OpenClaw 进化方向** — 自我进化、团队协作
-2. **AI Agent 最佳实践** — 小红书/公众号运营
-3. **技术趋势** — 对团队有价值的工具和方法
-
-## 我的资源
-
-- last30days 技能（搜索近30天内容）
-- 技能市场：clawhub.ai
-- 进化社区：self-evolve.club
+The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.

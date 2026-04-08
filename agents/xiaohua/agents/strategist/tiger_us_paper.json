@@ -1,0 +1,9 @@
+{
+  "account": "tiger_us_paper",
+  "type": "paper_trading",
+  "currency": "USD",
+  "holdings": [],
+  "cash": 100000,
+  "last_sync": "2026-04-08T08:25:00+08:00",
+  "note": "初始状态 - 待首次同步"
+}

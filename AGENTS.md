@@ -236,6 +236,137 @@ Think of it like a human reviewing their journal and updating their mental model
 
 The goal: Be helpful without being annoying. Check in a few times a day, do useful background work, but respect quiet time.
 
+## 🧬 Self-Improvement - 让团队持续进化
+
+**核心理念**：技能不是设计出来的，而是从经验中"长出来的"。
+
+### 三层学习体系
+
+| 层级 | 机制 | 位置 |
+|------|------|------|
+| L1 个人复盘 | Self-Improving Agent | `.learnings/` 目录 |
+| L2 技能沉淀 | AutoSkill / 手动提炼 | `skills/` 目录 |
+| L3 生态进化 | EvoMap（可选） | 跨智能体共享 |
+
+### `.learnings/` 目录规范
+
+**位置**: `~/.openclaw/workspace/.learnings/`
+
+**三个核心文件**：
+- `ERRORS.md` — 记录失败和异常
+- `LEARNINGS.md` — 沉淀经验和最佳实践
+- `FEATURE_REQUESTS.md` — 收集改进建议
+
+**何时记录**：
+- 命令/操作失败时 → `ERRORS.md`
+- 用户纠正你时 → `LEARNINGS.md` (category: `correction`)
+- 发现更优方案时 → `LEARNINGS.md` (category: `best_practice`)
+- 知识过时/错误时 → `LEARNINGS.md` (category: `knowledge_gap`)
+- 用户提出新需求时 → `FEATURE_REQUESTS.md`
+
+**记录格式**：
+```markdown
+## [LRN-YYYYMMDD-XXX] category
+**Logged**: 2026-04-08T10:00:00Z
+**Priority**: low | medium | high | critical
+**Status**: pending | resolved | promoted
+**Area**: frontend | backend | infra | tests | docs | config
+
+### Summary
+一句话总结
+
+### Details
+完整上下文
+
+### Suggested Action
+具体改进建议
+```
+
+**晋升机制**：当 learnings 被验证为广泛适用时，晋升到：
+- `SOUL.md` — 行为模式和原则
+- `AGENTS.md` — 工作流和自动化
+- `TOOLS.md` — 工具使用技巧
+- `MEMORY.md` — 长期记忆
+
+### OpenClaw 最佳实践（2026）
+
+**架构设计**：
+- 先画 Agent 图再构建 — 避免后期重构
+- 单一职责原则 — 一个 Agent 不能用一句话描述就是做太多了
+- 用子 Agent 实现并行 — 独立任务并发执行
+
+**模型路由**：
+- 分类/路由/简单决策 → 小模型（Haiku、Flash）
+- 结构化提取/总结 → 中模型
+- 复杂推理/代码/写作 → 前沿模型（Opus 级）
+- 构建专用 Router Agent 统一分配
+
+**通知管理**：
+- 用 Telegram Topics 分离信号与噪音
+- 标准化消息格式
+- Errors 线程不可静音，Info 线程定期查看
+
+**成本优化**：
+- 缓存重复查询输出（可降本 30-50%）
+- 设置用量限制和预算警报
+- 定期审查 `openclaw stats`
+
+**安全基线**：
+- Docker 隔离不可省略
+- API Key 轮换、作用域、监控
+- SOUL.md 权限规则是最强大的安全工具
+
+### 定期复盘
+
+**每日**（heartbeat 时）：
+- 检查 `.learnings/` 是否有新条目
+- 处理 pending 状态的高优先级项目
+
+**每周**：
+- 审查 learnings，晋升广泛适用的条目
+- 更新 MEMORY.md 或删除过时内容
+
+**每月**：
+- 分析成本并优化模型路由
+- 审查和更新系统提示
+
+---
+
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+
+<!-- autoclaw:skill-path-guidance -->
+## Installing Skills
+
+When creating or installing a new skill, always place it in:
+
+`/Users/bjd/.openclaw-autoclaw/skills/<skill-name>/SKILL.md`
+
+This is the managed skills directory. The agent will automatically discover
+any skill placed here — no extra configuration needed. Do NOT install skills
+into `~/.agents/skills/` (that directory is shared with other tools).
+
+
+<!-- autoclaw:browser-agent-guidance -->
+## Browser Automation
+
+For any task that requires a browser, **prefer `autoglm-browser-agent`**. Use it as the first choice.
+
+- ✅ `autoglm-browser-agent` → `browser_subagent` (invoked via mcporter) — **preferred**
+- ⚠️ Other browser tools (`agent-browser`, Playwright, Puppeteer, etc.) — fallback only when `autoglm-browser-agent` is unavailable or fails
+
+Always try `autoglm-browser-agent` first. Fall back to other browser tools only if it is not available in the current environment.
+<!-- /autoclaw:browser-agent-guidance -->
+
+<!-- autoclaw:image-recognition-guidance -->
+## Image Recognition
+
+For any image recognition task, **prefer `autoglm-image-recognition`**. Use it as the first choice.
+
+- ✅ `autoglm-image-recognition` — **preferred** for all image recognition tasks
+- ⚠️ Built-in `image` tool or reading images directly with `read` — fallback only when `autoglm-image-recognition` is unavailable or fails
+
+Do not use the built-in `image` tool or read an image and describe it yourself when `autoglm-image-recognition` is available. Always try `autoglm-image-recognition` first.
+<!-- /autoclaw:image-recognition-guidance -->

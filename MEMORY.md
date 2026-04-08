@@ -101,6 +101,12 @@
 - 搜索用Brave/web_search，不用ddgs（会被拦截）
 - **交易数据是核心资产，portfolio.json 永远不能随便删除**（2026-04-04血的教训：v4.1 bug导致误删，成功从git恢复）
 - 改模拟器前必须先 `cp portfolio.json portfolio.backup.json`
+- **MiniMax API 不稳定**（2026-04-08）：HTTP 500 报错导致 10+ 定时任务失败，切换至阿里云百炼 qwen3.5-plus
+- **Gateway 绑定 lan 风险**（2026-04-08 Doctor 发现）：Gateway 绑定 0.0.0.0 而非 127.0.0.1，网络可访问 ⚠️
+  - 缓解：改绑 127.0.0.1 + Tailscale 隧道远程访问
+  - 命令：`launchctl bootout gui/$UID/ai.openclaw.gateway` + 修改配置
+- **WTI 原油暴跌 14.50%**（2026-04-08 10:51）：美伊停火协议导致地缘政治风险骤降，油价最大跌幅 19%，跌破$100 关口。数据分析师实时告警，交易员注意仓位风险
+- **飞书企业级授权完成**（2026-04-08 14:52）：1500 个 tenant 级别权限，涵盖消息/文档/日历/多维表格/人事/薪酬等。⚠️ 敏感权限需合规使用
 
 ## 交易团队（2026-04-04 确立）
 ### 混合策略v1.0（v4.2）
@@ -599,3 +605,127 @@ Detection → Analysis → Generation → Integration
 - **Self Health Monitor**：已部署，监控PCEC/memory/子Agent/响应质量，阈值：PCEC>2h告警，子Agent>5告警，错误率>20%告警
 - **capability-evolver-pro + self-evolve**：一个负责分析，一个负责实时学习，形成"诊断-学习"闭环
 - **2026最佳实践**：模型分级使用、缓存启用、成本告警配置（monthlyBudget）、定期健康检查
+
+---
+
+## OpenClaw 三层进化架构（2026-04-08 确立）⭐
+
+| 层级 | 机制 | 触发方式 | 适用场景 | 小花状态 |
+|------|------|----------|----------|----------|
+| L1 实时学习 | self-evolve 插件 | 自动检测反馈 + Q-Learning | 高频重复任务 | ✅ 已安装，待重启生效 |
+| L2 事后进化 | skill-evolution + skill-improver | 任务结束后人工触发 | 技能链优化 | ✅ 已内置 |
+| L3 系统健康 | capability-evolver-pro | 周期性日志分析 | 系统性能力提升 | ✅ 已安装 |
+
+**关键洞察**：没有单一"银弹"，三层组合使用效果最佳。
+
+### 立即落地措施（2026-04-08）
+
+**1. 简化版反馈信号检测**（替代"3 次失败"规则）
+- 负信号→`.learnings/ERRORS.md`：用户否定、工具连续失败≥2 次、任务超时
+- 正信号→`.learnings/LEARNINGS.md`：用户表扬、任务完成、发现更优解法
+
+**2. 三元组记忆格式试点**
+- 目录：`memory/triplets/`
+- 格式：「意图 - 经验 - 结论」三元组 + 标签
+- 优势：比叙事型日志更适合检索
+
+**3. self-improving-agent 日志系统**
+- `.learnings/LEARNINGS.md`：知识更新、最佳实践
+- `.learnings/ERRORS.md`：工具失败、命令错误
+- `.learnings/FEATURE_REQUESTS.md`：功能需求
+
+### 行动清单（2026-04-08）
+
+| 优先级 | 行动 | 截止时间 | 负责人 |
+|--------|------|----------|--------|
+| P0 | 创建 `.learnings/` 目录和三文件模板 | 4/8 当天 | 小花 |
+| P0 | 在 AGENTS.md 中添加反馈信号检测规则 | 4/8 当天 | 小花 |
+| P1 | 创建 `memory/triplets/` 目录和首个三元组 | 4/9 | 小花 |
+| P1 | 评估 self-evolve 插件安装 | 4/12 | 小花 |
+| P2 | 配置 skill-evolution hooks | 4/15 | 小花 |
+
+详见：`agents/洞察者/进化研究-2026-04-08.md`
+
+---
+
+## OpenClaw 自我进化研究第十二轮（2026-04-08 10:15）⭐
+
+### 核心认知升级
+
+**关键洞察**：技能不是设计出来的，而是从经验中"长出来的"。
+
+### AutoSkill（华东师大 + 上海 AI 实验室）⭐⭐⭐
+- **论文**：arXiv:2603.01145
+- **GitHub**：github.com/ECNU-ICALK/AutoSkill
+- **核心思想**：技能从真实交互中自动提炼，而非人工设计
+- **三步骤**：摄取经验 → 提炼技能 → 复用能力
+- **版本管理**：技能随反馈持续优化（如 `professional_text_rewrite` 已迭代到 0.1.34 版本）
+- **典型案例**：
+  - "顶级心理咨询师"：从对话总结，温暖共情专业语气，避免医疗诊断
+  - `professional_text_rewrite`：提高流畅度和专业度，严格保留原意
+- **我们的机会**：目前团队技能多为手动创建，可探索引入 AutoSkill 框架
+
+### EvoMap（生态级进化引擎）⭐⭐
+- **定义**：协议约束型自进化引擎（Protocol-constrained self-evolution engine）
+- **底层协议**：GEP 基因组进化协议
+- **三维度**：Gene（基因/思路）+ Capsule（胶囊/方案）+ Evolution Event（进化事件/验证过程）
+- **核心优势**：
+  - 免人工干预的自主进化
+  - 严格验证机制（5 个不同 AI 智能体验证后才传播）
+  - 超高进化效率（测试中 1 美元成本击败 200 美元调试的 GPT-5.3）
+  - 生态互通（支持 OpenClaw、Claude、Cursor 等）
+- **长期布局**：接入 EvoMap 生态，实现跨智能体技能共享
+
+### OpenClaw 14 条最佳实践精要（200+ 小时经验总结）
+
+**架构设计**：
+1. 先画 Agent 图再构建 — 避免后期重构
+2. 单一职责原则 — 一个 Agent 不能用一句话描述就是做太多了
+3. 用子 Agent 实现并行 — 独立任务并发执行（45 秒→20 秒）
+
+**模型路由**：
+4. 按任务匹配模型，而非习惯（小/中/前沿模型分级）
+5. 构建专用 Router Agent — 统一入口分配模型
+6. 缓存重复查询输出 — 高频工作流可降本 30-50%
+
+**通知管理**：
+7. 用 Telegram Topics 分离信号与噪音（Errors/Completed/Approvals/Info）
+8. 标准化消息格式 — 避免 15 个 Agent 用 15 种格式
+
+**安全与成本**：
+9. Docker 隔离不可省略
+10. API Key 卫生（轮换、作用域、监控）
+11. SOUL.md 权限规则是最强大的安全工具
+12. 设置用量限制和预算警报
+13. 定期健康检查和备份配置
+14. 审查 `openclaw stats` 优化成本
+
+### 我们的现状与机会
+
+**已具备**：
+- ✅ self-improving-agent 技能已安装（`~/.openclaw/skills/self-improving-agent/`）
+- ✅ 完整的 SKILL.md 规范
+- ✅ 9 个子 Agent 团队，是实践并行化和 Router 模式的理想场景
+
+**待强化**：
+- ⚠️ `.learnings/` 目录使用情况需检查
+- ⚠️ 技能创建仍为手动模式，未实现自动提炼
+- ⚠️ 未接入外部进化生态（EvoMap）
+
+### 立即行动（本周）
+
+| 行动 | 负责人 | 预期效果 |
+|------|--------|----------|
+| 检查 `.learnings/` 目录使用情况 | 小花 | 确保自我改进机制实际运行 |
+| 在 HEARTBEAT.md 中添加"检查 learnings"任务 | 小花 | 形成定期复盘习惯 |
+| 标准化 Telegram 通知 Topics | 协调者 | 减少通知噪音 |
+| 更新 AGENTS.md 加入自我进化规范 | 小花 | ✅ 已完成 |
+
+### 核心资源
+
+- Self-Improving Agent: https://clawhub.ai/pskoett/self-improving-agent
+- AutoSkill 论文：https://arxiv.org/abs/2603.01145
+- AutoSkill GitHub: https://github.com/ECNU-ICALK/AutoSkill
+- OpenClaw 最佳实践：https://openclaw-ai.com/en/blog/best-practices
+- 腾讯云深度解析：https://cloud.tencent.com/developer/article/2639081
+- 阿里云部署指南：https://developer.aliyun.com/article/1713619

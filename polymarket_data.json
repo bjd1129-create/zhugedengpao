@@ -1,0 +1,42 @@
+{
+  "lastUpdated": "2026-04-08T10:26:00+08:00",
+  "source": "Polymarket + web search aggregation",
+  "predictions": {
+    "BTC_2026_yearEnd": {
+      "below_75k": {
+        "probability": 0.77,
+        "description": "BTC stays below $75,000 by end of 2026"
+      },
+      "above_75k": {
+        "probability": 0.23,
+        "description": "BTC reclaims $75,000 by end of 2026"
+      },
+      "above_120k": {
+        "probability": 0.18,
+        "description": "BTC reaches $120,000 by end of 2026"
+      },
+      "above_130k": {
+        "probability": 0.13,
+        "description": "BTC reaches $130,000 by end of 2026"
+      },
+      "above_85k": {
+        "probability": 0.71,
+        "description": "BTC reclaims $85,000 (short-term)"
+      }
+    },
+    "BTC_2026_april": {
+      "reach_75k": {
+        "probability": 0.655,
+        "description": "BTC reaches $75,000 by April 2026"
+      }
+    }
+  },
+  "marketSentiment": "bearish_to_neutral",
+  "notes": [
+    "Polymarket showed 77% probability BTC stays below $75K by year-end 2026",
+    "Only 23% odds of reclaiming $75K level",
+    "Lower probabilities for higher targets: 18% for $120K, 13% for $130K",
+    "71% odds BTC reclaims $85K (short-term recovery)",
+    "Polymarket previously called BTC crash to $60K accurately in mid-January 2026"
+  ]
+}

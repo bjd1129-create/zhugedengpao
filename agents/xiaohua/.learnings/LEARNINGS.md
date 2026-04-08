@@ -1,54 +1,59 @@
 # Learnings
 
-纠正、洞察、知识缺口、最佳实践记录。
+Corrections, insights, and knowledge gaps captured during development.
 
 **Categories**: correction | insight | knowledge_gap | best_practice
+**Areas**: frontend | backend | infra | tests | docs | config
+**Statuses**: pending | in_progress | resolved | wont_fix | promoted | promoted_to_skill
 
----
+## Status Definitions
 
-## 格式模板
+| Status | Meaning |
+|--------|---------|
+| `pending` | Not yet addressed |
+| `in_progress` | Actively being worked on |
+| `resolved` | Issue fixed or knowledge integrated |
+| `wont_fix` | Decided not to address (reason in Resolution) |
+| `promoted` | Elevated to CLAUDE.md, AGENTS.md, or copilot-instructions.md |
+| `promoted_to_skill` | Extracted as a reusable skill |
+
+## Skill Extraction Fields
+
+When a learning is promoted to a skill, add these fields:
 
 ```markdown
-## [LRN-YYYYMMDD-XXX] category
-
-**Logged**: ISO-8601 timestamp
-**Priority**: low | medium | high | critical
-**Status**: pending
-**Area**: frontend | backend | infra | tests | docs | config
-
-### Summary
-One-line description of what was learned
-
-### Details
-Full context: what happened, what was wrong, what's correct
-
-### Suggested Action
-Specific fix or improvement to make
-
-### Metadata
-- Source: conversation | error | user_feedback
-- Related Files: path/to/file.ext
-- Tags: tag1, tag2
-- See Also: LRN-20250110-001 (if related to existing entry)
-- Pattern-Key: simplify.dead_code | harden.input_validation (optional)
-- Recurrence-Count: 1 (optional)
-- First-Seen: 2025-01-15 (optional)
-- Last-Seen: 2025-01-15 (optional)
-
----
+**Status**: promoted_to_skill
+**Skill-Path**: skills/skill-name
 ```
 
 ---
 
-## 晋升规则
+## [LRN-20260408-001] best_practice
 
-| 学习类型 | 晋升目标 | 触发条件 |
-|----------|----------|----------|
-| 行为模式 | SOUL.md | 跨场景适用的行为准则 |
-| 工作流改进 | AGENTS.md | 影响多个任务的流程优化 |
-| 工具坑点 | TOOLS.md | 特定工具的使用注意事项 |
-| 重复模式 | 系统提示 | 同一问题出现 ≥3 次 |
+**Logged**: 2026-04-08T08:30:00+08:00
+**Priority**: high
+**Status**: promoted
+**Promoted**: AGENTS.md, MEMORY.md
+**Area**: config
+
+### Summary
+OpenClaw 自我进化体系研究完成，建立系统化日志记录和晋升机制
+
+### Details
+研究了 self-improving-agent skill 和 OpenClaw 官方文档，发现：
+1. 三层记忆架构已成熟（.learnings/ → memory/ → MEMORY.md/SOUL.md/AGENTS.md/TOOLS.md）
+2. 我们已有基础框架，但缺少系统化执行流程
+3. Pattern-Key 追踪机制可有效识别重复问题
+
+### Suggested Action
+1. 任务完成后必须记录 learnings
+2. 使用 Pattern-Key 追踪重复问题
+3. Recurrence-Count >= 3 时晋升到核心文件
+
+### Metadata
+- Source: conversation
+- Related Files: AGENTS.md, MEMORY.md, agents/洞察者/进化研究 -2026-04-08.md
+- Tags: self-improvement, openclaw, workflow
+- Pattern-Key: workflow.task-closure
 
 ---
-
-*Last updated: 2026-04-07 | 小花 🦞*

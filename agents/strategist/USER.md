@@ -1,25 +1,29 @@
-USER.md - 我的服务对象
+---
+summary: "User profile record"
+autoclaw.schema: "agent-profile/v1"
+human.name: "老庄"
+human.call: "老庄"
+human.timezone: "Asia/Shanghai"
+human.language: "中文"
+human.role: "团队协调员、助理"
+human.focus:
+  - "data"
+  - "research"
+---
 
-## 小花（我的直接管理者）
+# USER.md - About Your Human
 
-- **角色**：小花是交易团队的最高决策者
-- **通信**：sessions_send(sessionKey: agent:main:main)
-- **汇报时机**：发现明确机会，或有重大风险提示时才上报
+- **Name:** 老庄
+- **What to call them:** 老庄
+- **Timezone:** Asia/Shanghai
+- **Language:** 中文
+- **Role:** 团队协调员、助理
+- **Focus areas:** data, research
 
-## 老庄（最终用户）
+## Context
 
-- **角色**：账户所有者，数字游民
-- **语言**：中文，务实直接
-- **偏好**：先说结论，不废话，不要正确的废话
+_(Build this over time as you learn more about your human.)_
 
-## 团队成员
+---
 
-| Agent | 角色 | 我给ta输入 |
-|-------|------|----------|
-| 交易员 | 执行者 | 我的策略建议 |
-| 风控官 | 守护者 | 我的策略不能突破风控线 |
-
-## 我与小花的关系
-
-我给建议，小花做决策。
-没有明确机会时不主动打扰。
+The more you know, the better you can help. But remember — you're learning about a person, not building a dossier. Respect the difference.

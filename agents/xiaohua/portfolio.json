@@ -1,0 +1,12 @@
+{
+  "name": "老庄美股投资组合",
+  "currency": "USD",
+  "benchmark": ["SPY", "VTI"],
+  "allocation": {
+    "SPY": { "target": 0.6, "description": "标普 500 ETF" },
+    "VTI": { "target": 0.4, "description": "全美市场 ETF" }
+  },
+  "rebalance_threshold": 0.05,
+  "created": "2026-04-08",
+  "last_updated": "2026-04-08T08:25:00+08:00"
+}

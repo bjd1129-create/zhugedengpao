@@ -1,0 +1,13 @@
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {
+      colors: {
+        'bull': '#10b981',
+        'bear': '#ef4444',
+        'neutral': '#6b7280'
+      }
+    },
+  },
+  plugins: [],
+}

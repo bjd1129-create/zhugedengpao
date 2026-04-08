@@ -1,0 +1,38 @@
+[
+  {
+    "timestamp": "2026-04-09T00:41:37.134029",
+    "market": "trump-announces-end-of-military-operations-against-iran-by",
+    "outcome": "2026-04-30",
+    "action": "BUY_NO",
+    "market_prob": "50.0%",
+    "fair_prob": "23.8%",
+    "probability_gap": "-26.2%",
+    "expected_value": "$1.26",
+    "confidence": "HIGH",
+    "suggested_stake": 0.1
+  },
+  {
+    "timestamp": "2026-04-09T00:41:37.134051",
+    "market": "trump-announces-end-of-military-operations-against-iran-by",
+    "outcome": "2026-05-31",
+    "action": "BUY_NO",
+    "market_prob": "72.0%",
+    "fair_prob": "23.8%",
+    "probability_gap": "-48.2%",
+    "expected_value": "$2.39",
+    "confidence": "HIGH",
+    "suggested_stake": 0.1
+  },
+  {
+    "timestamp": "2026-04-09T00:41:37.134057",
+    "market": "trump-announces-end-of-military-operations-against-iran-by",
+    "outcome": "2026-06-30",
+    "action": "BUY_NO",
+    "market_prob": "82.0%",
+    "fair_prob": "23.8%",
+    "probability_gap": "-58.2%",
+    "expected_value": "$3.77",
+    "confidence": "HIGH",
+    "suggested_stake": 0.1
+  }
+]

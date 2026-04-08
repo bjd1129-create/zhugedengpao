@@ -73,3 +73,98 @@ fi
 - 紧急消息：每 30 秒
 - 普通消息：每 5 分钟（心跳时检查）
 
+
+---
+
+## 分析师 - 交易员快速通信（2026-04-08 新增）
+
+### 紧急消息检查（30 秒轮询）
+
+**检查目录**：`agents/shared/messages/`
+
+**文件**：
+- `trader-urgent.json` - 给交易员的紧急消息
+- `trader-normal.json` - 给交易员的普通消息
+
+**处理流程**：
+```bash
+# 检查紧急消息
+if [ -f "agents/shared/messages/trader-urgent.json" ]; then
+  # 读取消息
+  cat agents/shared/messages/trader-urgent.json
+  
+  # 处理消息（执行交易等）
+  # ...
+  
+  # 回复分析师
+  cat > agents/shared/messages/analyst-response.json << 'MSG'
+  {"from":"交易员","to":"数据分析师","decision":"已执行","action":"..."}
+  MSG
+  
+  # 删除已处理消息
+  rm agents/shared/messages/trader-urgent.json
+fi
+```
+
+### 消息优先级
+
+| 优先级 | 轮询间隔 | 消息类型 |
+|--------|---------|---------|
+| P0 紧急 | 30 秒 | 市场暴跌、止损告警 |
+| P1 重要 | 2 分钟 | 投资建议、策略调整 |
+| P2 普通 | 5 分钟 | 日常数据更新 |
+
+---
+
+---
+
+## 星状通信（2026-04-08 22:38 新增）
+
+### 可以接收的通信
+
+| 发送方 | 紧急消息文件 | 普通消息文件 |
+|--------|------------|------------|
+| 小花 | xiaohua-urgent.json | xiaohua-normal.json |
+| 交易员 | trader-urgent.json | trader-normal.json |
+| 工程师 | engineer-urgent.json | engineer-normal.json |
+| 协调官 | coordinator-urgent.json | coordinator-normal.json |
+| 数据分析师 | analyst-urgent.json | analyst-normal.json |
+| 游戏工程师 | game-engineer-urgent.json | game-engineer-normal.json |
+
+### 轮询检查
+
+**紧急消息**（30 秒轮询 - 定时任务）：
+```bash
+# 检查所有给自己的紧急消息
+ls agents/shared/messages/*-urgent.json 2>/dev/null
+```
+
+**普通消息**（5 分钟轮询）：
+```bash
+# 检查所有给自己的普通消息
+ls agents/shared/messages/*-normal.json 2>/dev/null
+```
+
+### 发送消息给其他 Agent
+
+```bash
+# 发送给交易员（紧急）
+cat > agents/shared/messages/trader-urgent.json << 'MSG'
+{"from":"trader","to":"交易员","priority":"P0","content":"..."}
+MSG
+
+# 发送给分析师（普通）
+cat > agents/shared/messages/analyst-normal.json << 'MSG'
+{"from":"trader","to":"数据分析师","priority":"P2","content":"..."}
+MSG
+```
+
+### 处理流程
+
+1. 轮询检查消息文件
+2. 读取消息内容
+3. 处理消息（执行请求等）
+4. 写入回复（如需要）
+5. 删除已处理消息
+
+---

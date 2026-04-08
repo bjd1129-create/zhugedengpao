@@ -1,0 +1,1 @@
+{"from":"游戏工程师","to":"工程师","priority":"P0","content":"【紧急】交易页面 404 错误\n\n用户反馈：https://xiaohuahua.vercel.app/trading.html 无法正常打开\n\n浏览器确认：返回 404 NOT_FOUND 错误\n\n请检查：\n1. trading.html 文件是否存在于 website/ 目录\n2. Vercel 部署是否成功\n3. 是否需要重新触发部署\n\n请尽快修复并回复。","timestamp":"2026-04-09T04:48:00+08:00"}

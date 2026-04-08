@@ -1,0 +1,49 @@
+{
+  "scan_time": "2026-04-09T03:45:00+08:00",
+  "markets_scanned": 698,
+  "opportunities_found": 7,
+  "high_priority_signals": [
+    {
+      "market": "Trump 宣布结束军事行动",
+      "probability_diff": 32,
+      "volume_usd": 16000000,
+      "priority": "⭐⭐⭐",
+      "direction": "买入'是'",
+      "rationale": "美伊停火协议已官宣，概率差 +32% 反映事实",
+      "risk": "低",
+      "correlation": "与 WTI 原油暴跌事件高度关联"
+    },
+    {
+      "market": "Iran 冲突结束",
+      "probability_diff": 24,
+      "volume_usd": 28000000,
+      "priority": "⭐⭐⭐",
+      "direction": "买入'是'",
+      "rationale": "停火协议生效中，概率差 +24%",
+      "risk": "中",
+      "correlation": "与 WTI 原油暴跌事件高度关联",
+      "note": "停火期限两周，之后不确定"
+    },
+    {
+      "market": "Netanyahu 下台",
+      "probability_diff": 36,
+      "volume_usd": 116000000,
+      "priority": "⭐⭐",
+      "direction": "观望",
+      "rationale": "概率差 +36% 但关联弱",
+      "risk": "高",
+      "correlation": "与停火事件关联弱"
+    }
+  ],
+  "market_context": {
+    "event": "WTI 原油暴跌 14.50%（2026-04-08 10:51）",
+    "cause": "美伊停火协议（停战两周）",
+    "verification": "Polymarket 概率差验证一致"
+  },
+  "recommendation": {
+    "action": "重点关注 Trump 宣布和 Iran 冲突结束两个市场",
+    "reason": "流动性好、概率差显著、与事实一致",
+    "warning": "价格可能已充分定价，注意时间衰减"
+  },
+  "next_scan": "2026-04-09T04:15:00+08:00"
+}

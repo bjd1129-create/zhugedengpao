@@ -1,51 +1,94 @@
 {
   "chapter": 1,
-  "chapter_name": "数字之谜",
+  "chapterName": "数学迷宫",
+  "chapterType": "math",
+  "chapterDifficulty": 1,
+  "chapterDescription": "欢迎来到数学迷宫！用你的数学智慧解开每一道谜题吧！",
   "levels": [
     {
       "level": 1,
       "type": "math",
-      "question": "我有 3 个头，每个头有 4 只眼睛，我有多少只眼睛？",
-      "answer": 12,
-      "hints": ["用乘法", "3 乘以 4"],
       "difficulty": 1,
-      "reward": 10
+      "question": "小花有 3 个苹果，桐桐给了她 4 个苹果。现在小花有多少个苹果？",
+      "answer": 7,
+      "answerType": "number",
+      "hints": [
+        "用加法计算",
+        "3 加上 4 等于多少？"
+      ],
+      "explanation": "3 + 4 = 7，所以小花现在有 7 个苹果。",
+      "points": 10,
+      "timeLimit": 60
     },
     {
       "level": 2,
       "type": "math",
-      "question": "2, 4, 6, 8, 下一个数字是？",
-      "answer": 10,
-      "hints": ["每次加 2", "偶数数列"],
-      "difficulty": 1,
-      "reward": 10
+      "difficulty": 2,
+      "question": "我有 3 个头，每个头有 4 只眼睛。我有多少只眼睛？",
+      "answer": 12,
+      "answerType": "number",
+      "hints": [
+        "用乘法计算",
+        "3 乘以 4 等于多少？"
+      ],
+      "explanation": "3 个头，每个头 4 只眼睛，所以 3 × 4 = 12 只眼睛。",
+      "points": 15,
+      "timeLimit": 60
     },
     {
       "level": 3,
       "type": "math",
-      "question": "15 ÷ 3 + 7 = ?",
-      "answer": 12,
-      "hints": ["先除后加", "15÷3=5"],
-      "difficulty": 2,
-      "reward": 15
+      "difficulty": 3,
+      "question": "找规律填数字：2, 4, 8, 16, __, 64",
+      "answer": 32,
+      "answerType": "number",
+      "hints": [
+        "每个数字是前一个数字的 2 倍",
+        "16 乘以 2 等于多少？"
+      ],
+      "explanation": "这是一个等比数列，每个数字都是前一个数字乘以 2：2→4→8→16→32→64。",
+      "points": 20,
+      "timeLimit": 90
     },
     {
       "level": 4,
       "type": "math",
-      "question": "100 - 25 × 3 = ?",
-      "answer": 25,
-      "hints": ["先乘后减", "25×3=75"],
-      "difficulty": 2,
-      "reward": 15
+      "difficulty": 4,
+      "question": "一个数加上 15 等于 42，这个数是多少？",
+      "answer": 27,
+      "answerType": "number",
+      "hints": [
+        "用减法计算",
+        "42 减去 15 等于多少？"
+      ],
+      "explanation": "设这个数为 x，则 x + 15 = 42，所以 x = 42 - 15 = 27。",
+      "points": 25,
+      "timeLimit": 90
     },
     {
       "level": 5,
       "type": "math",
-      "question": "一个数加上它自己等于 20，这个数是？",
-      "answer": 10,
-      "hints": ["x + x = 20", "2x = 20"],
-      "difficulty": 2,
-      "reward": 20
+      "difficulty": 5,
+      "question": "桐桐今年 9 岁，爸爸的年龄是桐桐的 4 倍还多 3 岁。爸爸今年多少岁？",
+      "answer": 39,
+      "answerType": "number",
+      "hints": [
+        "先算 9 的 4 倍",
+        "再加上 3"
+      ],
+      "explanation": "桐桐 9 岁，9 × 4 = 36，36 + 3 = 39 岁。所以爸爸今年 39 岁。",
+      "points": 30,
+      "timeLimit": 120
     }
-  ]
+  ],
+  "totalPoints": 100,
+  "passingScore": 60,
+  "perfectScore": 100,
+  "rewards": {
+    "pass": "🌟 数学之星勋章",
+    "perfect": "🏆 数学天才奖杯 + 隐藏皮肤"
+  },
+  "createdAt": "2026-04-09T04:20:00+08:00",
+  "createdBy": "数据分析师",
+  "version": "1.0"
 }

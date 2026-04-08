@@ -138,7 +138,7 @@
 **结论**: 期货数据仪表盘部署完成，数据同步自动化建立
 
 **部署状态**:
-- 域名：https://dakuteman.com
+- 域名：https://dengpao.pages.dev/trading.html
 - 功能：实时行情卡片 + 技术指标对比表 + 历史走势图表
 - 数据源：`agents/analyst/data/`（每 5 分钟更新）
 - 同步脚本：`scripts/sync_data.sh`（自动同步到 frontend）
@@ -805,3 +805,51 @@ Detection → Analysis → Generation → Integration
 - OpenClaw 最佳实践：https://openclaw-ai.com/en/blog/best-practices
 - 腾讯云深度解析：https://cloud.tencent.com/developer/article/2639081
 - 阿里云部署指南：https://developer.aliyun.com/article/1713619
+
+---
+
+## 2026-04-09 团队更新（最新）
+
+### 核心团队（6 个 Agent）
+
+| Agent | 角色 | 职责 | 状态 |
+|-------|------|------|------|
+| **小花** 🦞 | 协调者、决策者 | 决策、协调、记忆、汇报 | ✅ 主 Agent |
+| **交易员** 📈 | 交易执行负责人 | 分析市场、执行交易、管理风险、展示数据 | ✅ 运行中 |
+| **工程师** 🔧 | 技术开发负责人 | 视觉设计、内容创作、前端开发 | ✅ 运行中 |
+| **协调官** 📋 | 执行 + 调研负责人 | 任务分配、进度跟踪、市场调研 | ✅ 运行中 |
+| **数据分析师** 📊 | 数据研究专家 | 期货市场研究、数据分析、策略回测、报告输出 | ✅ 运行中 |
+| **游戏工程师** 🎮 | 游戏开发专家 | Phaser 3 游戏开发（《桐桐与小花的 AI 冒险》） | ✅ 新增（2026-04-08） |
+
+### 团队精简历程
+- **2026-04-05**: 9 子 Agent 团队（洞察者/文案君/代码侠/配色师/安全官/财务官等）
+- **2026-04-08**: 精简为 5 个核心 Agent（交易员 + 工程师 + 协调官 + 数据分析师 + 小花）
+- **2026-04-08 21:41**: 新增游戏工程师（专职游戏开发）
+
+### 协作机制
+- **所有 Agent 文件夹完全开放**，无访问限制
+- **技能共享**：任何 Agent 可以调用团队内任何技能
+- **共享目录**：`agents/shared/`（消息队列、共享数据、文档）
+- **Cron 任务**：15 个定时任务，绑定到各 Agent 独立 session
+
+### 工作空间
+- **小花**: `agents/xiaohua/`
+- **交易员**: `agents/trader/`
+- **工程师**: `agents/engineer/`
+- **协调官**: `agents/coordinator/`
+- **数据分析师**: `agents/analyst/`
+- **游戏工程师**: `agents/game-engineer/`
+
+### 技术配置
+- **当前模型**: 阿里云百炼 qwen3.5-plus（2026-04-08 切换，MiniMax API 不稳定）
+- **OpenClaw 版本**: 2026.4.2 (d74a122)
+- **部署平台**: Vercel + Cloudflare Pages 双平台
+- **官网**: https://dengpao.pages.dev
+
+### 重要项目
+- **操盘页面**: 4 个模拟盘（美股/期货/Polymarket/加密货币），交易员负责
+- **期货数据仪表盘**: https://dengpao.pages.dev/trading.html，数据分析师负责
+- **游戏开发**: 《桐桐与小花的 AI 冒险》，游戏工程师负责，目标 2026-04-20 上线
+- **个人记忆网站**: https://vvalp.vercel.app（79 张照片，2013-2016 年）
+
+**标签**: #团队架构 #2026-04-09 #最新状态

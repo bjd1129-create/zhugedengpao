@@ -1,0 +1,42 @@
+{
+  "update_time": "2026-04-09T04:24:00+08:00",
+  "account": {
+    "initial_capital": 10000,
+    "cash_balance": 4000,
+    "position_value": 10320,
+    "total_pnl": 4320,
+    "total_pnl_pct": 43.2
+  },
+  "positions": [
+    {
+      "market": "特朗普结束伊朗军事行动",
+      "option": "4 月 30 日",
+      "pnl_pct": 80,
+      "status": "holding",
+      "recommendation": "密切关注停火进展，价格突破$0.85 可平仓 50%",
+      "correlation": "与 WTI 原油暴跌事件高度关联（美伊停火协议）"
+    },
+    {
+      "market": "匈牙利下任总理",
+      "option": "Péter Magyar",
+      "pnl_pct": 56,
+      "status": "holding",
+      "recommendation": "继续持有，目标 +100% 止盈"
+    }
+  ],
+  "pending_orders": {
+    "total": 2500,
+    "orders": [
+      {"market": "ETH 2026 完成分片升级", "amount": 1000, "ev": "+13%"},
+      {"market": "BTC 2026 Q2 突破$100k", "amount": 800, "ev": "+10%"},
+      {"market": "美联储 5 月加息 25bp", "amount": 700, "ev": "+7%"}
+    ],
+    "status": "approved_pending_execution"
+  },
+  "risk_limits": {
+    "stop_loss": -50,
+    "take_profit": +100,
+    "current_trigger": "none"
+  },
+  "next_check": "2026-04-09T04:54:00+08:00"
+}

@@ -1,0 +1,98 @@
+{
+  "chapter": 2,
+  "chapterName": "空间秘境",
+  "chapterType": "spatial",
+  "chapterDifficulty": 2,
+  "chapterDescription": "进入空间秘境！发挥你的空间想象力，解开几何谜题！",
+  "levels": [
+    {
+      "level": 1,
+      "type": "spatial",
+      "difficulty": 1,
+      "question": "下面哪个图形是正方形？A) 圆形 B) 正方形 C) 三角形",
+      "answer": "B",
+      "answerType": "choice",
+      "options": ["A", "B", "C"],
+      "visualDescription": "三个图形并排显示：圆形、正方形、三角形",
+      "hints": [
+        "正方形有四条相等的边",
+        "正方形有四个直角"
+      ],
+      "explanation": "正方形是四条边都相等、四个角都是直角的图形。",
+      "points": 10,
+      "timeLimit": 60
+    },
+    {
+      "level": 2,
+      "type": "spatial",
+      "difficulty": 2,
+      "question": "一个正方形顺时针旋转 90 度后，它是什么形状？",
+      "answer": "正方形",
+      "answerType": "text",
+      "hints": [
+        "旋转不会改变图形的形状",
+        "正方形转过来还是什么？"
+      ],
+      "explanation": "旋转不会改变图形的本质形状，正方形旋转后仍然是正方形。",
+      "points": 15,
+      "timeLimit": 60
+    },
+    {
+      "level": 3,
+      "type": "spatial",
+      "difficulty": 3,
+      "question": "用 4 个小正方形可以拼成一个大正方形吗？",
+      "answer": "可以",
+      "answerType": "choice",
+      "options": ["可以", "不可以"],
+      "visualDescription": "显示 4 个独立的小正方形",
+      "hints": [
+        "试着把 4 个小正方形排成 2 行 2 列",
+        "想象一下拼图"
+      ],
+      "explanation": "4 个小正方形可以排成 2×2 的方阵，拼成一个大正方形。",
+      "points": 20,
+      "timeLimit": 90
+    },
+    {
+      "level": 4,
+      "type": "spatial",
+      "difficulty": 4,
+      "question": "一个立方体有几个面？",
+      "answer": 6,
+      "answerType": "number",
+      "hints": [
+        "立方体就是正方体",
+        "数一数：上、下、前、后、左、右"
+      ],
+      "explanation": "立方体有 6 个面：上面、下面、前面、后面、左面、右面。",
+      "points": 25,
+      "timeLimit": 90
+    },
+    {
+      "level": 5,
+      "type": "spatial",
+      "difficulty": 5,
+      "question": "如果把一个立方体展开成平面图，需要剪开几条棱？",
+      "answer": 7,
+      "answerType": "number",
+      "hints": [
+        "立方体有 12 条棱",
+        "展开后 6 个面连在一起，需要保留 5 条棱连接"
+      ],
+      "explanation": "立方体有 12 条棱，展开成平面需要保留 5 条棱连接 6 个面，所以要剪开 12-5=7 条棱。",
+      "points": 30,
+      "timeLimit": 120
+    }
+  ],
+  "totalPoints": 100,
+  "passingScore": 60,
+  "perfectScore": 100,
+  "rewards": {
+    "pass": "🌟 空间探索者勋章",
+    "perfect": "🏆 空间大师奖杯 + 隐藏皮肤"
+  },
+  "createdAt": "2026-04-09T04:20:00+08:00",
+  "createdBy": "数据分析师",
+  "version": "1.0"
+}

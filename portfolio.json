@@ -1,15 +1,15 @@
 {
-  "last_update": "2026-04-08T21:41:49.822571",
+  "last_update": "2026-04-08T20:58:38.329134+00:00",
   "status": "success",
   "total_capital": 10000.0,
-  "cash": 712.3365774062434,
-  "total_pnl": 224.66809763488934,
-  "total_pnl_pct": 2.2466809763488933,
+  "cash": 500.0,
+  "total_pnl": 2939.5843987099456,
+  "total_pnl_pct": 29.395843987099457,
   "prices": {
-    "BTCUSDT": 71293,
-    "ETHUSDT": 2233.4,
-    "AVAXUSDT": 9.449,
-    "ADAUSDT": 0.261305
+    "BTCUSDT": 112500,
+    "ETHUSDT": 7650,
+    "AVAXUSDT": 9.363019572578608,
+    "ADAUSDT": 0.25785717240054096
   },
   "strategies": {
     "AVAXUSDT": {
@@ -20,12 +20,12 @@
       ],
       "grids": 10,
       "step": 0.18000000000000008,
-      "realized_pnl": 130.66991073957658,
-      "unrealized_pnl": 0.0,
-      "total_pnl": 130.66991073957658,
-      "trades_count": 0,
+      "realized_pnl": 229.72389642060514,
+      "unrealized_pnl": 209.82354818575104,
+      "total_pnl": 439.5474446063562,
+      "trades_count": 8,
       "stopped": false,
-      "filled_grids": 0
+      "filled_grids": 8
     },
     "ADAUSDT": {
       "budget": 2000.0,
@@ -35,29 +35,29 @@
       ],
       "grids": 8,
       "step": 0.008750000000000004,
-      "realized_pnl": 81.66666666666671,
-      "unrealized_pnl": 0.0,
-      "total_pnl": 81.66666666666671,
-      "trades_count": 0,
+      "realized_pnl": 163.33333333333343,
+      "unrealized_pnl": 175.05703735622205,
+      "total_pnl": 338.3903706895555,
+      "trades_count": 6,
       "stopped": false,
-      "filled_grids": 0
+      "filled_grids": 6
     }
   },
   "holdings": {
     "BTCUSDT": {
       "amount": 3500.0,
       "entry_price": 67102.54,
-      "current_price": 71293,
+      "current_price": 112500,
       "stop_loss": 64000.0,
-      "pnl": 218.57011671987416,
-      "pnl_pct": 6.244860477710691,
+      "pnl": 2367.8851799052622,
+      "pnl_pct": 67.6538622830075,
       "stopped": false,
       "exit_price": null
     },
     "ETHUSDT": {
       "amount": 1000.0,
       "entry_price": 2850.0,
-      "current_price": 2233.4,
+      "current_price": 2256.603377019478,
       "stop_loss": 2700.0,
       "pnl": -206.23859649122812,
       "pnl_pct": -20.62385964912281,
@@ -68,6 +68,6 @@
   "summary": {
     "grid_count": 2,
     "hold_count": 1,
-    "total_trades": 0
+    "total_trades": 14
   }
 }

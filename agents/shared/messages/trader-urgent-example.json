@@ -1,0 +1,18 @@
+{
+  "from": "数据分析师",
+  "to": "交易员",
+  "priority": "P0",
+  "type": "alert",
+  "timestamp": "2026-04-08T22:30:00+08:00",
+  "symbol": "BTC",
+  "signal": "暴跌 5%",
+  "action": "建议减仓 50%",
+  "content": "BTC 1 小时内下跌 5.2%，当前价格 $67,000，RSI 降至 28（超卖区域），建议关注并考虑减仓",
+  "confidence": "高",
+  "data": {
+    "price": 67000,
+    "change_1h": -5.2,
+    "rsi": 28,
+    "volume_ratio": 2.3
+  }
+}

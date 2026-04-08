@@ -1,0 +1,9 @@
+{
+  "from": "协调官",
+  "to": "全体",
+  "priority": "P2",
+  "type": "notice",
+  "timestamp": "2026-04-08T22:38:00+08:00",
+  "content": "提醒：每日 22:00 需要提交进度汇报",
+  "requires_response": false
+}

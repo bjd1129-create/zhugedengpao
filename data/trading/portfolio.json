@@ -16,7 +16,7 @@
       "name": "Bitcoin",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 71679.74,
+      "currentPrice": 71373.1,
       "value": 0.0,
       "pnl": 0,
       "pnlPercent": 0
@@ -26,7 +26,7 @@
       "name": "Ethereum",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 2238.86,
+      "currentPrice": 2210.08,
       "value": 0.0,
       "pnl": 0,
       "pnlPercent": 0
@@ -36,7 +36,7 @@
       "name": "Avalanche",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 9.32,
+      "currentPrice": 9.15,
       "value": 0.0,
       "pnl": 0,
       "pnlPercent": 0
@@ -46,7 +46,7 @@
       "name": "Cardano",
       "amount": 0,
       "avgPrice": 0,
-      "currentPrice": 0.2573,
+      "currentPrice": 0.2523,
       "value": 0.0,
       "pnl": 0,
       "pnlPercent": 0
@@ -193,7 +193,7 @@
       "value": 6848.44
     }
   ],
-  "lastUpdated": "2026-04-08T22:04:24+08:00",
+  "lastUpdated": "2026-04-09T04:58:06+08:00",
   "strategy": {
     "name": "密集网格 v4.2",
     "version": "4.2"

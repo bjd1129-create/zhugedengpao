@@ -1,0 +1,21 @@
+{
+  "trades": [],
+  "summary": {
+    "total_trades": 0,
+    "winning_trades": 0,
+    "losing_trades": 0,
+    "win_rate": 0,
+    "total_pnl": 0,
+    "avg_pnl_per_trade": 0,
+    "best_trade": null,
+    "worst_trade": null
+  },
+  "review_stats": {
+    "total_reviewed": 0,
+    "review_rate": 0,
+    "excellent_reviews": 0,
+    "good_reviews": 0,
+    "poor_reviews": 0,
+    "missing_reviews": 0
+  }
+}

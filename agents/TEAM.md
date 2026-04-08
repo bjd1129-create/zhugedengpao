@@ -86,29 +86,28 @@ curl -s "https://query1.finance.yahoo.com/v8/finance/chart/SPY?interval=1d&range
 
 ---
 
-## 六、权限隔离（2026-04-08 起）
+## 六、文件夹访问权限（2026-04-08 21:27 起）
 
-**website/ 目录是工程师的专属工作空间**，其他 Agent 无权直接修改。
+**所有 Agent 文件夹完全开放，无访问限制。**
 
-| Agent | website/权限 | 工作空间 |
-|-------|------------|---------|
-| 工程师 | ✅ 完全控制 | `agents/engineer/website/` |
-| 小花 | ✅ 完全控制 | `agents/xiaohua/`（主 Agent） |
-| 交易员 | 🟡 数据维护 | `agents/trader/` |
-| 协调官 | ❌ 无权限 | `agents/coordinator/` |
-| 数据分析师 | ❌ 无权限 | `agents/analyst/` |
+| Agent | 自己的工作空间 | 访问其他 Agent |
+|-------|--------------|--------------|
+| 小花 | `agents/xiaohua/` | ✅ 任意访问 |
+| 交易员 | `agents/trader/` | ✅ 任意访问 |
+| 工程师 | `agents/engineer/` | ✅ 任意访问 |
+| 协调官 | `agents/coordinator/` | ✅ 任意访问 |
+| 数据分析师 | `agents/analyst/` | ✅ 任意访问 |
 
-**说明**：
-- 小花作为主 Agent，拥有所有 Agent 工作空间的读写权限
-- 工程师拥有 website/ 的完全控制权
-- 交易员只能维护 `website/data/trading/` 数据文件
-- 协调官只能分配任务，不能直接修改文件
-- 数据分析师只能提供数据，不能修改页面
+**原则**：
+- ✅ 任何 Agent 可以读取任何文件夹
+- ✅ 任何 Agent 可以写入共享目录（`agents/shared/`）
+- ✅ 任何 Agent 可以修改其他 Agent 的数据文件（需备注）
+- ⚠️ 修改其他 Agent 核心文件前 → 建议沟通
 
-**官网修改流程**：
-1. 需求方 → 小花提出需求
-2. 小花 → 分配任务给工程师（或直接修改）
-3. 工程师 → 执行修改 → 汇报
+**共享目录**：
+- `agents/shared/messages/` - 消息队列
+- `agents/shared/data/` - 共享数据
+- `agents/shared/docs/` - 共享文档
 
 **软链接**：`/Users/bjd/Desktop/ZhugeDengpao-Team/website` → `agents/engineer/website/`
 
@@ -165,3 +164,27 @@ npx wrangler pages deploy . --project-name=dengpao
 ---
 
 _小花团队协议 | 2026-04-08 精简落地 + 数据分析师创建 + 权限隔离 + 技能共享_
+
+---
+
+## 七、游戏工程师（2026-04-08 21:41 新增）
+
+**新增 Agent**：游戏工程师 🎮
+
+| 项目 | 说明 |
+|------|------|
+| **职责** | 专职游戏开发（Phaser 3/TypeScript） |
+| **首个项目** | 《桐桐与小花的 AI 冒险》 |
+| **上线时间** | 2026-04-20 |
+| **工作空间** | `agents/game-engineer/` |
+
+**团队协作**：
+- 数据分析师 → 提供谜题逻辑
+- 游戏工程师 → 实现到游戏中
+- 工程师 → 官网集成部署
+
+**权限**：所有 Agent 文件夹完全开放，无访问限制。
+
+---
+
+_小花团队协议 | 2026-04-08 精简落地 + 数据分析师创建 + 权限隔离 + 技能共享 + 游戏工程师_

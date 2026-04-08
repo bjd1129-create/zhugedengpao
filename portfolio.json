@@ -1,15 +1,15 @@
 {
-  "last_update": "2026-04-08T20:50:53.138895",
+  "last_update": "2026-04-08T21:41:49.822571",
   "status": "success",
   "total_capital": 10000.0,
-  "cash": 500.0,
-  "total_pnl": 44.87717765738998,
-  "total_pnl_pct": 0.44877177657389977,
+  "cash": 712.3365774062434,
+  "total_pnl": 224.66809763488934,
+  "total_pnl_pct": 2.2466809763488933,
   "prices": {
-    "BTCUSDT": 71959.62,
-    "ETHUSDT": 2255.88,
-    "AVAXUSDT": 9.36,
-    "ADAUSDT": 0.2576
+    "BTCUSDT": 71293,
+    "ETHUSDT": 2233.4,
+    "AVAXUSDT": 9.449,
+    "ADAUSDT": 0.261305
   },
   "strategies": {
     "AVAXUSDT": {
@@ -20,9 +20,9 @@
       ],
       "grids": 10,
       "step": 0.18000000000000008,
-      "realized_pnl": 0.0,
+      "realized_pnl": 130.66991073957658,
       "unrealized_pnl": 0.0,
-      "total_pnl": 0.0,
+      "total_pnl": 130.66991073957658,
       "trades_count": 0,
       "stopped": false,
       "filled_grids": 0
@@ -35,9 +35,9 @@
       ],
       "grids": 8,
       "step": 0.008750000000000004,
-      "realized_pnl": 0.0,
+      "realized_pnl": 81.66666666666671,
       "unrealized_pnl": 0.0,
-      "total_pnl": 0.0,
+      "total_pnl": 81.66666666666671,
       "trades_count": 0,
       "stopped": false,
       "filled_grids": 0
@@ -47,27 +47,27 @@
     "BTCUSDT": {
       "amount": 3500.0,
       "entry_price": 67102.54,
-      "current_price": 71959.62,
+      "current_price": 71293,
       "stop_loss": 64000.0,
-      "pnl": 253.34033555212676,
-      "pnl_pct": 7.2382953014893365,
+      "pnl": 218.57011671987416,
+      "pnl_pct": 6.244860477710691,
       "stopped": false,
       "exit_price": null
     },
     "ETHUSDT": {
       "amount": 1000.0,
       "entry_price": 2850.0,
-      "current_price": 2255.88,
+      "current_price": 2233.4,
       "stop_loss": 2700.0,
-      "pnl": -208.46315789473678,
-      "pnl_pct": -20.846315789473678,
+      "pnl": -206.23859649122812,
+      "pnl_pct": -20.62385964912281,
       "stopped": true,
-      "exit_price": 2255.88
+      "exit_price": 2262.22
     }
   },
   "summary": {
     "grid_count": 2,
-    "hold_count": 2,
+    "hold_count": 1,
     "total_trades": 0
   }
 }

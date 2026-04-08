@@ -1,1 +1,10 @@
-{"framework":null,"buildCommand":"echo static","outputDirectory":"pages"}
+{
+  "framework": null,
+  "buildCommand": "echo static",
+  "outputDirectory": "pages",
+  "public": true,
+  "files": [
+    "pages/**/*",
+    "images/**/*"
+  ]
+}

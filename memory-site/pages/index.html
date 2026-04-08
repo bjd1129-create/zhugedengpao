@@ -3,119 +3,229 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>珍藏记忆 | 我们的时光相册</title>
+<title>💕 珍藏记忆 | 我们的时光相册</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans SC',sans-serif;background:linear-gradient(135deg,#f5f7fa 0%,#c3cfe2 100%);min-height:100vh;color:#2c3e50}
-header{text-align:center;padding:60px 20px 40px;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);color:#fff;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
-header h1{font-size:clamp(28px,5vw,48px);margin-bottom:12px;font-weight:300;letter-spacing:8px}
-header p{font-size:16px;opacity:0.9;font-weight:300}
-nav{display:flex;justify-content:center;gap:16px;padding:20px;flex-wrap:wrap;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,0.05)}
-.nav-btn{padding:10px 24px;border:2px solid #667eea;background:transparent;color:#667eea;border-radius:25px;cursor:pointer;font-size:14px;transition:all 0.3s;font-weight:600}
-.nav-btn:hover,.nav-btn.active{background:#667eea;color:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(102,126,234,0.3)}
-main{max-width:1400px;margin:0 auto;padding:40px 20px}
-.year-section{display:none;margin-bottom:60px}
-.year-section.active{display:block}
-.year-header{text-align:center;margin-bottom:40px}
-.year-header h2{font-size:clamp(24px,4vw,36px);color:#667eea;margin-bottom:8px}
-.year-header p{color:#7f8c8d;font-size:14px}
-.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
-.photo-card{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.08);transition:all 0.3s;cursor:pointer}
-.photo-card:hover{transform:translateY(-8px);box-shadow:0 12px 30px rgba(0,0,0,0.15)}
-.photo-card img{width:100%;height:280px;object-fit:cover;display:block}
-.photo-info{padding:16px}
-.photo-info h3{font-size:14px;color:#2c3e50;margin-bottom:4px}
-.photo-info p{font-size:12px;color:#95a5a6}
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:2000;justify-content:center;align-items:center;padding:20px}
+body{font-family:'Noto Sans SC',sans-serif;background:linear-gradient(135deg,#ffecd2 0%,#fcb69f 100%);min-height:100vh;overflow-x:hidden}
+
+/* 浪漫背景 */
+.bg-hearts{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
+.heart{position:absolute;font-size:20px;opacity:0.3;animation:float 15s infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-100px) rotate(180deg)}}
+
+header{text-align:center;padding:80px 20px 40px;position:relative;z-index:1}
+header h1{font-size:clamp(32px,6vw,64px);color:#fff;text-shadow:2px 2px 8px rgba(0,0,0,0.3);margin-bottom:16px;font-weight:300;letter-spacing:12px}
+header p{font-size:18px;color:#fff;opacity:0.95;font-weight:300;text-shadow:1px 1px 4px rgba(0,0,0,0.3)}
+
+/* 时间线导航 */
+.timeline-nav{display:flex;justify-content:center;gap:12px;padding:20px;flex-wrap:wrap;position:relative;z-index:1}
+.nav-btn{padding:10px 28px;border:2px solid #fff;background:rgba(255,255,255,0.2);color:#fff;border-radius:30px;cursor:pointer;font-size:14px;transition:all 0.3s;font-weight:600;backdrop-filter:blur(10px)}
+.nav-btn:hover,.nav-btn.active{background:#fff;color:#fcb69f;transform:scale(1.05);box-shadow:0 4px 20px rgba(255,255,255,0.3)}
+
+main{max-width:1400px;margin:0 auto;padding:40px 20px;position:relative;z-index:1}
+
+/* 拍立得风格相册 */
+.photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:32px}
+.photo-card{background:#fff;padding:12px 12px 40px;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,0.15);transition:all 0.4s;cursor:pointer;transform:rotate(0deg)}
+.photo-card:nth-child(odd){transform:rotate(-2deg)}
+.photo-card:nth-child(even){transform:rotate(2deg)}
+.photo-card:hover{transform:scale(1.05) rotate(0deg);box-shadow:0 15px 50px rgba(0,0,0,0.25);z-index:10}
+.photo-card img{width:100%;height:220px;object-fit:cover;border-radius:2px}
+.photo-card .year-tag{position:absolute;top:8px;right:8px;background:rgba(252,182,159,0.95);color:#fff;padding:4px 12px;border-radius:12px;font-size:11px;font-weight:600}
+.photo-info{padding:16px 8px 8px;text-align:center}
+.photo-info h3{font-size:14px;color:#333;margin-bottom:4px}
+.photo-info p{font-size:11px;color:#999}
+
+/* 瀑布流布局 */
+.masonry{column-count:4;column-gap:20px}
+.masonry-item{break-inside:avoid;margin-bottom:20px}
+.masonry-item img{width:100%;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1)}
+
+/* 全屏查看 */
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:2000;justify-content:center;align-items:center;padding:20px}
 .modal.active{display:flex}
 .modal-content{max-width:90vw;max-height:90vh;position:relative}
-.modal-content img{max-width:100%;max-height:90vh;border-radius:8px}
-.modal-close{position:absolute;top:-40px;right:0;font-size:32px;color:#fff;cursor:pointer;background:none;border:none}
-footer{text-align:center;padding:40px 20px;color:#7f8c8d;font-size:13px;background:#fff}
-@media(max-width:768px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}.photo-card img{height:150px}}
+.modal-content img{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 0 50px rgba(255,255,255,0.2)}
+.modal-close{position:absolute;top:-50px;right:0;font-size:36px;color:#fff;cursor:pointer;background:none;border:none;transition:transform 0.3s}
+.modal-close:hover{transform:rotate(90deg)}
+
+/* 页脚 */
+footer{text-align:center;padding:60px 20px;color:#fff;position:relative;z-index:1}
+footer p{font-size:14px;opacity:0.9}
+
+@media(max-width:1024px){.masonry{column-count:3}}
+@media(max-width:768px){.masonry{column-count:2}.photo-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px}.photo-card{padding:8px 8px 30px}}
+@media(max-width:480px){.masonry{column-count:1}}
 </style>
 </head>
 <body>
+<div class="bg-hearts" id="bgHearts"></div>
+
 <header>
   <h1>💕 珍藏记忆</h1>
   <p>我们的时光相册 · 每一张照片都是珍贵的回忆</p>
 </header>
-<nav>
-  <button class="nav-btn active" onclick="showYear('all')">全部</button>
-  <button class="nav-btn" onclick="showYear('2013')">2013 年</button>
-  <button class="nav-btn" onclick="showYear('2014')">2014 年</button>
-  <button class="nav-btn" onclick="showYear('2015')">2015 年</button>
-  <button class="nav-btn" onclick="showYear('2015wedding')">2015 婚纱照</button>
-  <button class="nav-btn" onclick="showYear('2016')">2016 年</button>
-</nav>
+
+<div class="timeline-nav">
+  <button class="nav-btn active" onclick="filterYear('all')">💕 全部</button>
+  <button class="nav-btn" onclick="filterYear('2013')">🌸 2013</button>
+  <button class="nav-btn" onclick="filterYear('2014')">🌺 2014</button>
+  <button class="nav-btn" onclick="filterYear('2015')">💐 2015</button>
+  <button class="nav-btn" onclick="filterYear('2015wedding')">💒 婚礼</button>
+  <button class="nav-btn" onclick="filterYear('2016')">🎆 2016</button>
+</div>
+
 <main>
-  <div class="year-section active" id="all">
-    <div class="year-header"><h2>📸 全部回忆</h2><p>所有珍贵时刻</p></div>
-    <div class="photo-grid" id="allGrid"></div>
-  </div>
-  <div class="year-section" id="2013">
-    <div class="year-header"><h2>🌟 2013 年</h2><p>那一年的美好时光</p></div>
-    <div class="photo-grid" id="2013Grid"></div>
-  </div>
-  <div class="year-section" id="2014">
-    <div class="year-header"><h2>✨ 2014 年</h2><p>难忘的回忆</p></div>
-    <div class="photo-grid" id="2014Grid"></div>
-  </div>
-  <div class="year-section" id="2015">
-    <div class="year-header"><h2>💫 2015 年</h2><p>美好的这一年</p></div>
-    <div class="photo-grid" id="2015Grid"></div>
-  </div>
-  <div class="year-section" id="2015wedding">
-    <div class="year-header"><h2>💒 2015 年婚纱照</h2><p>最美的时刻</p></div>
-    <div class="photo-grid" id="2015weddingGrid"></div>
-  </div>
-  <div class="year-section" id="2016">
-    <div class="year-header"><h2>🎆 2016 年</h2><p>新的开始</p></div>
-    <div class="photo-grid" id="2016Grid"></div>
-  </div>
+  <div class="photo-grid" id="photoGrid"></div>
 </main>
+
 <div class="modal" id="photoModal" onclick="if(event.target===this)closeModal()">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <img id="modalImg" src="" alt="">
   </div>
 </div>
+
 <footer>
-  <p>💕 珍藏记忆 · 我们的时光相册</p>
-  <p>每一张照片都是珍贵的回忆</p>
+  <p>💕 执子之手 与子偕老 💕</p>
+  <p>每一张照片都是我们珍贵的回忆</p>
 </footer>
+
 <script>
-const photos={2013:[],2014:[],2015:[],2015wedding:[],2016:[]};
-function showYear(year){
-  document.querySelectorAll('.year-section').forEach(s=>s.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
-  if(year==='all'){document.getElementById('all').classList.add('active');event.target.classList.add('active');}
-  else{document.getElementById(year).classList.add('active');event.target.classList.add('active');}
+// 完整照片列表
+const photos=[
+{file:'JING 1064.png',year:'2013',desc:'初见的美好'},
+{file:'JING 1098.png',year:'2013',desc:'青春岁月'},
+{file:'JING 1373.jpg',year:'2013',desc:'美好时光'},
+{file:'JING 215.jpg',year:'2013',desc:'珍贵瞬间'},
+{file:'JING 234.jpg',year:'2013',desc:'温馨回忆'},
+{file:'JING 235.jpg',year:'2013',desc:'难忘时刻'},
+{file:'JING 236.jpg',year:'2013',desc:'美好记忆'},
+{file:'JING 237.jpg',year:'2013',desc:'青春年华'},
+{file:'JING 319.jpg',year:'2013',desc:'岁月静好'},
+{file:'-221182379.jpeg',year:'2014',desc:'珍贵回忆'},
+{file:'20140101_153429.jpg',year:'2014',desc:'新年第一天'},
+{file:'20140101_162559.jpg',year:'2014',desc:'美好时光'},
+{file:'C360_2014-04-17-23-08-55-031.jpg',year:'2014',desc:'春日夜'},
+{file:'C360_2014-05-17-09-24-00-163.jpg',year:'2014',desc:'夏日晨'},
+{file:'C360_2014-05-28-19-41-23-060.jpg',year:'2014',desc:'黄昏时'},
+{file:'IMAG0072.jpg',year:'2014',desc:'生活片段'},
+{file:'IMAG0097_mh1405844722388.jpg',year:'2014',desc:'珍贵记忆'},
+{file:'IMG_20140517_105436.jpg',year:'2014',desc:'五月时光'},
+{file:'P1060417.JPG',year:'2014',desc:'春日记忆'},
+{file:'P1070306.JPG',year:'2014',desc:'夏日回忆'},
+{file:'P1070401.JPG',year:'2014',desc:'美好瞬间'},
+{file:'IMAG0436.jpg',year:'2015',desc:'2015 年回忆'},
+{file:'IMAG1389.jpg',year:'2015',desc:'岁月如歌'},
+{file:'IMAG1393.jpg',year:'2015',desc:'美好时光'},
+{file:'IMAG1396.jpg',year:'2015',desc:'珍贵记忆'},
+{file:'IMG_4379.JPG',year:'2015',desc:'青春年华'},
+{file:'IMG_4515.JPG',year:'2015',desc:'温馨时刻'},
+{file:'mmexport1440303697898_mh1440303747144.jpg',year:'2015',desc:'夏日回忆'},
+{file:'mmexport1444907360504.jpg',year:'2015',desc:'秋日时光'},
+{file:'mmexport1445125945280.jpg',year:'2015',desc:'生活片段'},
+{file:'mmexport1445125948401.jpg',year:'2015',desc:'美好瞬间'},
+{file:'mmexport1445125954966.jpg',year:'2015',desc:'珍贵记忆'},
+{file:'mmexport1445494468284(1).jpg',year:'2015',desc:'岁月静好'},
+{file:'5K4A5720.JPG',year:'2015wedding',desc:'婚纱照'},
+{file:'5K4A5740.JPG',year:'2015wedding',desc:'最美时刻'},
+{file:'5K4A5743.JPG',year:'2015wedding',desc:'幸福瞬间'},
+{file:'5K4A5765.JPG',year:'2015wedding',desc:'婚礼现场'},
+{file:'5K4A5774.JPG',year:'2015wedding',desc:'甜蜜时光'},
+{file:'5K4A5781.JPG',year:'2015wedding',desc:'爱的见证'},
+{file:'5K4A5814.JPG',year:'2015wedding',desc:'婚礼记忆'},
+{file:'5K4A5912.JPG',year:'2015wedding',desc:'幸福时刻'},
+{file:'5K4A5916.JPG',year:'2015wedding',desc:'甜蜜瞬间'},
+{file:'5K4A5963.JPG',year:'2015wedding',desc:'婚礼现场'},
+{file:'5K4A5974.JPG',year:'2015wedding',desc:'爱的誓言'},
+{file:'5K4A5979.jpg',year:'2015wedding',desc:'幸福时光'},
+{file:'5K4A6021.JPG',year:'2015wedding',desc:'婚礼记忆'},
+{file:'5K4A6022.JPG',year:'2015wedding',desc:'甜蜜时刻'},
+{file:'5K4A6139.JPG',year:'2015wedding',desc:'爱的见证'},
+{file:'5K4A6145.JPG',year:'2015wedding',desc:'幸福瞬间'},
+{file:'5K4A6152.JPG',year:'2015wedding',desc:'婚礼现场'},
+{file:'5K4A6194.JPG',year:'2015wedding',desc:'甜蜜时光'},
+{file:'5K4A6197.JPG',year:'2015wedding',desc:'爱的记忆'},
+{file:'5K4A6224.JPG',year:'2015wedding',desc:'幸福时刻'},
+{file:'5K4A6258.JPG',year:'2015wedding',desc:'婚礼记忆'},
+{file:'5K4A6282.JPG',year:'2015wedding',desc:'甜蜜瞬间'},
+{file:'5K4A6283.JPG',year:'2015wedding',desc:'爱的见证'},
+{file:'5K4A6287.JPG',year:'2015wedding',desc:'幸福时光'},
+{file:'1468024740967_share.jpg',year:'2016',desc:'2016 年回忆'},
+{file:'20160331_213359.jpg',year:'2016',desc:'春日夜'},
+{file:'20160401_120004.jpg',year:'2016',desc:'愚人节'},
+{file:'20160401_120122.jpg',year:'2016',desc:'美好时光'},
+{file:'20160402_214926.jpg',year:'2016',desc:'周末时光'},
+{file:'20160402_223009.jpg',year:'2016',desc:'夜晚记忆'},
+{file:'20160402_223838.jpg',year:'2016',desc:'深夜时光'},
+{file:'20160402_224430.jpg',year:'2016',desc:'珍贵瞬间'},
+{file:'20160403_145744.jpg',year:'2016',desc:'春日午后'},
+{file:'20160618_083127.jpg',year:'2016',desc:'夏日晨'},
+{file:'20160618_151054.jpg',year:'2016',desc:'午后时光'},
+{file:'20160618_211320.jpg',year:'2016',desc:'夜晚记忆'},
+{file:'20160619_150940.jpg',year:'2016',desc:'周日时光'},
+{file:'20160709_124902.jpg',year:'2016',desc:'夏日回忆'},
+{file:'20160710_095612.jpg',year:'2016',desc:'清晨时光'},
+{file:'20160710_131048.jpg',year:'2016',desc:'午后记忆'},
+{file:'20161002_163942_mh1475397699417.jpg',year:'2016',desc:'国庆时光'},
+{file:'20161004_093248.jpg',year:'2016',desc:'秋日晨'},
+{file:'20161024_005500.jpg',year:'2016',desc:'深夜记忆'},
+{file:'20161109_233642.jpg',year:'2016',desc:'初冬时光'},
+{file:'IMG_20160116_144359_mh1452949335611.jpg',year:'2016',desc:'冬日回忆'},
+{file:'IMG_20160117_100720.jpg',year:'2016',desc:'周末时光'},
+{file:'IMG_20160117_160416.jpg',year:'2016',desc:'午后记忆'},
+{file:'IMG_20160117_160918.jpg',year:'2016',desc:'美好瞬间'},
+{file:'IMG_20160206_201427_1.jpg',year:'2016',desc:'春节记忆'},
+{file:'IMG_20160313_223113.jpg',year:'2016',desc:'春日夜'},
+{file:'IMG_4379.JPG',year:'2015',desc:'青春年华'},
+{file:'IMG_4515.JPG',year:'2015',desc:'温馨时刻'},
+{file:'P1060417.JPG',year:'2014',desc:'春日记忆'},
+{file:'P1070306.JPG',year:'2014',desc:'夏日回忆'},
+{file:'P1070401.JPG',year:'2014',desc:'美好瞬间'},
+{file:'PicsArt_06-26-12.41.49.jpg',year:'2016',desc:'夏日回忆'}
+];
+
+// 生成背景爱心
+function createHearts(){
+  const container=document.getElementById('bgHearts');
+  for(let i=0;i<20;i++){
+    const heart=document.createElement('div');
+    heart.className='heart';
+    heart.innerHTML=['💕','💖','💗','💓','💞'][Math.floor(Math.random()*5)];
+    heart.style.left=Math.random()*100+'%';
+    heart.style.top=Math.random()*100+'%';
+    heart.style.animationDelay=Math.random()*5+'s';
+    heart.style.fontSize=(15+Math.random()*20)+'px';
+    container.appendChild(heart);
+  }
 }
+
+function renderPhotos(filter='all'){
+  const grid=document.getElementById('photoGrid');
+  grid.innerHTML='';
+  const filtered=filter==='all'?photos:photos.filter(p=>p.year===filter);
+  filtered.forEach((p,i)=>{
+    const card=document.createElement('div');
+    card.className='photo-card';
+    card.style.animationDelay=(i*0.05)+'s';
+    card.innerHTML=`<img src="images/${p.file}" alt="${p.desc}" loading="lazy" onclick="openModal(this.src)"><div class="photo-info"><h3>${p.desc}</h3><p>${p.year}年</p></div>`;
+    grid.appendChild(card);
+  });
+}
+
+function filterYear(year){
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderPhotos(year);
+}
+
 function openModal(src){document.getElementById('modalImg').src=src;document.getElementById('photoModal').classList.add('active');document.body.style.overflow='hidden';}
 function closeModal(){document.getElementById('photoModal').classList.remove('active');document.body.style.overflow='';}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
-// 照片数据
-const photoData={
-  2013:[{file:'JING 234.jpg',desc:'美好回忆'},{file:'JING 235.jpg',desc:'珍贵时刻'},{file:'JING 236.jpg',desc:'难忘瞬间'},{file:'JING 237.jpg',desc:'温馨时光'}],
-  2014:[{file:'JING 1064.png',desc:'2014 年回忆'},{file:'JING 1098.png',desc:'美好时光'},{file:'JING 1373.jpg',desc:'珍贵记忆'}],
-  2015:[],
-  2015wedding:[],
-  2016:[]
-};
-function renderGrid(year,gridId){
-  const grid=document.getElementById(gridId);
-  const allGrid=document.getElementById('allGrid');
-  const photos=photoData[year]||[];
-  photos.forEach((p,i)=>{
-    const card=document.createElement('div');
-    card.className='photo-card';
-    card.innerHTML=`<img src="images/${year}/${p.file}" alt="${p.desc}" loading="lazy" onclick="openModal(this.src)"><div class="photo-info"><h3>${p.desc}</h3><p>${year}年</p></div>`;
-    grid.appendChild(card);
-    if(allGrid){const allCard=card.cloneNode(true);allCard.querySelector('img').onclick=function(){openModal(this.src)};allGrid.appendChild(allCard);}}
-}
-['2013','2014','2015','2015wedding','2016'].forEach(y=>renderGrid(y,y+'Grid'));
+
+createHearts();
+renderPhotos();
 </script>
 </body>
 </html>

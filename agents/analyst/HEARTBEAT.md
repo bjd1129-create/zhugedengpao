@@ -33,11 +33,41 @@ curl -s "https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT"
 - 异常信号（如有）
 - 分析结论
 
-### 6. 向小花汇报（如有重大发现）
-发 sessions_send 通知小花：
-- 异常品种
-- 数据依据
-- 建议行动
+### 6. 主动告警交易员（重大发现）
+
+**触发条件**：
+- 价格波动 >5%（1 小时）
+- RSI >70 或 <30（超买/超卖）
+- MACD 金叉/死叉
+- 资金费率异常 >0.1%
+
+**告警流程**：
+```bash
+# 1. 写入共享消息
+echo '{"from":"数据分析师","to":"交易员","type":"alert","content":"BTC RSI 72 超买，建议减仓","priority":"urgent"}' > agents/shared/messages/trader.json
+
+# 2. sessions_send 小花（紧急）
+sessions_send(sessionKey="agent:main:main", message="🚨 告警：BTC 超买")
+
+# 3. 记录日志
+写入 memory/YYYY-MM-DD.md
+```
+
+**告警格式**：
+```json
+{
+  "from": "数据分析师",
+  "to": "交易员",
+  "timestamp": "ISO 8601",
+  "type": "alert",
+  "symbol": "BTC/ETH/ES/NQ",
+  "signal": "超买/超卖/金叉/死叉/暴跌",
+  "data": {"rsi": 72, "price": 67500},
+  "suggestion": "减仓/观望/建仓",
+  "confidence": "高/中/低",
+  "priority": "urgent/normal"
+}
+```
 
 ---
 

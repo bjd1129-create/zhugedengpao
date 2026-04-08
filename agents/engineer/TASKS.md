@@ -85,3 +85,46 @@
 ---
 
 _工程师 | 2026-04-08 精简后_
+
+---
+
+## 🔴 新增任务：交易记录网页更新（2026-04-08 21:25）
+
+### 任务描述
+
+创建交易记录展示页面，实时更新所有模拟盘的交易记录和盈亏。
+
+### 要求
+
+1. **交易记录表格**
+   - 显示所有模拟盘交易
+   - 支持筛选（按模拟盘/时间/状态）
+   - 实时盈亏更新
+
+2. **数据文件**
+   - `website/data/trading/us_trades.json` - 美股
+   - `website/data/trading/crypto_trades.json` - 加密货币
+   - `website/data/trading/poly_trades.json` - Polymarket
+   - `website/data/trading/futures_trades.json` - 期货
+   - `website/data/trading/all_trades.json` - 汇总
+
+3. **更新流程**
+   - 交易员写入 `agents/shared/data/trades_today.json`
+   - 工程师每日 22:30 更新网页数据
+   - 自动部署到 Vercel
+
+4. **页面设计**
+   - 复用 trading.html 风格
+   - 新增"交易记录"标签页
+   - 支持导出 CSV
+
+### 截止时间
+
+- 2026-04-09 12:00：页面开发完成
+- 2026-04-09 22:30：首次更新测试
+
+### 优先级
+
+🔴 P0（老庄直接指令）
+
+---

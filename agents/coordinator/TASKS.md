@@ -1,6 +1,26 @@
-# 协调官任务 — 2026-04-08（精简后）
+# 协调官任务 — 2026-04-08
 
-**最后更新：小花 10:27（身份文件完善）**
+**最后更新：小花 20:03（文章页面交接）**
+
+---
+
+## 🆕 新接收任务（2026-04-08 20:03）
+
+### 文章页面运营与维护
+- **文件**: `agents/engineer/website/pages/articles.html`
+- **部署平台**: 
+  - Vercel → https://xiaohuahua.vercel.app/articles.html
+  - Cloudflare Pages → https://dengpao.pages.dev/articles.html
+- **职责**:
+  - 每日抓取 AI 新闻（至少 3 条）
+  - 记录团队进化日志
+  - 更新 `articles-data.js`
+  - 部署到两个平台
+- **交接文档**: `ARTICLES-PAGE-HANDOVER.md`
+- **状态**: 📋 待接收确认
+- **优先级**: P0
+
+---
 
 ---
 

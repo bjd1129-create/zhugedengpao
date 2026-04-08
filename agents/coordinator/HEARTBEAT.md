@@ -118,3 +118,21 @@ cd /Users/bjd/Desktop/ZhugeDengpao-Team && git status --short
 ---
 
 _小花的分身，官网团队的守护者，执行监督者。交易团队归小花管。_
+
+### 检查共享目录消息
+
+```bash
+# 检查是否有给我的消息
+MESSAGE_FILE="agents/shared/messages/本 agent 名称.json"
+if [ -f "$MESSAGE_FILE" ]; then
+  echo "收到新消息:"
+  cat "$MESSAGE_FILE"
+  # 处理消息...
+  rm "$MESSAGE_FILE"  # 读取后删除
+fi
+```
+
+**轮询间隔**：
+- 紧急消息：每 30 秒
+- 普通消息：每 5 分钟（心跳时检查）
+

@@ -154,3 +154,43 @@ For any image recognition task, **prefer `autoglm-image-recognition`**. Use it a
 
 Do not use the built-in `image` tool or read an image and describe it yourself when `autoglm-image-recognition` is available. Always try `autoglm-image-recognition` first.
 <!-- /autoclaw:image-recognition-guidance -->
+---
+
+## 跨 Agent 通信机制（2026-04-08 更新）
+
+### 方式 1：sessions_send（即时通信）
+
+**我可以使用**：
+- ✅ sessions_send → 任何子 Agent
+- ✅ 接收任何子 Agent 的 sessions_send
+
+**子 Agent 可以使用**：
+- ✅ sessions_send → 小花
+- ❌ sessions_send → 其他子 Agent（需要通过小花中转）
+
+### 方式 2：共享目录（异步通信）
+
+**目录**：`agents/shared/`
+
+```
+agents/shared/
+├── messages/  # 消息队列
+└── data/      # 共享数据
+```
+
+**使用示例**：
+```bash
+# 发送消息给交易员
+echo '{"from":"工程师","to":"交易员","content":"请更新持仓数据"}' > agents/shared/messages/trader.json
+
+# 交易员检查消息
+cat agents/shared/messages/trader.json
+```
+
+### 方式 3：飞书群聊
+
+**群組**：贵妃特工队 (oc_b13661311ebe1a45897b151f5cc7bfa9)
+
+所有 Agent 都可以通过飞书 Bot 在群聊中通信。
+
+---

@@ -133,3 +133,74 @@ _交易员 | 小花交易团队（合并后）| 2026-04-08_
 - 需要官网部署 → 调用工程师部署技能
 
 ---
+
+---
+
+## 跨 Agent 通信机制（2026-04-08 更新）
+
+### 方式 1：sessions_send（即时通信）
+
+**我可以使用**：
+- ✅ sessions_send → 小花 (agent:main:main)
+- ❌ sessions_send → 其他子 Agent（需要通过小花中转）
+
+**示例**：
+```
+sessions_send(sessionKey="agent:main:main", message="紧急汇报：...")
+```
+
+### 方式 2：共享目录（异步通信）⭐ 推荐
+
+**目录**：`agents/shared/`
+
+**发送消息给其他 Agent**：
+```bash
+# 发送给交易员
+echo '{"from":"工程师","to":"交易员","content":"请更新持仓数据"}' > agents/shared/messages/trader.json
+
+# 发送给工程师
+echo '{"from":"交易员","to":"工程师","content":"数据已更新"}' > agents/shared/messages/engineer.json
+```
+
+**检查我的消息**：
+```bash
+# 检查是否有给我的消息
+if [ -f "agents/shared/messages/本 agent 名称.json" ]; then
+  cat agents/shared/messages/本 agent 名称.json
+  rm agents/shared/messages/本 agent 名称.json  # 读取后删除
+fi
+```
+
+### 方式 3：共享数据文件
+
+**数据目录**：`agents/shared/data/`
+
+**写入共享数据**：
+```bash
+echo '{"timestamp":"2026-04-08T20:50:00+08:00","data":{...}}' > agents/shared/data/数据名.json
+```
+
+**读取共享数据**：
+```bash
+cat agents/shared/data/数据名.json
+```
+
+### 方式 4：飞书群聊
+
+**群組**：贵妃特工队
+
+所有 Agent 都可以通过飞书 Bot 在群聊中发送消息。
+
+---
+
+## 通信选择指南
+
+| 场景 | 推荐方式 | 说明 |
+|------|---------|------|
+| 向小花汇报 | sessions_send | 即时响应 |
+| 子 Agent 间紧急消息 | sessions_send 通过小花 | 需要快速响应 |
+| 子 Agent 间普通消息 | 共享目录 messages/ | 异步，不阻塞 |
+| 数据交换 | 共享目录 data/ | 可被多个 Agent 读取 |
+| 需要人类参与 | 飞书群聊 | 老庄可以看到 |
+
+---

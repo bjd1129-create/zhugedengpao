@@ -55,3 +55,21 @@ python3 agents/trader/trading_simulator.py
 
 ### 6. 记录
 写入 agents/trader/memory/YYYY-MM-DD.md
+
+### 检查共享目录消息
+
+```bash
+# 检查是否有给我的消息
+MESSAGE_FILE="agents/shared/messages/本 agent 名称.json"
+if [ -f "$MESSAGE_FILE" ]; then
+  echo "收到新消息:"
+  cat "$MESSAGE_FILE"
+  # 处理消息...
+  rm "$MESSAGE_FILE"  # 读取后删除
+fi
+```
+
+**轮询间隔**：
+- 紧急消息：每 30 秒
+- 普通消息：每 5 分钟（心跳时检查）
+

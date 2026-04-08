@@ -1,0 +1,88 @@
+{
+  "timestamp": "2026-04-08T20:02:42.282277",
+  "account": {
+    "initial_balance": 10000.0,
+    "cash_balance": 4000.0,
+    "invested": 6000.0,
+    "total_value": 10000.0
+  },
+  "positions": [
+    {
+      "market_id": "trump-announces-end-of-military-operations-against-iran-by",
+      "question": "特朗普宣布结束对伊朗的军事行动",
+      "outcome": "4 月 30 日",
+      "shares": 4000.0,
+      "avg_cost": 0.5555555555555556,
+      "current_value": 7200.0,
+      "pnl": 3200.0,
+      "pnl_pct": 80.0,
+      "stop_loss": 0.5,
+      "take_profit": 1.0,
+      "status": "OPEN"
+    },
+    {
+      "market_id": "next-prime-minister-of-hungary",
+      "question": "匈牙利下任总理",
+      "outcome": "Péter Magyar",
+      "shares": 2000.0,
+      "avg_cost": 0.641025641025641,
+      "current_value": 3120.0,
+      "pnl": 1120.0,
+      "pnl_pct": 56.00000000000001,
+      "stop_loss": 0.5,
+      "take_profit": 1.0,
+      "status": "OPEN"
+    }
+  ],
+  "orders": [
+    {
+      "timestamp": "2026-04-08T20:02:42.282236",
+      "market_id": "trump-announces-end-of-military-operations-against-iran-by",
+      "question": "特朗普宣布结束对伊朗的军事行动",
+      "outcome": "4 月 30 日",
+      "action": "BUY",
+      "shares": 4000.0,
+      "price_per_share": 0.5555555555555556,
+      "total_cost": 4000.0,
+      "potential_payout": 7200.0,
+      "expected_return": 2272.0,
+      "stop_loss": 0.5,
+      "take_profit": 1.0,
+      "reason": "已有官方停火声明，2 周停火期到 4 月 22 日，4 月 30 日前结束概率>70%",
+      "news_sources": [
+        "华盛顿邮报",
+        "CNN",
+        "BBC",
+        "NYT"
+      ],
+      "status": "PENDING"
+    },
+    {
+      "timestamp": "2026-04-08T20:02:42.282264",
+      "market_id": "next-prime-minister-of-hungary",
+      "question": "匈牙利下任总理",
+      "outcome": "Péter Magyar",
+      "action": "BUY",
+      "shares": 2000.0,
+      "price_per_share": 0.641025641025641,
+      "total_cost": 2000.0,
+      "potential_payout": 3120.0,
+      "expected_return": 1276.8,
+      "stop_loss": 0.5,
+      "take_profit": 1.0,
+      "reason": "民调领先，反 Orbán 情绪高涨，国际观察员看好",
+      "news_sources": [
+        "BBC",
+        "NYT",
+        "Reuters"
+      ],
+      "status": "PENDING"
+    }
+  ],
+  "strategy": {
+    "name": "事件驱动 v2.0",
+    "focus": "地缘政治 + 政治",
+    "max_position": 0.4,
+    "max_exposure": 0.6
+  }
+}

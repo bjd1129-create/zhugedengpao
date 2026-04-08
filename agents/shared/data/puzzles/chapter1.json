@@ -1,0 +1,51 @@
+{
+  "chapter": 1,
+  "chapter_name": "数字之谜",
+  "levels": [
+    {
+      "level": 1,
+      "type": "math",
+      "question": "我有 3 个头，每个头有 4 只眼睛，我有多少只眼睛？",
+      "answer": 12,
+      "hints": ["用乘法", "3 乘以 4"],
+      "difficulty": 1,
+      "reward": 10
+    },
+    {
+      "level": 2,
+      "type": "math",
+      "question": "2, 4, 6, 8, 下一个数字是？",
+      "answer": 10,
+      "hints": ["每次加 2", "偶数数列"],
+      "difficulty": 1,
+      "reward": 10
+    },
+    {
+      "level": 3,
+      "type": "math",
+      "question": "15 ÷ 3 + 7 = ?",
+      "answer": 12,
+      "hints": ["先除后加", "15÷3=5"],
+      "difficulty": 2,
+      "reward": 15
+    },
+    {
+      "level": 4,
+      "type": "math",
+      "question": "100 - 25 × 3 = ?",
+      "answer": 25,
+      "hints": ["先乘后减", "25×3=75"],
+      "difficulty": 2,
+      "reward": 15
+    },
+    {
+      "level": 5,
+      "type": "math",
+      "question": "一个数加上它自己等于 20，这个数是？",
+      "answer": 10,
+      "hints": ["x + x = 20", "2x = 20"],
+      "difficulty": 2,
+      "reward": 20
+    }
+  ]
+}

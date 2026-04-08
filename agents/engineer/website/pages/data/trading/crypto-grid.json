@@ -1,0 +1,9 @@
+{
+  "name": "加密货币网格",
+  "provider": "Binance",
+  "status": "STOPPED",
+  "stopFile": "data/trading/STOP_TRADING.flag",
+  "cash": 9500,
+  "currency": "USDT",
+  "lastUpdate": "2026-04-08T00:00:00+08:00"
+}

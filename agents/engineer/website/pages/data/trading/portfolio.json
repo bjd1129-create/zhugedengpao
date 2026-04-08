@@ -1,0 +1,230 @@
+{
+  "account": {
+    "cashBalance": 6848.44,
+    "totalValue": 6848.44,
+    "initialBalance": 10000.0,
+    "totalPnL": -3151.56,
+    "totalPnLPercent": -31.52,
+    "totalTrades": 84,
+    "todayPnL": 0.0,
+    "todayPnLPercent": 0.0
+  },
+  "holdings": [
+    {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 71646.5,
+      "value": 0.0,
+      "pnl": 0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "ETH",
+      "name": "Ethereum",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 2250.0,
+      "value": 0.0,
+      "pnl": 0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 9.37,
+      "value": 0.0,
+      "pnl": 0,
+      "pnlPercent": 0
+    },
+    {
+      "symbol": "ADA",
+      "name": "Cardano",
+      "amount": 0,
+      "avgPrice": 0,
+      "currentPrice": 0.259,
+      "value": 0.0,
+      "pnl": 0,
+      "pnlPercent": 0
+    }
+  ],
+  "gridState": {
+    "BTC": {
+      "levels": [
+        65000,
+        66000,
+        67000,
+        68000,
+        69000,
+        70000,
+        71000,
+        72000,
+        73000,
+        74000,
+        75000,
+        76000,
+        77000,
+        78000
+      ],
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": null,
+      "fills": [],
+      "note": "v5.0 网格重建 - 间距约 1.4%"
+    },
+    "ETH": {
+      "levels": [
+        2000,
+        2050,
+        2100,
+        2150,
+        2200,
+        2250,
+        2300,
+        2350,
+        2400,
+        2450,
+        2500
+      ],
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": null,
+      "fills": [],
+      "note": "v5.0 网格重建 - 间距约 2.3%"
+    },
+    "AVAX": {
+      "levels": [
+        8.0,
+        8.2,
+        8.4,
+        8.6,
+        8.8,
+        9.0,
+        9.2,
+        9.4,
+        9.6,
+        9.8,
+        10.0,
+        10.2,
+        10.4,
+        10.6,
+        10.8,
+        11.0
+      ],
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": null,
+      "fills": [],
+      "note": "v5.0 网格重建 - 间距 2%"
+    },
+    "ADA": {
+      "levels": [
+        0.22,
+        0.225,
+        0.23,
+        0.235,
+        0.24,
+        0.245,
+        0.25,
+        0.255,
+        0.26,
+        0.265,
+        0.27,
+        0.275,
+        0.28,
+        0.285,
+        0.29,
+        0.3
+      ],
+      "position": 0,
+      "avgPrice": 0,
+      "lastGridIdx": null,
+      "fills": [],
+      "note": "v5.0 网格重建 - 间距 1.5%"
+    }
+  },
+  "recentTrades": [
+    {
+      "time": "2026-04-08T19:25:00+08:00",
+      "side": "GRID_REBUILD",
+      "symbol": "ALL",
+      "note": "网格 v5.0 重建 - AVAX/ADA/ETH/BTC 新网格生效"
+    },
+    {
+      "time": "2026-04-07T13:36:05+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 23.22880372,
+      "price": 8.61,
+      "note": "grid-2↓"
+    },
+    {
+      "time": "2026-04-07T13:15:59+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 23.06805075,
+      "price": 8.67,
+      "note": "grid-3↓"
+    },
+    {
+      "time": "2026-04-07T12:35:52+08:00",
+      "side": "BUY",
+      "symbol": "AVAX",
+      "amount": 23.01495972,
+      "price": 8.69,
+      "note": "grid-4↓"
+    },
+    {
+      "time": "2026-04-07T12:35:52+08:00",
+      "side": "BUY",
+      "symbol": "ADA",
+      "amount": 815.32816959,
+      "price": 0.2453,
+      "note": "grid-9↓"
+    },
+    {
+      "time": "2026-04-06T16:42:02+08:00",
+      "side": "BUY",
+      "symbol": "ADA",
+      "amount": 781.86082877,
+      "price": 0.2558,
+      "note": "grid-17↓"
+    },
+    {
+      "time": "2026-04-06T16:31:59+08:00",
+      "side": "SELL",
+      "symbol": "ADA",
+      "amount": 784.31372549,
+      "price": 0.256,
+      "pnl": 0.78,
+      "note": "grid-17↑ PnL:$+0.78"
+    }
+  ],
+  "equityCurve": [
+    {
+      "date": "2026-04-04",
+      "value": 10014.25
+    },
+    {
+      "date": "2026-04-05",
+      "value": 9894.36
+    },
+    {
+      "date": "2026-04-06",
+      "value": 6883.81
+    },
+    {
+      "date": "2026-04-07",
+      "value": 6848.44
+    }
+  ],
+  "lastUpdated": "2026-04-08T19:25:00+08:00",
+  "strategy": {
+    "name": "密集网格 v5.0",
+    "version": "5.0",
+    "updateNote": "网格间距扩大 (AVAX 2%, ADA 1.5%), 止损线 -20%, 现金保留 30%"
+  }
+}

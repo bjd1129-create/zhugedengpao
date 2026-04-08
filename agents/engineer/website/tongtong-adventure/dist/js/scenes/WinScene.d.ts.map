@@ -1,0 +1,1 @@
+{"version":3,"file":"WinScene.d.ts","sourceRoot":"","sources":["../../../js/scenes/WinScene.ts"],"names":[],"mappings":"AAAA,OAAO,MAAM,MAAM,QAAQ,CAAC;AAE5B,qBAAa,QAAS,SAAQ,MAAM,CAAC,KAAK;IACxC,OAAO,CAAC,KAAK,CAAa;;IAM1B,IAAI,CAAC,IAAI,EAAE;QAAE,KAAK,EAAE,MAAM,CAAA;KAAE,GAAG,IAAI;IAInC,MAAM,IAAI,IAAI;IAuFd,OAAO,CAAC,eAAe;CAuBxB"}

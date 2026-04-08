@@ -254,6 +254,9 @@ nav{padding:0 16px;top:0}
 .speech-bubble{position:absolute;bottom:70px;right:0;background:#fff;border:1.5px solid #D4883C;border-radius:16px;padding:10px 16px;box-shadow:0 4px 16px rgba(0,0,0,0.12);max-width:200px;font-size:14px;color:#3D2314;font-family:'Noto Sans SC',sans-serif;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s;pointer-events:none;white-space:nowrap}
 .speech-bubble::after{content:'';position:absolute;bottom:-8px;right:24px;border:8px solid transparent;border-top-color:#fff}
 .speech-bubble.visible{opacity:1;transform:translateY(0)}
+.heartbeat-ripple{position:absolute;bottom:30px;right:30px;width:60px;height:60px;border-radius:50%;border:2px solid rgba(224,122,90,0.6);animation:heartbeatRipple 1.5s ease-out infinite;pointer-events:none}
+.heartbeat-ripple::before{content:'';position:absolute;top:-2px;left:-2px;right:-2px;bottom:-2px;border-radius:50%;border:2px solid rgba(224,122,90,0.3);animation:heartbeatRipple 1.5s ease-out infinite 0.5s}
+@keyframes heartbeatRipple{0%{transform:scale(1);opacity:1}100%{transform:scale(2.5);opacity:0}}
 .tab-new-badge{display:inline-block;background:linear-gradient(135deg,#FF6B6B,#EE5A5A);color:#fff;font-size:10px;padding:2px 6px;border-radius:8px;margin-left:4px;font-weight:bold;animation:badge-pulse 2s ease-in-out infinite}
 @keyframes badge-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
 .diary-carousel-dot.active{background:#D4883C;width:20px;border-radius:4px}
@@ -315,6 +318,8 @@ nav{padding:0 16px;top:0}
 
 
 <a href="tongtong-letters.html">💌 桐桐</a>
+<a href="tongtong-adventure/dist/index.html">🎮 游戏</a>
+<a href="bagua.html">☯️ 八卦</a>
 <a href="trading.html">📈 操盘</a>
 
 </div>
@@ -1612,6 +1617,7 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
   <div class="speech-bubble" id="speechBubble">
     <span id="bubbleText">早安！今天也要加油哦~</span>
   </div>
+  <div class="heartbeat-ripple" id="heartbeatRipple" style="display:none"></div>
   <img src="images/xiaohua-garfield-lobster-v2.jpg" alt="小花" id="floatLobster" style="width:60px;height:60px;border-radius:50%;border:3px solid #E07A5A;box-shadow:0 4px 16px rgba(224,122,90,0.35);object-fit:cover;cursor:pointer;animation:breathe 3s ease-in-out infinite">
 </div>
 <script>
@@ -1630,6 +1636,7 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
   var bubble = document.getElementById("speechBubble");
   var text = document.getElementById("bubbleText");
   var lb = document.getElementById("floatLobster");
+  var ripple = document.getElementById("heartbeatRipple");
   var autoTimer = null;
 
   function showBubble() {
@@ -1643,8 +1650,19 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
     }, 10000);
   }
 
+  function showHeartbeat() {
+    if (!ripple) return;
+    ripple.style.display = 'block';
+    setTimeout(function() {
+      ripple.style.display = 'none';
+    }, 3000);
+  }
+
   if (lb) {
-    lb.addEventListener("click", showBubble);
+    lb.addEventListener("click", function() {
+      showHeartbeat();
+      showBubble();
+    });
     lb.addEventListener("mouseenter", function() {
       if (!bubble || !text) return;
       text.textContent = "你好呀！";

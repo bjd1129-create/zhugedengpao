@@ -103,6 +103,7 @@ nav {
   transition: color 0.2s;
 }
 .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+.hamburger { display:none; background:none; border:none; font-size:15px; cursor:pointer; color:var(--text); font-weight:600; padding:6px 12px; border-radius:8px; border:1.5px solid var(--border); }
 main {
   position: relative;
   z-index: 1;
@@ -402,8 +403,10 @@ footer {
   font-size: 12px;
   color: var(--muted);
   border-top: 1.5px solid var(--border);
-  background: var(--bg-subtle);
+  background: linear-gradient(180deg, var(--bg-subtle) 0%, rgba(232,114,74,0.05) 100%);
+  animation: footerGlow 3s ease-in-out infinite;
 }
+@keyframes footerGlow { 0%, 100% { box-shadow: 0 0 5px rgba(232,114,74,0.08); } 50% { box-shadow: 0 0 25px rgba(232,114,74,0.2); } }
 footer a {
   color: var(--muted);
   text-decoration: none;
@@ -412,7 +415,9 @@ footer a {
 }
 footer a:hover { color: var(--accent); }
 @media (max-width: 768px) {
-  .nav-links { display: none; }
+  .hamburger { display:block; }
+  .nav-links { display:none; }
+  .nav-links.open { display:flex; flex-direction:column; position:absolute; top:64px; right:16px; background:var(--surface); border:1.5px solid var(--border); border-radius:10px; padding:12px 16px; gap:12px; box-shadow:0 4px 15px var(--shadow-deep); }
   main { padding: 24px 16px 60px; }
   .diary-grid { grid-template-columns: 1fr; }
   .story-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -460,15 +465,14 @@ footer a:hover { color: var(--accent); }
 
 <nav>
   <a href="index.html" class="nav-logo"><span>🦞</span> 老庄与小花</a>
+  <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
   <div class="nav-links">
     <a href="index.html">首页</a>
     <a href="diary.html" class="active">📖 日记</a>
     <a href="articles.html">📝 文章</a>
-    
-    
     <a href="tongtong-letters.html">💌 桐桐</a>
+    <a href="bagua.html">☯️ 八卦</a>
     <a href="trading.html">📈 操盘</a>
-    
   </div>
 </nav>
 
@@ -554,8 +558,11 @@ function renderDiaryGrid() {
     const card = document.createElement('a');
     card.className = 'diary-card';
     card.onclick = function(e) { e.preventDefault(); showDiary(key); };
+    const dateStr = d.date || '';
+    const formattedDate = dateStr ? new Date(dateStr).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' }) : '';
     card.innerHTML = '<img src="' + (d.img || d.thumb) + '" alt="' + d.title + '" loading="lazy">'
-      + '<div class="info"><span class="day">' + (d.title.split('：')[0] || '日记') + '</span>'
+      + '<div class="info"><div class="date-line" style="font-size:12px;color:#999;margin-bottom:6px;font-weight:600">' + formattedDate + '</div>'
+      + '<span class="day">' + (d.title.split('：')[0] || '日记') + '</span>'
       + '<h3>' + (d.title.split('：')[1] || d.title) + '</h3>'
       + '<p>' + ((d.text || d.content || '').substring(0, 80).replace(/\*\*/g,'').replace(/\\n/g,' ') + '...') + '</p></div>';
     grid.appendChild(card);

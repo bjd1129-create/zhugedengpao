@@ -1,0 +1,79 @@
+{
+  "timestamp": "2026-04-08T02:00:44+08:00",
+  "strategy": {
+    "name": "价值定投策略 v1.0",
+    "version": "1.0",
+    "description": "月定投指数 ETF + 季度再平衡 + 股息复利",
+    "initial_cash": 1000000,
+    "allocation": {
+      "SPY": {
+        "target": 0.4,
+        "name": "标普 500ETF",
+        "mode": "定投"
+      },
+      "QQQ": {
+        "target": 0.3,
+        "name": "纳斯达克 100ETF",
+        "mode": "定投"
+      },
+      "VTI": {
+        "target": 0.2,
+        "name": "全市场 ETF",
+        "mode": "定投"
+      },
+      "BND": {
+        "target": 0.1,
+        "name": "债券 ETF",
+        "mode": "定投"
+      }
+    },
+    "monthly_invest": 10000,
+    "rebalance_threshold": 0.05
+  },
+  "account": {
+    "accountId": "21639635499102726",
+    "accountType": "PAPER",
+    "cashBalance": 1000000.0,
+    "totalValue": 1000000.0,
+    "initialBalance": 1000000.0,
+    "totalPnL": 0.0,
+    "totalPnLPercent": 0.0,
+    "buyingPower": 4000000.0,
+    "status": "active"
+  },
+  "positions": [],
+  "quotes": {
+    "SPY": {
+      "last": 653.44,
+      "prev_close": 658.93,
+      "change": -5.49,
+      "change_pct": -0.83
+    },
+    "QQQ": {
+      "last": 581.52,
+      "prev_close": 588.5,
+      "change": -6.98,
+      "change_pct": -1.19
+    },
+    "VTI": {
+      "last": 322.62,
+      "prev_close": 325.21,
+      "change": -2.59,
+      "change_pct": -0.8
+    },
+    "BND": {
+      "last": 73.38,
+      "prev_close": 73.47,
+      "change": -0.09,
+      "change_pct": -0.12
+    }
+  },
+  "allocation": [],
+  "history": [],
+  "lastUpdated": "2026-04-08T02:00:44+08:00",
+  "dataStatus": {
+    "quotes": "live",
+    "positions": "live",
+    "source": "Tiger OpenAPI SDK"
+  }
+}

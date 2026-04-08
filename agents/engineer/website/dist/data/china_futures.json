@@ -1,0 +1,112 @@
+{
+  "timestamp": "2026-04-09T02:42:31.484444",
+  "source": "东方财富",
+  "futures": [
+    {
+      "code": "IFM0",
+      "name": "沪深 300 当月连续",
+      "price": 4589.0,
+      "change": 162.0,
+      "change_pct": 3.66,
+      "open": 4500.2,
+      "high": 4592.8,
+      "low": 4495.8,
+      "prev_settle": 4427.0,
+      "volume": "3.70 万",
+      "open_interest": 50667,
+      "basis": -3358.4,
+      "basis_rate": -42.26,
+      "change_5min": 259.8,
+      "change_5min_pct": 6.0
+    },
+    {
+      "code": "IHM0",
+      "name": "上证 50 当月连续",
+      "price": 2908.5,
+      "change": 75.3,
+      "change_pct": 2.66,
+      "open": 2865.0,
+      "high": 2912.0,
+      "low": 2860.0,
+      "prev_settle": 2833.2,
+      "volume": "1.52 万",
+      "open_interest": 20145,
+      "basis": -5038.9,
+      "basis_rate": -63.4,
+      "change_5min": 57.4,
+      "change_5min_pct": 2.01
+    },
+    {
+      "code": "ICM0",
+      "name": "中证 500 当月连续",
+      "price": 7954.0,
+      "change": 413.6,
+      "change_pct": 5.49,
+      "open": 7701.0,
+      "high": 7955.0,
+      "low": 7701.0,
+      "prev_settle": 7540.4,
+      "volume": "4.99 万",
+      "open_interest": 57648,
+      "basis": 6.6,
+      "basis_rate": 0.08,
+      "change_5min": 150.1,
+      "change_5min_pct": 1.92
+    },
+    {
+      "code": "IMM0",
+      "name": "中证 1000 当月连续",
+      "price": 7947.4,
+      "change": 382.6,
+      "change_pct": 5.06,
+      "open": 7709.6,
+      "high": 7950.2,
+      "low": 7709.6,
+      "prev_settle": 7564.8,
+      "volume": "6.18 万",
+      "open_interest": 75412,
+      "basis": 0.0,
+      "basis_rate": 0.0,
+      "change_5min": 556.9,
+      "change_5min_pct": 7.54
+    }
+  ],
+  "anomalies": [
+    {
+      "code": "IFM0",
+      "name": "沪深 300 当月连续",
+      "price": 4589.0,
+      "change_pct": 3.66,
+      "severity": "MEDIUM",
+      "message": "沪深 300 当月连续 涨跌幅 +3.66% 超过阈值 3.0%",
+      "timestamp": "2026-04-09T02:42:31.484383"
+    },
+    {
+      "code": "ICM0",
+      "name": "中证 500 当月连续",
+      "price": 7954.0,
+      "change_pct": 5.49,
+      "severity": "HIGH",
+      "message": "中证 500 当月连续 涨跌幅 +5.49% 超过阈值 3.0%",
+      "timestamp": "2026-04-09T02:42:31.484394"
+    },
+    {
+      "code": "IMM0",
+      "name": "中证 1000 当月连续",
+      "price": 7947.4,
+      "change_pct": 5.06,
+      "severity": "HIGH",
+      "message": "中证 1000 当月连续 涨跌幅 +5.06% 超过阈值 3.0%",
+      "timestamp": "2026-04-09T02:42:31.484399"
+    }
+  ],
+  "summary": {
+    "IF_monthly": 4589.0,
+    "IC_monthly": 7954.0,
+    "IM_monthly": 7947.4,
+    "IH_monthly": 2908.5,
+    "max_change_pct": 5.49,
+    "anomaly_count": 3,
+    "update_time": "2026-04-09 02:42:31"
+  }
+}

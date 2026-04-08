@@ -72,6 +72,7 @@
       opacity: 1;
       color: var(--primary-brown);
     }
+    .hamburger { display:none; background:none; border:none; font-size:15px; cursor:pointer; color:#333; font-weight:600; padding:6px 12px; border-radius:8px; border:1.5px solid #ddd; }
 
     /* 主标题 */
     .hero {
@@ -185,10 +186,12 @@
     .footer {
       text-align: center;
       padding: 40px 24px;
-      background: #fff;
+      background: linear-gradient(180deg, #fff 0%, rgba(232,114,74,0.05) 100%);
       border-top: 1.5px solid var(--border-color);
       margin-top: 60px;
+      animation: footerGlow 3s ease-in-out infinite;
     }
+    @keyframes footerGlow { 0%, 100% { box-shadow: 0 0 5px rgba(232,114,74,0.08); } 50% { box-shadow: 0 0 25px rgba(232,114,74,0.2); } }
 
     .footer-heart {
       color: #e07a5a;
@@ -209,8 +212,10 @@
 
     /* 响应式 */
     @media (max-width: 768px) {
+      .hamburger { display:block; }
+      .nav-links { display:none; }
+      .nav-links.open { display:flex; flex-direction:column; position:absolute; top:56px; right:16px; background:#fff; border:1.5px solid #ddd; border-radius:10px; padding:12px 16px; gap:12px; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
       .hero h1 { font-size: 36px; }
-      .nav-links { display: none; }
       .letter-header { padding: 16px; }
       .letter-body { padding: 16px; }
     }
@@ -223,6 +228,7 @@
       <a href="/" class="nav-logo">
         🦞 老庄与小花
       </a>
+      <button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
       <div class="nav-links">
         <a href="/">首页</a>
         <a href="/tongtong-letters.html">桐桐的信</a>

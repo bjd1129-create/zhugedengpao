@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦞</text></svg>">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta property="og:title" content="操盘实录 | 老庄与小花">
+<meta property="og:description" content="3 个模拟盘实时追踪：美股、加密货币、Polymarket">
+<title>操盘实录 | 老庄与小花</title>
+<style>
+@font-face {
+  font-family: 'Smiley Sans';
+  src: url('fonts/smiley-sans.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-size:16px;font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;color:#222;overflow-x:hidden}
+.container{max-width:900px;margin:0 auto;padding:20px}
+
+/* Header */
+.page-header{text-align:center;padding:60px 20px 40px}
+.page-title{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,5vw,42px);color:#4A2508;margin-bottom:12px}
+.page-subtitle{font-size:15px;color:#666;max-width:600px;margin:0 auto}
+
+/* Cards Grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:30px}
+.card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 4px 20px rgba(0,0,0,0.08);transition:transform 0.3s}
+.card:hover{transform:translateY(-4px)}
+.card-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:2px solid #f0ebe6}
+.card-icon{font-size:32px}
+.card-title{font-size:18px;font-weight:700;color:#4A2508}
+.card-provider{font-size:12px;color:#999;margin-top:2px}
+
+/* Stats */
+.stat-row{display:flex;justify-content:space-between;margin-bottom:12px;padding:10px;background:#f9f7f4;border-radius:8px}
+.stat-label{font-size:13px;color:#666}
+.stat-value{font-size:15px;font-weight:700;color:#222}
+.stat-value.large{font-size:20px;color:#4A2508}
+
+/* Status Badge */
+.status-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700;margin-top:12px}
+.status-stopped{background:#fee2e2;color:#dc2626}
+.status-running{background:#dcfce7;color:#16a34a}
+
+/* Positions Table */
+.positions-section{margin-top:20px;padding-top:16px;border-top:2px solid #f0ebe6}
+.positions-title{font-size:14px;font-weight:700;color:#666;margin-bottom:12px}
+.position-item{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #f5f5f5;font-size:13px}
+.position-item:last-child{border-bottom:none}
+.position-market{color:#333}
+.position-return{color:#16a34a;font-weight:600}
+
+/* Footer */
+.page-footer{text-align:center;padding:40px 20px;color:#999;font-size:13px}
+.back-link{display:inline-block;margin-top:12px;color:#4A2508;text-decoration:none;font-weight:600}
+.back-link:hover{text-decoration:underline}
+
+/* Loading */
+.loading{text-align:center;padding:60px 20px;color:#999}
+.loading-spinner{display:inline-block;width:40px;height:40px;border:4px solid #f0ebe6;border-top-color:#4A2508;border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+@media(max-width:600px){
+  .cards-grid{grid-template-columns:1fr}
+  .page-header{padding:40px 16px 24px}
+}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;700;900&display=swap" media="print" onload="this.media='all'">
+</head>
+<body>
+<div class="container">
+  <header class="page-header">
+    <h1 class="page-title">🦞 操盘实录</h1>
+    <p class="page-subtitle">3 个模拟盘实时追踪 · 美股 / 加密货币 / Polymarket</p>
+  </header>
+
+  <div id="loading" class="loading">
+    <div class="loading-spinner"></div>
+    <p style="margin-top:16px">加载数据中...</p>
+  </div>
+
+  <div id="cards" class="cards-grid" style="display:none"></div>
+
+  <footer class="page-footer">
+    <p>数据更新时间：<span id="lastUpdate">-</span></p>
+    <a href="index.html" class="back-link">← 返回首页</a>
+  </footer>
+</div>
+
+<script>
+// 从 JSON 文件加载真实数据
+let portfolioData = null;
+
+async function loadPortfolio() {
+  try {
+    const res = await fetch('../data/trading/portfolio.json?t=' + Date.now());
+    if (!res.ok) throw new Error('加载失败');
+    return await res.json();
+  } catch (e) {
+    console.error('加载 portfolio.json 失败:', e);
+    return null;
+  }
+}
+
+const simulations = {
+  us: {
+    name: "美股模拟盘",
+    provider: "老虎证券",
+    icon: "📈",
+    initialCapital: 1000000,
+    currentValue: 1000000,
+    cash: 1000000,
+    currency: "USD",
+    status: "running"
+  },
+  crypto: {
+    name: "加密货币网格",
+    provider: "Binance",
+    icon: "₿",
+    cash: 6848.44,
+    currency: "USDT",
+    status: "stopped",
+    stopFile: "空仓观望"
+  },
+  polymarket: {
+    name: "Polymarket 模拟盘",
+    provider: "Polymarket",
+    icon: "🎯",
+    initialCapital: 100000,
+    invested: 2710,
+    cash: 97290,
+    currency: "USD",
+    status: "running",
+    positions: [
+      {market: "BTC<$65K", direction: "NO", invested: 700, potentialReturn: 10000},
+      {market: "ETH<$2000", direction: "NO", invested: 600, potentialReturn: 15000},
+      {market: "SOL>$80", direction: "NO", invested: 650, potentialReturn: 5000},
+      {market: "US enters Iran Apr30", direction: "NO", invested: 760, potentialReturn: 2000}
+    ]
+  }
+};
+
+function formatMoney(amount, currency) {
+  const symbols = {USD: '$', USDT: '₮', CNY: '¥'};
+  return (symbols[currency] || '$') + amount.toLocaleString();
+}
+
+function createCard(key, data) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  
+  let statsHtml = `
+    <div class="stat-row">
+      <span class="stat-label">初始资金</span>
+      <span class="stat-value">${data.initialCapital ? formatMoney(data.initialCapital, data.currency) : '-'}</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">当前价值</span>
+      <span class="stat-value large">${data.currentValue ? formatMoney(data.currentValue, data.currency) : formatMoney(data.cash, data.currency)}</span>
+    </div>
+    <div class="stat-row">
+      <span class="stat-label">可用现金</span>
+      <span class="stat-value">${formatMoney(data.cash, data.currency)}</span>
+    </div>
+  `;
+
+  if (data.status === 'stopped') {
+    statsHtml += `<div class="status-badge status-stopped">⏸️ 已停止</div>`;
+    if (data.stopFile) {
+      statsHtml += `<p style="font-size:11px;color:#999;margin-top:8px">原因：${data.stopFile}</p>`;
+    }
+  } else {
+    statsHtml += `<div class="status-badge status-running">▶️ 运行中</div>`;
+  }
+
+  if (data.positions) {
+    statsHtml += `<div class="positions-section">
+      <div class="positions-title">持仓 (${data.positions.length}个)</div>`;
+    data.positions.forEach(pos => {
+      statsHtml += `
+        <div class="position-item">
+          <span class="position-market">${pos.direction} ${pos.market}</span>
+          <span class="position-return">潜在${formatMoney(pos.potentialReturn, data.currency)}</span>
+        </div>`;
+    });
+    statsHtml += `</div>`;
+  }
+
+  card.innerHTML = `
+    <div class="card-header">
+      <span class="card-icon">${data.icon}</span>
+      <div>
+        <div class="card-title">${data.name}</div>
+        <div class="card-provider">${data.provider}</div>
+      </div>
+    </div>
+    ${statsHtml}
+  `;
+  
+  return card;
+}
+
+// 渲染页面
+function render() {
+  const container = document.getElementById('cards');
+  const loading = document.getElementById('loading');
+  
+  Object.keys(simulations).forEach(key => {
+    container.appendChild(createCard(key, simulations[key]));
+  });
+  
+  loading.style.display = 'none';
+  container.style.display = 'grid';
+  
+  document.getElementById('lastUpdate').textContent = new Date().toLocaleString('zh-CN', {
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit'
+  });
+}
+
+// 初始化
+render();
+</script>
+</body>
+</html>

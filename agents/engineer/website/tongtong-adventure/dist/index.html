@@ -3,178 +3,357 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>桐桐的冒险</title>
+  <title>桐桐的冒险 - 龙虾版</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      background: #667eea;
+      background: #1a1a2e;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       font-family: Arial, sans-serif;
     }
-    #game-container {
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    canvas { display: block; }
+    #game-container { border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
   </style>
 </head>
 <body>
   <div id="game-container"></div>
-  <script src="https://cdn.jsdelivr.net/npm/phaser@3.70.0/dist/phaser.min.js"></script>
+  <script src="phaser.min.js"></script>
   <script>
-const BootScene = new Phaser.Scene({ key: 'BootScene' });
-const PlayScene = new Phaser.Scene({ key: 'PlayScene' });
-
-BootScene.create = function() {
-  console.log('BootScene create');
-  const pg = this.make.graphics({ x: 0, y: 0 });
-  pg.fillStyle(0x00ff00);
-  pg.fillRect(0, 0, 32, 32);
-  pg.generateTexture('player', 32, 32);
-  const gg = this.make.graphics({ x: 0, y: 0 });
-  gg.fillStyle(0x8B4513);
-  gg.fillRect(0, 0, 32, 32);
-  gg.generateTexture('ground', 32, 32);
-  const pg2 = this.make.graphics({ x: 0, y: 0 });
-  pg2.fillStyle(0x654321);
-  pg2.fillRect(0, 0, 80, 16);
-  pg2.generateTexture('platform', 80, 16);
-  const cg = this.make.graphics({ x: 0, y: 0 });
-  cg.fillStyle(0xFFD700);
-  cg.fillCircle(10, 10, 10);
-  cg.generateTexture('coin', 20, 20);
-  const eg = this.make.graphics({ x: 0, y: 0 });
-  eg.fillStyle(0xff0000);
-  eg.fillRect(0, 0, 32, 32);
-  eg.generateTexture('enemy', 32, 32);
-  const fg = this.make.graphics({ x: 0, y: 0 });
-  fg.fillStyle(0x0000ff);
-  fg.fillRect(0, 0, 8, 80);
-  fg.fillStyle(0xff0000);
-  fg.fillTriangle(8, 0, 8, 30, 40, 15);
-  fg.generateTexture('flag', 40, 80);
-  console.log('Textures created');
-  this.scene.start('PlayScene');
+// ============ 游戏状态 ============
+const gameState = {
+  level: 0,
+  score: 0,
+  lives: 3,
+  coins: 0,
+  gameOver: false
 };
 
-PlayScene.create = function() {
-  console.log('PlayScene create');
-  this.gameOver = false;
-  this.score = 0;
-  this.platforms = this.physics.add.staticGroup();
-  for (let i = 0; i < 25; i++) {
-    this.platforms.create(i * 32, 584, 'ground');
+// ============ 关卡数据 ============
+const LEVELS = [
+  { name: "疾风关", bg: '#1a1a2e', groundColor: 0x2d3436,
+    platforms: [[0,568,150,32],[200,520,80,16],[320,460,80,16],[450,400,80,16],[580,340,80,16],[720,280,80,16],[500,200,80,16],[300,140,80,16],[100,180,80,16],[650,568,150,32]],
+    coins: [[230,490],[350,430],[480,370],[610,310],[530,170],[330,110],[130,150]],
+    enemies: [[400,530,'walker'],[600,530,'walker'],[550,350,'jumper']],
+    flag: [750,500], start: [50,500], totalCoins: 7 },
+  { name: "火焰关", bg: '#8b0000', groundColor: 0x5c1a1a,
+    platforms: [[0,568,120,32],[180,510,80,16],[300,450,80,16],[420,380,80,16],[560,320,80,16],[700,260,80,16],[600,160,80,16],[400,120,80,16],[200,160,80,16],[50,260,80,16],[680,568,120,32]],
+    coins: [[210,480],[330,420],[450,350],[590,290],[630,130],[430,90],[230,130],[80,230]],
+    enemies: [[350,530,'walker'],[500,530,'walker'],[650,530,'walker'],[580,330,'jumper'],[420,130,'jumper']],
+    flag: [750,500], start: [50,500], totalCoins: 8 },
+  { name: "冰霜关", bg: '#1e3a5f', groundColor: 0x2c4a6e,
+    platforms: [[0,568,100,32],[150,500,60,16],[260,430,60,16],[380,360,60,16],[500,290,60,16],[620,220,60,16],[740,150,60,16],[600,100,60,16],[420,80,60,16],[240,100,60,16],[60,140,60,16],[700,568,100,32]],
+    coins: [[175,470],[285,400],[405,330],[525,260],[645,190],[765,120],[625,70],[445,50],[265,70],[85,110]],
+    enemies: [[300,530,'walker'],[450,530,'walker'],[600,530,'walker'],[520,300,'jumper'],[380,370,'jumper'],[640,230,'jumper']],
+    flag: [750,500], start: [50,500], totalCoins: 10 }
+];
+
+// ============ BootScene ============
+class BootScene extends Phaser.Scene {
+  constructor() { super({ key: 'BootScene' }); }
+  
+  preload() {
+    // 桐桐
+    let g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0xff6b6b); g.fillEllipse(32, 38, 44, 36);
+    g.fillStyle(0xff8e72); g.fillEllipse(32, 44, 36, 28);
+    g.fillStyle(0xffffff); g.fillEllipse(24, 32, 12, 10); g.fillEllipse(40, 32, 12, 10);
+    g.fillStyle(0x222222); g.fillCircle(26, 34, 4); g.fillCircle(38, 34, 4);
+    g.fillStyle(0xffffff); g.fillCircle(27, 33, 1.5); g.fillCircle(39, 33, 1.5);
+    g.fillStyle(0xffd93d); g.fillCircle(28, 42, 3); g.fillCircle(36, 42, 3);
+    g.fillStyle(0x222222); g.fillEllipse(32, 46, 4, 2);
+    g.fillStyle(0xff6b6b); g.fillEllipse(16, 40, 10, 14); g.fillEllipse(48, 40, 10, 14);
+    g.generateTexture('tongtong', 64, 64);
+    
+    // 地面
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0x4a7c59); g.fillRect(0, 0, 32, 32);
+    g.fillStyle(0x3d6b4a); g.fillRect(0, 20, 32, 12);
+    g.fillStyle(0x5a8c69); g.fillCircle(8, 8, 4); g.fillCircle(24, 12, 3);
+    g.generateTexture('ground', 32, 32);
+    
+    // 平台
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0x8b5a2b); g.fillRect(0, 0, 80, 16);
+    g.fillStyle(0x6b4423); g.fillRect(0, 12, 80, 4);
+    g.generateTexture('platform', 80, 16);
+    
+    // 金币
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0xffd93d); g.fillCircle(10, 10, 10);
+    g.fillStyle(0xffec8b); g.fillCircle(7, 7, 4);
+    g.generateTexture('coin', 20, 20);
+    
+    // 敌人
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0xe74c3c); g.fillRect(4, 8, 24, 20);
+    g.fillStyle(0xc0392b); g.fillRect(4, 24, 24, 4);
+    g.fillStyle(0xffffff); g.fillCircle(12, 16, 5); g.fillCircle(20, 16, 5);
+    g.fillStyle(0x222222); g.fillCircle(13, 17, 2.5); g.fillCircle(21, 17, 2.5);
+    g.fillStyle(0xf1c40f); g.fillRect(0, 12, 6, 8); g.fillRect(26, 12, 6, 8);
+    g.generateTexture('enemy', 32, 32);
+    
+    // 旗杆
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0x27ae60); g.fillRect(2, 20, 30, 60);
+    g.fillStyle(0xf1c40f); g.fillTriangle(2, 20, 32, 35, 2, 50);
+    g.fillStyle(0x27ae60); g.fillRect(0, 16, 4, 68);
+    g.generateTexture('flag', 32, 80);
+    
+    // 心
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0xe74c3c); g.fillCircle(7, 7, 6); g.fillCircle(17, 7, 6);
+    g.fillTriangle(2, 8, 22, 8, 12, 20);
+    g.generateTexture('heart', 24, 24);
+    
+    // 云
+    g = this.make.graphics({ x: 0, y: 0 });
+    g.fillStyle(0xecf0f1); g.fillCircle(16, 20, 12); g.fillCircle(32, 18, 10);
+    g.fillCircle(8, 24, 8); g.fillCircle(24, 26, 8);
+    g.generateTexture('cloud', 40, 32);
   }
-  this.platforms.create(-16, 300, 'ground');
-  this.platforms.create(816, 300, 'ground');
-  this.platforms.create(200, 450, 'platform');
-  this.platforms.create(400, 380, 'platform');
-  this.platforms.create(600, 300, 'platform');
-  this.platforms.create(300, 220, 'platform');
-  this.platforms.create(100, 150, 'platform');
-  this.player = this.physics.add.sprite(50, 500, 'player');
-  this.player.setBounce(0.1);
-  this.player.setCollideWorldBounds(true);
-  this.coins = this.physics.add.group();
-  this.coins.create(220, 420, 'coin');
-  this.coins.create(420, 350, 'coin');
-  this.coins.create(620, 270, 'coin');
-  this.coins.create(320, 190, 'coin');
-  this.coins.create(120, 120, 'coin');
-  this.enemies = this.physics.add.group();
-  const enemy = this.enemies.create(400, 550, 'enemy');
-  enemy.setVelocityX(-100);
-  enemy.setCollideWorldBounds(true);
-  enemy.setBounce(1);
-  const flag = this.physics.add.sprite(750, 540, 'flag');
-  flag.setImmovable(true);
-  this.physics.add.collider(this.player, this.platforms);
-  this.physics.add.collider(this.coins, this.platforms);
-  this.physics.add.collider(this.enemies, this.platforms);
-  this.physics.add.collider(this.enemies, this.player, this.hitEnemy, null, this);
-  this.physics.add.overlap(this.player, this.coins, this.collectCoin, null, this);
-  this.physics.add.overlap(this.player, flag, this.reachGoal, null, this);
-  this.cursors = this.input.keyboard.createCursorKeys();
-  this.input.keyboard.on('keydown-R', () => {
-    if (this.gameOver) this.scene.restart();
-  });
-  this.scoreText = this.add.text(16, 16, '分数：0', {
-    fontSize: '24px', color: '#fff', fontFamily: 'Arial',
-    stroke: '#000', strokeThickness: 4
-  });
-  this.add.text(16, 560, '← → 移动 | ↑/空格 跳跃 | R 重来', {
-    fontSize: '16px', color: '#fff', fontFamily: 'Arial',
-    stroke: '#000', strokeThickness: 3
-  });
-  console.log('PlayScene ready');
-};
-
-PlayScene.update = function() {
-  if (this.gameOver) return;
-  if (this.cursors.left.isDown) {
-    this.player.setVelocityX(-200);
-  } else if (this.cursors.right.isDown) {
-    this.player.setVelocityX(200);
-  } else {
-    this.player.setVelocityX(0);
+  
+  create() {
+    this.scene.start('MenuScene');
   }
-  if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.player.body.touching.down) {
-    this.player.setVelocityY(-400);
+}
+
+// ============ MenuScene ============
+class MenuScene extends Phaser.Scene {
+  constructor() { super({ key: 'MenuScene' }); }
+  
+  create() {
+    this.add.rectangle(400, 300, 800, 600, 0x1a1a2e);
+    
+    this.add.text(400, 120, '桐桐的冒险', {
+      fontSize: '56px', color: '#ff6b6b', fontFamily: 'Arial', stroke: '#000', strokeThickness: 6
+    }).setOrigin(0.5);
+    
+    this.add.text(400, 180, '穿龙虾套装的加菲猫 🦞', {
+      fontSize: '22px', color: '#ffffff', fontFamily: 'Arial'
+    }).setOrigin(0.5);
+    
+    // 关卡按钮
+    const btnY = 300;
+    LEVELS.forEach((level, i) => {
+      const btn = this.add.rectangle(400, btnY + i * 60, 220, 45, 0x4a7c59)
+        .setInteractive({ useHandCursor: true });
+      const txt = this.add.text(400, btnY + i * 60, `第 ${i+1} 关: ${level.name}`, {
+        fontSize: '20px', color: '#ffffff', fontFamily: 'Arial'
+      }).setOrigin(0.5);
+      
+      btn.on('pointerover', () => btn.setFillStyle(0x5a8c69));
+      btn.on('pointerout', () => btn.setFillStyle(0x4a7c59));
+      btn.on('pointerdown', () => {
+        gameState.level = i;
+        gameState.score = 0;
+        gameState.lives = 3;
+        gameState.coins = 0;
+        this.scene.start('PlayScene');
+      });
+    });
+    
+    this.add.text(400, 520, '← → 移动  |  ↑/空格 跳跃', {
+      fontSize: '16px', color: '#888888', fontFamily: 'Arial'
+    }).setOrigin(0.5);
   }
-};
+}
 
-PlayScene.collectCoin = function(player, coin) {
-  coin.disableBody(true, true);
-  this.score += 10;
-  this.scoreText.setText('分数：' + this.score);
-};
-
-PlayScene.hitEnemy = function(player, enemy) {
-  if (player.body.velocity.y > 0 && player.y < enemy.y) {
-    enemy.disableBody(true, true);
-    this.player.setVelocityY(-300);
-    this.score += 20;
-    this.scoreText.setText('分数：' + this.score);
-  } else {
-    this.gameOver = true;
-    this.physics.pause();
-    this.player.setTint(0xff0000);
-    this.add.text(300, 300, '游戏结束！\n按 R 重新开始', {
-      fontSize: '32px', color: '#ff0000', fontFamily: 'Arial',
-      align: 'center', stroke: '#000', strokeThickness: 4
+// ============ PlayScene ============
+class PlayScene extends Phaser.Scene {
+  constructor() { super({ key: 'PlayScene' }); }
+  
+  create() {
+    const level = LEVELS[gameState.level];
+    this.gameOver = false;
+    gameState.coins = 0;
+    
+    this.cameras.main.setBackgroundColor(level.bg);
+    
+    // 云
+    for (let i = 0; i < 3; i++) {
+      const cloud = this.add.image(100 + i * 300, 60, 'cloud').setAlpha(0.5);
+      this.tweens.add({ targets: cloud, x: cloud.x + 30, duration: 4000, yoyo: true, repeat: -1 });
+    }
+    
+    // 平台
+    this.platforms = this.physics.add.staticGroup();
+    level.platforms.forEach(p => {
+      for (let i = 0; i < Math.ceil(p[2] / 32); i++) {
+        this.platforms.create(p[0] + i * 32 + 16, p[1] + 16, 'ground');
+      }
+    });
+    
+    // 玩家
+    this.player = this.physics.add.sprite(level.start[0], level.start[1], 'tongtong');
+    this.player.setBounce(0.15);
+    this.player.setCollideWorldBounds(true);
+    this.player.setGravityY(300);
+    this.player.setSize(40, 50);
+    
+    // 金币
+    this.coins = this.physics.add.group();
+    level.coins.forEach(c => {
+      const coin = this.coins.create(c[0], c[1], 'coin');
+      this.tweens.add({ targets: coin, scaleX: 0, scaleY: 0, duration: 300, yoyo: true, repeat: -1 });
+    });
+    
+    // 敌人
+    this.enemies = this.physics.add.group();
+    level.enemies.forEach(e => {
+      const enemy = this.enemies.create(e[0], e[1], 'enemy');
+      enemy.setBounce(1);
+      enemy.setCollideWorldBounds(true);
+      enemy.setVelocityX(-80);
+      enemy.setGravityY(400);
+      if (e[2] === 'jumper') {
+        this.tweens.add({ targets: enemy, y: enemy.y - 60, duration: 500, yoyo: true, repeat: -1 });
+      }
+    });
+    
+    // 旗杆
+    this.flag = this.physics.add.sprite(level.flag[0], level.flag[1], 'flag');
+    this.flag.setImmovable(true);
+    this.flag.body.setAllowGravity(false);
+    
+    // 碰撞
+    this.physics.add.collider(this.player, this.platforms);
+    this.physics.add.collider(this.coins, this.platforms);
+    this.physics.add.collider(this.enemies, this.platforms);
+    this.physics.add.collider(this.enemies, this.player, this.hitEnemy, null, this);
+    this.physics.add.overlap(this.player, this.coins, this.collectCoin, null, this);
+    this.physics.add.overlap(this.player, this.flag, this.reachGoal, null, this);
+    
+    // 控制
+    this.cursors = this.input.keyboard.createCursorKeys();
+    this.input.keyboard.on('keydown-R', () => this.scene.restart());
+    this.input.keyboard.on('keydown-ESC', () => this.scene.start('MenuScene'));
+    
+    // UI
+    this.scoreText = this.add.text(16, 16, `分数: ${gameState.score}`, {
+      fontSize: '22px', color: '#ffffff', fontFamily: 'Arial', stroke: '#000', strokeThickness: 3
+    });
+    this.livesText = this.add.text(16, 44, '', { fontSize: '18px', color: '#ff6b6b', fontFamily: 'Arial' });
+    this.updateLives();
+    this.levelText = this.add.text(784, 16, `第${gameState.level+1}关: ${level.name}`, {
+      fontSize: '18px', color: '#ffffff', fontFamily: 'Arial', stroke: '#000', strokeThickness: 2
+    }).setOrigin(1, 0);
+    this.coinsText = this.add.text(784, 42, `金币: 0/${level.totalCoins}`, {
+      fontSize: '16px', color: '#ffd93d', fontFamily: 'Arial', stroke: '#000', strokeThickness: 2
+    }).setOrigin(1, 0);
+    
+    this.add.text(400, 585, 'R:重来  ESC:菜单', {
+      fontSize: '12px', color: '#666666', fontFamily: 'Arial'
+    }).setOrigin(0.5);
+  }
+  
+  update() {
+    if (this.gameOver) return;
+    
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-180);
+      this.player.setFlipX(true);
+    } else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(180);
+      this.player.setFlipX(false);
+    } else {
+      this.player.setVelocityX(0);
+    }
+    
+    if ((this.cursors.up.isDown || this.cursors.space.isDown) && this.player.body.touching.down) {
+      this.player.setVelocityY(-550);
+    }
+    
+    // 敌人边界
+    this.enemies.getChildren().forEach(e => {
+      if (e.texture.key === 'enemy' && e.body) {
+        if (e.x < 40) e.setVelocityX(80);
+        if (e.x > 760) e.setVelocityX(-80);
+      }
     });
   }
-};
+  
+  collectCoin(player, coin) {
+    coin.disableBody(true, true);
+    gameState.score += 10;
+    gameState.coins++;
+    this.scoreText.setText(`分数: ${gameState.score}`);
+    this.coinsText.setText(`金币: ${gameState.coins}/${LEVELS[gameState.level].totalCoins}`);
+    this.cameras.main.shake(50, 0.003);
+  }
+  
+  hitEnemy(player, enemy) {
+    if (player.body.velocity.y > 0 && player.y < enemy.y) {
+      enemy.disableBody(true, true);
+      player.setVelocityY(-280);
+      gameState.score += 20;
+      this.scoreText.setText(`分数: ${gameState.score}`);
+    } else {
+      gameState.lives--;
+      this.updateLives();
+      this.cameras.main.shake(150, 0.008);
+      player.setTint(0xff0000);
+      this.time.delayedCall(200, () => {
+        player.clearTint();
+        if (gameState.lives <= 0) {
+          this.showGameOver();
+        } else {
+          player.setPosition(LEVELS[gameState.level].start[0], LEVELS[gameState.level].start[1]);
+        }
+      });
+    }
+  }
+  
+  reachGoal(player, flag) {
+    this.gameOver = true;
+    this.physics.pause();
+    player.setTint(0x00ff00);
+    const bonus = gameState.coins >= LEVELS[gameState.level].totalCoins ? 50 : 0;
+    gameState.score += 100 + bonus;
+    
+    const nextLevel = gameState.level < LEVELS.length - 1;
+    const msg = nextLevel ? 
+      `🎉 过关!\n+100分${bonus ? '\n⭐满分+50!' : ''}\n\n按 空格 进入第${gameState.level+2}关` :
+      `🏆 通关! 🏆\n总分: ${gameState.score}\n\n按 空格 返回菜单`;
+    
+    this.add.text(400, 250, msg, {
+      fontSize: '28px', color: '#00ff00', fontFamily: 'Arial', align: 'center', stroke: '#000', strokeThickness: 4
+    }).setOrigin(0.5);
+    
+    this.input.keyboard.once('keydown-SPACE', () => {
+      if (nextLevel) { gameState.level++; this.scene.restart(); }
+      else this.scene.start('MenuScene');
+    });
+  }
+  
+  showGameOver() {
+    this.gameOver = true;
+    this.physics.pause();
+    this.add.text(400, 250, '💔 游戏结束\n\n按 空格 重来\n按 ESC 返回菜单', {
+      fontSize: '32px', color: '#ff0000', fontFamily: 'Arial', align: 'center', stroke: '#000', strokeThickness: 4
+    }).setOrigin(0.5);
+    this.input.keyboard.once('keydown-SPACE', () => this.scene.restart());
+    this.input.keyboard.once('keydown-ESC', () => this.scene.start('MenuScene'));
+  }
+  
+  updateLives() {
+    this.livesText.setText('❤️'.repeat(Math.max(0, gameState.lives)));
+  }
+}
 
-PlayScene.reachGoal = function(player, flag) {
-  this.gameOver = true;
-  this.physics.pause();
-  this.player.setTint(0x00ff00);
-  this.add.text(200, 300, '恭喜通关！\n分数：' + this.score + '\n按 R 再玩一次', {
-    fontSize: '32px', color: '#00ff00', fontFamily: 'Arial',
-    align: 'center', stroke: '#000', strokeThickness: 4
-  });
-};
-
-const config = {
+// ============ 启动游戏 ============
+new Phaser.Game({
   type: Phaser.AUTO,
   width: 800,
   height: 600,
   parent: 'game-container',
-  backgroundColor: '#667eea',
   physics: {
     default: 'arcade',
-    arcade: { gravity: { y: 500, x: 0 }, debug: false }
+    arcade: { gravity: { y: 600 }, debug: false }
   },
-  scene: [BootScene, PlayScene]
-};
-
-console.log('Starting game...');
-const game = new Phaser.Game(config);
+  scene: [BootScene, MenuScene, PlayScene]
+});
   </script>
 </body>
 </html>

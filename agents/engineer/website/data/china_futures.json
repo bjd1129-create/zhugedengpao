@@ -1,0 +1,46 @@
+{
+  "update_time": "2026-04-09T14:50:47+08:00",
+  "market": "日盘",
+  "contracts": {
+    "IF": {
+      "name": "沪深300股指期货",
+      "price": 4496.8,
+      "change": 11.2,
+      "change_pct": 0.25,
+      "open": 4511.2,
+      "high": 4532.4,
+      "low": 4496.8,
+      "prev_close": 4485.6,
+      "volume": 42472,
+      "position": 133055,
+      "turnover": 191090430.2
+    },
+    "IC": {
+      "name": "中证500股指期货",
+      "price": 7747.2,
+      "change": 48.4,
+      "change_pct": 0.63,
+      "open": 7793.6,
+      "high": 7747.2,
+      "low": 7747.2,
+      "prev_close": 7698.8,
+      "volume": 74101,
+      "position": 148069,
+      "turnover": 574161386.2
+    },
+    "IH": {
+      "name": "上证50股指期货",
+      "price": 2860.4,
+      "change": 8.0,
+      "change_pct": 0.28,
+      "open": 2872.8,
+      "high": 2883.2,
+      "low": 2860.4,
+      "prev_close": 2852.4,
+      "volume": 20166,
+      "position": 52757,
+      "turnover": 57708657.8
+    }
+  },
+  "anomalies": []
+}

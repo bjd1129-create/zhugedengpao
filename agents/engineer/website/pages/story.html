@@ -201,17 +201,24 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
       var thumb = document.createElement('div');
       thumb.className = 'comic-thumb';
       var img = document.createElement('img');
-      img.src = src;
+      // Use thumbnail for grid (replace ../images/ with ../thumbnails/)
+      var thumbSrc = src.replace('../images/', '../thumbnails/');
+      img.src = thumbSrc;
       img.alt = '故事' + n + ' 第' + (i+1) + '格';
+      img.loading = 'lazy';
       img.onerror = function(){
-        thumb.style.display = 'none';
-        failedCount++;
-        if (failedCount === total) {
-          var noImg = document.createElement('div');
-          noImg.className = 'comic-placeholder';
-          noImg.innerHTML = '<span>🖼️</span>暂无可用图片';
-          panel.appendChild(noImg);
-        }
+        // Fallback to original if thumbnail doesn't exist
+        img.src = src;
+        img.onerror = function(){
+          thumb.style.display = 'none';
+          failedCount++;
+          if (failedCount === total) {
+            var noImg = document.createElement('div');
+            noImg.className = 'comic-placeholder';
+            noImg.innerHTML = '<span>🖼️</span>暂无可用图片';
+            panel.appendChild(noImg);
+          }
+        };
       };
       thumb.appendChild(img);
       thumb.addEventListener('click', function(){ openLightbox(n-1, i); });

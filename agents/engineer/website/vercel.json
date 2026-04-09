@@ -1,11 +1,15 @@
 {
   "framework": null,
   "buildCommand": "echo static",
-  "outputDirectory": ".",
+  "outputDirectory": "pages",
   "rewrites": [
     {
       "source": "/tongtong-adventure/:path*",
       "destination": "/tongtong-adventure/dist/:path*"
+    },
+    {
+      "source": "/yiqizou/:path*",
+      "destination": "/yiqizou/:path*"
     }
   ],
   "headers": [

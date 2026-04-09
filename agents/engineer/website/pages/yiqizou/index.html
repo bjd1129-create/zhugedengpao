@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一起走 - 我们的珍藏记忆</title>
+  <meta name="description" content="记录我们一起走过的美好时光">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(135deg, #ff6b6b 0%, #ffa07a 100%);
+      min-height: 100vh;
+      color: #333;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 60px 20px 40px;
+      background: rgba(255, 255, 255, 0.95);
+      margin-bottom: 40px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .header h1 {
+      font-size: 3.5rem;
+      color: #ff6b6b;
+      margin-bottom: 10px;
+      font-weight: 700;
+      letter-spacing: 8px;
+    }
+
+    .header p {
+      font-size: 1.2rem;
+      color: #666;
+      font-weight: 300;
+    }
+
+    .header .subtitle {
+      margin-top: 15px;
+      font-size: 1rem;
+      color: #999;
+    }
+
+    /* Timeline */
+    .timeline {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    .year-section {
+      margin-bottom: 60px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .year-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #ff6b6b;
+    }
+
+    .year-title {
+      font-size: 2rem;
+      color: #ff6b6b;
+      font-weight: 700;
+      margin-right: 15px;
+    }
+
+    .year-count {
+      font-size: 1rem;
+      color: #999;
+      background: #f5f5f5;
+      padding: 5px 15px;
+      border-radius: 20px;
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .photo-card {
+      position: relative;
+      aspect-ratio: 1;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background: #f0f0f0;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .photo-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .photo-card:hover img {
+      transform: scale(1.1);
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .lightbox.active {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      font-size: 3rem;
+      color: white;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+      color: #ff6b6b;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 3rem;
+      color: white;
+      cursor: pointer;
+      padding: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .lightbox-nav:hover {
+      color: #ff6b6b;
+    }
+
+    .lightbox-prev {
+      left: 20px;
+    }
+
+    .lightbox-next {
+      right: 20px;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      bottom: 30px;
+      color: white;
+      font-size: 1.2rem;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 40px 20px;
+      background: rgba(255, 255, 255, 0.95);
+      color: #666;
+      margin-top: 40px;
+    }
+
+    .footer p {
+      font-size: 1rem;
+    }
+
+    .footer .heart {
+      color: #ff6b6b;
+      animation: heartbeat 1.5s ease-in-out infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2.5rem;
+        letter-spacing: 4px;
+      }
+
+      .year-title {
+        font-size: 1.5rem;
+      }
+
+      .photo-grid {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 15px;
+      }
+    }
+
+    /* Loading animation */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px;
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #ff6b6b;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1>一起走</h1>
+    <p>记录我们一起走过的美好时光</p>
+    <p class="subtitle">2014 - 2017 · 71 个珍贵瞬间</p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline" id="timeline">
+    <div class="loading">
+      <div class="loading-spinner"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>💕 一起走过的每一天都值得珍藏 <span class="heart">❤</span></p>
+    <p style="margin-top: 10px; font-size: 0.9rem; color: #999;">Made with love</p>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+    <span class="lightbox-nav lightbox-prev" onclick="prevPhoto()">&#10094;</span>
+    <img id="lightbox-img" src="" alt="">
+    <span class="lightbox-nav lightbox-next" onclick="nextPhoto()">&#10095;</span>
+    <div class="lightbox-counter" id="lightbox-counter"></div>
+  </div>
+
+  <script>
+    // All 71 photos
+    const allPhotos = [
+      "-221182379.jpeg",
+      "1468024740967_share.jpg",
+      "20140101_153429.jpg",
+      "20140101_162559.jpg",
+      "20160331_213359.jpg",
+      "20160401_120004.jpg",
+      "20160401_120122.jpg",
+      "20160402_214926.jpg",
+      "20160402_223009.jpg",
+      "20160402_223838.jpg",
+      "20160402_224430.jpg",
+      "20160403_145744.jpg",
+      "20160618_083127.jpg",
+      "20160618_151054.jpg",
+      "20160618_211320.jpg",
+      "20160619_150940.jpg",
+      "20160709_124902.jpg",
+      "20160710_095612.jpg",
+      "20160710_131048.jpg",
+      "20161002_163942_mh1475397699417.jpg",
+      "20161004_093248.jpg",
+      "20161024_005500.jpg",
+      "20161109_233642.jpg",
+      "20170112_000338.jpg",
+      "20170121_175358.jpg",
+      "20170121_181114.jpg",
+      "20170121_195845.jpg",
+      "20170124_200829.jpg",
+      "20170125_180711.jpg",
+      "20170126_115319.jpg",
+      "20170126_170746.jpg",
+      "20170126_175120.jpg",
+      "20170305_130407.jpg",
+      "20170307_121035.jpg",
+      "20170307_130934_mh1489219684164.jpg",
+      "20170311_153431_mh1489219549686.jpg",
+      "20170312_125618.jpg",
+      "5K4A5979.jpg",
+      "C360_2014-04-17-23-08-55-031.jpg",
+      "C360_2014-05-17-09-24-00-163.jpg",
+      "C360_2014-05-28-19-41-23-060.jpg",
+      "IMAG0072.jpg",
+      "IMAG0097_mh1405844722388.jpg",
+      "IMAG0436.jpg",
+      "IMAG1389.jpg",
+      "IMAG1393.jpg",
+      "IMAG1396.jpg",
+      "IMG_20140517_105436.jpg",
+      "IMG_20160116_144359_mh1452949335611.jpg",
+      "IMG_20160117_100720.jpg",
+      "IMG_20160117_160416.jpg",
+      "IMG_20160117_160918.jpg",
+      "IMG_20160206_201427_1.jpg",
+      "IMG_20160313_223113.jpg",
+      "JING 1064.png",
+      "JING 1098.png",
+      "JING 1373.jpg",
+      "JING 215.jpg",
+      "JING 234.jpg",
+      "JING 235.jpg",
+      "JING 236.jpg",
+      "JING 237.jpg",
+      "JING 319.jpg",
+      "PicsArt_06-26-12.41.49.jpg",
+      "mmexport1440303697898_mh1440303747144.jpg",
+      "mmexport1444907360504.jpg",
+      "mmexport1445125945280.jpg",
+      "mmexport1445125948401.jpg",
+      "mmexport1445125954966.jpg",
+      "mmexport1445494468284(1).jpg",
+      "mmexport1483352702949.jpg"
+    ];
+
+    // Extract year from filename and group photos
+    function getYear(filename) {
+      const match = filename.match(/(201[3-7])/);
+      if (match) return match[1] + "年";
+      return "其他";
+    }
+
+    // Group photos by year
+    function groupByYear(photos) {
+      const groups = {};
+      photos.forEach(photo => {
+        const year = getYear(photo);
+        if (!groups[year]) groups[year] = [];
+        groups[year].push(photo);
+      });
+      return groups;
+    }
+
+    const photoData = groupByYear(allPhotos);
+
+    // Initialize timeline
+    function initializePhotos() {
+      const timeline = document.getElementById('timeline');
+      timeline.innerHTML = '';
+
+      const yearOrder = ["2013 年", "2014 年", "2015 年", "2015 年婚纱照", "2016 年", "2017 年", "其他"];
+
+      yearOrder.forEach(year => {
+        const photos = photoData[year] || [];
+        if (photos.length === 0) return;
+
+        const yearSection = document.createElement('div');
+        yearSection.className = 'year-section';
+        yearSection.id = `year-${year.replace(/年/g, '')}`;
+
+        const yearHeader = document.createElement('div');
+        yearHeader.className = 'year-header';
+        yearHeader.innerHTML = `
+          <h2 class="year-title">${year}</h2>
+          <span class="year-count">${photos.length} 张照片</span>
+        `;
+        yearSection.appendChild(yearHeader);
+
+        const photoGrid = document.createElement('div');
+        photoGrid.className = 'photo-grid';
+
+        photos.forEach((photo, index) => {
+          const photoCard = document.createElement('div');
+          photoCard.className = 'photo-card';
+          photoCard.innerHTML = `<img src="images/${photo}" alt="${year} - 照片${index + 1}" loading="lazy">`;
+          const globalIndex = allPhotos.indexOf(photo);
+          photoCard.onclick = () => openLightbox(globalIndex);
+          photoGrid.appendChild(photoCard);
+        });
+
+        yearSection.appendChild(photoGrid);
+        timeline.appendChild(yearSection);
+      });
+    }
+
+    // Lightbox functions
+    let currentPhotoIndex = 0;
+
+    function openLightbox(index) {
+      currentPhotoIndex = index;
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const counter = document.getElementById('lightbox-counter');
+
+      lightboxImg.src = `images/${allPhotos[index].photo}`;
+      counter.textContent = `${index + 1} / ${allPhotos.length}`;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('lightbox');
+      lightbox.classList.remove('active');
+      document.body.style.overflow = 'auto';
+    }
+
+    function prevPhoto() {
+      currentPhotoIndex = (currentPhotoIndex - 1 + allPhotos.length) % allPhotos.length;
+      updateLightbox();
+    }
+
+    function nextPhoto() {
+      currentPhotoIndex = (currentPhotoIndex + 1) % allPhotos.length;
+      updateLightbox();
+    }
+
+    function updateLightbox() {
+      const lightboxImg = document.getElementById('lightbox-img');
+      const counter = document.getElementById('lightbox-counter');
+
+      lightboxImg.src = `images/${allPhotos[currentPhotoIndex].photo}`;
+      counter.textContent = `${currentPhotoIndex + 1} / ${allPhotos.length}`;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const lightbox = document.getElementById('lightbox');
+      if (!lightbox.classList.contains('active')) return;
+
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') prevPhoto();
+      if (e.key === 'ArrowRight') nextPhoto();
+    });
+
+    // Close lightbox on background click
+    document.getElementById('lightbox').addEventListener('click', (e) => {
+      if (e.target.id === 'lightbox') {
+        closeLightbox();
+      }
+    });
+
+    // Initialize
+    initializePhotos();
+  </script>
+</body>
+</html>

@@ -6,10 +6,6 @@
     {
       "source": "/tongtong-adventure/:path*",
       "destination": "/tongtong-adventure/dist/:path*"
-    },
-    {
-      "source": "/yiqizou/:path*",
-      "destination": "/yiqizou/:path*"
     }
   ],
   "headers": [

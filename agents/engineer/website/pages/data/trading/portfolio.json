@@ -1,206 +1,140 @@
 {
   "account": {
-    "cashBalance": 6848.44,
-    "totalValue": 6848.44,
-    "lastCheckTime": "2026-04-08T18:44:00+08:00",
-    "initialBalance": 10000.0,
-    "totalPnL": -3151.56,
-    "totalPnLPercent": -31.5156,
-    "totalTrades": 84,
-    "todayPnL": 0.0,
-    "todayPnLPercent": 0.0
+    "cashBalance": 0.0,
+    "totalValue": 1024272.86,
+    "lastCheckTime": "2026-04-09T11:17:00+08:00",
+    "initialBalance": 1000000.0,
+    "totalPnL": 24272.86,
+    "totalPnLPercent": 2.43,
+    "totalTrades": 0,
+    "todayPnL": 24272.86,
+    "todayPnLPercent": 2.43
   },
   "holdings": [
     {
       "symbol": "BTC",
       "name": "Bitcoin",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 71007.77,
-      "value": 0.0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "amount": 5.95238095,
+      "avgPrice": 67200.0,
+      "currentPrice": 70902.1,
+      "value": 422038.1,
+      "pnl": 22038.1,
+      "pnlPercent": 5.51
     },
     {
       "symbol": "ETH",
       "name": "Ethereum",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 2184.41,
-      "value": 0.0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "amount": 137.93103448,
+      "avgPrice": 2175.0,
+      "currentPrice": 2177.53,
+      "value": 300348.28,
+      "pnl": 348.28,
+      "pnlPercent": 0.12
     },
     {
       "symbol": "AVAX",
       "name": "Avalanche",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 9.07,
-      "value": 0.0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "amount": 16759.77654,
+      "avgPrice": 8.95,
+      "currentPrice": 9.041,
+      "value": 151524.16,
+      "pnl": 1524.16,
+      "pnlPercent": 1.02
     },
     {
       "symbol": "ADA",
       "name": "Cardano",
-      "amount": 0,
-      "avgPrice": 0,
-      "currentPrice": 0.2504,
-      "value": 0.0,
-      "pnl": 0,
-      "pnlPercent": 0
+      "amount": 603864.7343,
+      "avgPrice": 0.2484,
+      "currentPrice": 0.249,
+      "value": 150362.32,
+      "pnl": 362.32,
+      "pnlPercent": 0.24
     }
   ],
   "gridState": {
     "BTC": {
-      "levels": [],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": null,
-      "fills": []
+      "mode": "TREND_HOLD",
+      "position": 5.95238095,
+      "avgPrice": 67200.0,
+      "targetAllocation": 0.4
     },
     "ETH": {
-      "levels": [],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": null,
-      "fills": []
+      "mode": "TREND_HOLD",
+      "position": 137.93103448,
+      "avgPrice": 2175.0,
+      "targetAllocation": 0.3
     },
     "AVAX": {
-      "levels": [
-        8.4998,
-        8.5423,
-        8.585,
-        8.6279,
-        8.671,
-        8.7144,
-        8.758,
-        8.8018,
-        8.8458,
-        8.89,
-        8.9345,
-        8.9791,
-        9.024,
-        9.0691,
-        9.1145,
-        9.1601,
-        9.2059,
-        9.2519,
-        9.2981,
-        9.3446
-      ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 0,
-      "fills": []
+      "mode": "GRID",
+      "levels": [8.4998, 8.5423, 8.585, 8.6279, 8.671, 8.7144, 8.758, 8.8018, 8.8458, 8.89, 8.9345, 8.9791, 9.024, 9.0691, 9.1145, 9.1601, 9.2059, 9.2519, 9.2981, 9.3446],
+      "position": 16759.77654,
+      "avgPrice": 8.95,
+      "gridSize": 0.5,
+      "targetAllocation": 0.15
     },
     "ADA": {
-      "levels": [
-        0.2341,
-        0.2352,
-        0.2364,
-        0.2376,
-        0.2388,
-        0.24,
-        0.2412,
-        0.2424,
-        0.2436,
-        0.2448,
-        0.246,
-        0.2473,
-        0.2485,
-        0.2497,
-        0.251,
-        0.2522,
-        0.2535,
-        0.2548,
-        0.256,
-        0.2573
-      ],
-      "position": 0,
-      "avgPrice": 0,
-      "lastGridIdx": 7,
-      "fills": []
+      "mode": "GRID",
+      "levels": [0.2341, 0.2352, 0.2364, 0.2376, 0.2388, 0.24, 0.2412, 0.2424, 0.2436, 0.2448, 0.246, 0.2473, 0.2485, 0.2497, 0.251, 0.2522, 0.2535, 0.2548, 0.256, 0.2573],
+      "position": 603864.7343,
+      "avgPrice": 0.2484,
+      "gridSize": 0.5,
+      "targetAllocation": 0.15
     }
   },
   "recentTrades": [
     {
-      "time": "2026-04-07T13:36:05+08:00",
+      "time": "2026-04-09T09:30:00+08:00",
+      "side": "BUY",
+      "symbol": "BTC",
+      "amount": 5.95238095,
+      "price": 67200.0,
+      "value": 400000.0,
+      "note": "初始建仓 - 趋势持有"
+    },
+    {
+      "time": "2026-04-09T09:30:00+08:00",
+      "side": "BUY",
+      "symbol": "ETH",
+      "amount": 137.93103448,
+      "price": 2175.0,
+      "value": 300000.0,
+      "note": "初始建仓 - 趋势持有"
+    },
+    {
+      "time": "2026-04-09T09:30:00+08:00",
       "side": "BUY",
       "symbol": "AVAX",
-      "amount": 23.22880372,
-      "price": 8.61,
-      "note": "grid-2↓"
+      "amount": 16759.77654,
+      "price": 8.95,
+      "value": 150000.0,
+      "note": "初始建仓 - 网格交易"
     },
     {
-      "time": "2026-04-07T13:15:59+08:00",
-      "side": "BUY",
-      "symbol": "AVAX",
-      "amount": 23.06805075,
-      "price": 8.67,
-      "note": "grid-3↓"
-    },
-    {
-      "time": "2026-04-07T12:35:52+08:00",
-      "side": "BUY",
-      "symbol": "AVAX",
-      "amount": 23.01495972,
-      "price": 8.69,
-      "note": "grid-4↓"
-    },
-    {
-      "time": "2026-04-07T12:35:52+08:00",
+      "time": "2026-04-09T09:30:00+08:00",
       "side": "BUY",
       "symbol": "ADA",
-      "amount": 815.32816959,
-      "price": 0.2453,
-      "note": "grid-9↓"
-    },
-    {
-      "time": "2026-04-06T16:42:02+08:00",
-      "side": "BUY",
-      "symbol": "ADA",
-      "amount": 781.86082877,
-      "price": 0.2558,
-      "note": "grid-17↓"
-    },
-    {
-      "time": "2026-04-06T16:31:59+08:00",
-      "side": "SELL",
-      "symbol": "ADA",
-      "amount": 784.31372549,
-      "price": 0.256,
-      "pnl": 0.78,
-      "note": "grid-17↑ PnL:$+0.78"
+      "amount": 603864.7343,
+      "price": 0.2484,
+      "value": 150000.0,
+      "note": "初始建仓 - 网格交易"
     }
   ],
   "equityCurve": [
     {
-      "date": "2026-04-04",
-      "value": 10014.25
-    },
-    {
-      "date": "2026-04-05",
-      "value": 9894.36
-    },
-    {
-      "date": "2026-04-06",
-      "value": 6883.81
-    },
-    {
-      "date": "2026-04-07",
-      "value": 6848.44
+      "date": "2026-04-09",
+      "value": 1000000.0
     }
   ],
-  "lastUpdated": "2026-04-09T07:28:47+08:00",
+  "lastUpdated": "2026-04-09T09:30:00+08:00",
   "strategy": {
-    "name": "密集网格 v4.2",
-    "version": "4.2"
+    "name": "密集网格 v5.0 - 千万级",
+    "version": "5.0",
+    "description": "BTC/ETH趋势持有 + AVAX/ADA网格交易"
   },
   "tradingStatus": {
-    "stopped": true,
-    "reason": "STOP_TRADING.flag exists - total loss exceeded -20% threshold",
-    "stopLossTriggered": true
+    "stopped": false,
+    "reason": null,
+    "stopLossTriggered": false
   }
 }

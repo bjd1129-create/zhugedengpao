@@ -1,13 +1,13 @@
 {
-  "timestamp": "2026-04-10T01:10:33+08:00",
-  "last_monitor_run": "2026-04-10T01:10:33+08:00",
+  "timestamp": "2026-04-10T02:58:00+08:00",
+  "last_monitor_run": "2026-04-10T02:58:00+08:00",
   "network_status": "OK - SSL bypass",
-  "last_prices_fetch": "2026-04-10T01:10:33+08:00",
+  "last_prices_fetch": "2026-04-10T02:58:00+08:00",
   "last_crypto_prices": {
-    "BTC": 72488,
-    "ETH": 2223.26,
-    "AVAX": 9.33,
-    "ADA": 0.256
+    "BTC": 71915.55,
+    "ETH": 2207.59,
+    "AVAX": 9.29,
+    "ADA": 0.2545
   },
   "last_monitor_signal": "3 个订单已执行（老庄授权自主交易），总投入 $59,500；当前持仓 5 个，总价值 $1,004,320",
   "account": {
@@ -29,7 +29,7 @@
       "pnl": 3200.0,
       "pnl_pct": 80.0,
       "stop_loss": 0.5,
-      "take_profit": 1.0,
+      "take_profit": 0.9,
       "status": "OPEN",
       "note": "4月9日晚间 特朗普威胁对伊朗新制裁，4月30日前结束军事行动概率提升"
     },
@@ -43,7 +43,7 @@
       "pnl": 1120.0,
       "pnl_pct": 56.0,
       "stop_loss": 0.5,
-      "take_profit": 1.0,
+      "take_profit": 0.9,
       "status": "OPEN",
       "note": "Péter Magyar 民调领先，反 Orbán 情绪高涨"
     },
@@ -127,7 +127,7 @@
     "orders_blocked_reason": "网络不可达，模拟账户无真实下单权限",
     "cash_reserve": 840500.0,
     "exposure_ratio": "15.95%",
-    "next_check": "2026-04-10T00:38:00+08:00"
+    "next_check": "2026-04-10T03:58:00+08:00"
   },
   "news_summary": {
     "iran_ceasefire": {
@@ -146,7 +146,7 @@
     "crypto_market": {
       "status": "反弹",
       "last_update": "2026-04-10",
-      "summary": "BTC回升至$72,488，市场情绪转暖"
+      "summary": "BTC小跌至$71,916，24h内从$72,488回落，市场震荡"
     }
   }
 }

@@ -1,10 +1,10 @@
 {
   "name": "加密货币网格",
   "provider": "Binance",
-  "status": "STOPPED",
-  "stopFile": "data/trading/STOP_TRADING.flag",
+  "status": "running",
+  "stopFile": "",
   "cash": 9500,
   "currency": "USDT",
-  "lastUpdate": "2026-04-09T09:41:00+08:00",
-  "note": "STOP_FILE 锁死中 - 等待老庄解除限制"
+  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "note": "✅ 老庄指令解除限制 - 网格交易恢复运行"
 }

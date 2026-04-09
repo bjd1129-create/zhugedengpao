@@ -74,8 +74,9 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 .empty-icon{font-size:40px;margin-bottom:12px}
 .loading{text-align:center;padding:40px;color:#aaa;font-size:14px}
 .result-info{font-size:13px;color:#aaa;margin-bottom:12px}
-footer{text-align:center;padding:20px;font-size:11px;color:#999;border-top:2px solid #ddd;background:#f5f3ee}
+footer{text-align:center;padding:20px;font-size:11px;color:#999;border-top:2px solid #ddd;background:linear-gradient(180deg, #f5f3ee 0%, rgba(232,114,74,0.05) 100%); animation:footerGlow 3s ease-in-out infinite}
 footer a{color:#888;text-decoration:none;margin:0 8px}
+@keyframes footerGlow{0%,100%{box-shadow:0 0 5px rgba(232,114,74,0.08)}50%{box-shadow:0 0 25px rgba(232,114,74,0.2)}}
 .float-mascot{position:fixed;bottom:20px;right:16px;z-index:99;display:flex;flex-direction:column;align-items:center;animation:mascot-float 3s ease-in-out infinite}
 .float-lobster{font-size:48px;cursor:pointer;transition:transform .2s;filter:drop-shadow(0 4px 8px rgba(0,0,0,0.15))}
 .float-lobster:hover{transform:scale(1.15) rotate(-5deg)}

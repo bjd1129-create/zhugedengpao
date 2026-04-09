@@ -68,20 +68,6 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 .restart-notice{background:linear-gradient(135deg,rgba(52,152,219,0.1),rgba(41,128,185,0.15));border:2px solid #3498db;border-radius:12px;padding:20px;margin-bottom:24px}
 .restart-notice h3{color:#2980b9;font-size:1.1rem;margin-bottom:8px}
 .restart-notice p{color:#555;font-size:0.9rem;line-height:1.6}
-
-/* 实时数据状态 */
-.data-status{position:fixed;bottom:20px;right:20px;background:#fff;padding:12px 20px;border-radius:12px;box-shadow:0 4px 16px rgba(0,0,0,0.1);font-size:13px;display:flex;align-items:center;gap:8px;z-index:999}
-.data-status .indicator{width:8px;height:8px;border-radius:50%;animation:pulse 2s infinite}
-.data-status .indicator.live{background:#27ae60}
-.data-status .indicator.loading{background:#f39c12}
-.data-status .indicator.error{background:#e74c3c}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
-.refresh-btn{background:#4A2508;color:#fff;border:none;padding:8px 16px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
-.refresh-btn:hover{background:#6A3510}
-.refresh-btn:disabled{background:#ccc;cursor:not-allowed}
-.loading-state{text-align:center;padding:60px 20px}
-.loading-state .spinner{font-size:3rem;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -102,13 +88,9 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 <div class="container">
 <div class="page-header">
 <h1>🦞 诸葛灯炮</h1>
-<p class="subtitle">AI 龙虾养成实验 · 模拟交易操盘 <span id="lastUpdate" style="font-size:13px;color:#999;margin-left:12px"></span></p>
+<p class="subtitle">AI 龙虾养成实验 · 模拟交易操盘</p>
 </div>
-<div id="loadingState" class="loading-state">
-<div class="spinner">🔄</div>
-<p style="margin-top:16px;color:#666">正在加载实时数据...</p>
-</div>
-<div id="cardsGrid" class="grid" style="display:none"></div>
+<div id="cardsGrid" class="grid"></div>
 </div>
 
 <div id="tradeModal" class="modal-overlay">
@@ -121,16 +103,8 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 </div>
 </div>
 
-<div id="dataStatus" class="data-status">
-<span class="indicator loading"></span>
-<span id="statusText">加载中...</span>
-<button class="refresh-btn" onclick="loadData()" id="refreshBtn" style="margin-left:12px">🔄 刷新</button>
-</div>
-
 <script>
-let simulations = {};
-let autoRefreshTimer = null;
-const DATA_BASE = 'pages/data/trading/';
+const simulations={us:{name:"美股模拟盘",provider:"老虎证券",icon:"📈",initialCapital:1e6,currentValue:1e6,cash:0,currency:"USD",status:"running",positions:[{symbol:"SPY",shares:612,avgPrice:653.44,currentPrice:653.44,return:0},{symbol:"QQQ",shares:516,avgPrice:581.52,currentPrice:581.52,return:0},{symbol:"VTI",shares:620,avgPrice:322.62,currentPrice:322.62,return:0},{symbol:"BND",shares:1363,avgPrice:73.38,currentPrice:73.38,return:0}],trades:[{time:"2026-04-09 09:30",type:"buy",symbol:"SPY",shares:612,price:653.44,total:399905.28,note:"老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓",review:"建仓完成，等待市场表现"},{time:"2026-04-09 09:30",type:"buy",symbol:"QQQ",shares:516,price:581.52,total:300064.32,note:"价值定投策略：纳斯达克 100ETF 配置 30%",review:"建仓完成，等待市场表现"},{time:"2026-04-09 09:30",type:"buy",symbol:"VTI",shares:620,price:322.62,total:200024.40,note:"价值定投策略：全市场 ETF 配置 20%",review:"建仓完成，等待市场表现"},{time:"2026-04-09 09:30",type:"buy",symbol:"BND",shares:1363,price:73.38,total:99996.94,note:"价值定投策略：债券 ETF 配置 10%",review:"建仓完成，等待市场表现"}]},futures:{name:"期货模拟盘",provider:"老虎证券",icon:"📊",initialCapital:1e6,currentValue:1e6,cash:1e6,currency:"USD",status:"running",positions:[],trades:[]},polymarket:{name:"Polymarket 模拟盘",provider:"Polymarket",icon:"🎯",initialCapital:1e6,currentValue:1e6,cash:1e6,currency:"USD",status:"running",positions:[],trades:[]},crypto:{name:"加密货币网格",provider:"Binance",icon:"₿",initialCapital:1e6,currentValue:1e6,cash:1e6,currency:"USDT",status:"running",positions:[],trades:[]}};
 
 function formatMoney(a,c){const s={USD:'$',USDT:'₮',CNY:'¥'};return(s[c]||'$')+a.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}
 function formatReturn(p){const c=p>=0?'positive':'negative',s=p>=0?'+':'';return`<span class="stat-value ${c}">${s}${p.toFixed(2)}%</span>`}
@@ -151,21 +125,22 @@ html+=`<span class="empty">无备注</span>`;
 html+='</div>';
 return html;
 }
-
 function createCard(k,d){const c=document.createElement('div');c.className='card';c.onclick=()=>showDetails(k);const t=d.initialCapital?((d.currentValue-d.initialCapital)/d.initialCapital*100):0;let p='';if(d.positions&&d.positions.length>0){p=`<div class="holdings-section"><div class="holdings-title">📊 持仓 (${d.positions.length}个)</div>`+d.positions.map(x=>`<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.9rem"><span style="font-weight:600">${x.symbol} ${x.direction||''}</span><span class="stat-value ${x.return!==undefined?(x.return>=0?'positive':'negative'):'negative'}">${x.return!==undefined?formatReturn(x.return):'潜在'+formatMoney(x.potentialReturn,d.currency)}</span></div>`).join('')+'</div>'}
 
+// 重启通知卡片特殊处理
 let restartNotice='';
 if(d.status==='restarting'&&d.restartNotice){
 restartNotice=`<div class="restart-notice"><h3>🔄 ${d.restartNotice}</h3><p>${d.restartReason}</p></div>`;
 }
 
-c.innerHTML=`<div class="card-header"><span class="card-icon">${d.icon||'📊'}</span><div><div class="card-title">${d.name}</div><div class="card-provider">${d.provider}</div></div></div>${restartNotice}<div class="card-body"><div class="stat-row"><span class="stat-label">初始资金</span><span class="stat-value">${formatMoney(d.initialCapital,d.currency)}</span></div><div class="stat-row"><span class="stat-label">当前价值</span><span class="stat-value large">${formatMoney(d.currentValue,d.currency)}</span></div><div class="stat-row"><span class="stat-label">可用现金</span><span class="stat-value">${formatMoney(d.cash,d.currency)}</span></div><div class="stat-row"><span class="stat-label">总收益</span>${formatReturn(t)}</div>${p}<div class="status-badge ${d.status==='running'?'status-running':d.status==='restarting'?'status-restarting':'status-stopped'}">${d.status==='running'?'▶️ 运行中':d.status==='restarting'?'🔄 策略修正重启中':'⏸️ 已停止'}</div>${d.status==='stopped'&&d.stopFile?`<p style="font-size:12px;color:#666;margin-top:8px">原因：${d.stopFile}</p>`:''}${d.status==='restarting'&&d.stopFile?`<p style="font-size:12px;color:#2980b9;margin-top:8px">状态：${d.stopFile}</p>`:''}</div>`;return c}
+c.innerHTML=`<div class="card-header"><span class="card-icon">${d.icon}</span><div><div class="card-title">${d.name}</div><div class="card-provider">${d.provider}</div></div></div>${restartNotice}<div class="card-body"><div class="stat-row"><span class="stat-label">初始资金</span><span class="stat-value">${formatMoney(d.initialCapital,d.currency)}</span></div><div class="stat-row"><span class="stat-label">当前价值</span><span class="stat-value large">${formatMoney(d.currentValue,d.currency)}</span></div><div class="stat-row"><span class="stat-label">可用现金</span><span class="stat-value">${formatMoney(d.cash,d.currency)}</span></div><div class="stat-row"><span class="stat-label">总收益</span>${formatReturn(t)}</div>${p}<div class="status-badge ${d.status==='running'?'status-running':d.status==='restarting'?'status-restarting':'status-stopped'}">${d.status==='running'?'▶️ 运行中':d.status==='restarting'?'🔄 策略修正重启中':'⏸️ 已停止'}</div>${d.status==='stopped'&&d.stopFile?`<p style="font-size:12px;color:#666;margin-top:8px">原因：${d.stopFile}</p>`:''}${d.status==='restarting'&&d.stopFile?`<p style="font-size:12px;color:#2980b9;margin-top:8px">状态：${d.stopFile}</p>`:''}</div>`;return c}
 
 function showDetails(k){
 const d=simulations[k];
 document.getElementById('modalTitle').textContent=`${d.name} - 详情`;
 let html='';
 
+// 重启通知
 if(d.status==='restarting'&&d.restartReason){
 html+=`<div class="restart-notice"><h3>🔄 策略修正重启</h3><p><strong>目标：</strong>${d.restartReason}</p><p style="margin-top:8px"><strong>方法：</strong>每笔交易后复盘 → 修正策略参数 → 优化网格密度 → 提升胜率</p></div>`;
 }
@@ -217,138 +192,7 @@ document.getElementById('tradeModal').classList.add('active');
 }
 
 function closeModal(){document.getElementById('tradeModal').classList.remove('active')}
-
-async function loadData(){
-const btn = document.getElementById('refreshBtn');
-const indicator = document.querySelector('#dataStatus .indicator');
-const statusText = document.getElementById('statusText');
-
-btn.disabled = true;
-indicator.className = 'indicator loading';
-statusText.textContent = '刷新中...';
-
-try{
-// 并行加载所有数据
-const [cryptoRes, usRes, futuresRes, polymarketRes] = await Promise.all([
-fetch(DATA_BASE + 'portfolio.json?t=' + Date.now()),
-fetch(DATA_BASE + 'us-simulation.json?t=' + Date.now()),
-fetch(DATA_BASE + 'futures-simulation.json?t=' + Date.now()),
-fetch(DATA_BASE + 'polymarket_portfolio.json?t=' + Date.now())
-]);
-
-const cryptoData = await cryptoRes.json();
-const usData = usRes.ok ? await usRes.json() : null;
-const futuresData = futuresRes.ok ? await futuresRes.json() : null;
-const polymarketData = await polymarketRes.json();
-
-// 构建 simulations 对象
-simulations = {};
-
-// 加密货币网格
-const cryptoInitial = cryptoData.account?.initialBalance || 10000;
-const cryptoCash = cryptoData.cash || cryptoData.account?.cashBalance || 0;
-simulations.crypto = {
-name: cryptoData.name || '加密货币网格',
-provider: cryptoData.provider || 'Binance',
-icon: '₿',
-initialCapital: cryptoInitial,
-currentValue: cryptoCash,
-cash: cryptoCash,
-currency: 'USDT',
-status: cryptoData.status === 'STOPPED' ? 'stopped' : (cryptoData.status === 'RESTARTING' ? 'restarting' : 'running'),
-stopFile: cryptoData.stopFile || '',
-restartNotice: cryptoData.status === 'RESTARTING' ? '策略修正重启中' : null,
-restartReason: cryptoData.status === 'RESTARTING' ? '通过复盘修正优化策略' : null,
-positions: [],
-trades: cryptoData.recentTrades?.map(t => ({
-time: t.time.replace(/T/, ' ').substring(0, 16),
-type: t.side?.toLowerCase() || t.type,
-symbol: t.symbol,
-shares: t.amount,
-price: t.price,
-total: t.amount * t.price,
-note: t.note || '',
-review: t.review || ''
-})) || []
-};
-
-// 美股模拟盘
-if(usData){
-simulations.us = {
-name: usData.name || '美股模拟盘',
-provider: usData.provider || '老虎证券',
-icon: '📈',
-initialCapital: usData.initialCapital || 1000000,
-currentValue: usData.currentValue || usData.initialCapital || 1000000,
-cash: usData.cash || usData.initialCapital || 1000000,
-currency: 'USD',
-status: 'running',
-positions: [],
-trades: []
-};
-}
-
-// 期货模拟盘
-if(futuresData){
-simulations.futures = {
-name: futuresData.name || '期货模拟盘',
-provider: futuresData.provider || '老虎证券',
-icon: '📊',
-initialCapital: futuresData.initialCapital || 500000,
-currentValue: futuresData.currentValue || futuresData.initialCapital || 500000,
-cash: futuresData.cash || futuresData.initialCapital || 500000,
-currency: 'USD',
-status: 'running',
-positions: [],
-trades: []
-};
-}
-
-// Polymarket
-simulations.polymarket = {
-name: 'Polymarket 模拟盘',
-provider: 'Polymarket',
-icon: '🎯',
-initialCapital: 10000,
-currentValue: polymarketData.account?.totalValue || 10000,
-cash: polymarketData.account?.cashBalance || 10000,
-currency: 'USD',
-status: 'running',
-positions: polymarketData.positions || [],
-trades: []
-};
-
-// 渲染页面
-document.getElementById('loadingState').style.display = 'none';
-document.getElementById('cardsGrid').style.display = 'grid';
-document.getElementById('cardsGrid').innerHTML = '';
-['us','futures','polymarket','crypto'].forEach(k=>{
-if(simulations[k]) document.getElementById('cardsGrid').appendChild(createCard(k,simulations[k]));
-});
-
-// 更新最后时间
-const now = new Date();
-document.getElementById('lastUpdate').textContent = `最后更新：${now.toLocaleTimeString('zh-CN')}`;
-
-indicator.className = 'indicator live';
-statusText.textContent = '实时数据';
-
-}catch(e){
-console.error('Load data error:', e);
-indicator.className = 'indicator error';
-statusText.textContent = '加载失败';
-}
-
-btn.disabled = false;
-}
-
-function render(){
-loadData();
-// 每 30 秒自动刷新
-if(autoRefreshTimer) clearInterval(autoRefreshTimer);
-autoRefreshTimer = setInterval(loadData, 30000);
-}
-
+function render(){const c=document.getElementById('cardsGrid');['us','futures','polymarket','crypto'].forEach(k=>c.appendChild(createCard(k,simulations[k])))}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 render();
 </script>

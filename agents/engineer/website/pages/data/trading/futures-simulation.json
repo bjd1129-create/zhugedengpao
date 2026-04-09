@@ -1,9 +1,0 @@
-{
-  "name": "期货模拟盘",
-  "provider": "老虎证券",
-  "initialCapital": 500000,
-  "currentValue": 500000,
-  "cash": 500000,
-  "currency": "USD",
-  "lastUpdate": "2026-04-09T07:38:00+08:00"
-}

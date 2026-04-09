@@ -1,0 +1,17 @@
+{
+  "name": "期货模拟盘",
+  "provider": "老虎证券",
+  "initialCapital": 1000000,
+  "currentValue": 1000000,
+  "cash": 1000000,
+  "currency": "USD",
+  "status": "running",
+  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "strategy": {
+    "name": "期货趋势跟踪",
+    "markets": ["美股期货 (ES/NQ)", "商品期货 (黄金/原油)", "加密货币期货"]
+  },
+  "positions": [],
+  "trades": [],
+  "note": "起始资金$1,000,000 - 待建仓，等待交易员分析市场后执行"
+}

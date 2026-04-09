@@ -1,10 +1,63 @@
 {
   "name": "美股模拟盘",
   "provider": "老虎证券",
-  "accountId": "21639635499102726",
   "initialCapital": 1000000,
   "currentValue": 1000000,
-  "cash": 1000000,
+  "cash": 0,
   "currency": "USD",
-  "lastUpdate": "2026-04-08T00:00:00+08:00"
+  "status": "running",
+  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "strategy": {
+    "name": "价值定投策略 v1.0",
+    "allocation": {
+      "SPY": {"target": 0.4, "name": "标普 500ETF"},
+      "QQQ": {"target": 0.3, "name": "纳斯达克 100ETF"},
+      "VTI": {"target": 0.2, "name": "全市场 ETF"},
+      "BND": {"target": 0.1, "name": "债券 ETF"}
+    }
+  },
+  "positions": [
+    {"symbol": "SPY", "quantity": 612, "avgPrice": 653.44, "currentPrice": 653.44, "marketValue": 399905.28},
+    {"symbol": "QQQ", "quantity": 516, "avgPrice": 581.52, "currentPrice": 581.52, "marketValue": 300064.32},
+    {"symbol": "VTI", "quantity": 620, "avgPrice": 322.62, "currentPrice": 322.62, "marketValue": 200024.40},
+    {"symbol": "BND", "quantity": 1363, "avgPrice": 73.38, "currentPrice": 73.38, "marketValue": 99996.94}
+  ],
+  "trades": [
+    {
+      "timestamp": "2026-04-09T09:30:00+08:00",
+      "action": "BUY",
+      "symbol": "SPY",
+      "quantity": 612,
+      "price": 653.44,
+      "total": 399905.28,
+      "reason": "老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓 - 标普 500ETF 配置 40%"
+    },
+    {
+      "timestamp": "2026-04-09T09:30:00+08:00",
+      "action": "BUY",
+      "symbol": "QQQ",
+      "quantity": 516,
+      "price": 581.52,
+      "total": 300064.32,
+      "reason": "老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓 - 纳斯达克 100ETF 配置 30%"
+    },
+    {
+      "timestamp": "2026-04-09T09:30:00+08:00",
+      "action": "BUY",
+      "symbol": "VTI",
+      "quantity": 620,
+      "price": 322.62,
+      "total": 200024.40,
+      "reason": "老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓 - 全市场 ETF 配置 20%"
+    },
+    {
+      "timestamp": "2026-04-09T09:30:00+08:00",
+      "action": "BUY",
+      "symbol": "BND",
+      "quantity": 1363,
+      "price": 73.38,
+      "total": 99996.94,
+      "reason": "老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓 - 债券 ETF 配置 10%"
+    }
+  ]
 }

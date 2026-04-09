@@ -1,15 +1,17 @@
 {
   "name": "Polymarket 模拟盘",
   "provider": "Polymarket",
-  "initialCapital": 100000,
-  "invested": 2710,
-  "cash": 97290,
+  "initialCapital": 1000000,
+  "currentValue": 1000000,
+  "cash": 1000000,
   "currency": "USD",
-  "positions": [
-    {"market": "BTC<$65K", "direction": "NO", "invested": 700, "potentialReturn": 10000},
-    {"market": "ETH<$2000", "direction": "NO", "invested": 600, "potentialReturn": 15000},
-    {"market": "SOL>$80", "direction": "NO", "invested": 650, "potentialReturn": 5000},
-    {"market": "US enters Iran Apr30", "direction": "NO", "invested": 760, "potentialReturn": 2000}
-  ],
-  "lastUpdate": "2026-04-08T00:11:00+08:00"
+  "status": "running",
+  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "strategy": {
+    "name": "事件预测交易",
+    "focus": ["加密货币价格预测", "地缘政治事件", "经济指标", "科技行业事件"]
+  },
+  "positions": [],
+  "trades": [],
+  "note": "起始资金$1,000,000 - 待建仓，等待交易员分析事件后执行"
 }

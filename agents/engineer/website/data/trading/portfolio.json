@@ -3,7 +3,7 @@
     "cashBalance": 6848.44,
     "totalValue": 6848.44,
     "lastCheckTime": "2026-04-09T13:42:40.680212+08:00",
-    "initialBalance": 10000.0,
+    "initialBalance": 1000000.0,
     "totalPnL": -3151.56,
     "totalPnLPercent": -31.5156,
     "totalTrades": 84,
@@ -193,7 +193,7 @@
       "value": 6848.44
     }
   ],
-  "lastUpdated": "2026-04-09T20:23:00+08:00",
+  "lastUpdated": "2026-04-09T20:25:00+08:00",
   "strategy": {
     "name": "密集网格 v4.2",
     "version": "4.2"

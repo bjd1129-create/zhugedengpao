@@ -7,7 +7,7 @@
   "currency": "USDT",
   "status": "running",
   "stopFile": "",
-  "lastUpdate": "2026-04-09T20:23:00+08:00",
+  "lastUpdate": "2026-04-09T20:25:00+08:00",
   "strategy": {
     "name": "加密货币网格交易",
     "coins": [

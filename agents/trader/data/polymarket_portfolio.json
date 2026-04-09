@@ -1,6 +1,14 @@
 {
-  "timestamp": "2026-04-09T13:37:00+08:00",
-  "last_monitor_run": "2026-04-09T13:37:00+08:00",
+  "timestamp": "2026-04-09T23:24:00+08:00",
+  "last_monitor_run": "2026-04-09T23:24:00+08:00",
+  "network_status": "UNAVAILABLE - cron环境网络不可达，使用上次记录价格",
+  "last_prices_fetch": "2026-04-09T21:10",
+  "last_crypto_prices": {
+    "BTC": 70892,
+    "ETH": 2178,
+    "AVAX": 9.02,
+    "ADA": 0.2496
+  },
   "last_monitor_signal": "3 个订单已执行（老庄授权自主交易），总投入 $59,500",
   "account": {
     "initial_balance": 1000000.0,
@@ -100,7 +108,8 @@
     "iran_ceasefire": {
       "status": "生效中",
       "last_update": "2026-04-09",
-      "summary": "美伊 2 周停火协议生效至 4 月 22 日，双方互相指责但未发生军事冲突",
+      "summary": "美伊停火协议执行中（4月22日期限），伊朗核谈判持续，关注俄乌局势",
+      "note": "4月9日晚间 - 特朗普威胁对伊朗新制裁"}
       "impact": "利好 4 月 30 日前结束军事行动的预测市场"
     },
     "hungary_election": {

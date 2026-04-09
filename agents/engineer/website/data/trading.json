@@ -1,0 +1,35 @@
+{
+  "last_updated": "2026-04-09T17:45:00+08:00",
+  "polymarket": {
+    "account": "Polymarket 模拟盘",
+    "initial_balance": 1000000,
+    "cash_balance": 840500,
+    "invested": 159500,
+    "total_value": 1004320,
+    "pnl": 4320,
+    "pnl_pct": 0.43,
+    "positions_count": 5,
+    "status": "🟢 持仓中"
+  },
+  "crypto": {
+    "account": "加密网格模拟盘",
+    "initial_balance": 10000,
+    "cash_balance": 848,
+    "invested": 6007,
+    "total_value": 6855,
+    "pnl": -3145,
+    "pnl_pct": -31.44,
+    "positions": ["BTC 0.0423", "ETH 1.375"],
+    "status": "🔴 止损中"
+  },
+  "es_futures": {
+    "account": "美股期货模拟盘",
+    "status": "待启动",
+    "last_update": "2026-04-09"
+  },
+  "china_futures": {
+    "account": "股指期货模拟盘",
+    "status": "待启动", 
+    "last_update": "2026-04-09"
+  }
+}

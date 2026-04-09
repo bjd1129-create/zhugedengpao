@@ -1,0 +1,69 @@
+{
+  "update_time": "2026-04-09T15:50:00+08:00",
+  "cron_note": "15:50 定时更新 - 价格API网络不可达，跳过实时价格更新",
+  "account_type": "加密货币网格交易",
+  "total_value": 6845.88,
+  "total_pnl": -3154.12,
+  "total_pnl_pct": -31.54,
+  "positions": [
+    {
+      "symbol": "BTC",
+      "price": 70935.67,
+      "holdings": 0.04230718,
+      "value": 3001.42,
+      "avgPrice": 70909.95,
+      "pnl": 1.42,
+      "pnl_pct": 0.05,
+      "strategy": "持有观望",
+      "status": "🛑 止损触发，空仓观望",
+      "action": "总资产 -31.54%，STOP_TRADING 标志生效"
+    },
+    {
+      "symbol": "ETH",
+      "price": 2178.54,
+      "holdings": 1.37508709,
+      "value": 2994.72,
+      "avgPrice": 2181.68,
+      "pnl": -5.28,
+      "pnl_pct": -0.18,
+      "strategy": "持有观望",
+      "status": "🛑 止损触发，空仓观望",
+      "action": "总资产 -31.54%，STOP_TRADING 标志生效"
+    },
+    {
+      "symbol": "AVAX",
+      "price": 9.03,
+      "holdings": 0,
+      "value": 0,
+      "avgPrice": 0,
+      "pnl": 0,
+      "pnl_pct": 0,
+      "strategy": "网格已关闭",
+      "status": "✅ 网格已平仓",
+      "action": "网格已关闭，现金观望"
+    },
+    {
+      "symbol": "ADA",
+      "price": 0.2498,
+      "holdings": 0,
+      "value": 0,
+      "avgPrice": 0,
+      "pnl": 0,
+      "pnl_pct": 0,
+      "strategy": "网格已关闭",
+      "status": "✅ 网格已平仓",
+      "action": "网格已关闭，现金观望"
+    }
+  ],
+  "cash_balance": 849.11,
+  "alerts": [
+    "🛑 STOP_TRADING 标志生效（-31.54%，超过 -20% 阈值）",
+    "BTC/ETH 持有观望，不进行新交易"
+  ],
+  "recommendations": [
+    "等待策略审查后再决定下一步操作",
+    "AVAX/ADA 网格已关闭",
+    "下次检查：14:51"
+  ],
+  "next_check": "2026-04-09T14:51:00+08:00"
+}

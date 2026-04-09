@@ -1,10 +1,12 @@
 {
-  "timestamp": "2026-04-08T20:02:42.282277",
+  "timestamp": "2026-04-09T13:37:00+08:00",
+  "last_monitor_run": "2026-04-09T13:37:00+08:00",
+  "last_monitor_signal": "3 个订单已执行（老庄授权自主交易），总投入 $59,500",
   "account": {
-    "initial_balance": 10000.0,
-    "cash_balance": 4000.0,
-    "invested": 6000.0,
-    "total_value": 10000.0
+    "initial_balance": 1000000.0,
+    "cash_balance": 840500.0,
+    "invested": 159500.0,
+    "total_value": 1004320.0
   },
   "positions": [
     {
@@ -28,61 +30,96 @@
       "avg_cost": 0.641025641025641,
       "current_value": 3120.0,
       "pnl": 1120.0,
-      "pnl_pct": 56.00000000000001,
+      "pnl_pct": 56.0,
       "stop_loss": 0.5,
       "take_profit": 1.0,
       "status": "OPEN"
-    }
-  ],
-  "orders": [
-    {
-      "timestamp": "2026-04-08T20:02:42.282236",
-      "market_id": "trump-announces-end-of-military-operations-against-iran-by",
-      "question": "特朗普宣布结束对伊朗的军事行动",
-      "outcome": "4 月 30 日",
-      "action": "BUY",
-      "shares": 4000.0,
-      "price_per_share": 0.5555555555555556,
-      "total_cost": 4000.0,
-      "potential_payout": 7200.0,
-      "expected_return": 2272.0,
-      "stop_loss": 0.5,
-      "take_profit": 1.0,
-      "reason": "已有官方停火声明，2 周停火期到 4 月 22 日，4 月 30 日前结束概率>70%",
-      "news_sources": [
-        "华盛顿邮报",
-        "CNN",
-        "BBC",
-        "NYT"
-      ],
-      "status": "PENDING"
     },
     {
-      "timestamp": "2026-04-08T20:02:42.282264",
-      "market_id": "next-prime-minister-of-hungary",
-      "question": "匈牙利下任总理",
-      "outcome": "Péter Magyar",
-      "action": "BUY",
-      "shares": 2000.0,
-      "price_per_share": 0.641025641025641,
-      "total_cost": 2000.0,
-      "potential_payout": 3120.0,
-      "expected_return": 1276.8,
+      "market_id": "us-fed-rate-decision-may-2026",
+      "question": "美联储 2026 年 5 月利率决议",
+      "outcome": "不降息（维持 4.25%-4.50%）",
+      "shares": 50000.0,
+      "avg_cost": 0.65,
+      "current_value": 32500.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
       "stop_loss": 0.5,
-      "take_profit": 1.0,
-      "reason": "民调领先，反 Orbán 情绪高涨，国际观察员看好",
-      "news_sources": [
-        "BBC",
-        "NYT",
-        "Reuters"
-      ],
-      "status": "PENDING"
+      "take_profit": 0.85,
+      "reason": "通胀数据粘性，美联储官员鹰派表态，5 月降息概率低",
+      "news_sources": ["Bloomberg", "Reuters", "CNBC"],
+      "status": "OPEN",
+      "executed_at": "2026-04-09T13:37:00+08:00",
+      "executed_by": "老庄授权自主执行"
+    },
+    {
+      "market_id": "bitcoin-price-april-2026",
+      "question": "比特币 2026 年 4 月底价格",
+      "outcome": "突破$75,000",
+      "shares": 30000.0,
+      "avg_cost": 0.55,
+      "current_value": 16500.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "stop_loss": 0.45,
+      "take_profit": 0.75,
+      "reason": "加密货币市场反弹，BTC 突破$70,000，机构资金流入",
+      "news_sources": ["CoinDesk", "Cointelegraph"],
+      "status": "OPEN",
+      "executed_at": "2026-04-09T13:37:00+08:00",
+      "executed_by": "老庄授权自主执行"
+    },
+    {
+      "market_id": "ukraine-ceasefire-2026",
+      "question": "乌克兰停火协议 2026 年 5 月前达成",
+      "outcome": "是",
+      "shares": 25000.0,
+      "avg_cost": 0.42,
+      "current_value": 10500.0,
+      "pnl": 0.0,
+      "pnl_pct": 0.0,
+      "stop_loss": 0.35,
+      "take_profit": 0.65,
+      "reason": "美伊停火后，国际调停力度加大，俄乌双方表态缓和",
+      "news_sources": ["BBC", "Washington Post", "NYT"],
+      "status": "OPEN",
+      "executed_at": "2026-04-09T13:37:00+08:00",
+      "executed_by": "老庄授权自主执行"
     }
   ],
+  "new_orders": [],
   "strategy": {
-    "name": "事件驱动 v2.0",
-    "focus": "地缘政治 + 政治",
-    "max_position": 0.4,
-    "max_exposure": 0.6
+    "name": "事件驱动 v3.0 - 千万级",
+    "focus": "地缘政治 + 政治 + 宏观经济 + 加密货币",
+    "max_position": 0.1,
+    "max_exposure": 0.7,
+    "target_markets": 10,
+    "authorization": "老庄 2026-04-09 授权：自主决策，无需批准，投入 50%+ 资金"
+  },
+  "news_summary": {
+    "iran_ceasefire": {
+      "status": "生效中",
+      "last_update": "2026-04-09",
+      "summary": "美伊 2 周停火协议生效至 4 月 22 日，双方互相指责但未发生军事冲突",
+      "impact": "利好 4 月 30 日前结束军事行动的预测市场"
+    },
+    "hungary_election": {
+      "status": "竞选进行中",
+      "last_update": "2026-04-09",
+      "summary": "Péter Magyar 民调领先，反 Orbán情绪高涨",
+      "impact": "利好 Magyar 当选预测"
+    },
+    "fed_policy": {
+      "status": "鹰派立场",
+      "last_update": "2026-04-09",
+      "summary": "美联储官员表态通胀仍有粘性，5 月降息概率低",
+      "impact": "利好维持利率预测"
+    },
+    "crypto_market": {
+      "status": "反弹中",
+      "last_update": "2026-04-09",
+      "summary": "BTC 突破$70,000，机构资金持续流入",
+      "impact": "利好加密货币相关预测市场"
+    }
   }
 }

@@ -2,25 +2,61 @@
   "name": "美股模拟盘",
   "provider": "老虎证券",
   "initialCapital": 1000000,
-  "currentValue": 1000000,
+  "currentValue": 1000000.0,
   "cash": 0,
   "currency": "USD",
   "status": "running",
-  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "lastUpdate": "2026-04-09T20:25:00+08:00",
   "strategy": {
     "name": "价值定投策略 v1.0",
     "allocation": {
-      "SPY": {"target": 0.4, "name": "标普 500ETF"},
-      "QQQ": {"target": 0.3, "name": "纳斯达克 100ETF"},
-      "VTI": {"target": 0.2, "name": "全市场 ETF"},
-      "BND": {"target": 0.1, "name": "债券 ETF"}
+      "SPY": {
+        "target": 0.4,
+        "name": "标普 500ETF"
+      },
+      "QQQ": {
+        "target": 0.3,
+        "name": "纳斯达克 100ETF"
+      },
+      "VTI": {
+        "target": 0.2,
+        "name": "全市场 ETF"
+      },
+      "BND": {
+        "target": 0.1,
+        "name": "债券 ETF"
+      }
     }
   },
   "positions": [
-    {"symbol": "SPY", "quantity": 612, "avgPrice": 653.44, "currentPrice": 653.44, "marketValue": 399905.28},
-    {"symbol": "QQQ", "quantity": 516, "avgPrice": 581.52, "currentPrice": 581.52, "marketValue": 300064.32},
-    {"symbol": "VTI", "quantity": 620, "avgPrice": 322.62, "currentPrice": 322.62, "marketValue": 200024.40},
-    {"symbol": "BND", "quantity": 1363, "avgPrice": 73.38, "currentPrice": 73.38, "marketValue": 99996.94}
+    {
+      "symbol": "SPY",
+      "quantity": 612,
+      "avgPrice": 653.44,
+      "currentPrice": 653.44,
+      "marketValue": 399905.28
+    },
+    {
+      "symbol": "QQQ",
+      "quantity": 516,
+      "avgPrice": 581.52,
+      "currentPrice": 581.52,
+      "marketValue": 300064.32
+    },
+    {
+      "symbol": "VTI",
+      "quantity": 620,
+      "avgPrice": 322.62,
+      "currentPrice": 322.62,
+      "marketValue": 200024.4
+    },
+    {
+      "symbol": "BND",
+      "quantity": 1363,
+      "avgPrice": 73.38,
+      "currentPrice": 73.38,
+      "marketValue": 99996.94
+    }
   ],
   "trades": [
     {
@@ -47,7 +83,7 @@
       "symbol": "VTI",
       "quantity": 620,
       "price": 322.62,
-      "total": 200024.40,
+      "total": 200024.4,
       "reason": "老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓 - 全市场 ETF 配置 20%"
     },
     {
@@ -59,5 +95,6 @@
       "total": 99996.94,
       "reason": "老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓 - 债券 ETF 配置 10%"
     }
-  ]
+  ],
+  "note": "美股模拟盘 - 老庄指令"
 }

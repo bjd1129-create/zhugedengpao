@@ -2,16 +2,85 @@
   "name": "期货模拟盘",
   "provider": "老虎证券",
   "initialCapital": 1000000,
-  "currentValue": 1000000,
-  "cash": 1000000,
+  "currentValue": 1000000.0,
+  "cash": 839000.0,
   "currency": "USD",
   "status": "running",
-  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "lastUpdate": "2026-04-09T20:25:00+08:00",
   "strategy": {
     "name": "期货趋势跟踪",
-    "markets": ["美股期货 (ES/NQ)", "商品期货 (黄金/原油)", "加密货币期货"]
+    "markets": [
+      "美股期货 (ES/NQ)",
+      "商品期货 (黄金/原油)",
+      "加密货币期货"
+    ]
   },
-  "positions": [],
-  "trades": [],
-  "note": "起始资金$1,000,000 - 待建仓，等待交易员分析市场后执行"
+  "positions": [
+    {
+      "symbol": "ES1!",
+      "name": "E-mini S&P 500",
+      "type": "long",
+      "contracts": 5,
+      "entryPrice": 5280.0,
+      "currentPrice": 5280.0,
+      "margin": 13200.0,
+      "unrealizedPnL": 0.0,
+      "unrealizedPnLPercent": 0.0
+    },
+    {
+      "symbol": "NQ1!",
+      "name": "E-mini Nasdaq 100",
+      "type": "long",
+      "contracts": 3,
+      "entryPrice": 18350.0,
+      "currentPrice": 18350.0,
+      "margin": 11000.0,
+      "unrealizedPnL": 0.0,
+      "unrealizedPnLPercent": 0.0
+    },
+    {
+      "symbol": "GC1!",
+      "name": "Gold",
+      "type": "long",
+      "contracts": 2,
+      "entryPrice": 2340.0,
+      "currentPrice": 2340.0,
+      "margin": 8000.0,
+      "unrealizedPnL": 0.0,
+      "unrealizedPnLPercent": 0.0
+    }
+  ],
+  "trades": [
+    {
+      "time": "2026-04-09T12:27:18.914574+00:00",
+      "type": "buy",
+      "symbol": "ES1!",
+      "contracts": 5,
+      "price": 5280.0,
+      "total": 66000.0,
+      "note": "老庄指令：期货模拟盘建仓，配置 S&P 500 趋势跟踪",
+      "review": "建仓完成，等待趋势信号"
+    },
+    {
+      "time": "2026-04-09T12:27:18.914574+00:00",
+      "type": "buy",
+      "symbol": "NQ1!",
+      "contracts": 3,
+      "price": 18350.0,
+      "total": 55000.0,
+      "note": "Nasdaq 100 科技股期货配置 30%",
+      "review": "建仓完成，等待趋势信号"
+    },
+    {
+      "time": "2026-04-09T12:27:18.914574+00:00",
+      "type": "buy",
+      "symbol": "GC1!",
+      "contracts": 2,
+      "price": 2340.0,
+      "total": 40000.0,
+      "note": "黄金期货 - 避险配置 20%",
+      "review": "建仓完成，等待趋势信号"
+    }
+  ],
+  "note": "期货模拟盘建仓完成 - 老庄指令"
 }

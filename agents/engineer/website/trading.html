@@ -37,10 +37,9 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 .status-badge{display:inline-block;padding:6px 16px;border-radius:20px;font-size:0.85rem;margin-top:12px;font-weight:600}
 .status-running{background:rgba(39,174,96,0.15);color:#27ae60}
 .status-stopped{background:rgba(231,76,60,0.15);color:#e74c3c}
-.status-loading{background:rgba(52,152,219,0.15);color:#3498db}
-.error-msg{color:#e74c3c;font-size:13px;margin-top:8px}
 .loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid #3498db;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.error{color:#e74c3c;font-size:13px;margin-top:8px}
 </style>
 </head>
 <body>
@@ -74,7 +73,10 @@ const CONFIG = {
   stocks: ['SPY', 'QQQ', 'VTI', 'BND']
 };
 
-// 账户数据（静态）
+// Polymarket API (通过 CORS 代理)
+const POLYMARKET_API = 'https://clob.polymarket.com';
+
+// 账户数据
 const accounts = {
   crypto: {
     name: "加密货币网格",
@@ -103,13 +105,27 @@ const accounts = {
       {symbol: "VTI", shares: 620, avgPrice: 322.62},
       {symbol: "BND", shares: 1363, avgPrice: 73.38}
     ]
+  },
+  polymarket: {
+    name: "Polymarket 预测市场",
+    provider: "Polymarket",
+    icon: "🎯",
+    initialCapital: 100000,
+    currency: "USD",
+    status: "running",
+    positions: [
+      {symbol: "BTC<$65K", shares: 10000, avgPrice: 0.07, marketProb: 0.93},
+      {symbol: "ETH<$2K", shares: 15000, avgPrice: 0.04, marketProb: 0.96},
+      {symbol: "SOL>$80", shares: 5000, avgPrice: 0.13, marketProb: 0.87}
+    ]
   }
 };
 
 // 实时价格数据
 let prices = {
   crypto: {},
-  stocks: {}
+  stocks: {},
+  polymarket: {}
 };
 
 // 格式化货币
@@ -147,13 +163,13 @@ async function fetchCryptoPrices() {
 // 获取股票价格 (Yahoo Finance)
 async function fetchStockPrices() {
   try {
-    const symbols = CONFIG.stocks.map(s => s + 'USD=X');
-    const resp = await fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + symbols.join(','));
+    const symbols = CONFIG.stocks.map(s => '"' + s + '"').join(',');
+    const url = 'https://query1.finance.yahoo.com/v7/finance/quote?symbols=[' + symbols + ']';
+    const resp = await fetch(url);
     const data = await resp.json();
     if (data.quoteResponse && data.quoteResponse.result) {
       data.quoteResponse.result.forEach(item => {
-        const symbol = item.symbol.replace('USD=X', '');
-        prices.stocks[symbol] = item.regularMarketPrice;
+        prices.stocks[item.symbol] = item.regularMarketPrice;
       });
     }
     return true;
@@ -163,24 +179,60 @@ async function fetchStockPrices() {
   }
 }
 
+// 获取 Polymarket 价格
+async function fetchPolymarketPrices() {
+  try {
+    // 使用 CORS 代理或直接 API
+    const url = 'https://clob.polymarket.com/markets';
+    const resp = await fetch(url);
+    const data = await resp.json();
+    
+    // 查找我们关注的 markets
+    const markets = data.markets || [];
+    const btcMarket = markets.find(m => m.question && m.question.includes('BTC') && m.question.includes('65'));
+    const ethMarket = markets.find(m => m.question && m.question.includes('ETH') && m.question.includes('2'));
+    const solMarket = markets.find(m => m.question && m.question.includes('SOL') && m.question.includes('80'));
+    
+    if (btcMarket) prices.polymarket['BTC<$65K'] = parseFloat(btcMarket.price || 0);
+    if (ethMarket) prices.polymarket['ETH<$2K'] = parseFloat(ethMarket.price || 0);
+    if (solMarket) prices.polymarket['SOL>$80'] = parseFloat(solMarket.price || 0);
+    
+    return true;
+  } catch (e) {
+    console.error('Polymarket API error:', e);
+    // 使用静态数据作为后备
+    prices.polymarket = {
+      'BTC<$65K': 0.07,
+      'ETH<$2K': 0.04,
+      'SOL>$80': 0.13
+    };
+    return false;
+  }
+}
+
 // 计算账户价值
 function calculateAccountValue(account) {
   let total = account.initialCapital;
   
   if (account.currency === 'USDT') {
-    // 加密货币
     account.positions.forEach(pos => {
       const price = prices.crypto[pos.symbol] || 0;
       total += pos.shares * price;
     });
   } else if (account.currency === 'USD') {
-    // 美股
-    account.positions.forEach(pos => {
-      const price = prices.stocks[pos.symbol] || pos.avgPrice;
-      total = pos.shares * price;
-    });
-    // 加现金
-    total += 0; // 现金已投入
+    if (account.icon === '🎯') {
+      // Polymarket - 使用预测价格
+      account.positions.forEach(pos => {
+        const price = prices.polymarket[pos.symbol] || pos.avgPrice;
+        total = pos.shares * price;
+      });
+    } else {
+      // 美股
+      account.positions.forEach(pos => {
+        const price = prices.stocks[pos.symbol] || pos.avgPrice;
+        total = pos.shares * price;
+      });
+    }
   }
   
   return total;
@@ -203,16 +255,28 @@ function renderAccountCard(key, account) {
         positionsHtml += '<div class="stat-row"><span class="stat-label">' + pos.symbol + '</span><span class="stat-value">' + formatMoney(value, 'USDT') + '</span></div>';
       }
     });
-    totalValue += 0; // 现金
   } else if (account.currency === 'USD') {
-    account.positions.forEach(pos => {
-      const price = prices.stocks[pos.symbol] || pos.avgPrice;
-      totalValue += pos.shares * price;
-      positionsHtml += '<div class="stat-row"><span class="stat-label">' + pos.symbol + ' × ' + pos.shares + '</span><span class="stat-value">' + formatMoney(price, 'USD') + '</span></div>';
-    });
+    if (account.icon === '🎯') {
+      // Polymarket
+      account.positions.forEach(pos => {
+        const price = prices.polymarket[pos.symbol] || pos.avgPrice;
+        const value = pos.shares * price;
+        totalValue += value;
+        const prob = pos.marketProb ? (pos.marketProb * 100).toFixed(0) + '%' : '-';
+        positionsHtml += '<div class="stat-row"><span class="stat-label">' + pos.symbol + '</span><span class="stat-value">$' + value.toFixed(2) + ' (市价' + prob + ')</span></div>';
+      });
+    } else {
+      // 美股
+      account.positions.forEach(pos => {
+        const price = prices.stocks[pos.symbol] || pos.avgPrice;
+        const value = pos.shares * price;
+        totalValue += value;
+        positionsHtml += '<div class="stat-row"><span class="stat-label">' + pos.symbol + ' x' + pos.shares + '</span><span class="stat-value">' + formatMoney(price, 'USD') + '</span></div>';
+      });
+    }
   }
   
-  const returnPct = ((totalValue - account.initialCapital) / account.initialCapital * 100);
+  const returnPct = totalValue > 0 ? ((totalValue - account.initialCapital) / account.initialCapital * 100) : 0;
   
   card.innerHTML = 
     '<div class="card-header">' +
@@ -238,7 +302,8 @@ async function updateAllData() {
   // 获取价格
   await Promise.all([
     fetchCryptoPrices(),
-    fetchStockPrices()
+    fetchStockPrices(),
+    fetchPolymarketPrices()
   ]);
   
   // 渲染

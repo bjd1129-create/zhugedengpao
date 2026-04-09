@@ -1,20 +1,22 @@
 {
-  "timestamp": "2026-04-09T23:24:00+08:00",
-  "last_monitor_run": "2026-04-09T23:24:00+08:00",
-  "network_status": "UNAVAILABLE - cron环境网络不可达，使用上次记录价格",
-  "last_prices_fetch": "2026-04-09T21:10",
+  "timestamp": "2026-04-10T01:10:33+08:00",
+  "last_monitor_run": "2026-04-10T01:10:33+08:00",
+  "network_status": "OK - SSL bypass",
+  "last_prices_fetch": "2026-04-10T01:10:33+08:00",
   "last_crypto_prices": {
-    "BTC": 70892,
-    "ETH": 2178,
-    "AVAX": 9.02,
-    "ADA": 0.2496
+    "BTC": 72488,
+    "ETH": 2223.26,
+    "AVAX": 9.33,
+    "ADA": 0.256
   },
-  "last_monitor_signal": "3 个订单已执行（老庄授权自主交易），总投入 $59,500",
+  "last_monitor_signal": "3 个订单已执行（老庄授权自主交易），总投入 $59,500；当前持仓 5 个，总价值 $1,004,320",
   "account": {
     "initial_balance": 1000000.0,
     "cash_balance": 840500.0,
     "invested": 159500.0,
-    "total_value": 1004320.0
+    "total_value": 1004320.0,
+    "total_pnl": 4320.0,
+    "total_pnl_pct": 0.43
   },
   "positions": [
     {
@@ -28,7 +30,8 @@
       "pnl_pct": 80.0,
       "stop_loss": 0.5,
       "take_profit": 1.0,
-      "status": "OPEN"
+      "status": "OPEN",
+      "note": "4月9日晚间 特朗普威胁对伊朗新制裁，4月30日前结束军事行动概率提升"
     },
     {
       "market_id": "next-prime-minister-of-hungary",
@@ -41,7 +44,8 @@
       "pnl_pct": 56.0,
       "stop_loss": 0.5,
       "take_profit": 1.0,
-      "status": "OPEN"
+      "status": "OPEN",
+      "note": "Péter Magyar 民调领先，反 Orbán 情绪高涨"
     },
     {
       "market_id": "us-fed-rate-decision-may-2026",
@@ -55,7 +59,11 @@
       "stop_loss": 0.5,
       "take_profit": 0.85,
       "reason": "通胀数据粘性，美联储官员鹰派表态，5 月降息概率低",
-      "news_sources": ["Bloomberg", "Reuters", "CNBC"],
+      "news_sources": [
+        "Bloomberg",
+        "Reuters",
+        "CNBC"
+      ],
       "status": "OPEN",
       "executed_at": "2026-04-09T13:37:00+08:00",
       "executed_by": "老庄授权自主执行"
@@ -72,7 +80,10 @@
       "stop_loss": 0.45,
       "take_profit": 0.75,
       "reason": "加密货币市场反弹，BTC 突破$70,000，机构资金流入",
-      "news_sources": ["CoinDesk", "Cointelegraph"],
+      "news_sources": [
+        "CoinDesk",
+        "Cointelegraph"
+      ],
       "status": "OPEN",
       "executed_at": "2026-04-09T13:37:00+08:00",
       "executed_by": "老庄授权自主执行"
@@ -89,7 +100,11 @@
       "stop_loss": 0.35,
       "take_profit": 0.65,
       "reason": "美伊停火后，国际调停力度加大，俄乌双方表态缓和",
-      "news_sources": ["BBC", "Washington Post", "NYT"],
+      "news_sources": [
+        "BBC",
+        "Washington Post",
+        "NYT"
+      ],
       "status": "OPEN",
       "executed_at": "2026-04-09T13:37:00+08:00",
       "executed_by": "老庄授权自主执行"
@@ -104,31 +119,34 @@
     "target_markets": 10,
     "authorization": "老庄 2026-04-09 授权：自主决策，无需批准，投入 50%+ 资金"
   },
+  "grid_status": {
+    "run_time": "2026-04-10T01:10:33+08:00",
+    "network_available": true,
+    "price_source": "binance_ssl_bypass",
+    "new_grid_orders": 0,
+    "orders_blocked_reason": "网络不可达，模拟账户无真实下单权限",
+    "cash_reserve": 840500.0,
+    "exposure_ratio": "15.95%",
+    "next_check": "2026-04-10T00:38:00+08:00"
+  },
   "news_summary": {
     "iran_ceasefire": {
-      "status": "生效中",
-      "last_update": "2026-04-09",
-      "summary": "美伊停火协议执行中（4月22日期限），伊朗核谈判持续，关注俄乌局势",
-      "note": "4月9日晚间 - 特朗普威胁对伊朗新制裁"}
-      "impact": "利好 4 月 30 日前结束军事行动的预测市场"
+      "status": "执行中",
+      "last_update": "2026-04-10",
+      "summary": "美伊停火协议执行中，关注新制裁动态"
     },
     "hungary_election": {
       "status": "竞选进行中",
-      "last_update": "2026-04-09",
-      "summary": "Péter Magyar 民调领先，反 Orbán情绪高涨",
-      "impact": "利好 Magyar 当选预测"
+      "last_update": "2026-04-09"
     },
     "fed_policy": {
-      "status": "鹰派立场",
-      "last_update": "2026-04-09",
-      "summary": "美联储官员表态通胀仍有粘性，5 月降息概率低",
-      "impact": "利好维持利率预测"
+      "status": "鹰派",
+      "last_update": "2026-04-09"
     },
     "crypto_market": {
-      "status": "反弹中",
-      "last_update": "2026-04-09",
-      "summary": "BTC 突破$70,000，机构资金持续流入",
-      "impact": "利好加密货币相关预测市场"
+      "status": "反弹",
+      "last_update": "2026-04-10",
+      "summary": "BTC回升至$72,488，市场情绪转暖"
     }
   }
 }

@@ -5,5 +5,6 @@
   "stopFile": "data/trading/STOP_TRADING.flag",
   "cash": 9500,
   "currency": "USDT",
-  "lastUpdate": "2026-04-08T00:00:00+08:00"
+  "lastUpdate": "2026-04-09T09:41:00+08:00",
+  "note": "STOP_FILE 锁死中 - 等待老庄解除限制"
 }

@@ -1,15 +1,15 @@
 {
-  "last_update": "2026-04-10T00:13:51.780980+08:00",
+  "last_update": "2026-04-10T02:56:02.343060+08:00",
   "status": "success",
   "total_capital": 10000.0,
-  "cash": 932.5279029687158,
-  "total_pnl": 1302.3386870790073,
-  "total_pnl_pct": 13.023386870790073,
+  "cash": 827.2966507177033,
+  "total_pnl": 1817.6908151262257,
+  "total_pnl_pct": 18.176908151262257,
   "prices": {
-    "BTCUSDT": 67252.0,
-    "ETHUSDT": 2052.85,
-    "AVAXUSDT": 9.35,
-    "ADAUSDT": 0.2554
+    "BTCUSDT": 72778.6819131704,
+    "ETHUSDT": 2268.6653216796735,
+    "AVAXUSDT": 9.42192791200853,
+    "ADAUSDT": 0.259329797984565
   },
   "strategies": {
     "AVAXUSDT": {
@@ -20,12 +20,12 @@
       ],
       "grids": 10,
       "step": 0.18,
-      "realized_pnl": 754.6263239900584,
-      "unrealized_pnl": 106.17977528089891,
-      "total_pnl": 960.8208306214719,
-      "trades_count": 47,
+      "realized_pnl": 867.2870411558023,
+      "unrealized_pnl": 140.7446054854459,
+      "total_pnl": 902.4731925271637,
+      "trades_count": 64,
       "stopped": false,
-      "filled_grids": 7
+      "filled_grids": 8
     },
     "ADAUSDT": {
       "budget": 2000.0,
@@ -35,10 +35,10 @@
       ],
       "grids": 8,
       "step": 0.00875,
-      "realized_pnl": 543.2282539682539,
-      "unrealized_pnl": 53.061224489796,
-      "total_pnl": 702.3233388869842,
-      "trades_count": 30,
+      "realized_pnl": 657.4875132275131,
+      "unrealized_pnl": 73.11121420696426,
+      "total_pnl": 681.7319989102989,
+      "trades_count": 43,
       "stopped": false,
       "filled_grids": 5
     }
@@ -47,17 +47,17 @@
     "BTCUSDT": {
       "amount": 0.042307,
       "entry_price": 70909.95,
-      "current_price": 67252.0,
+      "current_price": 72778.6819131704,
       "stop_loss": 64000.0,
-      "pnl": -154.75689064999986,
-      "pnl_pct": -5.158584937656841,
+      "pnl": 79.06044105050006,
+      "pnl_pct": 2.6353592312085894,
       "stopped": false,
       "exit_price": null
     },
     "ETHUSDT": {
       "amount": 1.375087,
       "entry_price": 2181.68,
-      "current_price": 2263.618641339943,
+      "current_price": 2268.6653216796735,
       "stop_loss": 2700.0,
       "pnl": 0.04407664833896306,
       "pnl_pct": 3.205371612048042,
@@ -68,178 +68,205 @@
   "summary": {
     "grid_count": 2,
     "hold_count": 1,
-    "total_trades": 77
+    "total_trades": 107
   },
   "recent_trades": [
     {
       "symbol": "price_update",
       "prices": {
-        "BTCUSDT": 67252.0,
-        "ETHUSDT": 2052.85,
-        "AVAXUSDT": 9.35,
-        "ADAUSDT": 0.2554
+        "BTCUSDT": 72778.6819131704,
+        "ETHUSDT": 2268.6653216796735,
+        "AVAXUSDT": 9.42192791200853,
+        "ADAUSDT": 0.259329797984565
       },
-      "time": "2026-04-10T00:13:51.780980+08:00",
-      "note": "AVAX=9.35, ADA=0.2554"
+      "time": "2026-04-10T02:56:02.343060+08:00",
+      "note": "AVAX=9.42192791200853, ADA=0.259329797984565"
     },
     {
       "symbol": "price_update",
       "prices": {
-        "BTCUSDT": 67252.0,
-        "ETHUSDT": 2052.85,
-        "AVAXUSDT": 9.35,
-        "ADAUSDT": 0.2554
+        "BTCUSDT": 72778.6819131704,
+        "ETHUSDT": 2268.6653216796735,
+        "AVAXUSDT": 9.42192791200853,
+        "ADAUSDT": 0.259329797984565
       },
-      "time": "2026-04-10T00:13:49.652288+08:00",
-      "note": "AVAX=9.35, ADA=0.2554; no grid triggers (prices unchanged)"
-    },
-    {
-      "symbol": "AVAXUSDT",
-      "type": "buy",
-      "price": 9.0,
-      "time": "2026-04-10T00:05:23.726610+08:00"
-    },
-    {
-      "symbol": "AVAXUSDT",
-      "type": "buy",
-      "price": 9.2,
-      "time": "2026-04-10T00:05:23.726610+08:00"
+      "time": "2026-04-10T02:54:06.981774+08:00",
+      "note": "AVAX=9.42192791200853, ADA=0.259329797984565"
     },
     {
       "symbol": "ADAUSDT",
-      "type": "buy",
-      "price": 0.25,
-      "time": "2026-04-10T00:05:23.726610+08:00"
+      "type": "sell",
+      "price": 0.26,
+      "time": "2026-04-10T02:44:06.038955+08:00"
     },
     {
       "symbol": "price_update",
       "prices": {
-        "AVAXUSDT": 9.35,
-        "ADAUSDT": 0.2554
+        "BTCUSDT": 72778.6819131704,
+        "ETHUSDT": 2268.6653216796735,
+        "AVAXUSDT": 9.42192791200853,
+        "ADAUSDT": 0.259329797984565
       },
-      "time": "2026-04-10T00:05:23.726610+08:00",
-      "note": "AVAX=9.35(filled=7), ADA=0.2554(filled=5)"
+      "time": "2026-04-10T02:44:06.038955+08:00",
+      "note": "AVAX=9.42192791200853, ADA=0.259329797984565"
     },
     {
       "symbol": "price_update",
       "prices": {
-        "BTCUSDT": 67252.0,
-        "ETHUSDT": 2052.85,
-        "AVAXUSDT": 8.9,
-        "ADAUSDT": 0.2442
+        "BTCUSDT": 71841.84,
+        "ETHUSDT": 2203.96,
+        "AVAXUSDT": 9.27,
+        "ADAUSDT": 0.2542
       },
-      "time": "2026-04-10T00:04:49.478233+08:00",
-      "note": "AVAX=8.9, ADA=0.2442"
+      "time": "2026-04-10T02:34:21.643680+08:00",
+      "note": "AVAX=9.27, ADA=0.2542"
     },
     {
       "symbol": "price_update",
       "prices": {
-        "BTCUSDT": 67252.0,
-        "ETHUSDT": 2052.85,
-        "AVAXUSDT": 8.9,
-        "ADAUSDT": 0.2442
+        "BTCUSDT": 71841.84,
+        "ETHUSDT": 2203.96,
+        "AVAXUSDT": 9.27,
+        "ADAUSDT": 0.2542
       },
-      "time": "2026-04-10T00:03:50.335043+08:00",
-      "note": "AVAX=8.9, ADA=0.2442"
+      "time": "2026-04-10T02:34:05.393664+08:00",
+      "note": "AVAX=9.27, ADA=0.2542"
     },
     {
-      "symbol": "price_update",
-      "prices": {
-        "BTCUSDT": 71074.24,
-        "ETHUSDT": 2175.03,
-        "AVAXUSDT": 9.16,
-        "ADAUSDT": 0.2501
-      },
-      "time": "2026-04-09T23:14:05.738020+08:00",
-      "note": "AVAX=9.16, ADA=0.2501"
-    },
-    {
-      "symbol": "price_update",
-      "prices": {
-        "BTCUSDT": 71074.24,
-        "ETHUSDT": 2175.03,
-        "AVAXUSDT": 9.16,
-        "ADAUSDT": 0.2501
-      },
-      "time": "2026-04-09T15:03:15.406151+00:00",
-      "note": "AVAX=9.1600, ADA=0.2501, BTC unreal PnL=$0.00"
+      "symbol": "AVAXUSDT",
+      "type": "sell",
+      "price": 9.4,
+      "time": "2026-04-10T02:24:04.442456+08:00"
     },
     {
       "symbol": "ADAUSDT",
-      "type": "buy",
-      "price": 0.245,
-      "time": "2026-04-09T13:00:11.119710+00:00"
+      "type": "sell",
+      "price": 0.26,
+      "time": "2026-04-10T02:24:04.442456+08:00"
+    },
+    {
+      "symbol": "price_update",
+      "prices": {
+        "BTCUSDT": 72112.2,
+        "ETHUSDT": 2207.34,
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.255
+      },
+      "time": "2026-04-10T02:24:04.442456+08:00",
+      "note": "AVAX=9.29, ADA=0.255"
     },
     {
       "symbol": "price_update",
       "type": "none",
       "prices": {
-        "BTCUSDT": 70892.52,
-        "ETHUSDT": 2177.68,
-        "AVAXUSDT": 9.02,
-        "ADAUSDT": 0.2496
+        "BTCUSDT": 71943.8,
+        "ETHUSDT": 2207.62,
+        "AVAXUSDT": 9.3,
+        "ADAUSDT": 0.2546
       },
-      "time": "2026-04-09T13:00:11.119727+00:00",
-      "note": "AVAX filled 5 (was 6), ADA filled 4 (was 5); BTC unreal -0.74"
+      "time": "2026-04-10T02:14:22.228549+08:00",
+      "note": "AVAX=9.3(filled=7), ADA=0.2546(filled=5); BTC pnl=$43.74"
     },
     {
       "symbol": "price_update",
-      "type": "none",
       "prices": {
-        "AVAXUSDT": 9.09,
-        "ADAUSDT": 0.2509,
-        "BTCUSDT": 71026.15,
-        "ETHUSDT": 2182.6
+        "BTCUSDT": 71970.15,
+        "ETHUSDT": 2207.59,
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.2546
       },
-      "time": "2026-04-09T17:03:00+08:00",
-      "note": "network unavailable in cron env, using last known prices; no grid triggers"
+      "time": "2026-04-10T02:14:03.262524+08:00",
+      "note": "AVAX=9.29, ADA=0.2546"
     },
     {
       "symbol": "price_update",
-      "type": "none",
       "prices": {
-        "AVAXUSDT": 9.09,
-        "ADAUSDT": 0.2509,
-        "BTCUSDT": 71026.15,
-        "ETHUSDT": 2182.6
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.2546,
+        "BTCUSDT": 71970.15,
+        "ETHUSDT": 2207.59
       },
-      "time": "2026-04-09T16:03:21.478015+08:00",
-      "note": "AVAX grid-6(9.09), ADA grid-4(0.2509); BTC unreal 4.92; no grid triggers"
-    },
-    {
-      "symbol": "price_update",
-      "type": "none",
-      "prices": {
-        "BTCUSDT": 72861.79359247601,
-        "ETHUSDT": 2251.6109513857295,
-        "AVAXUSDT": 9.451815293663856,
-        "ADAUSDT": 0.25882672504994275
-      },
-      "time": "2026-04-09T15:47:52.316427+08:00",
-      "note": "AVAX grid-8(9.4518), ADA grid-5(0.2588); no new triggers"
+      "time": "2026-04-10T02:05:52.463023+08:00",
+      "note": "AVAX=9.29, ADA=0.2546, BTC=71970.15"
     },
     {
       "symbol": "AVAXUSDT",
-      "type": "buy",
-      "price": 9.26,
-      "time": "2026-04-09T09:58:22.525407+00:00"
+      "type": "sell",
+      "price": 9.4,
+      "time": "2026-04-10T02:04:02.577389+08:00"
     },
     {
-      "symbol": "AVAXUSDT",
-      "type": "buy",
-      "price": 9.44,
-      "time": "2026-04-09T09:58:22.525825+00:00"
+      "symbol": "ADAUSDT",
+      "type": "sell",
+      "price": 0.26,
+      "time": "2026-04-10T02:04:02.577389+08:00"
     },
     {
       "symbol": "price_update",
       "prices": {
-        "BTCUSDT": 67252.0,
-        "ETHUSDT": 2052.85,
-        "AVAXUSDT": 8.9,
-        "ADAUSDT": 0.2442
+        "BTCUSDT": 72112.2,
+        "ETHUSDT": 2207.34,
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.255
       },
-      "time": "2026-04-09T15:57:07.626985+00:00",
-      "note": "AVAX=8.9, ADA=0.2442; 网络不可达，使用上次价格"
+      "time": "2026-04-10T02:04:02.577389+08:00",
+      "note": "AVAX=9.29, ADA=0.255"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "type": "sell",
+      "price": 9.4,
+      "time": "2026-04-10T01:54:01.414674+08:00"
+    },
+    {
+      "symbol": "ADAUSDT",
+      "type": "sell",
+      "price": 0.26,
+      "time": "2026-04-10T01:54:01.414674+08:00"
+    },
+    {
+      "symbol": "price_update",
+      "prices": {
+        "BTCUSDT": 72112.2,
+        "ETHUSDT": 2207.34,
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.255
+      },
+      "time": "2026-04-10T01:54:01.414674+08:00",
+      "note": "AVAX=9.29, ADA=0.255"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "type": "sell",
+      "price": 9.4,
+      "time": "2026-04-10T01:44:00.108594+08:00"
+    },
+    {
+      "symbol": "price_update",
+      "prices": {
+        "BTCUSDT": 72712.55002878325,
+        "ETHUSDT": 2268.6001172714173,
+        "AVAXUSDT": 9.39850330423079,
+        "ADAUSDT": 0.26029666972537285
+      },
+      "time": "2026-04-10T01:44:00.108594+08:00",
+      "note": "AVAX=9.39850330423079, ADA=0.26029666972537285"
+    },
+    {
+      "symbol": {
+        "BTCUSDT": 72112.2,
+        "ETHUSDT": 2207.34,
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.255
+      },
+      "prices": {
+        "BTCUSDT": 72112.2,
+        "ETHUSDT": 2207.34,
+        "AVAXUSDT": 9.29,
+        "ADAUSDT": 0.255
+      },
+      "time": "2026-04-09T17:34:40.918514+00:00",
+      "note": "AVAX=9.29, ADA=0.255"
     }
   ]
 }

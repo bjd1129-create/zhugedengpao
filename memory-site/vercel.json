@@ -1,10 +1,6 @@
 {
   "framework": null,
   "buildCommand": "echo static",
-  "outputDirectory": "pages",
-  "public": true,
-  "files": [
-    "pages/**/*",
-    "images/**/*"
-  ]
+  "outputDirectory": ".",
+  "public": true
 }

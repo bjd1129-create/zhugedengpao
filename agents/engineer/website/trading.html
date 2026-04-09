@@ -7,17 +7,19 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans SC',sans-serif;background:#e8e4dc;color:#222;overflow-x:hidden;padding-top:56px}
-.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 32px;height:56px;display:flex;align-items:center;justify-content:space-between}
 .nav-logo{font-family:'ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:22px;color:#4A2508;display:flex;align-items:center;gap:6px;font-weight:700}
 .nav-links{margin-left:auto;display:flex;gap:20px;align-items:center}
 .nav-links a{text-decoration:none;color:#333;font-size:15px;font-weight:600;opacity:.7;transition:.2s;padding:6px 4px}
 .nav-links a:hover,.nav-links a.active{opacity:1;color:#4A2508}
-.hamburger{display:none;background:none;border:none;font-size:15px;cursor:pointer;color:#333;font-weight:600;padding:6px 12px;border-radius:8px;border:1.5px solid #ddd}
-@media(max-width:768px){.nav-links{display:none}.nav-links.open{display:flex;flex-direction:column;position:absolute;top:56px;left:0;right:0;background:#fff;padding:20px;border-bottom:2px solid #e8e4df;gap:12px}.hamburger{display:block}}
 .container{max-width:1400px;margin:0 auto;padding:40px 20px}
-.page-header{text-align:center;margin-bottom:40px}
+.page-header{text-align:center;margin-bottom:40px;position:relative}
 h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4A2508;margin-bottom:12px}
-.subtitle{font-size:16px;color:#666;line-height:1.6}
+.subtitle{font-size:16px;color:#666}
+.live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(39,174,96,0.15);color:#27ae60;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600;margin-left:12px}
+.live-dot{width:8px;height:8px;background:#27ae60;border-radius:50%;animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.last-update{color:#666;font-size:13px;margin-top:8px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-bottom:30px}
 .card{background:#fff;border-radius:16px;padding:24px;cursor:pointer;transition:all 0.3s;border:2px solid #e8e4df;box-shadow:0 4px 16px rgba(0,0,0,0.08)}
 .card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,0.12);border-color:#4A2508}
@@ -35,38 +37,10 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 .status-badge{display:inline-block;padding:6px 16px;border-radius:20px;font-size:0.85rem;margin-top:12px;font-weight:600}
 .status-running{background:rgba(39,174,96,0.15);color:#27ae60}
 .status-stopped{background:rgba(231,76,60,0.15);color:#e74c3c}
-.status-restarting{background:rgba(52,152,219,0.15);color:#3498db}
-.modal-overlay{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.6);display:none;align-items:center;justify-content:center;z-index:2000;padding:20px}
-.modal-overlay.active{display:flex}
-.modal{background:#fff;border-radius:16px;padding:32px;max-width:1000px;width:100%;max-height:80vh;overflow-y:auto}
-.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid #f0f0f0}
-.modal-title{font-family:'ZCOOL KuaiLe',sans-serif;font-size:1.5rem;color:#4A2508}
-.modal-close{background:none;border:none;font-size:1.5rem;cursor:pointer;color:#666;padding:8px;line:1}
-.modal-close:hover{color:#4A2508}
-.table{width:100%;border-collapse:collapse}
-.table th,.table td{padding:16px;text-align:left;border-bottom:1px solid #f0f0f0;vertical-align:top}
-.table th{color:#666;font-weight:600;font-size:0.9rem;background:#fafafa}
-.table tr:hover{background:#fafafa}
-.trade-type{padding:4px 12px;border-radius:12px;font-size:0.85rem;font-weight:600}
-.trade-type.buy{background:rgba(39,174,96,0.15);color:#27ae60}
-.trade-type.sell{background:rgba(231,76,60,0.15);color:#e74c3c}
-.price-up{color:#27ae60;font-weight:600}
-.price-down{color:#e74c3c;font-weight:600}
-.empty-state{text-align:center;padding:40px}
-.empty-state .emoji{font-size:4rem;margin-bottom:16px}
-.holdings-section{margin-bottom:24px}
-.holdings-title{font-size:1.1rem;font-weight:700;margin-bottom:16px;color:#4A2508}
-.note-cell{color:#666;font-size:0.85rem;line-height:1.5;max-width:220px}
-.note-cell .note-label{font-weight:600;color:#2980b9;margin-bottom:4px;font-size:0.8rem}
-.note-cell .review-label{font-weight:600;color:#e67e22;margin-top:6px;margin-bottom:4px;font-size:0.8rem}
-.note-cell .review-text{color:#e67e22}
-.note-cell .empty{color:#999;font-style:italic}
-.restart-notice{background:linear-gradient(135deg,rgba(52,152,219,0.1),rgba(41,128,185,0.15));border:2px solid #3498db;border-radius:12px;padding:20px;margin-bottom:24px}
-.restart-notice h3{color:#2980b9;font-size:1.1rem;margin-bottom:8px}
-.restart-notice p{color:#555;font-size:0.9rem;line-height:1.6}
-.stopped-notice{background:linear-gradient(135deg,rgba(231,76,60,0.1),rgba(192,57,43,0.15));border:2px solid #e74c3c;border-radius:12px;padding:20px;margin-bottom:24px}
-.stopped-notice h3{color:#c0392b;font-size:1.1rem;margin-bottom:8px}
-.stopped-notice p{color:#555;font-size:0.9rem;line-height:1.6}
+.status-loading{background:rgba(52,152,219,0.15);color:#3498db}
+.error-msg{color:#e74c3c;font-size:13px;margin-top:8px}
+.loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid #3498db;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
@@ -74,7 +48,6 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 <nav class="nav">
 <div class="nav-logo">🦞 老庄与小花</div>
 <div class="nav-links">
-<button class="hamburger" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰ 菜单</button>
 <a href="index.html">首页</a>
 <a href="diary.html">📖 日记</a>
 <a href="articles.html">📝 文章</a>
@@ -86,214 +59,201 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 
 <div class="container">
 <div class="page-header">
-<h1>🦞 诸葛灯炮</h1>
-<p class="subtitle">AI 龙虾养成实验 · 模拟交易操盘</p>
+<h1>🦞 诸葛灯炮 <span class="live-badge"><span class="live-dot"></span>LIVE</span></h1>
+<p class="subtitle">AI 龙虾养成实验 · 实时数据</p>
+<p class="last-update" id="lastUpdate">数据加载中...</p>
 </div>
 <div id="cardsGrid" class="grid"></div>
 </div>
 
-<div id="tradeModal" class="modal-overlay">
-<div class="modal">
-<div class="modal-header">
-<h2 id="modalTitle" class="modal-title"></h2>
-<button class="modal-close" onclick="closeModal()">×</button>
-</div>
-<div id="modalBody"></div>
-</div>
-</div>
-
 <script>
-// ========== 真实数据 ==========
-// 最后更新: 2026-04-09 20:14
+// ========== 实时数据配置 ==========
+const CONFIG = {
+  refreshInterval: 60000,  // 60秒刷新一次
+  crypto: ['BTCUSDT', 'ETHUSDT', 'AVAXUSDT', 'ADAUSDT'],
+  stocks: ['SPY', 'QQQ', 'VTI', 'BND']
+};
 
-const simulations={
-  us:{
-    name:"美股模拟盘",
-    provider:"老虎证券",
-    icon:"📈",
-    initialCapital:1000000,
-    currentValue:1000000,
-    cash:0,
-    currency:"USD",
-    status:"running",
-    positions:[
-      {symbol:"SPY",shares:612,avgPrice:653.44,currentPrice:653.44,return:0},
-      {symbol:"QQQ",shares:516,avgPrice:581.52,currentPrice:581.52,return:0},
-      {symbol:"VTI",shares:620,avgPrice:322.62,currentPrice:322.62,return:0},
-      {symbol:"BND",shares:1363,avgPrice:73.38,currentPrice:73.38,return:0}
-    ],
-    trades:[
-      {time:"2026-04-09 09:30",type:"buy",symbol:"SPY",shares:612,price:653.44,total:399905.28,note:"老庄指令：全部模拟盘起始资金$1,000,000，根据策略建仓",review:"建仓完成，等待市场表现"},
-      {time:"2026-04-09 09:30",type:"buy",symbol:"QQQ",shares:516,price:581.52,total:300064.32,note:"价值定投策略：纳斯达克 100ETF 配置 30%",review:"建仓完成，等待市场表现"},
-      {time:"2026-04-09 09:30",type:"buy",symbol:"VTI",shares:620,price:322.62,total:200024.40,note:"价值定投策略：全市场 ETF 配置 20%",review:"建仓完成，等待市场表现"},
-      {time:"2026-04-09 09:30",type:"buy",symbol:"BND",shares:1363,price:73.38,total:99996.94,note:"价值定投策略：债券 ETF 配置 10%",review:"建仓完成，等待市场表现"}
+// 账户数据（静态）
+const accounts = {
+  crypto: {
+    name: "加密货币网格",
+    provider: "Binance",
+    icon: "₿",
+    initialCapital: 1000000,
+    currency: "USDT",
+    status: "running",
+    positions: [
+      {symbol: "BTC", shares: 0.0423, avgPrice: 0},
+      {symbol: "ETH", shares: 1.375, avgPrice: 0},
+      {symbol: "AVAX", shares: 0, avgPrice: 0},
+      {symbol: "ADA", shares: 797.45, avgPrice: 0.2453}
     ]
   },
-  futures:{
-    name:"期货模拟盘",
-    provider:"老虎证券",
-    icon:"📊",
-    initialCapital:1000000,
-    currentValue:1000000,
-    cash:1000000,
-    currency:"USD",
-    status:"running",
-    positions:[],
-    trades:[]
-  },
-  polymarket:{name:"Polymarket 预测市场",provider:"Polymarket",icon:"🎯",initialCapital:1000000,currentValue:97290,cash:97290,
-    currency:"USD",
-    status:"running",
-    positions:[
-      {symbol:"BTC<$65K(Apr)",shares:10000,avgPrice:0.07,currentPrice:0.07,totalCost:700,currentValue:1000000,marketProb:0.93,myProb:0.65,direction:"NO",settlementDate:"2026-04-30",potentialReturn:10000,return:-2.71},
-      {symbol:"ETH<$2K(Apr)",shares:15000,avgPrice:0.04,currentPrice:0.04,totalCost:600,currentValue:600,marketProb:0.96,myProb:0.75,direction:"NO",settlementDate:"2026-04-30",potentialReturn:15000,return:-2.71},
-      {symbol:"SOL>$80(Apr)",shares:5000,avgPrice:0.13,currentPrice:0.13,totalCost:650,currentValue:650,marketProb:0.87,myProb:0.70,direction:"NO",settlementDate:"2026-04-30",potentialReturn:5000,return:-2.71},
-      {symbol:"US Iran(Apr30)",shares:2000,avgPrice:0.38,currentPrice:0.38,totalCost:760,currentValue:760,marketProb:0.62,myProb:0.45,direction:"NO",settlementDate:"2026-04-30",potentialReturn:2000,return:-2.71}
-    ],
-    trades:[
-      {time:"2026-04-07T22:45:00+08:00",type:"buy",symbol:"BTC<$65K",shares:10000,price:0.07,total:700,note:"偏差-28%，市场过度定价",review:"持仓中，等待结算"},
-      {time:"2026-04-07T22:45:00+08:00",type:"buy",symbol:"ETH<$2K",shares:15000,price:0.04,total:600,note:"偏差-21%，市场过度定价",review:"持仓中，等待结算"},
-      {time:"2026-04-07T22:45:00+08:00",type:"buy",symbol:"SOL>$80",shares:5000,price:0.13,total:650,note:"偏差-17%，市场过度定价",review:"持仓中，等待结算"},
-      {time:"2026-04-07T22:45:00+08:00",type:"buy",symbol:"US Iran",shares:2000,price:0.38,total:760,note:"偏差-17%，地缘政治定价偏高",review:"持仓中，等待结算"}
-    ]
-  },
-  crypto:{name:"加密货币网格",provider:"Binance",icon:"₿",initialCapital:1000000,currentValue:6856.06,cash:649.11,
-    currency:"USDT",
-    status:"running",
-    stopFile:"▶️ 重新启动 - 老庄指令恢复",
-    positions:[
-      {symbol:"ADA",shares:797.45,avgPrice:0.2453,currentPrice:0.2493,return:-1.63,note:"网格止损"},
-      {symbol:"ETH",shares:1.375,avgPrice:0,currentPrice:2185.49,return:0,note:"止损后剩余"},
-      {symbol:"BTC",shares:0.0423,avgPrice:0,currentPrice:71019.99,return:0,note:"止损后剩余"}
-    ],
-    trades:[
-      {time:"2026-04-07T13:36:05+08:00",type:"buy",symbol:"AVAX",shares:23.23,price:8.61,total:200,note:"grid-2↓",review:"网格买入"},
-      {time:"2026-04-07T13:15:59+08:00",type:"buy",symbol:"AVAX",shares:23.07,price:8.67,total:200,note:"grid-3↓",review:"网格买入"},
-      {time:"2026-04-07T12:35:52+08:00",type:"buy",symbol:"AVAX",shares:23.01,price:8.69,total:200,note:"grid-4↓",review:"网格买入"},
-      {time:"2026-04-07T12:35:52+08:00",type:"buy",symbol:"ADA",shares:815.33,price:0.2453,total:200,note:"grid-9↓",review:"网格买入"}
+  us: {
+    name: "美股模拟盘",
+    provider: "Yahoo Finance",
+    icon: "📈",
+    initialCapital: 1000000,
+    currency: "USD",
+    status: "running",
+    positions: [
+      {symbol: "SPY", shares: 612, avgPrice: 653.44},
+      {symbol: "QQQ", shares: 516, avgPrice: 581.52},
+      {symbol: "VTI", shares: 620, avgPrice: 322.62},
+      {symbol: "BND", shares: 1363, avgPrice: 73.38}
     ]
   }
 };
 
-function formatMoney(a,c){
-  const s={USD:'$',USDT:'₮',CNY:'¥'};
-  return(s[c]||'$')+a.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+// 实时价格数据
+let prices = {
+  crypto: {},
+  stocks: {}
+};
+
+// 格式化货币
+function formatMoney(amount, currency) {
+  const symbols = {USD: '$', USDT: '₮', CNY: '¥'};
+  const s = symbols[currency] || '$';
+  return s + amount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }
-function formatReturn(p){
-  const c=p>=0?'positive':'negative',s=p>=0?'+':'';
-  return'<span class="stat-value '+c+'">'+s+p.toFixed(2)+'%</span>';
+
+// 格式化收益
+function formatReturn(p) {
+  const c = p >= 0 ? 'positive' : 'negative';
+  const s = p >= 0 ? '+' : '';
+  return '<span class="stat-value ' + c + '">' + s + p.toFixed(2) + '%</span>';
 }
-function formatPriceDiff(avg,current){
-  const diff=current-avg,percent=(diff/avg)*100;
-  return{diff,percent};
-}
-function renderNote(t){
-  const hasNote=t.note&&t.note.trim()!=='';
-  const hasReview=t.review&&t.review.trim()!=='';
-  let html='<div class="note-cell">';
-  if(hasNote){
-    html+='<div class="note-label">💡 决策原因</div><div>'+t.note+'</div>';
+
+// 获取加密货币价格 (Binance)
+async function fetchCryptoPrices() {
+  try {
+    const symbols = CONFIG.crypto.join(',');
+    const url = 'https://api.binance.com/api/v3/ticker/price?symbols=' + encodeURIComponent('["' + symbols.join('","') + '"]');
+    const resp = await fetch(url);
+    const data = await resp.json();
+    data.forEach(item => {
+      const symbol = item.symbol.replace('USDT', '');
+      prices.crypto[symbol] = parseFloat(item.price);
+    });
+    return true;
+  } catch (e) {
+    console.error('Binance API error:', e);
+    return false;
   }
-  if(hasReview){
-    html+='<div class="review-label">📝 复盘</div><div class="review-text">'+t.review+'</div>';
-  }
-  if(!hasNote&&!hasReview){
-    html+='<span class="empty">无备注</span>';
-  }
-  html+='</div>';
-  return html;
 }
-function createCard(k,d){
-  const c=document.createElement('div');
-  c.className='card';
-  c.onclick=function(){showDetails(k)};
-  const t=d.initialCapital?((d.currentValue-d.initialCapital)/d.initialCapital*100):0;
-  let p='';
+
+// 获取股票价格 (Yahoo Finance)
+async function fetchStockPrices() {
+  try {
+    const symbols = CONFIG.stocks.map(s => s + 'USD=X');
+    const resp = await fetch('https://query1.finance.yahoo.com/v7/finance/quote?symbols=' + symbols.join(','));
+    const data = await resp.json();
+    if (data.quoteResponse && data.quoteResponse.result) {
+      data.quoteResponse.result.forEach(item => {
+        const symbol = item.symbol.replace('USD=X', '');
+        prices.stocks[symbol] = item.regularMarketPrice;
+      });
+    }
+    return true;
+  } catch (e) {
+    console.error('Yahoo Finance API error:', e);
+    return false;
+  }
+}
+
+// 计算账户价值
+function calculateAccountValue(account) {
+  let total = account.initialCapital;
   
-  // Polymarket特殊显示
-  if(k==='polymarket'&&d.positions&&d.positions.length>0){
-    const totalCost=d.positions.reduce(function(sum,x){return sum+x.totalCost},0);
-    p='<div class="holdings-section"><div class="holdings-title">📊 持仓 ('+d.positions.length+'个)</div>'+
-    d.positions.map(function(x){return'<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.9rem;border-bottom:1px solid #f0f0f0"><span style="font-weight:600">'+x.symbol+'</span><span class="stat-value">成本: '+formatMoney(x.totalCost,'USD')+' / 现值: '+formatMoney(x.currentValue,'USD')+'</span></div>'}).join('')+
-    '<div style="padding:8px 0;font-weight:700;color:#4A2508">总成本: '+formatMoney(totalCost,'USD')+'</div></div>';
-  } else if(d.positions&&d.positions.length>0){
-    p='<div class="holdings-section"><div class="holdings-title">📊 持仓 ('+d.positions.length+'个)</div>'+
-    d.positions.map(function(x){return'<div style="display:flex;justify-content:space-between;padding:8px 0;font-size:0.9rem"><span style="font-weight:600">'+x.symbol+'</span><span class="stat-value '+(x.return!==undefined?(x.return>=0?'positive':'negative'):'negative')+'">'+(x.return!==undefined?formatReturn(x.return):'')+'</span></div>'}).join('')+'</div>';
+  if (account.currency === 'USDT') {
+    // 加密货币
+    account.positions.forEach(pos => {
+      const price = prices.crypto[pos.symbol] || 0;
+      total += pos.shares * price;
+    });
+  } else if (account.currency === 'USD') {
+    // 美股
+    account.positions.forEach(pos => {
+      const price = prices.stocks[pos.symbol] || pos.avgPrice;
+      total = pos.shares * price;
+    });
+    // 加现金
+    total += 0; // 现金已投入
   }
-
-  // 状态通知
-  let statusNotice='';
-  if(d.status==='stopped'&&d.stopFile){
-    statusNotice='<div class="stopped-notice"><h3>'+d.stopFile+'</h3><p>账户亏损超过阈值，等待重启指令</p></div>';
-  }
-  if(d.status==='restarting'&&d.restartNotice){
-    statusNotice='<div class="restart-notice"><h3>🔄 '+d.restartNotice+'</h3><p>'+d.restartReason+'</p></div>';
-  }
-
-  c.innerHTML='<div class="card-header"><span class="card-icon">'+d.icon+'</span><div><div class="card-title">'+d.name+'</div><div class="card-provider">'+d.provider+'</div></div></div>'+
-  statusNotice+
-  '<div class="card-body">'+
-  '<div class="stat-row"><span class="stat-label">初始资金</span><span class="stat-value">'+formatMoney(d.initialCapital,d.currency)+'</span></div>'+
-  '<div class="stat-row"><span class="stat-label">当前价值</span><span class="stat-value large">'+formatMoney(d.currentValue,d.currency)+'</span></div>'+
-  '<div class="stat-row"><span class="stat-label">可用现金</span><span class="stat-value">'+formatMoney(d.cash,d.currency)+'</span></div>'+
-  '<div class="stat-row"><span class="stat-label">总收益</span>'+formatReturn(t)+'</div>'+
-  p+
-  '<div class="status-badge '+(d.status==='running'?'status-running':d.status==='restarting'?'status-restarting':'status-stopped')+'"">'+
-  (d.status==='running'?'▶️ 运行中':d.status==='restarting'?'🔄 策略修正重启中':'⏸️ 已停止')+
-  '</div></div>';
-  return c;
+  
+  return total;
 }
 
-function showDetails(k){
-  var d=simulations[k];
-  document.getElementById('modalTitle').textContent=d.name+' - 详情';
-  var html='';
-
-  // Polymarket持仓详情
-  if(k==='polymarket'&&d.positions&&d.positions.length>0){
-    html+='<div class="holdings-section"><div class="holdings-title">📊 预测市场持仓</div>'+
-    '<table class="table"><thead><tr><th>市场</th><th>方向</th><th>股数</th><th>成本价</th><th>现价</th><th>成本</th><th>现值</th><th>市场概率</th><th>我的判断</th><th>结算日</th></tr></thead><tbody>'+
-    d.positions.map(function(p){return'<tr><td style="font-weight:600">'+p.symbol+'</td><td><span class="trade-type '+(p.direction==='YES'?'buy':'sell')+'">'+p.direction+'</span></td><td>'+p.shares+'</td><td>'+p.avgPrice+'</td><td>'+p.currentPrice+'</td><td>'+formatMoney(p.totalCost,'USD')+'</td><td>'+formatMoney(p.currentValue,'USD')+'</td><td>'+(p.marketProb*100).toFixed(0)+'%</td><td>'+(p.myProb*100).toFixed(0)+'%</td><td>'+p.settlementDate+'</td></tr>'}).join('')+
-    '</tbody></table></div>';
-  } else if(d.positions&&d.positions.length>0){
-    html+='<div class="holdings-section"><div class="holdings-title">📊 当前持仓</div>'+
-    '<table class="table"><thead><tr><th>标的</th><th>数量</th><th>成本价</th><th>现时价</th><th>价差</th><th>盈亏</th></tr></thead><tbody>'+
-    d.positions.map(function(p){
-      var pd=formatPriceDiff(p.avgPrice,p.currentPrice);
-      var priceClass=pd.diff>=0?'price-up':'price-down';
-      return'<tr><td style="font-weight:600">'+p.symbol+'</td><td>'+(p.shares||p.amount||0)+'</td><td>'+formatMoney(p.avgPrice,d.currency)+'</td><td><span class="'+priceClass+'">'+formatMoney(p.currentPrice,d.currency)+'</span></td><td><span class="'+priceClass+'">'+(pd.diff>=0?'+':'')+pd.diff.toFixed(2)+' ('+formatReturn(pd.percent)+')</span></td><td>'+(p.return!==undefined?formatReturn(p.return):'-')+'</td></tr>'
-    }).join('')+
-    '</tbody></table></div>';
+// 渲染账户卡片
+function renderAccountCard(key, account) {
+  const card = document.createElement('div');
+  card.className = 'card';
+  
+  let positionsHtml = '';
+  let totalValue = 0;
+  
+  if (account.currency === 'USDT') {
+    account.positions.forEach(pos => {
+      const price = prices.crypto[pos.symbol] || 0;
+      const value = pos.shares * price;
+      if (value > 0) {
+        totalValue += value;
+        positionsHtml += '<div class="stat-row"><span class="stat-label">' + pos.symbol + '</span><span class="stat-value">' + formatMoney(value, 'USDT') + '</span></div>';
+      }
+    });
+    totalValue += 0; // 现金
+  } else if (account.currency === 'USD') {
+    account.positions.forEach(pos => {
+      const price = prices.stocks[pos.symbol] || pos.avgPrice;
+      totalValue += pos.shares * price;
+      positionsHtml += '<div class="stat-row"><span class="stat-label">' + pos.symbol + ' × ' + pos.shares + '</span><span class="stat-value">' + formatMoney(price, 'USD') + '</span></div>';
+    });
   }
-
-  // 止损通知
-  if(d.status==='stopped'&&d.stopFile){
-    html+='<div class="stopped-notice"><h3>🛑 止损记录</h3><p>'+d.stopFile+'</p><p style="margin-top:8px">最后更新: 2026-04-09 13:42</p></div>';
-  }
-
-  // 重启通知
-  if(d.status==='restarting'&&d.restartReason){
-    html+='<div class="restart-notice"><h3>🔄 策略修正重启</h3><p><strong>目标：</strong>'+d.restartReason+'</p><p style="margin-top:8px"><strong>方法：</strong>每笔交易后复盘 → 修正策略参数 → 优化网格密度 → 提升胜率</p></div>';
-  }
-
-  html+='<div class="holdings-section"><div class="holdings-title">📝 交易记录</div>';
-  if(!d.trades||d.trades.length===0){
-    html+='<div class="empty-state"><div class="emoji">📭</div><p>暂无交易记录</p></div>';
-  }else{
-    html+='<table class="table"><thead><tr><th>交易时间</th><th>类型</th><th>标的</th><th>数量</th><th>价格</th><th>总额</th><th style="width:220px">决策原因 / 复盘</th></tr></thead><tbody>'+
-    d.trades.map(function(t){return'<tr><td class="trade-time">'+t.time+'</td><td><span class="trade-type '+(t.type==='buy'?'buy':'sell')+'">'+(t.type==='buy'?'买入':'卖出')+'</span></td><td style="font-weight:600">'+t.symbol+'</td><td>'+(t.shares||t.amount||'')+'</td><td class="trade-price">'+formatMoney(t.price,d.currency)+'</td><td style="font-weight:700">'+formatMoney(t.total,d.currency)+'</td><td>'+renderNote(t)+'</td></tr>'}).join('')+
-    '</tbody></table>';
-  }
-  html+='</div>';
-
-  document.getElementById('modalBody').innerHTML=html;
-  document.getElementById('tradeModal').classList.add('active');
+  
+  const returnPct = ((totalValue - account.initialCapital) / account.initialCapital * 100);
+  
+  card.innerHTML = 
+    '<div class="card-header">' +
+      '<span class="card-icon">' + account.icon + '</span>' +
+      '<div><div class="card-title">' + account.name + '</div><div class="card-provider">' + account.provider + '</div></div>' +
+    '</div>' +
+    '<div class="card-body">' +
+      '<div class="stat-row"><span class="stat-label">初始资金</span><span class="stat-value">' + formatMoney(account.initialCapital, account.currency) + '</span></div>' +
+      '<div class="stat-row"><span class="stat-label">当前价值</span><span class="stat-value large">' + formatMoney(totalValue, account.currency) + '</span></div>' +
+      '<div class="stat-row"><span class="stat-label">总收益</span>' + formatReturn(returnPct) + '</div>' +
+      positionsHtml +
+      '<div class="status-badge status-running">▶️ 实时数据</div>' +
+    '</div>';
+  
+  return card;
 }
 
-function closeModal(){document.getElementById('tradeModal').classList.remove('active')}
-function render(){var c=document.getElementById('cardsGrid');['us','futures','polymarket','crypto'].forEach(function(k){c.appendChild(createCard(k,simulations[k]))})}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeModal()});
-render();
+// 更新所有数据
+async function updateAllData() {
+  const grid = document.getElementById('cardsGrid');
+  grid.innerHTML = '<div class="card" style="text-align:center;padding:60px"><span class="loading-spinner"></span> 加载实时数据...</div>';
+  
+  // 获取价格
+  await Promise.all([
+    fetchCryptoPrices(),
+    fetchStockPrices()
+  ]);
+  
+  // 渲染
+  grid.innerHTML = '';
+  Object.entries(accounts).forEach(([key, account]) => {
+    grid.appendChild(renderAccountCard(key, account));
+  });
+  
+  // 更新时间
+  document.getElementById('lastUpdate').textContent = '最后更新: ' + new Date().toLocaleTimeString('zh-CN');
+}
+
+// 初始化
+updateAllData();
+setInterval(updateAllData, CONFIG.refreshInterval);
 </script>
 </body>
 </html>

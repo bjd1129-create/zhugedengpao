@@ -193,14 +193,14 @@
       "value": 6848.44
     }
   ],
-  "lastUpdated": "2026-04-08T22:04:24+08:00",
+  "lastUpdated": "2026-04-09T20:23:00+08:00",
   "strategy": {
     "name": "密集网格 v4.2",
     "version": "4.2"
   },
   "tradingStatus": {
-    "stopped": true,
-    "reason": "STOP_TRADING.flag exists - total loss exceeded -20% threshold",
-    "stopLossTriggered": true
+    "stopped": false,
+    "reason": "重启运行",
+    "stopLossTriggered": false
   }
 }

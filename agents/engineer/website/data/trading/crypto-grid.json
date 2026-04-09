@@ -7,14 +7,19 @@
   "currency": "USDT",
   "status": "running",
   "stopFile": "",
-  "lastUpdate": "2026-04-09T09:47:00+08:00",
+  "lastUpdate": "2026-04-09T20:23:00+08:00",
   "strategy": {
     "name": "加密货币网格交易",
-    "coins": ["BTC", "ETH", "AVAX", "ADA"],
+    "coins": [
+      "BTC",
+      "ETH",
+      "AVAX",
+      "ADA"
+    ],
     "gridType": "密集网格",
     "checkInterval": "5 分钟"
   },
   "positions": [],
   "trades": [],
-  "note": "起始资金$1,000,000 USDT - 老庄指令解除 STOP_FILE 限制，网格交易恢复运行，待建仓"
+  "note": "老庄指令解除 STOP_FILE 限制，网格交易恢复运行"
 }

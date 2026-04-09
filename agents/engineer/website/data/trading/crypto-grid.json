@@ -1,25 +1,154 @@
 {
-  "name": "加密货币网格",
-  "provider": "Binance",
-  "initialCapital": 1000000,
-  "currentValue": 1000000,
-  "cash": 1000000,
-  "currency": "USDT",
-  "status": "running",
-  "stopFile": "",
-  "lastUpdate": "2026-04-09T20:25:00+08:00",
-  "strategy": {
-    "name": "加密货币网格交易",
-    "coins": [
-      "BTC",
-      "ETH",
-      "AVAX",
-      "ADA"
-    ],
-    "gridType": "密集网格",
-    "checkInterval": "5 分钟"
+  "last_update": "2026-04-10T00:57:17.968482+08:00",
+  "status": "success",
+  "total_capital": 4790.09,
+  "cash": 977.7949107395766,
+  "total_pnl": -5209.91,
+  "total_pnl_pct": -52.1,
+  "prices": {
+    "BTCUSDT": 70732.48,
+    "ETHUSDT": 2165.83,
+    "AVAXUSDT": 9.09,
+    "ADAUSDT": 0.2497
   },
-  "positions": [],
-  "trades": [],
-  "note": "老庄指令解除 STOP_FILE 限制，网格交易恢复运行"
+  "strategies": {
+    "AVAXUSDT": {
+      "budget": 3000.0,
+      "range": [
+        8.0,
+        9.8
+      ],
+      "grids": 10,
+      "step": 0.18,
+      "realized_pnl": 516.6278604164376,
+      "unrealized_pnl": 135.24590163934397,
+      "total_pnl": 610.9987620557815,
+      "trades_count": 25,
+      "stopped": false,
+      "filled_grids": 0
+    },
+    "ADAUSDT": {
+      "budget": 2000.0,
+      "range": [
+        0.21,
+        0.28
+      ],
+      "grids": 8,
+      "step": 0.00875,
+      "realized_pnl": 303.1885714285714,
+      "unrealized_pnl": 127.47252747252749,
+      "total_pnl": 430.66109890109885,
+      "trades_count": 16,
+      "stopped": false,
+      "filled_grids": 5
+    }
+  },
+  "holdings": {
+    "BTCUSDT": {
+      "amount": 0.042307,
+      "entry_price": 70909.95,
+      "current_price": 70732.48,
+      "stop_loss": 64000.0,
+      "pnl": -7.508223290000049,
+      "pnl_pct": -0.2502751729482268,
+      "stopped": false,
+      "exit_price": null
+    },
+    "ETHUSDT": {
+      "amount": 1.375087,
+      "entry_price": 2181.68,
+      "current_price": 2165.83,
+      "stop_loss": 2700.0,
+      "pnl": -21.795128949999874,
+      "pnl_pct": -0.7265043452751967,
+      "stopped": true,
+      "exit_price": 2251.6109513857295
+    }
+  },
+  "summary": {
+    "grid_count": 2,
+    "hold_count": 1,
+    "total_trades": 41
+  },
+  "recent_trades": [
+    {
+      "symbol": "price_update",
+      "type": "none",
+      "prices": {
+        "BTCUSDT": 70732.48,
+        "ETHUSDT": 2165.83,
+        "AVAXUSDT": 9.09,
+        "ADAUSDT": 0.2497
+      },
+      "time": "2026-04-10T00:57:17.968482+08:00",
+      "note": "network unavailable in cron env, using last known prices; no grid triggers"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "type": "SELL",
+      "price": 9.09,
+      "grid_idx": 1,
+      "pnl": 40.87,
+      "time": "2026-04-09T22:38:06+08:00",
+      "note": "AVAX grid-0↑ 卖出"
+    },
+    {
+      "symbol": "price_update",
+      "type": "none",
+      "prices": {
+        "AVAXUSDT": 9.02,
+        "ADAUSDT": 0.2496,
+        "BTCUSDT": 70892.52,
+        "ETHUSDT": 2177.68
+      },
+      "time": "2026-04-09T22:03:00.000000+08:00",
+      "note": "network unavailable in cron env, using last known Binance prices; AVAX 9.02 (no trigger, between grid-5 and grid-6), ADA 0.2496 (no trigger, between grid-4 and grid-5), BTC unreal -0.74, ETH stopped"
+    },
+    {
+      "symbol": "AVAXUSDT",
+      "type": "SELL",
+      "price": 9.08,
+      "amount": 35.502959,
+      "grid_idx": 6,
+      "pnl": 134.2012,
+      "time": "2026-04-09T20:53:40.340547+08:00",
+      "note": "grid-6↑ 35.5030 AVAXUSDT @ 9.0800"
+    },
+    {
+      "symbol": "price_update",
+      "type": "none",
+      "prices": {
+        "AVAXUSDT": 9.09,
+        "ADAUSDT": 0.2509,
+        "BTCUSDT": 71026.15,
+        "ETHUSDT": 2182.6
+      },
+      "time": "2026-04-09T17:03:00+08:00",
+      "note": "network unavailable in cron env, using last known prices; no grid triggers"
+    },
+    {
+      "symbol": "price_update",
+      "type": "none",
+      "prices": {
+        "AVAXUSDT": 9.09,
+        "ADAUSDT": 0.2509,
+        "BTCUSDT": 71026.15,
+        "ETHUSDT": 2182.6
+      },
+      "time": "2026-04-09T16:03:21.478015+08:00",
+      "note": "AVAX grid-6(9.09), ADA grid-4(0.2509); BTC unreal 4.92; no grid triggers"
+    },
+    {
+      "symbol": "price_update",
+      "type": "none",
+      "prices": {
+        "BTCUSDT": 72861.79359247601,
+        "ETHUSDT": 2251.6109513857295,
+        "AVAXUSDT": 9.451815293663856,
+        "ADAUSDT": 0.25882672504994275
+      },
+      "time": "2026-04-09T15:47:52.316427+08:00",
+      "note": "AVAX grid-8(9.4518), ADA grid-5(0.2588); no new triggers"
+    }
+  ]
 }

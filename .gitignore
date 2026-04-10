@@ -69,3 +69,20 @@ openclaw_skills/
 images/
 archive/
 mempalace/
+
+# Python virtual environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Node modules (non-essential)
+node_modules/
+
+# OS files
+.DS_Store
+
+# Backup files
+*.backup*
+*.broken
+*副本*

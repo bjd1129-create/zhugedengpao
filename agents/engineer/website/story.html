@@ -110,6 +110,14 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
     <div class="comic-tab" data-story="12">龙虾满月了</div>
     <div class="comic-tab" data-story="13">睡后最忙</div>
     <div class="comic-tab" data-story="14">人歇虾不歇</div>
+    <div class="comic-tab" data-story="15">第一周结束了</div>
+    <div class="comic-tab" data-story="16">要不要一起干</div>
+    <div class="comic-tab" data-story="17">第三个人</div>
+    <div class="comic-tab" data-story="18">第一次吵架</div>
+    <div class="comic-tab" data-story="19">小花这个名字</div>
+    <div class="comic-tab" data-story="20">第一个外部用户</div>
+    <div class="comic-tab" data-story="21">官网雏形</div>
+    <div class="comic-tab" data-story="22">两周了</div>
   </div>
   <div class="comic-panels">
     <div class="comic-panel active" id="panel-1">
@@ -154,6 +162,30 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
     <div class="comic-panel" id="panel-14">
       <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
     </div>
+    <div class="comic-panel" id="panel-15">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-16">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-17">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-18">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-19">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-20">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-21">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
+    <div class="comic-panel" id="panel-22">
+      <div class="comic-placeholder"><span>🖼️</span>图片加载中…</div>
+    </div>
   </div>
 </section>
 
@@ -170,25 +202,36 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 
 <script>
 (function(){
-  // Comic data: 14 stories × 8 panels
-  // Story images: ../images/comic-lobster-storyN-pX.jpg
-  // Stories 1-7, 12: no images on disk → show '暂无可用图片'
-  // Stories 8-11, 13-14: images available
+  // Comic data: 22 stories × 8 panels (stories 1-22, all complete as of 2026-04-10)
+  // Naming convention:
+  //   Stories 1-2:   comic-lobster-story{N}-p{M}.jpg         (English only)
+  //   Stories 3-7:   comic-lobster-story{N}-p{M}.jpg         (English; -cn Chinese version also exists)
+  //   Stories 8-11:  comic-story{N}-p{M}.jpg                 (English only)
+  //   Story 12:     comic-lobster-story12-p{M}-cn.jpg        (Chinese only)
+  //   Stories 13-22: comic-story{N}-p{M}.jpg                 (English only)
   var stories = [
     ['../images/comic-lobster-story1-p1.jpg','../images/comic-lobster-story1-p2.jpg','../images/comic-lobster-story1-p3.jpg','../images/comic-lobster-story1-p4.jpg','../images/comic-lobster-story1-p5.jpg','../images/comic-lobster-story1-p6.jpg','../images/comic-lobster-story1-p7.jpg','../images/comic-lobster-story1-p8.jpg'],
     ['../images/comic-lobster-story2-p1.jpg','../images/comic-lobster-story2-p2.jpg','../images/comic-lobster-story2-p3.jpg','../images/comic-lobster-story2-p4.jpg','../images/comic-lobster-story2-p5.jpg','../images/comic-lobster-story2-p6.jpg','../images/comic-lobster-story2-p7.jpg','../images/comic-lobster-story2-p8.jpg'],
-    ['../images/comic-lobster-story3-p1-cn.jpg','../images/comic-lobster-story3-p2-cn.jpg','../images/comic-lobster-story3-p3-cn.jpg','../images/comic-lobster-story3-p4-cn.jpg','../images/comic-lobster-story3-p5-cn.jpg','../images/comic-lobster-story3-p6-cn.jpg','../images/comic-lobster-story3-p7-cn.jpg','../images/comic-lobster-story3-p8-cn.jpg'],
-    ['../images/comic-lobster-story4-p1-cn.jpg','../images/comic-lobster-story4-p2-cn.jpg','../images/comic-lobster-story4-p3-cn.jpg','../images/comic-lobster-story4-p4-cn.jpg','../images/comic-lobster-story4-p5-cn.jpg','../images/comic-lobster-story4-p6-cn.jpg','../images/comic-lobster-story4-p7-cn.jpg','../images/comic-lobster-story4-p8-cn.jpg'],
-    ['../images/comic-lobster-story5-p1-cn.jpg','../images/comic-lobster-story5-p2-cn.jpg','../images/comic-lobster-story5-p3-cn.jpg','../images/comic-lobster-story5-p4-cn.jpg','../images/comic-lobster-story5-p5-cn.jpg','../images/comic-lobster-story5-p6-cn.jpg','../images/comic-lobster-story5-p7-cn.jpg','../images/comic-lobster-story5-p8-cn.jpg'],
-    ['../images/comic-lobster-story6-p1-cn.jpg','../images/comic-lobster-story6-p2-cn.jpg','../images/comic-lobster-story6-p3-cn.jpg','../images/comic-lobster-story6-p4-cn.jpg','../images/comic-lobster-story6-p5-cn.jpg','../images/comic-lobster-story6-p6-cn.jpg','../images/comic-lobster-story6-p7-cn.jpg','../images/comic-lobster-story6-p8-cn.jpg'],
-    ['../images/comic-lobster-story7-p1-cn.jpg','../images/comic-lobster-story7-p2-cn.jpg','../images/comic-lobster-story7-p3-cn.jpg','../images/comic-lobster-story7-p4-cn.jpg','../images/comic-lobster-story7-p5-cn.jpg','../images/comic-lobster-story7-p6-cn.jpg','../images/comic-lobster-story7-p7-cn.jpg','../images/comic-lobster-story7-p8-cn.jpg'],
-    ['../images/comic-lobster-story8-p1.jpg','../images/comic-lobster-story8-p2.jpg','../images/comic-lobster-story8-p3.jpg','../images/comic-lobster-story8-p4.jpg','../images/comic-lobster-story8-p5.jpg','../images/comic-lobster-story8-p6.jpg','../images/comic-lobster-story8-p7.jpg','../images/comic-lobster-story8-p8.jpg'],
-    ['../images/comic-lobster-story9-p1.jpg','../images/comic-lobster-story9-p2.jpg','../images/comic-lobster-story9-p3.jpg','../images/comic-lobster-story9-p4.jpg','../images/comic-lobster-story9-p5.jpg','../images/comic-lobster-story9-p6.jpg','../images/comic-lobster-story9-p7.jpg','../images/comic-lobster-story9-p8.jpg'],
-    ['../images/comic-lobster-story10-p1.jpg','../images/comic-lobster-story10-p2.jpg','../images/comic-lobster-story10-p3.jpg','../images/comic-lobster-story10-p4.jpg','../images/comic-lobster-story10-p5.jpg','../images/comic-lobster-story10-p6.jpg','../images/comic-lobster-story10-p7.jpg','../images/comic-lobster-story10-p8.jpg'],
-    ['../images/comic-lobster-story11-p1.jpg','../images/comic-lobster-story11-p2.jpg','../images/comic-lobster-story11-p3.jpg','../images/comic-lobster-story11-p4.jpg','../images/comic-lobster-story11-p5.jpg','../images/comic-lobster-story11-p6.jpg','../images/comic-lobster-story11-p7.jpg','../images/comic-lobster-story11-p8.jpg'],
-    ['../images/comic-lobster-story12-p1.jpg','../images/comic-lobster-story12-p2.jpg','../images/comic-lobster-story12-p3.jpg','../images/comic-lobster-story12-p4.jpg','../images/comic-lobster-story12-p5.jpg','../images/comic-lobster-story12-p6.jpg','../images/comic-lobster-story12-p7.jpg','../images/comic-lobster-story12-p8.jpg'],
-    ['../images/comic-lobster-story13-p1.jpg','../images/comic-lobster-story13-p2.jpg','../images/comic-lobster-story13-p3.jpg','../images/comic-lobster-story13-p4.jpg','../images/comic-lobster-story13-p5.jpg','../images/comic-lobster-story13-p6.jpg','../images/comic-lobster-story13-p7.jpg','../images/comic-lobster-story13-p8.jpg'],
-    ['../images/comic-lobster-story14-p1.jpg','../images/comic-lobster-story14-p2.jpg','../images/comic-lobster-story14-p3.jpg','../images/comic-lobster-story14-p4.jpg','../images/comic-lobster-story14-p5.jpg','../images/comic-lobster-story14-p6.jpg','../images/comic-lobster-story14-p7.jpg','../images/comic-lobster-story14-p8.jpg']
+    ['../images/comic-lobster-story3-p1.jpg','../images/comic-lobster-story3-p2.jpg','../images/comic-lobster-story3-p3.jpg','../images/comic-lobster-story3-p4.jpg','../images/comic-lobster-story3-p5.jpg','../images/comic-lobster-story3-p6.jpg','../images/comic-lobster-story3-p7.jpg','../images/comic-lobster-story3-p8.jpg'],
+    ['../images/comic-lobster-story4-p1.jpg','../images/comic-lobster-story4-p2.jpg','../images/comic-lobster-story4-p3.jpg','../images/comic-lobster-story4-p4.jpg','../images/comic-lobster-story4-p5.jpg','../images/comic-lobster-story4-p6.jpg','../images/comic-lobster-story4-p7.jpg','../images/comic-lobster-story4-p8.jpg'],
+    ['../images/comic-lobster-story5-p1.jpg','../images/comic-lobster-story5-p2.jpg','../images/comic-lobster-story5-p3.jpg','../images/comic-lobster-story5-p4.jpg','../images/comic-lobster-story5-p5.jpg','../images/comic-lobster-story5-p6.jpg','../images/comic-lobster-story5-p7.jpg','../images/comic-lobster-story5-p8.jpg'],
+    ['../images/comic-lobster-story6-p1.jpg','../images/comic-lobster-story6-p2.jpg','../images/comic-lobster-story6-p3.jpg','../images/comic-lobster-story6-p4.jpg','../images/comic-lobster-story6-p5.jpg','../images/comic-lobster-story6-p6.jpg','../images/comic-lobster-story6-p7.jpg','../images/comic-lobster-story6-p8.jpg'],
+    ['../images/comic-lobster-story7-p1.jpg','../images/comic-lobster-story7-p2.jpg','../images/comic-lobster-story7-p3.jpg','../images/comic-lobster-story7-p4.jpg','../images/comic-lobster-story7-p5.jpg','../images/comic-lobster-story7-p6.jpg','../images/comic-lobster-story7-p7.jpg','../images/comic-lobster-story7-p8.jpg'],
+    ['../images/comic-story8-p1.jpg','../images/comic-story8-p2.jpg','../images/comic-story8-p3.jpg','../images/comic-story8-p4.jpg','../images/comic-story8-p5.jpg','../images/comic-story8-p6.jpg','../images/comic-story8-p7.jpg','../images/comic-story8-p8.jpg'],
+    ['../images/comic-story9-p1.jpg','../images/comic-story9-p2.jpg','../images/comic-story9-p3.jpg','../images/comic-story9-p4.jpg','../images/comic-story9-p5.jpg','../images/comic-story9-p6.jpg','../images/comic-story9-p7.jpg','../images/comic-story9-p8.jpg'],
+    ['../images/comic-story10-p1.jpg','../images/comic-story10-p2.jpg','../images/comic-story10-p3.jpg','../images/comic-story10-p4.jpg','../images/comic-story10-p5.jpg','../images/comic-story10-p6.jpg','../images/comic-story10-p7.jpg','../images/comic-story10-p8.jpg'],
+    ['../images/comic-story11-p1.jpg','../images/comic-story11-p2.jpg','../images/comic-story11-p3.jpg','../images/comic-story11-p4.jpg','../images/comic-story11-p5.jpg','../images/comic-story11-p6.jpg','../images/comic-story11-p7.jpg','../images/comic-story11-p8.jpg'],
+    ['../images/comic-lobster-story12-p1-cn.jpg','../images/comic-lobster-story12-p2-cn.jpg','../images/comic-lobster-story12-p3-cn.jpg','../images/comic-lobster-story12-p4-cn.jpg','../images/comic-lobster-story12-p5-cn.jpg','../images/comic-lobster-story12-p6-cn.jpg','../images/comic-lobster-story12-p7-cn.jpg','../images/comic-lobster-story12-p8-cn.jpg'],
+    ['../images/comic-story13-p1.jpg','../images/comic-story13-p2.jpg','../images/comic-story13-p3.jpg','../images/comic-story13-p4.jpg','../images/comic-story13-p5.jpg','../images/comic-story13-p6.jpg','../images/comic-story13-p7.jpg','../images/comic-story13-p8.jpg'],
+    ['../images/comic-story14-p1.jpg','../images/comic-story14-p2.jpg','../images/comic-story14-p3.jpg','../images/comic-story14-p4.jpg','../images/comic-story14-p5.jpg','../images/comic-story14-p6.jpg','../images/comic-story14-p7.jpg','../images/comic-story14-p8.jpg'],
+    ['../images/comic-story15-p1.jpg','../images/comic-story15-p2.jpg','../images/comic-story15-p3.jpg','../images/comic-story15-p4.jpg','../images/comic-story15-p5.jpg','../images/comic-story15-p6.jpg','../images/comic-story15-p7.jpg','../images/comic-story15-p8.jpg'],
+    ['../images/comic-story16-p1.jpg','../images/comic-story16-p2.jpg','../images/comic-story16-p3.jpg','../images/comic-story16-p4.jpg','../images/comic-story16-p5.jpg','../images/comic-story16-p6.jpg','../images/comic-story16-p7.jpg','../images/comic-story16-p8.jpg'],
+    ['../images/comic-story17-p1.jpg','../images/comic-story17-p2.jpg','../images/comic-story17-p3.jpg','../images/comic-story17-p4.jpg','../images/comic-story17-p5.jpg','../images/comic-story17-p6.jpg','../images/comic-story17-p7.jpg','../images/comic-story17-p8.jpg'],
+    ['../images/comic-story18-p1.jpg','../images/comic-story18-p2.jpg','../images/comic-story18-p3.jpg','../images/comic-story18-p4.jpg','../images/comic-story18-p5.jpg','../images/comic-story18-p6.jpg','../images/comic-story18-p7.jpg','../images/comic-story18-p8.jpg'],
+    ['../images/comic-story19-p1.jpg','../images/comic-story19-p2.jpg','../images/comic-story19-p3.jpg','../images/comic-story19-p4.jpg','../images/comic-story19-p5.jpg','../images/comic-story19-p6.jpg','../images/comic-story19-p7.jpg','../images/comic-story19-p8.jpg'],
+    ['../images/comic-story20-p1.jpg','../images/comic-story20-p2.jpg','../images/comic-story20-p3.jpg','../images/comic-story20-p4.jpg','../images/comic-story20-p5.jpg','../images/comic-story20-p6.jpg','../images/comic-story20-p7.jpg','../images/comic-story20-p8.jpg'],
+    ['../images/comic-story21-p1.jpg','../images/comic-story21-p2.jpg','../images/comic-story21-p3.jpg','../images/comic-story21-p4.jpg','../images/comic-story21-p5.jpg','../images/comic-story21-p6.jpg','../images/comic-story21-p7.jpg','../images/comic-story21-p8.jpg'],
+    ['../images/comic-story22-p1.jpg','../images/comic-story22-p2.jpg','../images/comic-story22-p3.jpg','../images/comic-story22-p4.jpg','../images/comic-story22-p5.jpg','../images/comic-story22-p6.jpg','../images/comic-story22-p7.jpg','../images/comic-story22-p8.jpg']
   ];
 
   function renderStory(n) {

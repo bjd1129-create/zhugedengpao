@@ -1,100 +1,60 @@
 {
-  "timestamp": "2026-04-09T04:18:19.820378",
-  "source": "东方财富",
-  "futures": [
-    {
-      "code": "IFM0",
-      "name": "沪深 300 当月连续",
-      "price": 4595.6,
-      "change": 155.0,
-      "change_pct": 3.49,
-      "open": 4500.0,
-      "high": 4598.0,
-      "low": 4495.0,
-      "prev_settle": 4440.6,
-      "volume": "3.85 万",
-      "open_interest": 52341,
-      "basis": -3351.8,
-      "basis_rate": -42.17
+  "update_time": "2026-04-09T22:52:57+08:00",
+  "market": "夜盘",
+  "source": "新浪财经",
+  "contracts": {
+    "IF": {
+      "name": "沪深300股指期货",
+      "price": 4500.0,
+      "change": 14.4,
+      "change_pct": 0.32,
+      "open": 4511.2,
+      "high": 4532.4,
+      "low": 4500.0,
+      "prev_close": 4485.6,
+      "volume": 44564,
+      "position": 133719,
+      "turnover": 200500100.6
     },
-    {
-      "code": "IHM0",
-      "name": "上证 50 当月连续",
-      "price": 2908.5,
-      "change": 75.3,
-      "change_pct": 2.66,
-      "open": 2865.0,
-      "high": 2912.0,
-      "low": 2860.0,
-      "prev_settle": 2833.2,
-      "volume": "1.52 万",
-      "open_interest": 20145,
-      "basis": -5038.9,
-      "basis_rate": -63.4
+    "IC": {
+      "name": "中证500股指期货",
+      "price": 7748.8,
+      "change": 50.0,
+      "change_pct": 0.65,
+      "open": 7793.6,
+      "high": 7748.8,
+      "low": 7748.8,
+      "prev_close": 7698.8,
+      "volume": 77423,
+      "position": 148538,
+      "turnover": 599887330.4
     },
-    {
-      "code": "ICM0",
-      "name": "中证 500 当月连续",
-      "price": 7954.0,
-      "change": 413.6,
-      "change_pct": 5.49,
-      "open": 7701.0,
-      "high": 7955.0,
-      "low": 7701.0,
-      "prev_settle": 7540.4,
-      "volume": "4.99 万",
-      "open_interest": 57648,
-      "basis": 6.6,
-      "basis_rate": 0.08
+    "IH": {
+      "name": "上证50股指期货",
+      "price": 2860.6,
+      "change": 8.2,
+      "change_pct": 0.29,
+      "open": 2872.8,
+      "high": 2883.2,
+      "low": 2860.6,
+      "prev_close": 2852.4,
+      "volume": 21510,
+      "position": 52852,
+      "turnover": 61553526.8
     },
-    {
-      "code": "IMM0",
-      "name": "中证 1000 当月连续",
-      "price": 7947.4,
-      "change": 382.6,
-      "change_pct": 5.06,
-      "open": 7709.6,
-      "high": 7950.2,
-      "low": 7709.6,
-      "prev_settle": 7564.8,
-      "volume": "6.18 万",
-      "open_interest": 75412,
-      "basis": 0.0,
-      "basis_rate": 0.0
+    "IM": {
+      "name": "中证1000股指期货",
+      "price": 7709.4,
+      "change": 29.2,
+      "change_pct": 0.38,
+      "open": 7757.6,
+      "high": 7709.4,
+      "low": 7709.4,
+      "prev_close": 7680.2,
+      "volume": 102250,
+      "position": 191098,
+      "turnover": 789066288.6
     }
-  ],
-  "anomalies": [
-    {
-      "code": "IFM0",
-      "name": "沪深 300 当月连续",
-      "price": 4595.6,
-      "change_pct": 3.49,
-      "severity": "MEDIUM",
-      "message": "沪深 300 当月连续 涨跌幅 +3.49% 超过阈值 3.0%"
-    },
-    {
-      "code": "ICM0",
-      "name": "中证 500 当月连续",
-      "price": 7954.0,
-      "change_pct": 5.49,
-      "severity": "HIGH",
-      "message": "中证 500 当月连续 涨跌幅 +5.49% 超过阈值 3.0%"
-    },
-    {
-      "code": "IMM0",
-      "name": "中证 1000 当月连续",
-      "price": 7947.4,
-      "change_pct": 5.06,
-      "severity": "HIGH",
-      "message": "中证 1000 当月连续 涨跌幅 +5.06% 超过阈值 3.0%"
-    }
-  ],
-  "summary": {
-    "IF_monthly": 4595.6,
-    "IC_monthly": 7954.0,
-    "IM_monthly": 7947.4,
-    "IH_monthly": 2908.5,
-    "max_change_pct": 5.49,
-    "anomaly_count": 3
-  }
+  },
+  "anomalies": []
 }

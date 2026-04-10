@@ -1,59 +1,59 @@
 {
-  "update_time": "2026-04-09T22:52:57+08:00",
-  "market": "夜盘",
-  "source": "新浪财经",
+  "update_time": "2026-04-10T13:05:49+08:00",
+  "market": "日盘",
+  "source": "东方财富",
   "contracts": {
-    "IF": {
+    "IFM0": {
       "name": "沪深300股指期货",
-      "price": 4500.0,
-      "change": 14.4,
-      "change_pct": 0.32,
-      "open": 4511.2,
-      "high": 4532.4,
-      "low": 4500.0,
-      "prev_close": 4485.6,
-      "volume": 44564,
-      "position": 133719,
-      "turnover": 200500100.6
+      "price": 4636.91,
+      "change": 70.69,
+      "change_pct": 1.55,
+      "open": 4594.95,
+      "high": 0,
+      "low": 0,
+      "prev_close": 4645.47,
+      "volume": "66144154",
+      "position": 0,
+      "turnover": 0
     },
-    "IC": {
-      "name": "中证500股指期货",
-      "price": 7748.8,
-      "change": 50.0,
-      "change_pct": 0.65,
-      "open": 7793.6,
-      "high": 7748.8,
-      "low": 7748.8,
-      "prev_close": 7698.8,
-      "volume": 77423,
-      "position": 148538,
-      "turnover": 599887330.4
-    },
-    "IH": {
+    "IHM0": {
       "name": "上证50股指期货",
-      "price": 2860.6,
-      "change": 8.2,
-      "change_pct": 0.29,
-      "open": 2872.8,
-      "high": 2883.2,
-      "low": 2860.6,
-      "prev_close": 2852.4,
-      "volume": 21510,
-      "position": 52852,
-      "turnover": 61553526.8
+      "price": 2902.45,
+      "change": 17.69,
+      "change_pct": 0.61,
+      "open": 2900.5,
+      "high": 0,
+      "low": 0,
+      "prev_close": 2915.7,
+      "volume": "13299936",
+      "position": 0,
+      "turnover": 0
     },
-    "IM": {
+    "ICM0": {
+      "name": "中证500股指期货",
+      "price": 8006.64,
+      "change": 108.01,
+      "change_pct": 1.37,
+      "open": 7958.81,
+      "high": 0,
+      "low": 0,
+      "prev_close": 8070.65,
+      "volume": "70525642",
+      "position": 0,
+      "turnover": 0
+    },
+    "IMM0": {
       "name": "中证1000股指期货",
-      "price": 7709.4,
-      "change": 29.2,
-      "change_pct": 0.38,
-      "open": 7757.6,
-      "high": 7709.4,
-      "low": 7709.4,
-      "prev_close": 7680.2,
-      "volume": 102250,
-      "position": 191098,
-      "turnover": 789066288.6
+      "price": 8020.27,
+      "change": 98.82,
+      "change_pct": 1.25,
+      "open": 7981.62,
+      "high": 0,
+      "low": 0,
+      "prev_close": 8059.76,
+      "volume": "86379236",
+      "position": 0,
+      "turnover": 0
     }
   },
   "anomalies": []

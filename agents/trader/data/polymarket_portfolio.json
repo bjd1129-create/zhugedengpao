@@ -113,8 +113,6 @@
       "status": "CLOSED",
       "close_reason": "stop_loss_triggered",
       "stop_loss_triggered_at": "2026-04-10T17:15:00+08:00",
-      "pnl": -3125.0,
-      "pnl_pct": -29.76,
       "executed_at": "2026-04-09T13:37:00+08:00",
       "executed_by": "老庄授权自主执行",
       "current_price": 0.295,
@@ -159,5 +157,7 @@
       "last_update": "2026-04-10",
       "summary": "BTC小跌至$71,916，24h内从$72,488回落，市场震荡"
     }
-  }
+  },
+  "last_updated": "2026-04-10T21:41:00.000000",
+  "data_source": "polymarket_fetch_lite.py"
 }

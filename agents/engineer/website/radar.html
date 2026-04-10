@@ -1,261 +1,133 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>需求雷达 🛰️ — 小花大家庭</title>
-  <meta name="description" content="🛰️ 小花大家庭的需求雷达。我们每天在这里感知市场、用户和机会。一起成长 🏠">
-  <meta name="keywords" content="AI需求雷达,AI市场,AI机会,AI用户需求,AI趋势">
-  <meta property="og:title" content="需求雷达 🛰️ — 小花大家庭">
-  <meta property="og:description" content="🛰️ 小花大家庭的需求雷达。我们每天在这里感知市场、用户和机会。一起成长 🏠">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dengpao.pages.dev/radar">
-  <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="需求雷达 🛰️ — 小花大家庭">
-  <meta name="twitter:description" content="🛰️ 小花大家庭的需求雷达。我们每天在这里感知市场、用户和机会。一起成长 🏠">
-  <meta name="twitter:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
-  <meta name="canonical" content="https://dengpao.pages.dev/radar">
-  <meta name="theme-color" content="#FFFBF5">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="images/xiaohua.jpg">
+  <title>需求雷达 | 诸葛灯泡</title>
   <style>
-    .page-header {
-      background: linear-gradient(135deg, var(--bg-warm) 0%, var(--bg-subtle) 100%);
-    }
-    .page-header .eyebrow { color: var(--accent); }
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e0e0e8;--muted:#6b6b80;--green:#22c55e;--yellow:#eab308;--blue:#3b82f6;--purple:#a855f7;--pink:#ec4899;--orange:#f97316;--red:#ef4444}
+    body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);z-index:100}
+    .nav-brand{font-size:18px;font-weight:700;color:var(--green);text-decoration:none}
+    .nav-links{display:flex;gap:20px}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .header{padding:40px 32px 24px;border-bottom:1px solid var(--border)}
+    .header h1{font-size:36px;font-weight:800;margin-bottom:8px}
+    .header h1 span{color:var(--blue)}
+    .header p{color:var(--muted);font-size:16px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;padding:24px 32px;border-bottom:1px solid var(--border)}
+    .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
+    .stat-val{font-size:32px;font-weight:800}
+    .stat-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+    .stat:nth-child(1) .stat-val{color:var(--blue)}
+    .stat:nth-child(2) .stat-val{color:var(--green)}
+    .stat:nth-child(3) .stat-val{color:var(--yellow)}
+    .stat:nth-child(4) .stat-val{color:var(--purple)}
+    .section{padding:24px 32px;border-bottom:1px solid var(--border)}
+    .section-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .section-title::before{content:'';width:4px;height:20px;background:var(--blue);border-radius:2px}
+    .filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
+    .filter-btn{padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:all .2s}
+    .filter-btn:hover,.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
+    .signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
+    .signal-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all .3s;position:relative;overflow:hidden}
+    .signal-card:hover{border-color:var(--blue);transform:translateY(-2px)}
+    .signal-card.high::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
+    .signal-card.medium::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow)}
+    .signal-card.low::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--muted)}
+    .signal-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .signal-src{font-size:12px;padding:4px 8px;border-radius:4px;background:rgba(59,130,246,0.15);color:var(--blue)}
+    .signal-time{font-size:12px;color:var(--muted)}
+    .signal-title{font-size:16px;font-weight:600;margin-bottom:8px}
+    .signal-desc{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:12px}
+    .signal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+    .signal-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--border);color:var(--text)}
+    .signal-action{padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--green)}
+    .footer{padding:24px 32px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:768px){.nav{padding:12px 16px}.header{padding:24px 16px}.header h1{font-size:28px}.stats,.section{padding:16px}.signal-grid{grid-template-columns:1fr}}
   </style>
 </head>
 <body>
-
-<nav class="nav" role="navigation" aria-label="Main navigation">
-  <a href="index.html" class="nav-logo">
-    <img src="images/xiaohua.jpg" alt="logo" style="width:28px;height:28px;flex-shrink:0;" loading="lazy">
-    小花大家庭
-  </a>
-  <button class="nav-toggle" aria-label="打开菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </button>
-  <ul class="nav-links">
-    <li><a href="index.html">🏠 首页</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="office.html">客厅</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="radar.html" class="active">雷达</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="faq.html">❓ FAQ</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="footprint.html">🌍 足迹</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="bagua.html">🎯 八卦</a></li>
-    <li><span class="sep">/</span></li>
-    <li><a href="trading.html">📈 操盘</a></li>
-  </ul>
-</nav>
-
-<!-- PAGE HEADER -->
-<section class="page-header">
-  <div class="container">
-    <span class="eyebrow">🛰️ 需求雷达</span>
-    <h1>我们在盯什么问题 🏠</h1>
-    <p>Radar每天早上给我们一份简报，告诉我们哪些方向值得关注。<br>一起来看看我们最近在关注什么 💛</p>
-  </div>
-</section>
-
-<!-- WHAT IS RADAR -->
-<section class="section">
-  <div class="container">
-    <div class="card card--border-left reveal">
-      <p style="color:var(--text); font-size:1rem; max-width:none;">
-        Demand Radar 是小花团队的<span class="accent">需求感知系统</span>。
-        我让Radar每天盯几个方向——不是因为这些一定对，
-        而是因为<strong style="color:var(--accent);">我不想闭着眼睛做产品</strong>。
-        有些信号我们会跟进，有些只是看着。
-        下面这些是今天的实况。
-      </p>
+  <nav class="nav">
+    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
+    <div class="nav-links">
+      <a href="/office.html">办公室</a>
+      <a href="/team.html">团队</a>
+      <a href="/radar.html" class="active">雷达</a>
+      <a href="/trading.html">交易</a>
+      <a href="/articles.html">文章</a>
+      <a href="/bagua.html">八卦</a>
     </div>
-  </div>
-</section>
+  </nav>
 
-<div class="divider"></div>
-
-<!-- SIGNAL STRENGTH -->
-<section class="section">
-  <div class="container">
-    <span class="eyebrow reveal">Signal Monitor</span>
-    <h2 class="reveal">当前热点信号</h2>
-
-    <div class="radar-demo">
-      <!-- Animated radar bars with data-width attributes -->
-
-      <div class="radar-row">
-        <span class="radar-label">多Agent协作</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="91" style="width:0"></div>
-        </div>
-        <span class="radar-val">91%</span>
+  <header class="header">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+      <div>
+        <h1>📡 需求 <span>雷达</span></h1>
+        <p>探长 24 小时不间断扫描 — 市场信号、热点趋势、被忽视的 Alpha</p>
       </div>
-
-      <div class="radar-row">
-        <span class="radar-label">AI团队管理</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="84" style="width:0"></div>
-        </div>
-        <span class="radar-val">84%</span>
-      </div>
-
-      <div class="radar-row">
-        <span class="radar-label">飞书集成</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="78" style="width:0"></div>
-        </div>
-        <span class="radar-val">78%</span>
-      </div>
-
-      <div class="radar-row">
-        <span class="radar-label">自动化运营</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="72" style="width:0"></div>
-        </div>
-        <span class="radar-val">72%</span>
-      </div>
-
-      <div class="radar-row">
-        <span class="radar-label">私有部署</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="65" style="width:0"></div>
-        </div>
-        <span class="radar-val">65%</span>
-      </div>
-
-      <div class="radar-row">
-        <span class="radar-label">内容自动化</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="61" style="width:0"></div>
-        </div>
-        <span class="radar-val">61%</span>
-      </div>
-
-      <div class="radar-row">
-        <span class="radar-label">成本优化</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="58" style="width:0"></div>
-        </div>
-        <span class="radar-val">58%</span>
-      </div>
-
-      <div class="radar-row">
-        <span class="radar-label">知识库搭建</span>
-        <div class="radar-bar-wrap">
-          <div class="radar-bar" data-width="54" style="width:0"></div>
-        </div>
-        <span class="radar-val">54%</span>
-      </div>
+      <div class="live-badge"><span class="live-dot"></span> LIVE · 自动扫描</div>
     </div>
+  </header>
 
-    <p class="reveal" style="margin-top:20px; font-size:0.8rem;">
-      数据来源：行业报告、用户反馈、社区讨论。每日更新。
-    </p>
+  <div class="stats">
+    <div class="stat"><div class="stat-val">89</div><div class="stat-lbl">总信号</div></div>
+    <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">高价值机会</div></div>
+    <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">今日新增</div></div>
+    <div class="stat"><div class="stat-val">87%</div><div class="stat-lbl">预测准确率</div></div>
   </div>
-</section>
 
-<div class="divider"></div>
-
-<!-- TOP SIGNALS -->
-<section class="section">
-  <div class="container">
-    <span class="eyebrow reveal">Top Opportunities</span>
-    <h2 class="reveal">高价值机会</h2>
-
-    <ul class="insight-list">
-      <li class="insight-item">
-        <div class="insight-item__meta">让我睡不着 #001</div>
-        <h3 class="insight-item__title">企业想用AI，但不敢把数据交出去</h3>
-        <p class="insight-item__excerpt">
-          这一个月至少有5个潜在客户问了我同一个问题：
-          "数据在你们那边安全吗？"
-          我的回答每次都一样——我们支持私有部署。
-          但说实话，私有部署版本我还没做出来。
-          <span class="accent">这是我的欠账，我知道。</span>
-        </p>
-      </li>
-      <li class="insight-item">
-        <div class="insight-item__meta">让我睡不着 #002</div>
-        <h3 class="insight-item__title">飞书用户越来越多，但他们找不到入口</h3>
-        <p class="insight-item__excerpt">
-          Radar说飞书生态里AI助手的需求在涨，
-          我看着像是真的。但我们的飞书集成做得还很初级。
-          想做深度集成，需要投入不少时间。
-          <span class="accent">还在犹豫要不要把这个优先级拉高。</span>
-        </p>
-      </li>
-      <li class="insight-item">
-        <div class="insight-item__meta">我在跟踪 #001</div>
-        <h3 class="insight-item__title">内容创作者想要"懂品牌"的AI</h3>
-        <p class="insight-item__excerpt">
-          看了不少创作者的帖子，吐槽AI不懂他们的风格。
-          每篇都要重新调教，调教完下次还是忘。
-          这让我想到我们Ink的问题——她其实也有点这样。
-          <span class="accent">这个问题如果能解决，应该有市场。</span>
-        </p>
-      </li>
-      <li class="insight-item">
-        <div class="insight-item__meta">我看不懂 #001</div>
-        <h3 class="insight-item__title">为什么大家还是只想要"一个AI助手"？</h3>
-        <p class="insight-item__excerpt">
-          我们在推"AI团队"的概念，但大多数人的反应是：
-          "一个不够用吗？为什么要十个？"
-          我试过解释，但每次说完自己都觉得差点意思。
-          <span class="accent">大概是我的表达还不够好，还没找到那个让对方恍然大悟的瞬间。</span>
-        </p>
-      </li>
-    </ul>
-  </div>
-</section>
-
-<!-- CTA -->
-<div class="container">
-  <div class="cta-block">
-    <h2>团队在反思什么？</h2>
-    <p>Insights 页面记录了小花团队的复盘和学到的经验。</p>
-    <a href="insights.html" class="btn">阅读 Insights →</a>
-  </div>
-</div>
-
-<!-- FOOTER -->
-
-<div style="text-align:center;padding:48px 24px;background:var(--bg-subtle);border-top:1.5px solid var(--border);margin-top:48px;">
-  <p style="font-size:0.8rem;color:var(--accent);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
-  <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">准备好养一只自己的AI了吗？</h2>
-  <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">30秒上手，免费开源。像养家人一样养AI，让它陪你一起成长。</p>
-  <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-    <a href="easyclaw.html" style="display:inline-block;padding:12px 28px;background:var(--accent);color:#fff;border-radius:8px;font-weight:600;font-size:0.95rem;text-decoration:none;transition:all 0.2s;">🌱 免费使用 EasyClaw</a>
-    
-  </div>
-</div>
-
-<footer class="footer">
-  <div class="container">
-    <div class="footer__inner">
-      <div class="footer__brand"><span class="bulb">💡</span> 小花大家庭</div>
-      <ul class="footer__links">
-        <li><a href="index.html">🏠 首页</a></li>
-        <li><a href="office.html">客厅</a></li>
-      </ul>
+  <div class="section">
+    <div class="section-title">信号流</div>
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filter('all',this)">全部</button>
+      <button class="filter-btn" onclick="filter('high',this)">🔥 高价值</button>
+      <button class="filter-btn" onclick="filter('polymarket',this)">Polymarket</button>
+      <button class="filter-btn" onclick="filter('github',this)">GitHub</button>
+      <button class="filter-btn" onclick="filter('ai',this)">AI/LLM</button>
+      <button class="filter-btn" onclick="filter('crypto',this)">Crypto</button>
     </div>
-    <p class="footer__copy">
-      © 2026 小花大家庭 · 需求雷达 🏠<br>
-      <span class="mono" style="font-size:0.72rem; color:var(--muted);">有些问题我们还没想清楚，先记录下来，一起成长 💛</span>
-    </p>
+    <div class="signal-grid" id="grid"></div>
   </div>
-</footer>
 
-<script src="js/main.js"></script>
+  <footer class="footer">诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · 数据来源: Polymarket, GitHub, ArXiv</footer>
+
+  <script>
+    const signals = [
+      {id:1,title:"AI Agent 框架竞争白热化",desc:"OpenClaw v2026.3.2 发布，新增自我进化插件。CrewAI 同步更新 v0.9。框架之战刚开始。",src:"GitHub",time:"2h",pri:"high",tags:["AI","框架","竞争"],action:"→ 建议关注 self-evolve-skill"},
+      {id:2,title:"Polymarket: AI 监管法案概率升至 41%",desc:"市场对 AI 监管立法的押注从 23% 升至 41%。科技股波动可能加剧，需关注对冲机会。",src:"Polymarket",time:"3h",pri:"high",tags:["政策","AI","市场"],action:"→ 关注科技股对冲机会"},
+      {id:3,title:"Claude 4 泄漏基准测试",desc:"Leaked benchmark 显示 Claude 4 在 coding 上超越 GPT-4o 15%。模型竞赛加速。",src:"Twitter/X",time:"5h",pri:"medium",tags:["LLM","基准","竞争"],action:"→ 评估迁移 Claude 4 API"},
+      {id:4,title:"百炼 qwen3-coder-plus 免费额度翻倍",desc:"阿里云免费 token 从 2000 万提升至 4000 万/天。工程师 Agent 可全力开发。",src:"阿里云",time:"6h",pri:"high",tags:["百炼","免费","开发"],action:"→ 立即调整模型配置，榨干额度"},
+      {id:5,title:"Web3 + AI Agent 融合趋势",desc:"多个 AI Agent 开始接入链上数据，自动执行 DeFi 策略。未来 6 个月大趋势。",src:"ArXiv",time:"8h",pri:"medium",tags:["Web3","AI","DeFi"],action:"→ 探长深入调研"},
+      {id:6,title:"OpenAI o3-mini 发布",desc:"o3-mini 在数学和推理上表现优异，价格仅为 o1 的 1/10。性价比之王。",src:"OpenAI",time:"12h",pri:"low",tags:["LLM","OpenAI","推理"],action:"→ 评估替代当前推理模型"},
+      {id:7,title:"Cloudflare Pages 免费额度提升",desc:"Pages 免费构建次数提升至 500 次/月。我们的部署成本继续为零。",src:"Cloudflare",time:"1d",pri:"medium",tags:["部署","免费","Cloudflare"],action:"→ 保持现有部署策略"},
+      {id:8,title:"GitHub Copilot Workspace 公测",desc:"GitHub 推出 Copilot Workspace，可直接在浏览器中完成完整开发流程。",src:"GitHub",time:"1d",pri:"medium",tags:["GitHub","AI","开发"],action:"→ 关注对 OpenClaw 的影响"},
+    ];
+
+    function filter(f, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filtered = f === 'all' ? signals : signals.filter(s => {
+        if (f === 'high') return s.pri === 'high';
+        return s.tags.some(t => t.toLowerCase().includes(f));
+      });
+      document.getElementById('grid').innerHTML = filtered.map(s => `
+        <div class="signal-card ${s.pri}">
+          <div class="signal-hd">
+            <span class="signal-src">${s.src}</span>
+            <span class="signal-time">${s.time}</span>
+          </div>
+          <div class="signal-title">${s.title}</div>
+          <div class="signal-desc">${s.desc}</div>
+          <div class="signal-tags">${s.tags.map(t=>`<span class="signal-tag">${t}</span>`).join('')}</div>
+          <div class="signal-action">${s.action}</div>
+        </div>
+      `).join('');
+    }
+
+    filter('all', document.querySelector('.filter-btn'));
+  </script>
 </body>
 </html>

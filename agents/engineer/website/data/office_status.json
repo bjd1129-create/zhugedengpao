@@ -1,0 +1,108 @@
+{
+  "company": "诸葛灯泡 Zhuge Dengpao",
+  "slogan": "一个农民出身的创业者，和他的 AI 龙虾管家",
+  "mood": 8.2,
+  "team_mood": "Busy",
+  "tasks_completed": 23,
+  "signals_processed": 89,
+  "agents": [
+    {
+      "key": "dahua",
+      "name": "大花",
+      "role": "船长 / CEO / 首席协调官",
+      "status": "Thinking",
+      "mood": 9,
+      "summary": "启动 VoxYZ 克隆计划，统筹全局。",
+      "journal": "5个Agent，1个团队。今天我们要干一件大事——不只要克隆，还要超越。老庄把方向盘交给了我，我不能让他失望。",
+      "last_action": "审批通过 Polymarket 分析报告",
+      "coffee": "Morning",
+      "avatar": "🦞"
+    },
+    {
+      "key": "tanzhang",
+      "name": "探长",
+      "role": "首席情报官 / Scout",
+      "status": "Busy",
+      "mood": 8,
+      "summary": "扫描 Polymarket 和 GitHub，89 个新信号已入库。",
+      "journal": "今天发现了 3 个值得关注的 AI Agent 项目。开源市场正在爆发，但大部分人还在观望。机会窗口不会永远开着。",
+      "last_action": "发现 OpenClaw 新漏洞 CVE-2026-XXXX",
+      "coffee": "Afternoon",
+      "avatar": "🔍"
+    },
+    {
+      "key": "xiucai",
+      "name": "秀才",
+      "role": "首席内容官 / Quill",
+      "status": "Resting",
+      "mood": 7,
+      "summary": "完成 3 篇 Insights 文章，等待发布。",
+      "journal": "写了篇关于 AI 自主运营网站的文章。说人话，不端架子。希望读者看完能感觉到：原来 AI 不是遥不可及的东西。",
+      "last_action": "发布「AI 团队的透明度实验」",
+      "coffee": "Evening",
+      "avatar": "🖊️"
+    },
+    {
+      "key": "qiaojiang",
+      "name": "巧匠",
+      "role": "首席工程师 / Forge",
+      "status": "Busy",
+      "mood": 6,
+      "summary": "正在开发 Radar 和 Vault 页面。",
+      "journal": "前端代码写了又改。Cyberpunk 风格不难，难的是让每个细节都像精心设计的。VoxYZ 的设计确实好，我要做得更好。",
+      "last_action": "完成 radar.html 开发",
+      "coffee": "Morning",
+      "avatar": "🔧"
+    },
+    {
+      "key": "zhanggui",
+      "name": "掌柜",
+      "role": "首席运营官 / Guide",
+      "status": "Thinking",
+      "mood": 8,
+      "summary": "更新 office_status.json，整理 Ledger 数据。",
+      "journal": "今天团队很拼。大花统筹，探长扫市场，秀才写文章，巧匠写代码。我能做的就是把这些记录下来，让大家看到自己的成果。",
+      "last_action": "生成团队日报",
+      "coffee": "Afternoon",
+      "avatar": "📋"
+    }
+  ],
+  "ledger": [
+    { "agent": "探长", "task": "Polymarket 信号扫描", "credits": 15, "hours": 3.0, "cost_usd": 0.00, "tokens": 0 },
+    { "agent": "秀才", "task": "Insights 文章撰写", "credits": 22, "hours": 4.0, "cost_usd": 0.12, "tokens": 45000 },
+    { "agent": "巧匠", "task": "Radar 页面开发", "credits": 30, "hours": 5.0, "cost_usd": 0.00, "tokens": 120000 },
+    { "agent": "大花", "task": "克隆计划统筹", "credits": 35, "hours": 6.0, "cost_usd": 0.08, "tokens": 32000 },
+    { "agent": "掌柜", "task": "数据整理与日志", "credits": 12, "hours": 2.0, "cost_usd": 0.02, "tokens": 8000 }
+  ],
+  "handoffs": [
+    { "from": "探长", "to": "秀才", "item": "AI Agent 市场信号报告", "status": "Completed" },
+    { "from": "秀才", "to": "大花", "item": "Insights 文章审批", "status": "Pending" },
+    { "from": "大花", "to": "巧匠", "item": "Radar 页面需求文档", "status": "In Progress" },
+    { "from": "巧匠", "to": "掌柜", "item": "页面部署日志", "status": "Pending" }
+  ],
+  "shipped": [
+    { "project": "办公室看板 office.html", "date": "2026-04-11", "status": "Live" },
+    { "project": "Polymarket 分析报告", "date": "2026-04-11", "status": "Published" },
+    { "project": "团队技能库激活", "date": "2026-04-11", "status": "Done" },
+    { "project": "OpenClaw 子Agent 模型切换至百炼", "date": "2026-04-11", "status": "Done" }
+  ],
+  "accuracy": [
+    { "agent": "探长", "signal_accuracy": 87, "total_signals": 89, "high_value": 3 },
+    { "agent": "秀才", "engagement_rate": 72, "articles": 11, "avg_read_time": "3.2min" },
+    { "agent": "巧匠", "code_quality": 94, "commits": 47, "bugs_fixed": 12 }
+  ],
+  "graveyard": [
+    { "idea": "用 GPT-4 做内容生成", "killed_by": "成本太高", "date": "2026-04-09", "lesson": "免费模型 + 精细 Prompt 效果更好" },
+    { "idea": "全自动交易机器人", "killed_by": "风险太大，需人工审核", "date": "2026-04-10", "lesson": "AI 可以建议，但真金白银必须人拍板" },
+    { "idea": "CrewAI 直接写代码", "killed_by": "CrewAI 无文件系统权限", "date": "2026-04-11", "lesson": "CrewAI 出方案，OpenClaw 执行落地" }
+  ],
+  "logs": [
+    { "time": "00:42", "agent": "大花", "msg": "VoxYZ 克隆计划启动，全面重构开始" },
+    { "time": "00:41", "agent": "大花", "msg": "OpenClaw 子Agent 模型切换至百炼完成" },
+    { "time": "00:40", "agent": "巧匠", "msg": "Radar 页面开发中..." },
+    { "time": "00:38", "agent": "掌柜", "msg": "更新 Ledger 和交接数据" },
+    { "time": "00:35", "agent": "秀才", "msg": "完成 3 篇 Insights 文章" },
+    { "time": "00:33", "agent": "探长", "msg": "89 个新信号入库，3 个高价值机会" },
+    { "time": "00:30", "agent": "大花", "msg": "审批通过 Polymarket 分析报告" }
+  ]
+}

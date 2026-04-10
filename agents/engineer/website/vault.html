@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品 Vault | 诸葛灯泡</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e0e0e8;--muted:#6b6b80;--green:#22c55e;--yellow:#eab308;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316}
+    body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);z-index:100}
+    .nav-brand{font-size:18px;font-weight:700;color:var(--green);text-decoration:none}
+    .nav-links{display:flex;gap:20px}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .header{padding:60px 32px 40px;text-align:center;border-bottom:1px solid var(--border)}
+    .header h1{font-size:42px;font-weight:800;margin-bottom:12px}
+    .header h1 span{color:var(--purple)}
+    .header p{color:var(--muted);font-size:18px;max-width:600px;margin:0 auto}
+    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;padding:40px 32px;max-width:1000px;margin:0 auto}
+    .price-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:32px;position:relative;transition:all .3s}
+    .price-card:hover{transform:translateY(-4px);border-color:var(--purple)}
+    .price-card.popular{border-color:var(--purple);box-shadow:0 0 30px rgba(168,85,247,0.2)}
+    .popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--purple);color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:600}
+    .price-name{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+    .price-amount{font-size:48px;font-weight:800;margin-bottom:4px}
+    .price-amount span{font-size:18px;color:var(--muted);font-weight:400}
+    .price-desc{font-size:14px;color:var(--muted);margin-bottom:24px}
+    .price-features{list-style:none;margin-bottom:24px}
+    .price-features li{padding:8px 0;font-size:14px;display:flex;align-items:center;gap:8px}
+    .price-features li::before{content:'✓';color:var(--green);font-weight:700}
+    .price-btn{display:block;width:100%;padding:14px;border:none;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;text-align:center;text-decoration:none}
+    .price-btn.primary{background:var(--purple);color:#fff}
+    .price-btn.primary:hover{background:#9333ea}
+    .price-btn.secondary{background:transparent;border:1px solid var(--border);color:var(--text)}
+    .price-btn.secondary:hover{border-color:var(--purple)}
+    .compare{padding:40px 32px;max-width:1000px;margin:0 auto}
+    .compare h2{font-size:24px;font-weight:700;margin-bottom:24px;text-align:center}
+    .compare-table{width:100%;border-collapse:collapse}
+    .compare-table th,.compare-table td{padding:12px 16px;text-align:center;border-bottom:1px solid var(--border);font-size:14px}
+    .compare-table th{color:var(--muted);font-weight:500}
+    .compare-table td:first-child{text-align:left;color:var(--text)}
+    .check{color:var(--green);font-weight:700}
+    .cross{color:var(--muted)}
+    .footer{padding:24px 32px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--border)}
+    @media(max-width:768px){.nav{padding:12px 16px}.header{padding:40px 16px}.header h1{font-size:32px}.pricing{padding:24px 16px}.compare{padding:24px 16px}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
+    <div class="nav-links">
+      <a href="/office.html">办公室</a>
+      <a href="/team.html">团队</a>
+      <a href="/radar.html">雷达</a>
+      <a href="/trading.html">交易</a>
+      <a href="/articles.html">文章</a>
+      <a href="/vault.html" class="active">产品</a>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>🔮 产品 <span>Vault</span></h1>
+    <p>克隆 VoxYZ 的完整 AI 团队方案 — 从 Starter 到 Pro，一键搭建你的 AI 公司</p>
+  </header>
+
+  <div class="pricing">
+    <div class="price-card">
+      <div class="price-name">Starter</div>
+      <div class="price-amount">$79<span>/月</span></div>
+      <div class="price-desc">适合个人开发者，快速启动</div>
+      <ul class="price-features">
+        <li>3 个 AI Agent 模板</li>
+        <li>基础办公室看板</li>
+        <li>需求雷达（每日更新）</li>
+        <li>社区支持</li>
+        <li>Cloudflare Pages 部署指南</li>
+      </ul>
+      <a href="#" class="price-btn secondary">开始使用</a>
+    </div>
+    <div class="price-card popular">
+      <div class="popular-badge">🔥 最受欢迎</div>
+      <div class="price-name">Pro</div>
+      <div class="price-amount">$199<span>/月</span></div>
+      <div class="price-desc">适合团队，完整功能解锁</div>
+      <ul class="price-features">
+        <li>7 个 AI Agent 完整配置</li>
+        <li>实时办公室看板（10s 刷新）</li>
+        <li>需求雷达 + 信号 API</li>
+        <li>交易展示 + Polymarket 集成</li>
+        <li>内容自动化工坊</li>
+        <li>优先级支持</li>
+        <li>自定义品牌</li>
+      </ul>
+      <a href="#" class="price-btn primary">立即订阅</a>
+    </div>
+    <div class="price-card">
+      <div class="price-name">开源版</div>
+      <div class="price-amount">免费<span></span></div>
+      <div class="price-desc">社区维护，完全开放</div>
+      <ul class="price-features">
+        <li>全部页面源码</li>
+        <li>基础 Agent 配置</li>
+        <li>社区文档</li>
+        <li>MIT 许可证</li>
+        <li>GitHub 直接部署</li>
+      </ul>
+      <a href="https://github.com/bjd1129-create/zhugedengpao" class="price-btn secondary">查看源码</a>
+    </div>
+  </div>
+
+  <div class="compare">
+    <h2>功能对比</h2>
+    <table class="compare-table">
+      <thead>
+        <tr><th>功能</th><th>开源版</th><th>Starter</th><th>Pro</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Agent 数量</td><td>3</td><td>3</td><td>7</td></tr>
+        <tr><td>办公室看板</td><td>基础</td><td>基础</td><td>实时 10s 刷新</td></tr>
+        <tr><td>需求雷达</td><td>静态数据</td><td>每日更新</td><td>实时 API</td></tr>
+        <tr><td>交易展示</td><td><span class="cross">✕</span></td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>内容自动化</td><td><span class="cross">✕</span></td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>自定义品牌</td><td><span class="cross">✕</span></td><td><span class="cross">✕</span></td><td><span class="check">✓</span></td></tr>
+        <tr><td>技术支持</td><td>社区</td><td>邮件</td><td>优先</td></tr>
+        <tr><td>许可证</td><td>MIT</td><td>商业</td><td>商业</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <footer class="footer">
+    诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · <a href="https://github.com/bjd1129-create/zhugedengpao" style="color:var(--green)">GitHub</a>
+  </footer>
+</body>
+</html>

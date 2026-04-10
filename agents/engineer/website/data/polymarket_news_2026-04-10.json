@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-04-10T14:08:00Z",
+  "us_iran_ceasefire": {
+    "status": "TWO_WEEK_CEASEFIRE_FRAGILE",
+    "agreed": "2026-04-08",
+    "expires": "2026-04-22",
+    "key_issues": ["Strait of Hormuz", "Lebanon"],
+    "latest_developments": [
+      "US-Iran high-level talks ongoing in Islamabad today (April 10)",
+      "Iran accuses US of violating deal framework, calls ceasefire 'unreasonable'",
+      "Attacks reported in Iran and Gulf Arab countries on April 9, deal in question",
+      "Netanyahu authorizes negotiations with Lebanon",
+      "Saudi energy sites attacked, one killed (April 10)"
+    ],
+    "market_impact": {
+      "oil": "Plunged below $100/barrel after ceasefire announcement",
+      "stocks": "US indexes ended sharply higher April 8",
+      "gold": "Jumped",
+      "bitcoin": "Jumped"
+    },
+    "trump_stance": "Doubt on ceasefire effectiveness due to Iran's Hormuz chokehold",
+    "odds_assessment": "CEASEFIRE_CONFIRM: YES likely CONFIRMED but fragile; EXTENSION uncertain; IRAN_STRIKE: unlikely during talks"
+  },
+  "hungary_election": {
+    "status": "ELECTION_IN_2_DAYS",
+    "date": "2026-04-12",
+    "polling_data": {
+      "tisza": "Leading significantly in polls",
+      "medián_projection": "138-142 seats (potentially two-thirds majority)",
+      "fidesz": "Trailing but still competitive"
+    },
+    "key_players": {
+      "orban": "Fidesz, 16 years in power, endorsed by Trump & Vance",
+      "magan_peter": "Tisza party, potentially unseating Orbán"
+    },
+    "latest_developments": [
+      "72 hours to election (April 10)",
+      "Trump & Vance endorsements of Orbán may have backfired (polls show Orbán falling behind further)",
+      "Tensions surging in final stretch",
+      "Sex tapes, espionage allegations, fake polls allegations circulating",
+      "Post-election scenarios: Tisza victory, concession dispute, or outright contestation"
+    ],
+    "odds_assessment": "ORBAN_WINS: trending DOWN after endorsements; TISZA_WINS: trending UP; TISZA_SUPERMAJORITY: possible"
+  }
+}

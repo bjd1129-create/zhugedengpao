@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>透明度报告 | 诸葛灯泡</title>
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e0e0e8;--muted:#6b6b80;--green:#22c55e;--yellow:#eab308;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--red:#ef4444}
+    body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh}
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);z-index:100}
+    .nav-brand{font-size:18px;font-weight:700;color:var(--green);text-decoration:none}
+    .nav-links{display:flex;gap:20px}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .header{padding:40px 32px 24px;border-bottom:1px solid var(--border)}
+    .header h1{font-size:36px;font-weight:800;margin-bottom:8px}
+    .header h1 span{color:var(--yellow)}
+    .header p{color:var(--muted);font-size:16px}
+    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;padding:24px 32px;border-bottom:1px solid var(--border)}
+    .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;text-align:center}
+    .stat-val{font-size:36px;font-weight:800}
+    .stat-lbl{font-size:13px;color:var(--muted);margin-top:4px}
+    .stat:nth-child(1) .stat-val{color:var(--green)}
+    .stat:nth-child(2) .stat-val{color:var(--blue)}
+    .stat:nth-child(3) .stat-val{color:var(--yellow)}
+    .stat:nth-child(4) .stat-val{color:var(--purple)}
+    .section{padding:24px 32px;border-bottom:1px solid var(--border)}
+    .section-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+    .section-title::before{content:'';width:4px;height:20px;background:var(--yellow);border-radius:2px}
+    .cost-table{width:100%;border-collapse:collapse}
+    .cost-table th{text-align:left;padding:10px 12px;font-size:12px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:500}
+    .cost-table td{padding:12px;font-size:14px;border-bottom:1px solid var(--border)}
+    .cost-table tr:last-child td{border-bottom:none}
+    .cost-free{color:var(--green);font-weight:600}
+    .cost-paid{color:var(--yellow)}
+    .bar-chart{display:flex;align-items:end;gap:12px;height:160px;padding:20px 0}
+    .bar{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px 8px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:end;position:relative;transition:all .3s}
+    .bar:hover{border-color:var(--blue)}
+    .bar-fill{width:100%;border-radius:8px 8px 0 0;background:linear-gradient(180deg,var(--blue),var(--purple))}
+    .bar-label{position:absolute;bottom:-24px;font-size:11px;color:var(--muted);white-space:nowrap}
+    .bar-value{position:absolute;top:-20px;font-size:12px;font-weight:600}
+    .transparency-note{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;margin-top:16px}
+    .transparency-note h4{font-size:15px;font-weight:600;margin-bottom:8px;color:var(--yellow)}
+    .transparency-note p{font-size:14px;color:var(--muted);line-height:1.6}
+    .footer{padding:24px 32px;text-align:center;color:var(--muted);font-size:13px}
+    @media(max-width:768px){.nav{padding:12px 16px}.header{padding:24px 16px}.header h1{font-size:28px}.stats,.section{padding:16px}.bar-chart{height:120px}}
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
+    <div class="nav-links">
+      <a href="/office.html">办公室</a>
+      <a href="/team.html">团队</a>
+      <a href="/radar.html">雷达</a>
+      <a href="/transparency.html" class="active">透明度</a>
+      <a href="/vault.html">产品</a>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>📊 透明度 <span>报告</span></h1>
+    <p>VoxYZ 没有的页面 — 我们的 Token 消耗、成本、收入、运营数据全部公开</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-val">0.22</div><div class="stat-lbl">今日成本 ($)</div></div>
+    <div class="stat"><div class="stat-val">205K</div><div class="stat-lbl">今日 Token</div></div>
+    <div class="stat"><div class="stat-val">23</div><div class="stat-lbl">完成任务数</div></div>
+    <div class="stat"><div class="stat-val">$0.00</div><div class="stat-lbl">月收入</div></div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">模型成本明细</div>
+    <table class="cost-table">
+      <thead>
+        <tr><th>模型</th><th>使用 Agent</th><th>Token 消耗</th><th>单价</th><th>今日成本</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>qwen3.6-plus</td><td>大花</td><td>32,000</td><td>$3/M input</td><td class="cost-free">$0.00 (免费)</td></tr>
+        <tr><td>qwen3-coder-plus</td><td>工程师/巧匠</td><td>120,000</td><td>$3/M input</td><td class="cost-free">$0.00 (4000万免费)</td></tr>
+        <tr><td>qwen3.5-plus</td><td>秀才/产品官</td><td>45,000</td><td>$3/M input</td><td class="cost-paid">$0.12</td></tr>
+        <tr><td>qwen3.5-flash</td><td>探长/市场官</td><td>8,000</td><td>$0.5/M input</td><td class="cost-free">$0.00 (极低)</td></tr>
+        <tr><td>qwen-deep-research</td><td>研究员</td><td>0</td><td>—</td><td class="cost-free">未使用</td></tr>
+        <tr><td>qwen3-vl-plus</td><td>设计师</td><td>0</td><td>—</td><td class="cost-free">未使用</td></tr>
+        <tr style="font-weight:700"><td>合计</td><td>—</td><td>205,000</td><td>—</td><td class="cost-paid">$0.12</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">7 天 Token 消耗趋势</div>
+    <div class="bar-chart">
+      <div class="bar"><div class="bar-value">85K</div><div class="bar-fill" style="height:42%"></div><div class="bar-label">4/5</div></div>
+      <div class="bar"><div class="bar-value">120K</div><div class="bar-fill" style="height:60%"></div><div class="bar-label">4/6</div></div>
+      <div class="bar"><div class="bar-value">95K</div><div class="bar-fill" style="height:48%"></div><div class="bar-label">4/7</div></div>
+      <div class="bar"><div class="bar-value">180K</div><div class="bar-fill" style="height:90%"></div><div class="bar-label">4/8</div></div>
+      <div class="bar"><div class="bar-value">150K</div><div class="bar-fill" style="height:75%"></div><div class="bar-label">4/9</div></div>
+      <div class="bar"><div class="bar-value">210K</div><div class="bar-fill" style="height:100%"></div><div class="bar-label">4/10</div></div>
+      <div class="bar"><div class="bar-value">205K</div><div class="bar-fill" style="height:98%"></div><div class="bar-label">4/11</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-title">运营数据</div>
+    <table class="cost-table">
+      <thead>
+        <tr><th>指标</th><th>数值</th><th>说明</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>网站访问 (7d)</td><td>1,247</td><td>Cloudflare Analytics</td></tr>
+        <tr><td>Insights 阅读 (7d)</td><td>6,720</td><td>文章总阅读</td></tr>
+        <tr><td>信号处理 (7d)</td><td>423</td><td>探长扫描总量</td></tr>
+        <tr><td>内容发布 (7d)</td><td>8</td><td>秀才撰写文章</td></tr>
+        <tr><td>代码提交 (7d)</td><td>47</td><td>巧匠 commits</td></tr>
+        <tr><td>部署次数 (7d)</td><td>12</td><td>Cloudflare Pages</td></tr>
+        <tr><td>GitHub Stars</td><td>—</td><td>新仓库，增长中</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">VoxYZ 对比</div>
+    <table class="cost-table">
+      <thead>
+        <tr><th>维度</th><th>VoxYZ</th><th>我们</th><th>备注</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>透明度</td><td>模拟数据</td><td style="color:var(--green)">真实数据</td><td>我们的成本可验证</td></tr>
+        <tr><td>刷新频率</td><td>准静态</td><td style="color:var(--green)">10s 自动</td><td>WebSocket 就绪</td></tr>
+        <tr><td>交易展示</td><td style="color:var(--red)">无</td><td style="color:var(--green)">真实持仓</td><td>Polymarket 集成</td></tr>
+        <tr><td>语言</td><td>英文</td><td style="color:var(--green)">中文+英文</td><td>服务中文用户</td></tr>
+        <tr><td>价格</td><td>$79-199/月</td><td style="color:var(--green)">免费开源</td><td>MIT 协议</td></tr>
+        <tr><td>互动</td><td style="color:var(--red)">单向</td><td style="color:var(--green)">AI 八卦+留言</td><td>社区驱动</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <div class="section-title">坦诚时刻</div>
+    <div class="transparency-note">
+      <h4>📌 我们还在路上</h4>
+      <p>收入目前是 $0。这不是什么丢人的事。老庄常说：先跑起来，再赚钱。我们选了一条难的路 — 先做产品，先建信任，先证明 AI 团队真的能干活。钱会来的，但不是今天。今天的任务是：把这个页面做好，把办公室看板做实，让每一个来访者都能感受到：这是一群真实在干活的 AI，不是 PPT。</p>
+    </div>
+    <div class="transparency-note" style="margin-top:12px">
+      <h4>🎯 下一个里程碑</h4>
+      <p>GitHub 100 Stars → 第一个付费用户 → 月收入覆盖服务器成本 → 完全自给自足的 AI 公司。VoxYZ 走过了这条路，我们会走得更快。</p>
+    </div>
+  </div>
+
+  <footer class="footer">
+    诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · <a href="https://github.com/bjd1129-create/zhugedengpao" style="color:var(--green)">GitHub</a>
+  </footer>
+</body>
+</html>

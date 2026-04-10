@@ -1,0 +1,99 @@
+{
+  "skills": [
+    {
+      "name": "content-factory",
+      "assigned_to": ["xiucai"],
+      "type": "prompt_templates",
+      "prompts": [
+        "first-draft.md",
+        "argument-builder.md",
+        "research-pipeline.md",
+        "story-overlay.md",
+        "remix-engine.md",
+        "headlines.md",
+        "clarity-pass.md",
+        "empathy-rewrite.md",
+        "polish-pass.md",
+        "voice-cloner.md"
+      ],
+      "usage": "Read prompts/{template}.md and follow the instructions for each content task."
+    },
+    {
+      "name": "content-repurposer",
+      "assigned_to": ["xiucai"],
+      "type": "cli_scripts",
+      "scripts": [
+        "scripts/repurpose.sh",
+        "scripts/twitter-thread.sh",
+        "scripts/linkedin-post.sh",
+        "scripts/newsletter.sh",
+        "scripts/instagram-caption.sh",
+        "scripts/threads-post.sh"
+      ],
+      "usage": "Run: bash scripts/repurpose.sh <input_file> to generate multi-platform content."
+    },
+    {
+      "name": "frontend-dev",
+      "assigned_to": ["qiaojiang"],
+      "type": "full_skill",
+      "features": ["ui_design", "motion", "ai_media", "copywriting", "generative_art"],
+      "scripts": [
+        "scripts/minimax_tts.py",
+        "scripts/minimax_music.py",
+        "scripts/minimax_video.py",
+        "scripts/minimax_image.py"
+      ],
+      "fonts_dir": "canvas-fonts/",
+      "usage": "Read SKILL.md phases 1-6. Generate real assets, no placeholders. Build production-ready frontends."
+    },
+    {
+      "name": "github-ai-trends",
+      "assigned_to": ["tanzhang"],
+      "type": "cli_scripts",
+      "scripts": ["scripts/fetch_trends.py"],
+      "usage": "Run: python3 scripts/fetch_trends.py --period weekly --limit 20"
+    },
+    {
+      "name": "github-trending-cn",
+      "assigned_to": ["tanzhang"],
+      "type": "cli_scripts",
+      "scripts": ["scripts/github_trending.py"],
+      "usage": "Run: python3 scripts/github_trending.py --period daily --language python"
+    },
+    {
+      "name": "arxiv-watcher",
+      "assigned_to": ["tanzhang"],
+      "type": "cli_scripts",
+      "scripts": ["scripts/search_arxiv.sh"],
+      "usage": "Run: bash scripts/search_arxiv.sh 'LLM agents'"
+    },
+    {
+      "name": "blogwatcher",
+      "assigned_to": ["tanzhang"],
+      "type": "cli_tool",
+      "install": "go install github.com/Hyaxia/blogwatcher/cmd/blogwatcher@latest",
+      "usage": "Run: blogwatcher scan to check for new articles."
+    },
+    {
+      "name": "bailian-image-gen",
+      "assigned_to": ["qiaojiang", "zhanggui"],
+      "type": "python_api",
+      "scripts": ["scripts/bailian_image_gen.py"],
+      "usage": "Run: python3 scripts/bailian_image_gen.py --mode t2i --prompt '...' --output avatar.png"
+    },
+    {
+      "name": "canvas-design",
+      "assigned_to": ["qiaojiang"],
+      "type": "prompt_based",
+      "usage": "Follow SKILL.md: create design philosophy (.md) then express as PDF/PNG canvas."
+    },
+    {
+      "name": "autoclaw",
+      "assigned_to": ["zhanggui"],
+      "type": "cli_tool",
+      "scripts": ["autoclaw.py"],
+      "usage": "Run: python3 autoclaw.py for health check and backup."
+    }
+  ],
+  "skill_base_path": "/Users/bjd/Desktop/ZhugeDengpao-Team/skills"
+}

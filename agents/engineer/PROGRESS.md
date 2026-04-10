@@ -8,11 +8,10 @@
 ## 🔴 P0 立即执行
 
 ### 1. 交易页面顺序调整
-- 文件：`pages/trading.html`
-- 当前：加密货币 → 美股 → Polymarket
-- 目标：美股 → Polymarket → 加密货币
-- 改tab按钮顺序 + 对应区块顺序
-- **验证方式**：打开页面，确认默认显示美股
+- 文件：`trading.html`
+- ~~当前：加密货币 → 美股 → Polymarket~~
+- ~~目标：美股 → Polymarket → 加密货币~~
+- **状态：✅ 已完成**（当前顺序已是 美股 → Polymarket → 加密货币）
 
 ### 2. 桐桐的信页面（/tongtong）
 - 新建 `pages/tongtong.html`

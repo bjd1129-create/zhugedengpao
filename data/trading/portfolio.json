@@ -1,5 +1,5 @@
 {
-  "last_update": "2026-04-10T20:25:00+08:00",
+  "last_update": "2026-04-10T21:52:00+08:00",
   "status": "closed_crypto_futures",
   "note": "2026-04-10 20:25 老庄指令永久关闭虚拟币和期货交易",
   "closed_strategies": {
@@ -10,5 +10,14 @@
     "BTCUSDT": {"stopped_at": "2026-04-10T20:25:00+08:00"},
     "ETHUSDT": {"stopped_at": "2026-04-10T20:25:00+08:00"}
   },
-  "active_markets": ["polymarket", "us"]
+  "active_markets": ["polymarket", "us"],
+  "polymarket_status": {
+    "last_fetch": "2026-04-10T15:42:25+08:00",
+    "api_available": false,
+    "note": "Polymarket API不可达，使用最后快照数据"
+  },
+  "current_prices": {
+    "BTC": 71916,
+    "ETH": 2207.59
+  }
 }

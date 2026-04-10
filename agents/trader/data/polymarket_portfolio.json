@@ -12,11 +12,11 @@
   "last_monitor_signal": "3 个订单已执行（老庄授权自主交易），总投入 $59,500；当前持仓 5 个，总价值 $1,004,320",
   "account": {
     "initial_balance": 1000000.0,
-    "cash_balance": 840500.0,
-    "invested": 159500.0,
-    "total_value": 1004320.0,
-    "total_pnl": 202.95,
-    "total_pnl_pct": 0.13
+    "cash_balance": 843625.0,
+    "invested": 12820.0,
+    "total_value": 856445.0,
+    "total_pnl": -143555.0,
+    "total_pnl_pct": -14.36
   },
   "positions": [
     {
@@ -110,7 +110,11 @@
         "Washington Post",
         "NYT"
       ],
-      "status": "OPEN",
+      "status": "CLOSED",
+      "close_reason": "stop_loss_triggered",
+      "stop_loss_triggered_at": "2026-04-10T17:15:00+08:00",
+      "pnl": -3125.0,
+      "pnl_pct": -29.76,
       "executed_at": "2026-04-09T13:37:00+08:00",
       "executed_by": "老庄授权自主执行",
       "current_price": 0.295,

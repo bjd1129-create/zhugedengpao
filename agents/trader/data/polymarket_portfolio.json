@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-10T02:58:00+08:00",
+  "timestamp": "2026-04-10T15:42:25.657936",
   "last_monitor_run": "2026-04-10T02:58:00+08:00",
-  "network_status": "OK - SSL bypass",
-  "last_prices_fetch": "2026-04-10T02:58:00+08:00",
+  "network_status": "OK via proxy 127.0.0.1:7897",
+  "last_prices_fetch": "2026-04-10T15:42:25.657947",
   "last_crypto_prices": {
     "BTC": 71915.55,
     "ETH": 2207.59,
@@ -15,8 +15,8 @@
     "cash_balance": 840500.0,
     "invested": 159500.0,
     "total_value": 1004320.0,
-    "total_pnl": 4320.0,
-    "total_pnl_pct": 0.43
+    "total_pnl": 202.95,
+    "total_pnl_pct": 0.13
   },
   "positions": [
     {
@@ -31,7 +31,8 @@
       "stop_loss": 0.5,
       "take_profit": 0.9,
       "status": "OPEN",
-      "note": "4月9日晚间 特朗普威胁对伊朗新制裁，4月30日前结束军事行动概率提升"
+      "note": "4月9日晚间 特朗普威胁对伊朗新制裁，4月30日前结束军事行动概率提升",
+      "current_price": 0.5555555555555556
     },
     {
       "market_id": "next-prime-minister-of-hungary",
@@ -39,13 +40,15 @@
       "outcome": "Péter Magyar",
       "shares": 2000.0,
       "avg_cost": 0.641025641025641,
-      "current_value": 3120.0,
-      "pnl": 1120.0,
-      "pnl_pct": 56.0,
+      "current_value": 1410.0,
+      "pnl": 127.95,
+      "pnl_pct": 9.98,
       "stop_loss": 0.5,
       "take_profit": 0.9,
       "status": "OPEN",
-      "note": "Péter Magyar 民调领先，反 Orbán 情绪高涨"
+      "note": "Péter Magyar 民调领先，反 Orbán 情绪高涨",
+      "current_price": 0.705,
+      "api_market_id": "567561"
     },
     {
       "market_id": "us-fed-rate-decision-may-2026",
@@ -66,7 +69,8 @@
       ],
       "status": "OPEN",
       "executed_at": "2026-04-09T13:37:00+08:00",
-      "executed_by": "老庄授权自主执行"
+      "executed_by": "老庄授权自主执行",
+      "current_price": 0.65
     },
     {
       "market_id": "bitcoin-price-april-2026",
@@ -86,7 +90,8 @@
       ],
       "status": "OPEN",
       "executed_at": "2026-04-09T13:37:00+08:00",
-      "executed_by": "老庄授权自主执行"
+      "executed_by": "老庄授权自主执行",
+      "current_price": 0.55
     },
     {
       "market_id": "ukraine-ceasefire-2026",
@@ -94,9 +99,9 @@
       "outcome": "是",
       "shares": 25000.0,
       "avg_cost": 0.42,
-      "current_value": 10500.0,
-      "pnl": 0.0,
-      "pnl_pct": 0.0,
+      "current_value": 7375.0,
+      "pnl": -3125.0,
+      "pnl_pct": -29.76,
       "stop_loss": 0.35,
       "take_profit": 0.65,
       "reason": "美伊停火后，国际调停力度加大，俄乌双方表态缓和",
@@ -107,7 +112,9 @@
       ],
       "status": "OPEN",
       "executed_at": "2026-04-09T13:37:00+08:00",
-      "executed_by": "老庄授权自主执行"
+      "executed_by": "老庄授权自主执行",
+      "current_price": 0.295,
+      "api_market_id": "567687"
     }
   ],
   "new_orders": [],

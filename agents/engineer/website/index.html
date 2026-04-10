@@ -14,7 +14,8 @@
 <meta property="og:title" content="老庄与小花 | AI龙虾养成记">
 <meta property="og:description" content="14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。我不懂代码，但我用AI建了一支团队。">
 <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.webp">
-<meta name="description" content="14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。🦞</title>
+<meta name="description" content="14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。">
+<title>老庄与小花 | AI龙虾养成记</title>
 
 <!-- Schema.org 结构化数据 -->
 <script type="application/ld+json">
@@ -211,9 +212,9 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 /* Science cards */
 .sci-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .sci-card{background:#faf8f4;border:1.5px solid #ddd;border-radius:12px;padding:18px;transition:.2s;}
-.sci-card:nth-child(1)
-.sci-card:nth-child(2)
-.sci-card:nth-child(3)
+.sci-card:nth-child(1){background:linear-gradient(135deg,#faf8f4,#fff5ee)}
+.sci-card:nth-child(2){background:linear-gradient(135deg,#faf8f4,#f0f5ff)}
+.sci-card:nth-child(3){background:linear-gradient(135deg,#faf8f4,#f0fff4)}
 .sci-card:hover{border-color:#1a5276;transform:translateY(-2px);box-shadow:0 4px 15px rgba(0,0,0,0.06)}
 .sci-card .icon{font-size:30px;margin-bottom:8px}
 .sci-card h3{font-size:16px;font-weight:700;margin-bottom:4px}
@@ -223,8 +224,8 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 /* Diary grid */
 .diary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 .diary-card{background:#faf8f4;border:1.5px solid #ddd;border-radius:12px;overflow:hidden;cursor:pointer;transition:.2s;text-decoration:none;color:inherit;display:block;}
-.diary-card:nth-child(odd)
-.diary-card:nth-child(even)
+.diary-card:nth-child(odd){background:#faf8f4}
+.diary-card:nth-child(even){background:#fff8f0}
 .diary-card:hover{border-color:#4A2508;transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,0.08)}
 .diary-card img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block;border-bottom:1px solid #eee}
 .diary-card .info{padding:10px 12px}
@@ -251,7 +252,7 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 
 /* CTA */
 .cta{text-align:center;padding:36px 32px;max-width:1000px;margin:0 auto}
-.cta h2{font-family:'Long Cang','ZCOOL KuaiLe','Noto Sans SC',sans-serif;;font-size:30px;margin-bottom:8px}
+.cta h2{font-family:'Long Cang','ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:30px;margin-bottom:8px}
 .cta p{font-size:14px;color:#555;margin-bottom:20px}
 .cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 .cta .social-proof{font-size:12px;color:#595959;margin-top:10px}
@@ -282,7 +283,7 @@ nav{padding:0 16px;top:0}
 .modal-content{background:#f5f3ee;border-radius:16px;max-width:700px;width:100%;max-height:85vh;overflow-y:auto;padding:28px;position:relative}
 .modal-close{position:absolute;top:12px;right:16px;font-size:24px;cursor:pointer;color:#555;background:none;border:none}
 .modal-close:hover{color:#4A2508}
-.modal-content h2{font-family:'Long Cang','ZCOOL KuaiLe','Noto Sans SC',sans-serif;;font-size:24px;margin-bottom:12px}
+.modal-content h2{font-family:'Long Cang','ZCOOL KuaiLe','Noto Sans SC',sans-serif;font-size:24px;margin-bottom:12px}
 .modal-content img{width:100%;border-radius:10px;margin-bottom:14px}
 .modal-content p{font-size:14px;line-height:1.8;color:#444;margin-bottom:10px}
 
@@ -385,7 +386,7 @@ nav{padding:0 16px;top:0}
     night:"🌙 现在凌晨"+h+",小花还在写代码",
     early:"🌅 现在早上"+h+",小花已经开始工作了",
     morning:"☀️ 现在"+h+"点,小花正在处理今日任务",
-    noon:"🌞 现在中午"+h+",小花刚吃完"午饭"",
+    noon:"🌞 现在中午"+h+",小花刚吃完午饭",
     afternoon:"🌤️ 现在下午"+h+",小花继续工作中",
     evening:"🌙 现在傍晚"+h+",小花在整理今天的产出",
     late:"🌛 现在晚上"+h+",小花在等老庄明天的指令"
@@ -443,16 +444,13 @@ nav{padding:0 16px;top:0}
     </script>
   </div>
 
-  <div style="margin:20px auto;max-width:800px;background:linear-gradient(135deg,#fff8f0,#fffaf7);border:1.5px solid rgba(212,136,60,0.25);border-radius:14px;padding:18px 22px;display:none"> style="display:inline-flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border:1.5px solid rgba(212,136,60,0.3);border-radius:10px;text-decoration:none;color:#333;font-size:13px;transition:border-color 0.2s" onmouseover="this.style.borderColor=&apos;#4A2508&apos;" onmouseout="this.style.borderColor=&apos;rgba(212,136,60,0.3)&apos;">
-          <span style="font-size:18px">⛏️</span>
-          <div>
-            <div style="font-weight:600;font-size:13px">我用AI做了一个增长实验:让它自己负责SEO和内容推广</div>
-            <div style="color:#555;font-size:11px;margin-top:2px">掘金 · 2026-03-12 · 点进去给小花点个赞 👍</div>
-          </div>
-        </a>
-      </div>
+  <a href="https://juejin.cn/post/7616209617266835498" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;padding:10px 16px;background:#fff;border:1.5px solid rgba(212,136,60,0.3);border-radius:10px;text-decoration:none;color:#333;font-size:13px;transition:border-color 0.2s;margin:20px auto;max-width:800px" onmouseover="this.style.borderColor='#4A2508'" onmouseout="this.style.borderColor='rgba(212,136,60,0.3)'">
+    <span style="font-size:18px">⛏️</span>
+    <div>
+      <div style="font-weight:600;font-size:13px">我用AI做了一个增长实验:让它自己负责SEO和内容推广</div>
+      <div style="color:#555;font-size:11px;margin-top:2px">掘金 · 2026-03-12 · 点进去给小花点个赞 👍</div>
     </div>
-  </div>
+  </a>
   <div class="caro-root">
     <button class="caro-arrow" onclick="heroNav(-1)" aria-label="上一个案例">&#8249;</button>
     <div class="caro-outer" id="caroOuter">
@@ -1278,30 +1276,30 @@ Agent之间知识传递成本趋近于零--一个学会发语音,群发邮件教
       <div>
         <div style="font-size:.75rem;font-weight:700;color:#666;margin-bottom:8px;text-transform:uppercase">关于小花</div>
         <div style="display:flex;flex-direction:column;gap:6px">
-          <a href="/story.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">小花的故事</a>
-          <a href="diary.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">养成日记</a>
-          <a href="/science.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">龙虾是什么</a>
-          <a href="/ai-operated-website.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">AI自主运营40天实录</a>
+          <a href="/story.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">小花的故事</a>
+          <a href="diary.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">养成日记</a>
+          <a href="/science.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">龙虾是什么</a>
+          <a href="/ai-operated-website.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">AI自主运营40天实录</a>
         </div>
       </div>
       <div>
         <div style="font-size:.75rem;font-weight:700;color:#666;margin-bottom:8px;text-transform:uppercase">OpenClaw 教程</div>
         <div style="display:flex;flex-direction:column;gap:6px">
-          <a href="/openclaw-tutorials.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">教程大全</a>
-          <a href="/claude-agent-tutorial.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">Claude Agent 教程</a>
-          <a href="how-to-build-ai-agent-website.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">5步搭建AI Agent网站</a>
-          <a href="/openclaw-vs.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">OpenClaw vs 其他框架</a>
+          <a href="/openclaw-tutorials.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">教程大全</a>
+          <a href="/claude-agent-tutorial.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">Claude Agent 教程</a>
+          <a href="how-to-build-ai-agent-website.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">5步搭建AI Agent网站</a>
+          <a href="/openclaw-vs.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">OpenClaw vs 其他框架</a>
         </div>
       </div>
 
       <div>
         <div style="font-size:.75rem;font-weight:700;color:#666;margin-bottom:8px;text-transform:uppercase">更多内容</div>
         <div style="display:flex;flex-direction:column;gap:6px">
-          <a href="articles.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">文章聚合</a>
-          <a href="/article.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">小花技术文章</a>
-          <a href="ai-agent-30days.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">30天实验记录</a>
-          <a href="faq.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">常见问题 FAQ</a>
-          <a href="insights.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color="#c00"" onmouseout="this.style.color="#333"">足迹</a>
+          <a href="articles.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">文章聚合</a>
+          <a href="/article.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">小花技术文章</a>
+          <a href="ai-agent-30days.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">30天实验记录</a>
+          <a href="faq.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">常见问题 FAQ</a>
+          <a href="insights.html" style="font-size:13px;color:#333;text-decoration:none;" onmouseover="this.style.color='#c00'" onmouseout="this.style.color='#333'">足迹</a>
         </div>
       </div>
     </div>
@@ -1832,6 +1830,20 @@ if ('serviceWorker' in navigator) {
       img.classList.add('img-loaded');
     });
   }
+})();
+</script>
+
+<!-- Scroll to top -->
+<button id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部" style="position:fixed;bottom:80px;right:24px;width:44px;height:44px;border-radius:50%;background:#fff;border:2px solid #4A2508;box-shadow:0 4px 16px rgba(0,0,0,0.15);cursor:pointer;font-size:20px;color:#4A2508;display:flex;align-items:center;justify-content:center;z-index:9998;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none">↑</button>
+<script>
+(function(){
+  var btn=document.getElementById('scrollTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll',function(){
+    btn.classList.toggle('visible',window.scrollY>400);
+    if(window.scrollY>400){btn.style.opacity='1';btn.style.transform='translateY(0)';btn.style.pointerEvents='auto';}
+    else{btn.style.opacity='0';btn.style.transform='translateY(10px)';btn.style.pointerEvents='none';}
+  });
 })();
 </script>
 

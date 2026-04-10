@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>珍藏记忆</title>
+<title>珍藏记忆 | 老庄的时光相册</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
 
 <!-- PWA -->
@@ -14,8 +14,8 @@
 <meta name="apple-mobile-web-app-title" content="记忆">
 
 <!-- SEO -->
-<meta name="description" content="340张珍贵回忆，2013-2019 · 一起走过的每一天都值得珍藏 💕">
-<meta name="keywords" content="相册,回忆,照片,时光">
+<meta name="description" content="340张珍贵回忆，2013-2021 · 一起走过的每一天都值得珍藏 💕">
+<meta name="keywords" content="相册,回忆,照片,时光,家庭照片,婚纱照">
 
 <!-- Schema.org 结构化数据 -->
 <script type="application/ld+json">
@@ -87,6 +87,9 @@ footer p{font-size:14px;opacity:0.9}
 @media(max-width:1024px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
 @media(max-width:768px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px}.photo-card{padding:8px 8px 30px}.timeline-nav{gap:8px}.nav-btn{padding:8px 16px;font-size:13px}}
 @media(max-width:480px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr)}}}
+.scroll-top-btn{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,0.9);border:2px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,0.15);cursor:pointer;font-size:20px;color:#ff6b6b;display:flex;align-items:center;justify-content:center;z-index:100;opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
+.scroll-top-btn.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.scroll-top-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(0,0,0,0.2)}
 </style>
 </head>
 <body>
@@ -117,12 +120,18 @@ footer p{font-size:14px;opacity:0.9}
 
 <footer>
   <p>💕 一起走过的每一天都值得珍藏 💕</p>
-  <p>2013 - 2019 · 340 个珍贵瞬间</p>
+  <p>2013 - 2021 · 340+ 个珍贵瞬间</p>
+  <p style="margin-top:12px"><a href="https://dengpao.pages.dev" style="color:#fff;opacity:0.7;text-decoration:none;font-size:12px">← 返回老庄与小花的官网</a></p>
 </footer>
+
+<!-- Scroll to top -->
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="回到顶部">↑</button>
 
 <script>
 // 按文件夹组织的照片数据
 const photosByFolder = {
+  // Note: filenames with spaces and special chars are URL-encoded at render time
+  encodeName: function(name) { return name.replace(/ /g, '%20').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/'/g, '%27'); },
   "2013年": [
     "JING 319.jpg",
     "JING 236.jpg",
@@ -503,7 +512,6 @@ const photosByFolder = {
     "PC051074.JPG",
     "PC051080.JPG"
   ]
-}
 };
 
 // 扁平化所有照片用于灯箱
@@ -581,7 +589,7 @@ function renderPhotos(folder = 'all') {
     card.className = 'photo-card';
     card.style.animationDelay = (i * 0.03) + 's';
     const globalIndex = allPhotos.findIndex(ph => ph.folder === p.folder && ph.file === p.file);
-    card.innerHTML = `<img src="thumbnails/${p.file.replace(/'/g, "\\'")}" alt="${p.folder}" loading="lazy" onclick="openModal(${globalIndex})"><div class="photo-info"><h3>${p.folder}</h3></div>`;
+    card.innerHTML = `<img src="thumbnails/${encodeURIComponent(p.file)}" alt="${p.folder}" loading="lazy" onclick="openModal(${globalIndex})" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22150%22><rect fill=%22%23f0f0f0%22 width=%22200%22 height=%22150%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2214%22>加载中...</text></svg>'"><div class="photo-info"><h3>${p.folder}</h3></div>`;
     grid.appendChild(card);
   });
 }
@@ -603,7 +611,8 @@ function openModal(index) {
   const counter = document.getElementById('modalCounter');
   
   const photo = allPhotos[index];
-  modalImg.src = `images/${photo.file.replace(/'/g, "\\'")}`;
+  modalImg.src = `images/${encodeURIComponent(photo.file)}`;
+  modalImg.onerror = function() { this.src = 'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22800%22 height=%22600%22><rect fill=%22%23f0f0f0%22 width=%22800%22 height=%22600%22/><text x=%2250%%22 y=%2250%%22 text-anchor=%22middle%22 fill=%22%23999%22 font-size=%2224%22>图片加载失败</text></svg>'; };
   counter.textContent = `${index + 1} / ${allPhotos.length} - ${photo.folder}`;
   modal.classList.add('active');
   document.body.style.overflow = 'hidden';
@@ -630,7 +639,7 @@ function updateModal() {
   const counter = document.getElementById('modalCounter');
   const photo = allPhotos[currentPhotoIndex];
   
-  modalImg.src = `images/${photo.file.replace(/'/g, "\\'")}`;
+  modalImg.src = `images/${encodeURIComponent(photo.file)}`;
   counter.textContent = `${currentPhotoIndex + 1} / ${allPhotos.length} - ${photo.folder}`;
 }
 
@@ -649,6 +658,15 @@ flattenPhotos();
 createHearts();
 renderNav();
 renderPhotos();
+
+// Scroll to top button
+(function(){
+  var btn = document.getElementById('scrollTopBtn');
+  if(!btn) return;
+  window.addEventListener('scroll', function(){
+    btn.classList.toggle('visible', window.scrollY > 400);
+  });
+})();
 </script>
 
 <!-- Service Worker 注册 -->

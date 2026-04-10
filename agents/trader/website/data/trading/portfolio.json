@@ -1,67 +1,19 @@
 {
-  "update_time": "2026-04-10T02:51:00.000000+08:00",
-  "cron_note": "02:51 Polymarket每分钟更新 - Polymarket API网络不可达，数据未更新"
-  "account_type": "加密货币网格交易",
+  "update_time": "2026-04-10T21:11:00.000000+08:00",
+  "cron_note": "虚拟币和期货交易已永久关闭（2026-04-10 老庄指令）",
+  "account_type": "加密货币网格交易（已关闭）",
   "total_value": 6890.43,
   "total_pnl": 1302.34,
   "total_pnl_pct": 13.02,
-  "positions": [
-    {
-      "symbol": "BTC",
-      "price": 67252.0,
-      "holdings": 0.042307,
-      "value": 2845.23,
-      "avgPrice": 70909.95,
-      "pnl": -154.76,
-      "pnl_pct": -5.16,
-      "strategy": "持有观望",
-      "status": "🟡 持有中（止损价$64000）",
-      "action": "观望中"
-    },
-    {
-      "symbol": "ETH",
-      "price": 2263.618641339943,
-      "holdings": 1.375087,
-      "value": 3112.67,
-      "avgPrice": 2181.68,
-      "pnl": 0.04,
-      "pnl_pct": 3.21,
-      "strategy": "持有观望",
-      "status": "🟡 持有中（止损价$2700）",
-      "action": "观望中"
-    },
-    {
-      "symbol": "AVAX",
-      "price": 9.35,
-      "holdings": 0,
-      "value": 0,
-      "avgPrice": 0,
-      "pnl": 960.82,
-      "pnl_pct": 0,
-      "strategy": "网格交易 7/10格",
-      "status": "🟢 网格运行中",
-      "action": "已成交47笔，网格7/10格"
-    },
-    {
-      "symbol": "ADA",
-      "price": 0.2554,
-      "holdings": 0,
-      "value": 0,
-      "avgPrice": 0,
-      "pnl": 702.32,
-      "pnl_pct": 0,
-      "strategy": "网格交易 5/8格",
-      "status": "🟢 网格运行中",
-      "action": "已成交30笔，网格5/8格"
-    }
-  ],
+  "positions": [],
   "cash_balance": 932.53,
   "alerts": [
-    "🛑 STOP_TRADING 生效（总盈亏+13.02%）",
-    "BTC/ETH 持有观望，不开新仓"
+    "🛑 虚拟币和期货交易已永久关闭（2026-04-10 老庄指令）"
   ],
-  "recommendations": [
-    "BTC止损价$64000；ETH止损价$2700"
-  ],
-  "next_check": "2026-04-10T02:42:00+08:00"
+  "recommendations": [],
+  "next_check": null,
+  "trading_status": {
+    "stopped": true,
+    "reason": "2026-04-10 老庄指令永久关闭虚拟币和期货交易"
+  }
 }

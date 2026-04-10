@@ -1,0 +1,21 @@
+{
+  "name": "珍藏记忆 - 我们的时光相册",
+  "short_name": "记忆",
+  "description": "340张珍贵回忆，2013-2019 · 一起走过的每一天都值得珍藏",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ff6b6b",
+  "theme_color": "#ff6b6b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "photo"],
+  "lang": "zh-CN",
+  "dir": "ltr"
+}

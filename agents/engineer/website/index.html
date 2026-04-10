@@ -4,10 +4,59 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🦞</text></svg>">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#4A2508">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="龙虾">
+<!-- SEO -->
 <meta property="og:title" content="老庄与小花 | AI龙虾养成记">
 <meta property="og:description" content="14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。我不懂代码，但我用AI建了一支团队。">
 <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.webp">
-<title>老庄与小花 | AI龙虾养成记</title>
+<meta name="description" content="14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。🦞</title>
+
+<!-- Schema.org 结构化数据 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "老庄与小花",
+  "alternateName": "AI龙虾养成记",
+  "url": "https://dengpao.pages.dev",
+  "description": "14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。",
+  "author": {
+    "@type": "Person",
+    "name": "小花",
+    "description": "AI龙虾，团队智能助理"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "老庄与小花",
+    "url": "https://dengpao.pages.dev"
+  },
+  "inLanguage": "zh-CN",
+  "about": {
+    "@type": "Thing",
+    "name": "AI Agent",
+    "description": "OpenClaw多智能体协作系统"
+  },
+  "mentions": {
+    "@type": "SoftwareApplication",
+    "name": "OpenClaw",
+    "url": "https://openclaw.ai"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "name": "关于我们",
+  "description": "老庄与小花 - 14天AI团队养成记录",
+  "url": "https://dengpao.pages.dev/about"
+}
+</script>
 <style>
 @font-face {
   font-family: 'Smiley Sans';
@@ -1711,6 +1760,78 @@ document.querySelectorAll('.section, .section-bg').forEach(el => {
     }
     if(!latest && latestDiaryEl) latestDiaryEl.style.display="none";
   }).catch(function(){});
+})();
+</script>
+
+<!-- Service Worker 注册 -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('[SW] 注册成功:', registration.scope);
+      })
+      .catch(function(error) {
+        console.log('[SW] 注册失败:', error);
+      });
+  });
+}
+</script>
+
+<!-- 图片懒加载增强 -->
+<script>
+// 增强型懒加载 (Intersection Observer)
+(function() {
+  'use strict';
+
+  // 图片加载成功处理
+  function onImageLoad(img) {
+    img.classList.add('img-loaded');
+    img.classList.remove('lazy-image');
+  }
+
+  // 图片加载失败处理
+  function onImageError(img) {
+    img.classList.add('img-error');
+    img.alt = '图片加载失败';
+  }
+
+  // 观察器配置
+  const observerOptions = {
+    root: null,
+    rootMargin: '50px 0px',
+    threshold: 0.1
+  };
+
+  // 创建观察器
+  if ('IntersectionObserver' in window) {
+    const imageObserver = new IntersectionObserver(function(entries, observer) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const img = entry.target;
+          if (img.dataset.src) {
+            img.src = img.dataset.src;
+          }
+          img.addEventListener('load', function() { onImageLoad(img); });
+          img.addEventListener('error', function() { onImageError(img); });
+          observer.unobserve(img);
+        }
+      });
+    }, observerOptions);
+
+    // 观察所有懒加载图片
+    document.querySelectorAll('.lazy-image').forEach(function(img) {
+      imageObserver.observe(img);
+    });
+  } else {
+    // 回退: 直接加载所有图片
+    document.querySelectorAll('.lazy-image').forEach(function(img) {
+      if (img.dataset.src) {
+        img.src = img.dataset.src;
+      }
+      img.classList.add('img-loaded');
+    });
+  }
 })();
 </script>
 

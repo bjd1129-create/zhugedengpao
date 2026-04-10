@@ -1,0 +1,21 @@
+{
+  "name": "老庄与小花 | AI龙虾养成记",
+  "short_name": "龙虾",
+  "description": "14天，从一个人到9个AI助理。普通人的AI实验，记录的都是真坑。",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f3ee",
+  "theme_color": "#4A2508",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🦞</text></svg>",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["entertainment", "lifestyle"],
+  "lang": "zh-CN",
+  "dir": "ltr"
+}

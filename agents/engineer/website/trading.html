@@ -39,6 +39,13 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 .status-stopped{background:rgba(231,76,60,0.15);color:#e74c3c}
 .loading-spinner{display:inline-block;width:16px;height:16px;border:2px solid #3498db;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
+.tab-nav{display:flex;gap:8px;margin-bottom:32px;justify-content:center;flex-wrap:wrap}
+.tab-btn{padding:10px 24px;border:2px solid #e8e4df;border-radius:12px;background:#fff;font-size:15px;font-weight:600;color:#666;cursor:pointer;transition:all 0.25s}
+.tab-btn:hover{border-color:#4A2508;color:#4A2508}
+.tab-btn.active{background:#4A2508;color:#fff;border-color:#4A2508}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
 .error{color:#e74c3c;font-size:13px;margin-top:8px}
 </style>
 </head>
@@ -62,7 +69,14 @@ h1{font-family:'ZCOOL KuaiLe',sans-serif;font-size:clamp(28px,4vw,36px);color:#4
 <p class="subtitle">AI 龙虾养成实验 · 实时数据</p>
 <p class="last-update" id="lastUpdate">数据加载中...</p>
 </div>
-<div id="cardsGrid" class="grid"></div>
+<div class="tab-nav">
+  <button class="tab-btn active" data-tab="us" onclick="switchTab('us')">📈 美股</button>
+  <button class="tab-btn" data-tab="polymarket" onclick="switchTab('polymarket')">🎯 Polymarket</button>
+  <button class="tab-btn" data-tab="crypto" onclick="switchTab('crypto')">🪙 加密货币</button>
+</div>
+<div id="tab-us" class="tab-content active"><div id="cardsUs" class="grid"></div></div>
+<div id="tab-polymarket" class="tab-content"><div id="cardsPolymarket" class="grid"></div></div>
+<div id="tab-crypto" class="tab-content"><div id="cardsCrypto" class="grid"></div></div>
 </div>
 
 <script>
@@ -78,6 +92,33 @@ const POLYMARKET_API = 'https://clob.polymarket.com';
 
 // 账户数据
 const accounts = {
+  polymarket: {
+    name: "Polymarket 预测市场",
+    provider: "Polymarket",
+    icon: "🎯",
+    initialCapital: 100000,
+    currency: "USD",
+    status: "running",
+    positions: [
+      {symbol: "BTC > $100k May", shares: 800, avgPrice: 0.42},
+      {symbol: "ETH Upgrade", shares: 1000, avgPrice: 0.65},
+      {symbol: "Fed Rate May", shares: 700, avgPrice: 0.38}
+    ]
+  },
+  crypto: {
+    name: "加密货币模拟盘",
+    provider: "Binance",
+    icon: "🪙",
+    initialCapital: 100000,
+    currency: "USDT",
+    status: "running",
+    positions: [
+      {symbol: "BTCUSDT", shares: 0.0423, avgPrice: 62000},
+      {symbol: "ETHUSDT", shares: 1.375, avgPrice: 3200},
+      {symbol: "AVAXUSDT", shares: 22.10, avgPrice: 35},
+      {symbol: "ADAUSDT", shares: 797.45, avgPrice: 0.45}
+    ]
+  },
   us: {
     name: "美股模拟盘",
     provider: "Yahoo Finance",
@@ -92,12 +133,6 @@ const accounts = {
       {symbol: "BND", shares: 1363, avgPrice: 73.38}
     ]
   },
-  polymarket: {
-    name: "Polymarket 预测市场",
-    provider: "Polymarket",
-    icon: "🎯",
-    initialCapital: 100000,
-    currency: "USD",
     status: "running",
     positions: [
       {symbol: "BTC<$65K", shares: 10000, avgPrice: 0.07, marketProb: 0.93},
@@ -292,14 +327,26 @@ async function updateAllData() {
     fetchPolymarketPrices()
   ]);
   
-  // 渲染
-  grid.innerHTML = '';
-  Object.entries(accounts).forEach(([key, account]) => {
-    grid.appendChild(renderAccountCard(key, account));
+  // 渲染到各自 tab
+  ['us', 'polymarket', 'crypto'].forEach(tab => {
+    const tabGrid = document.getElementById('cards' + tab.charAt(0).toUpperCase() + tab.slice(1));
+    if (tabGrid) {
+      tabGrid.innerHTML = '';
+      const account = accounts[tab];
+      if (account) tabGrid.appendChild(renderAccountCard(tab, account));
+    }
   });
   
   // 更新时间
   document.getElementById('lastUpdate').textContent = '最后更新: ' + new Date().toLocaleTimeString('zh-CN');
+}
+
+// Tab switching
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
 }
 
 // 初始化

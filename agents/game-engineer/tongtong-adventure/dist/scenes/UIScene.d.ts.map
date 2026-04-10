@@ -1,1 +1,0 @@
-{"version":3,"file":"UIScene.d.ts","sourceRoot":"","sources":["../../js/scenes/UIScene.ts"],"names":[],"mappings":"AAAA,OAAO,MAAM,MAAM,QAAQ,CAAC;AAE5B,qBAAa,OAAQ,SAAQ,MAAM,CAAC,KAAK;IACvC,OAAO,CAAC,SAAS,CAAwC;IACzD,OAAO,CAAC,KAAK,CAAa;;IAM1B,MAAM;IA2BN,OAAO,CAAC,WAAW;CAyCpB"}

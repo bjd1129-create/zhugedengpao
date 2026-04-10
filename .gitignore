@@ -1,52 +1,71 @@
-.DS_Store
-.env
-.env.local
-.env.*
-coordinator/.env
-
-# Logs
-*.log
-gen_final.log
-
-# 备份文件
-*.bak
-*.bak.html
-*.new
-*.dark
-SHARED_MEMORY.md.bak
-
-# node_modules
+# 依赖
 node_modules/
-voice-chat-app-realtime/
+.pnp/
+.pnp.js
 
-# 临时文件
-*.tmp
-*.temp
+# 构建产物
+dist/
+build/
+*.egg-info/
+
+# IDE
+.vscode/
+.idea/
 *.swp
 *.swo
 *~
+
+# macOS
 .DS_Store
+.AppleDouble
+.LSOverride
 
-# 大文件
-*.jpg
-*.jpeg
-*.png
-*.gif
-*.webp
-*.mp4
-*.mp3
-*.zip
-*.tar
-*.gz
-*.rar
-*.7z
+# 日志
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-# 缓存
-.cache/
-.tmp/
+# 测试
+coverage/
+.nyc_output/
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 临时文件
 tmp/
-*.cache
+temp/
+*.tmp
 
-# Skills 归档
-skills/_archive/
-skills/autoclaw/
+# 备份
+*.bak
+*.backup
+*.old
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg
+*.egg-info/
+.eggs/
+
+# 上传 (用户生成内容)
+uploads/
+
+# 部署产物
+*.zip
+*.tar.gz
+.vercel/
+.wrangler/
+
+# 大型资源目录（保留本地，不纳入版本控制）
+memory-site/
+openclaw_skills/
+images/
+archive/
+mempalace/

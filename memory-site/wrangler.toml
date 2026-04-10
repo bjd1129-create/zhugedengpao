@@ -1,6 +1,0 @@
-name = "memory-site-306alp"
-compatibility_date = "2024-01-01"
-pages_build_output_dir = "."
-
-[pages]
-project_name = "memory-site-306alp"

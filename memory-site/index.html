@@ -3,8 +3,39 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>一起走 | 我们的珍藏记忆</title>
+<title>珍藏记忆</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+
+<!-- PWA -->
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#ff6b6b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="记忆">
+
+<!-- SEO -->
+<meta name="description" content="340张珍贵回忆，2013-2019 · 一起走过的每一天都值得珍藏 💕">
+<meta name="keywords" content="相册,回忆,照片,时光">
+
+<!-- Schema.org 结构化数据 -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ImageGallery",
+  "name": "珍藏记忆",
+  "description": "340张珍贵回忆，2013-2019 · 一起走过的每一天都值得珍藏",
+  "url": "https://306alp.pages.dev",
+  "author": {
+    "@type": "Person",
+    "name": "老庄与小花"
+  },
+  "dateCreated": "2013",
+  "dateModified": "2026",
+  "imageCount": 340,
+  "inLanguage": "zh-CN"
+}
+</script>
+
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Noto Sans SC',sans-serif;background:linear-gradient(135deg,#ff6b6b 0%,#ffa07a 100%);min-height:100vh;overflow-x:hidden}
@@ -62,7 +93,7 @@ footer p{font-size:14px;opacity:0.9}
 <div class="bg-hearts" id="bgHearts"></div>
 
 <header>
-  <h1>一起走</h1>
+  <h1>珍藏记忆</h1>
   <p>我们的时光相册 · 340 张珍贵回忆</p>
 </header>
 
@@ -447,7 +478,32 @@ const photosByFolder = {
     "IMG_9945.JPG",
     "IMG_9947.JPG",
     "IMG_E5543.JPG"
+  ],
+  "2021年": [
+    "IMG_3195.jpeg",
+    "IMG_3214.jpeg",
+    "IMG_3752.jpeg",
+    "IMG_3753.jpeg",
+    "IMG_3754.jpeg",
+    "IMG_3931.jpeg",
+    "IMG_4064.jpeg",
+    "IMG_4354.jpeg",
+    "OI000141.JPG",
+    "OI000142.JPG",
+    "PB230014.JPG",
+    "PB230060.JPG",
+    "PB240383.JPG",
+    "PB240385.JPG",
+    "PB260520.JPG",
+    "PB270550.JPG",
+    "PB270553.JPG",
+    "PB270588.JPG",
+    "PC051021.JPG",
+    "PC051047.JPG",
+    "PC051074.JPG",
+    "PC051080.JPG"
   ]
+}
 };
 
 // 扁平化所有照片用于灯箱
@@ -517,12 +573,15 @@ function renderPhotos(folder = 'all') {
     files.forEach(file => photos.push({ folder: folder, file }));
   }
   
+  // 倒序：最新的在最上面
+  photos.reverse();
+  
   photos.forEach((p, i) => {
     const card = document.createElement('div');
     card.className = 'photo-card';
     card.style.animationDelay = (i * 0.03) + 's';
     const globalIndex = allPhotos.findIndex(ph => ph.folder === p.folder && ph.file === p.file);
-    card.innerHTML = `<img src="images/thumb/${p.file.replace(/'/g, "\\'")}" alt="${p.folder}" loading="lazy" onclick="openModal(${globalIndex})"><div class="photo-info"><h3>${p.folder}</h3></div>`;
+    card.innerHTML = `<img src="thumbnails/${p.file.replace(/'/g, "\\'")}" alt="${p.folder}" loading="lazy" onclick="openModal(${globalIndex})"><div class="photo-info"><h3>${p.folder}</h3></div>`;
     grid.appendChild(card);
   });
 }
@@ -591,5 +650,24 @@ createHearts();
 renderNav();
 renderPhotos();
 </script>
+
+<!-- Service Worker 注册 -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then(function(registration) {
+        console.log('[SW] 相册 Service Worker 注册成功');
+      })
+      .catch(function(error) {
+        console.log('[SW] 注册失败:', error);
+      });
+  });
+}
+</script>
+
+<!-- 图片懒加载优化 -->
+<script src="/lazy-load.js"></script>
+
 </body>
 </html>

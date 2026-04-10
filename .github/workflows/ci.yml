@@ -1,146 +1,66 @@
-name: CI - 官网质量检查
+name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main]
   pull_request:
     branches: [main]
 
 jobs:
-  # 1. HTML 质量检查
-  html-check:
+  lint:
+    name: Code Quality
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: 检查 HTML 文件
-        run: |
-          echo "=== HTML 文件列表 ==="
-          find . -name "*.html" -not -path "./node_modules/*" | head -20
-          echo ""
-          echo "=== 检查缺失的 HTML 文件 ==="
-          # 检查 sitemap 中的 URL 是否都有对应文件
-          for url in $(grep -oP '(?<=<loc>)[^<]+' sitemap.xml 2>/dev/null | sed 's|https://dengpao.pages.dev||'); do
-            file="${url%/}"  # 去掉末尾斜杠
-            if [ -n "$file" ] && [ ! -f ".$file" ] && [ ! -f ".$file.html" ]; then
-              echo "⚠️  缺失: $file"
-            fi
-          done
 
-  # 2. SEO 检查
-  seo-check:
-    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      
-      - name: SEO Meta 检查
-        run: |
-          echo "=== 检查关键页面的 SEO meta ==="
-          for page in index about science skills; do
-            if [ -f "$page.html" ]; then
-              echo "--- $page.html ---"
-              grep -o 'og:title[^>]*' "$page.html" | head -1 || echo "❌ 缺少 og:title"
-              grep -o 'og:description[^>]*' "$page.html" | head -1 || echo "❌ 缺少 og:description"
-              grep -o 'canonical[^>]*' "$page.html" | head -1 || echo "❌ 缺少 canonical"
-            fi
-          done
+      - name: Checkout
+        uses: actions/checkout@v4
 
-  # 3. 链接检查
-  link-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: 内部链接检查
-        run: |
-          echo "=== 检查内部死链 ==="
-          # 提取所有 .html 内部链接
-          links=$(grep -roh 'href="[^"]*\.html"' . | grep -v node_modules | sed 's/href="//g; s/"//g' | sort -u)
-          broken=0
-          for link in $links; do
-            # 跳过外部链接和锚点
-            if [[ "$link" == http* ]] || [[ "$link" == "#"* ]]; then
-              continue
-            fi
-            # 去掉查询参数
-            link="${link%%\?*}"
-            if [ ! -f "$link" ] && [ ! -f "${link%.html}.html" ]; then
-              echo "❌ 死链: $link"
-              broken=$((broken+1))
-            fi
-          done
-          if [ $broken -eq 0 ]; then
-            echo "✅ 无死链"
-          fi
-          echo "死链数量: $broken"
-
-  # 4. 移动端兼容性检查
-  mobile-check:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: 响应式设计检查
-        run: |
-          echo "=== 检查响应式设计 ==="
-          for css in css/*.css; do
-            if [ -f "$css" ]; then
-              echo "--- $css ---"
-              if grep -q "@media.*max-width" "$css"; then
-                echo "✅ 包含媒体查询"
-              else
-                echo "⚠️  可能缺少响应式设计"
-              fi
-            fi
-          done
-
-  # 5. 部署预览（Cloudflare Pages）
-  deploy-preview:
-    needs: [html-check, seo-check]
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: 部署预览
-        run: |
-          echo "=== PR 部署预览 ==="
-          echo "PR: #${{ github.event.pull_request.number }}"
-          echo "标题: ${{ github.event.pull_request.title }}"
-          echo ""
-          echo "Cloudflare Pages 会自动部署预览"
-          echo "预览链接将在 PR 评论中更新"
-
-      - name: 更新 PR
-        uses: actions/github-script@v7
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          script: |
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `## 🚀 部署预览\n\nCI 检查通过，准备就绪。\n\n| 检查项 | 状态 |\n|--------|------|\n| HTML 检查 | ✅ |\n| SEO 检查 | ✅ |\n| 链接检查 | ✅ |\n\n:rocket: 预览将自动部署。`
-            })
+          node-version: '22'
+          cache: 'npm'
 
-  # 6. 生产部署（仅 main 分支）
-  deploy-production:
-    needs: [html-check, seo-check, link-check]
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Prettier
+        run: npm run format:check
+
+      - name: Run ESLint
+        run: npm run lint
+
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: 部署到生产
-        run: |
-          echo "=== 部署到生产环境 ==="
-          echo "触发者: ${{ github.actor }}"
-          echo "Commit: ${{ github.sha }}"
-          echo ""
-          echo "生产部署通过 Cloudflare Pages 自动完成"
-          echo "等待 Cloudflare Pages 构建完成..."
+    needs: lint
 
-      - name: 通知
-        if: success()
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Verify static files
         run: |
-          echo "✅ 生产部署成功"
-          echo "🌐 https://dengpao.pages.dev"
+          echo "检查关键文件..."
+          test -f website/index.html && echo "✅ index.html 存在"
+          test -f website/manifest.json && echo "✅ manifest.json 存在"
+          test -f website/service-worker.js && echo "✅ service-worker.js 存在"
+
+  deploy:
+    name: Deploy Preview
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'pull_request'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to Pages (Preview)
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: dengpao
+          directory: website
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

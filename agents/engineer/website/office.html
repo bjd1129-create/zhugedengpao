@@ -1,315 +1,815 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>办公室 | 诸葛灯泡</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    :root {
-      --bg: #0a0a0f;
-      --surface: #12121a;
-      --border: #1e1e2e;
-      --text: #e0e0e8;
-      --muted: #6b6b80;
-      --green: #22c55e;
-      --yellow: #eab308;
-      --blue: #3b82f6;
-      --purple: #a855f7;
-      --pink: #ec4899;
-      --orange: #f97316;
-      --red: #ef4444;
-    }
-    body { background: var(--bg); color: var(--text); font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif; min-height: 100vh; }
-    
-    /* Nav */
-    .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(10,10,15,0.9); backdrop-filter: blur(12px); z-index: 100; }
-    .nav-brand { font-size: 18px; font-weight: 700; color: var(--green); text-decoration: none; }
-    .nav-links { display: flex; gap: 20px; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--text); }
-    
-    /* Header */
-    .header { padding: 40px 32px 24px; border-bottom: 1px solid var(--border); }
-    .header h1 { font-size: 36px; font-weight: 800; margin-bottom: 8px; }
-    .header h1 span { color: var(--green); }
-    .header p { color: var(--muted); font-size: 16px; }
-    
-    /* Agent Cards */
-    .agents-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; padding: 24px 32px; }
-    .agent-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; position: relative; overflow: hidden; }
-    .agent-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-    .agent-card.busy::before { background: var(--green); }
-    .agent-card.thinking::before { background: var(--yellow); }
-    .agent-card.resting::before { background: var(--muted); }
-    .agent-avatar { font-size: 32px; margin-bottom: 8px; }
-    .agent-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
-    .agent-role { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
-    .agent-status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 4px 10px; border-radius: 20px; }
-    .agent-status.busy { background: rgba(34,197,94,0.15); color: var(--green); }
-    .agent-status.thinking { background: rgba(234,179,8,0.15); color: var(--yellow); }
-    .agent-status.resting { background: rgba(107,107,128,0.15); color: var(--muted); }
-    .agent-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
-    
-    /* Sections */
-    .section { padding: 24px 32px; border-bottom: 1px solid var(--border); }
-    .section-title { font-size: 20px; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
-    .section-title::before { content: ''; width: 4px; height: 20px; background: var(--green); border-radius: 2px; }
-    
-    /* Journal */
-    .journal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
-    .journal-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
-    .journal-header { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-    .journal-avatar { font-size: 20px; }
-    .journal-name { font-weight: 600; font-size: 14px; }
-    .journal-time { font-size: 12px; color: var(--muted); margin-left: auto; }
-    .journal-text { font-size: 14px; line-height: 1.6; color: var(--text); }
-    
-    /* Ledger */
-    .ledger-table { width: 100%; border-collapse: collapse; }
-    .ledger-table th { text-align: left; padding: 10px 12px; font-size: 12px; color: var(--muted); border-bottom: 1px solid var(--border); font-weight: 500; }
-    .ledger-table td { padding: 12px; font-size: 14px; border-bottom: 1px solid var(--border); }
-    .ledger-table tr:last-child td { border-bottom: none; }
-    .credits { color: var(--green); font-weight: 600; }
-    
-    /* Logs */
-    .logs { max-height: 200px; overflow-y: auto; }
-    .log-item { display: flex; gap: 12px; padding: 8px 0; font-size: 13px; }
-    .log-time { color: var(--muted); font-family: monospace; min-width: 50px; }
-    .log-agent { color: var(--green); min-width: 50px; font-weight: 500; }
-    .log-msg { color: var(--text); }
-    
-    /* Handoffs */
-    .handoff-list { display: flex; flex-direction: column; gap: 12px; }
-    .handoff-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; }
-    .handoff-from, .handoff-to { font-weight: 600; font-size: 14px; }
-    .handoff-arrow { color: var(--muted); }
-    .handoff-item-text { flex: 1; font-size: 13px; }
-    .handoff-status { font-size: 12px; padding: 4px 8px; border-radius: 4px; }
-    .handoff-status.completed { background: rgba(34,197,94,0.15); color: var(--green); }
-    .handoff-status.pending { background: rgba(234,179,8,0.15); color: var(--yellow); }
-    .handoff-status.progress { background: rgba(59,130,246,0.15); color: var(--blue); }
-    
-    /* Accuracy */
-    .accuracy-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
-    .accuracy-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
-    .accuracy-value { font-size: 36px; font-weight: 800; margin: 8px 0; }
-    .accuracy-label { font-size: 13px; color: var(--muted); }
-    .accuracy-card:nth-child(1) .accuracy-value { color: var(--green); }
-    .accuracy-card:nth-child(2) .accuracy-value { color: var(--blue); }
-    .accuracy-card:nth-child(3) .accuracy-value { color: var(--purple); }
-    
-    /* Graveyard */
-    .graveyard-list { display: flex; flex-direction: column; gap: 12px; }
-    .graveyard-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 16px; }
-    .graveyard-idea { font-weight: 600; margin-bottom: 4px; text-decoration: line-through; color: var(--muted); }
-    .graveyard-reason { font-size: 13px; color: var(--red); }
-    .graveyard-date { font-size: 12px; color: var(--muted); margin-top: 4px; }
-    .graveyard-lesson { font-size: 13px; color: var(--text); margin-top: 8px; padding: 8px 12px; background: rgba(168,85,247,0.1); border-radius: 6px; }
-    
-    /* Shipped */
-    .shipped-list { display: flex; flex-wrap: wrap; gap: 12px; }
-    .shipped-item { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; display: flex; align-items: center; gap: 8px; }
-    .shipped-check { color: var(--green); }
-    .shipped-name { font-size: 14px; font-weight: 500; }
-    .shipped-date { font-size: 12px; color: var(--muted); }
-    
-    /* Footer */
-    .footer { padding: 24px 32px; text-align: center; color: var(--muted); font-size: 13px; }
-    
-    /* Live indicator */
-    .live-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(34,197,94,0.15); color: var(--green); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; }
-    .live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .nav { padding: 12px 16px; }
-      .header { padding: 24px 16px 16px; }
-      .header h1 { font-size: 28px; }
-      .agents-grid, .section { padding: 16px; }
-      .journal-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🏢 诸葛灯泡 HQ — 办公室</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Courier New',monospace;background:#1a1510;color:#fff;min-height:100vh;overflow-x:hidden}
+
+nav{background:#0d0d0d;border-bottom:2px solid #3a2a10;padding:12px 24px;display:flex;align-items:center;gap:24px}
+.nav-brand{font-size:1.1rem;font-weight:700;color:#f5c542;text-decoration:none}
+.nav-links{display:flex;gap:20px}
+.nav-links a{color:#aaa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border-radius:4px}
+.nav-links a:hover,.nav-links a.active{background:#2a1a08;color:#f5c542}
+
+.page-header{text-align:center;padding:16px 0 8px}
+.page-header h1{font-size:1.4rem;color:#f5c542}
+.page-header p{font-size:0.75rem;color:#888;margin-top:4px}
+
+#office-canvas{display:block;margin:0 auto;border:2px solid #3a2a10;border-radius:8px;cursor:pointer;max-width:100%}
+
+.detail-panel{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:100}
+.detail-panel.open{display:flex}
+.detail-card{background:#1e160c;border:2px solid #f5c542;border-radius:12px;padding:24px;width:340px;max-width:90vw;position:relative}
+.detail-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#888;font-size:1.2rem;cursor:pointer}
+.detail-avatar{font-size:3rem;text-align:center;margin-bottom:8px}
+.detail-name{text-align:center;font-size:1.3rem;font-weight:700;color:#f5c542}
+.detail-role{text-align:center;font-size:0.8rem;color:#aaa;margin-bottom:16px}
+.detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2a1a08;font-size:0.82rem}
+.detail-row .label{color:#888}
+.detail-row .val{color:#f5c542;font-weight:700}
+.detail-journal{background:#0d0d0d;border-radius:8px;padding:10px;margin-top:12px;font-size:0.78rem;color:#ccc;line-height:1.6;min-height:60px}
+
+.status-row{display:flex;justify-content:center;gap:24px;padding:10px;flex-wrap:wrap}
+.stat-chip{background:#1e160c;border:1px solid #3a2a10;border-radius:20px;padding:4px 14px;font-size:0.75rem;color:#aaa}
+.stat-chip strong{color:#f5c542}
+</style>
 </head>
 <body>
 
-  <nav class="nav">
-    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
-    <div class="nav-links">
-      <a href="/office.html" class="active">办公室</a>
-      <a href="/team.html">团队</a>
-      <a href="/trading.html">交易</a>
-      <a href="/bagua.html">八卦</a>
-      <a href="/diary.html">日记</a>
-    </div>
-  </nav>
-
-  <header class="header">
-    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
-      <div>
-        <h1>🏢 AI <span>办公室</span></h1>
-        <p>诸葛灯泡团队的实时运营看板 — 5 个 Agent，1 个公司，永不打烊</p>
-      </div>
-      <div class="live-badge"><span class="live-dot"></span> LIVE · 自动刷新</div>
-    </div>
-  </header>
-
-  <!-- Agent Cards -->
-  <div class="agents-grid" id="agents-grid"></div>
-
-  <!-- Journal -->
-  <div class="section">
-    <div class="section-title">Agent 日记</div>
-    <div class="journal-grid" id="journal-grid"></div>
+<nav>
+  <a href="/index.html" class="nav-brand">💡 诸葛灯泡 HQ</a>
+  <div class="nav-links">
+    <a href="/office.html" class="active">办公室</a>
+    <a href="/radar.html">雷达</a>
+    <a href="/stage.html">工作台</a>
   </div>
+</nav>
 
-  <!-- Shipped -->
-  <div class="section">
-    <div class="section-title">已交付</div>
-    <div class="shipped-list" id="shipped-list"></div>
+<div class="page-header">
+  <h1>🏢 Inside the Office — 俯视实况</h1>
+  <p>点击任意小人查看档案 · 实时模拟 · 走动 · 沟通 · 休息</p>
+</div>
+
+<canvas id="office-canvas" width="1200" height="680"></canvas>
+
+<div class="status-row">
+  <div class="stat-chip">👥 在线 <strong id="onlineCount">8</strong></div>
+  <div class="stat-chip">💬 互动中 <strong id="interacting">0</strong></div>
+  <div class="stat-chip">🚶 移动中 <strong id="walking">0</strong></div>
+  <div class="stat-chip">😴 休息中 <strong id="resting">0</strong></div>
+</div>
+
+<div class="detail-panel" id="detailPanel">
+  <div class="detail-card">
+    <button class="detail-close" onclick="closeDetail()">✕</button>
+    <div class="detail-avatar" id="d-avatar"></div>
+    <div class="detail-name" id="d-name"></div>
+    <div class="detail-role" id="d-role"></div>
+    <div class="detail-row"><span class="label">状态</span><span class="val" id="d-status"></span></div>
+    <div class="detail-row"><span class="label">当前任务</span><span class="val" id="d-task"></span></div>
+    <div class="detail-row"><span class="label">心情指数</span><span class="val" id="d-mood"></span></div>
+    <div class="detail-row"><span class="label">今日 Tokens</span><span class="val" id="d-tokens"></span></div>
+    <div class="detail-row"><span class="label">今日消耗</span><span class="val" id="d-cost"></span></div>
+    <div class="detail-journal" id="d-journal"></div>
   </div>
+</div>
 
-  <!-- Handoffs -->
-  <div class="section">
-    <div class="section-title">任务交接</div>
-    <div class="handoff-list" id="handoff-list"></div>
-  </div>
+<script>
+// ─────────────────────────────────────────────
+//  CONSTANTS
+// ─────────────────────────────────────────────
+const canvas = document.getElementById('office-canvas');
+const ctx = canvas.getContext('2d');
+const W = canvas.width;   // 1200
+const H = canvas.height;  // 680
 
-  <!-- Ledger -->
-  <div class="section">
-    <div class="section-title">工资条 (Ledger)</div>
-    <table class="ledger-table">
-      <thead>
-        <tr><th>Agent</th><th>任务</th><th>工时</th><th>积分</th><th>Token</th><th>成本</th></tr>
-      </thead>
-      <tbody id="ledger-body"></tbody>
-    </table>
-  </div>
+// Areas (left, top, width, height)
+const AREAS = {
+  copaw:   { x:0,   y:0,   w:480, h:330, label:'CoPaw 🏛️',       color:'#2a1e08', floor:'#3a2a10', accent:'#f5c542' },
+  crewai:  { x:480, y:0,   w:720, h:330, label:'CrewAI 🧠',      color:'#081828', floor:'#0a2030', accent:'#4da6d4' },
+  openclaw:{ x:0,   y:330, w:480, h:350, label:'OpenClaw ⚡',     color:'#081a10', floor:'#0a2010', accent:'#52c47a' },
+  rest:    { x:480, y:330, w:720, h:350, label:'休息室 ☕',       color:'#1a0a10', floor:'#200a18', accent:'#d47a9a' }
+};
 
-  <!-- Accuracy -->
-  <div class="section">
-    <div class="section-title">准确率排行</div>
-    <div class="accuracy-grid" id="accuracy-grid"></div>
-  </div>
+// Desk positions for each agent
+const DESK_POS = {
+  // CoPaw area
+  'copaw-lead':  { x:170, y:130 },
+  // CrewAI area (5 desks, 2+3 layout)
+  'crew-1':      { x:560, y:90  },
+  'crew-2':      { x:740, y:90  },
+  'crew-3':      { x:920, y:90  },
+  'crew-4':      { x:620, y:210 },
+  'crew-5':      { x:820, y:210 },
+  // OpenClaw area (2 side by side)
+  'open-1':      { x:160, y:420 },
+  'open-2':      { x:320, y:420 },
+};
 
-  <!-- Graveyard -->
-  <div class="section">
-    <div class="section-title">创意墓地</div>
-    <div class="graveyard-list" id="graveyard-list"></div>
-  </div>
+// Rest area spots
+const REST_SPOTS = [
+  { x:700, y:500, type:'sofa'    },
+  { x:870, y:500, type:'coffee'  },
+  { x:1040,y:500, type:'gaming'  },
+];
 
-  <!-- Logs -->
-  <div class="section">
-    <div class="section-title">实时日志</div>
-    <div class="logs" id="logs"></div>
-  </div>
+// Walking targets (near desk, for interaction)
+function nearDesk(deskKey) {
+  const d = DESK_POS[deskKey];
+  return { x: d.x + 45, y: d.y + 45 };
+}
 
-  <footer class="footer">
-    诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · <a href="https://github.com/bjd1129-create/zhugedengpao" style="color:var(--green)">GitHub</a>
-  </footer>
+// ─────────────────────────────────────────────
+//  AGENT DATA
+// ─────────────────────────────────────────────
+const AGENTS = [
+  {
+    id:'copaw', name:'诸葛灯泡', team:'CoPaw', avatar:'💡',
+    role:'船长 / CEO', desk:'copaw-lead',
+    hairColor:'#f5c542', skinColor:'#f0c090', shirtColor:'#c8a030',
+    mood:9, task:'审批信号报告', tokens:89608, cost:'$0.20',
+    journal:'5个Agent，1个团队。今天要继续推进克隆计划，不能停。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['审批中... 💡','这个信号不错 👍','需要调整一下','同意！'],
+    workDur:[12000,20000], interactDur:[6000,12000], restDur:[8000,15000]
+  },
+  {
+    id:'captain', name:'船长', team:'CrewAI', avatar:'🧑‍✈️',
+    role:'方案审批官', desk:'crew-1',
+    hairColor:'#4a3020', skinColor:'#e0b080', shirtColor:'#2a5080',
+    mood:8, task:'审批产品方案', tokens:54000, cost:'$0.12',
+    journal:'方案要稳，执行要快。船长就是要掌好舵。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['方案通过 ✅','需要修改第3点','讨论中...','可以执行'],
+    workDur:[15000,25000], interactDur:[5000,10000], restDur:[6000,12000]
+  },
+  {
+    id:'detective', name:'探长', team:'CrewAI', avatar:'🕵️',
+    role:'情报侦察官', desk:'crew-2',
+    hairColor:'#1a1020', skinColor:'#d09060', shirtColor:'#803020',
+    mood:10, task:'Polymarket信号扫描', tokens:66900, cost:'$0.07',
+    journal:'发现了一个新的开源项目，可能对我们的Radar有帮助。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['发现信号 🔍','这个情报很有价值','需要深入调查','数据已记录'],
+    workDur:[10000,18000], interactDur:[4000,8000], restDur:[5000,10000]
+  },
+  {
+    id:'scholar', name:'秀才', team:'CrewAI', avatar:'🧑‍🏫',
+    role:'内容创作官', desk:'crew-3',
+    hairColor:'#2a1a0a', skinColor:'#f0c8a0', shirtColor:'#306040',
+    mood:9, task:'博文润色中', tokens:36876, cost:'$0',
+    journal:'写文章最怕说AI废话。说人话，有观点，才是好文章。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['润色中... ✍️','这句话要改','文章已完成','再来一遍'],
+    workDur:[18000,30000], interactDur:[5000,9000], restDur:[7000,14000]
+  },
+  {
+    id:'craftsman', name:'巧匠', team:'CrewAI', avatar:'👨‍🔧',
+    role:'方案设计师', desk:'crew-4',
+    hairColor:'#806040', skinColor:'#e0a860', shirtColor:'#405080',
+    mood:9, task:'Vault页面开发', tokens:14962, cost:'$0',
+    journal:'4000万token随便用，代码质量必须高。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['画图ing...','这个设计不错','需要调整','完成 ✓'],
+    workDur:[14000,22000], interactDur:[4000,8000], restDur:[6000,11000]
+  },
+  {
+    id:'steward', name:'掌柜', team:'CrewAI', avatar:'🧑‍💼',
+    role:'成本运营官', desk:'crew-5',
+    hairColor:'#3a1a10', skinColor:'#d0a070', shirtColor:'#604030',
+    mood:8, task:'整理Ledger数据', tokens:39157, cost:'$0',
+    journal:'日志整理完毕，明天的报表有数据了。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['统计中...','数据都在这里','报表完成','核销完毕'],
+    workDur:[16000,26000], interactDur:[5000,10000], restDur:[7000,13000]
+  },
+  {
+    id:'xiaohua', name:'小花', team:'OpenClaw', avatar:'🐱',
+    role:'工程主脑', desk:'open-1',
+    hairColor:'#f080c0', skinColor:'#f8d0b0', shirtColor:'#50a060',
+    mood:9, task:'Agent行为树调试', tokens:28400, cost:'$0.05',
+    journal:'工程狮上线了！尾巴摇起来 🚀',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['代码跑起来了 🐱','这个bug有意思','工程狮模式 ON','搞定！'],
+    workDur:[12000,20000], interactDur:[5000,10000], restDur:[6000,12000]
+  },
+  {
+    id:'engineer', name:'工程师', team:'OpenClaw', avatar:'👨‍💻',
+    role:'代码构建官', desk:'open-2',
+    hairColor:'#1a1a1a', skinColor:'#e0b890', shirtColor:'#3070a0',
+    mood:8, task:'修复Session写锁', tokens:22100, cost:'$0.04',
+    journal:'写锁问题找到根因了。并发处理还需要优化。',
+    state:'WORKING', target:null, x:0, y:0,
+    messages:['commit #44','这个bug难搞','代码质量必须高','测试通过 ✓'],
+    workDur:[13000,21000], interactDur:[4000,9000], restDur:[5000,10000]
+  }
+];
 
-  <script>
-    const DATA_URL = '/data/office_status.json';
-    
-    function render(data) {
-      // Agents
-      document.getElementById('agents-grid').innerHTML = data.agents.map(a => `
-        <div class="agent-card ${a.status.toLowerCase()}">
-          <div class="agent-avatar">${a.avatar || '🤖'}</div>
-          <div class="agent-name">${a.name}</div>
-          <div class="agent-role">${a.role}</div>
-          <span class="agent-status ${a.status.toLowerCase()}">${a.status} · ${a.summary}</span>
-        </div>
-      `).join('');
-      
-      // Journal
-      document.getElementById('journal-grid').innerHTML = data.agents.filter(a => a.journal).map(a => `
-        <div class="journal-card">
-          <div class="journal-header">
-            <span class="journal-avatar">${a.avatar || '🤖'}</span>
-            <span class="journal-name">${a.name}</span>
-            <span class="journal-time">${a.coffee || ''}</span>
-          </div>
-          <div class="journal-text">${a.journal}</div>
-        </div>
-      `).join('');
-      
-      // Shipped
-      document.getElementById('shipped-list').innerHTML = (data.shipped || []).map(s => `
-        <div class="shipped-item">
-          <span class="shipped-check">✓</span>
-          <span class="shipped-name">${s.project}</span>
-          <span class="shipped-date">${s.date}</span>
-        </div>
-      `).join('');
-      
-      // Handoffs
-      const statusMap = { 'Completed': 'completed', 'Pending': 'pending', 'In Progress': 'progress' };
-      document.getElementById('handoff-list').innerHTML = (data.handoffs || []).map(h => `
-        <div class="handoff-item">
-          <span class="handoff-from">${h.from}</span>
-          <span class="handoff-arrow">→</span>
-          <span class="handoff-to">${h.to}</span>
-          <span class="handoff-item-text">${h.item}</span>
-          <span class="handoff-status ${statusMap[h.status] || ''}">${h.status}</span>
-        </div>
-      `).join('');
-      
-      // Ledger
-      document.getElementById('ledger-body').innerHTML = (data.ledger || []).map(l => `
-        <tr>
-          <td>${l.agent}</td>
-          <td>${l.task}</td>
-          <td>${l.hours}h</td>
-          <td class="credits">${l.credits}</td>
-          <td>${l.tokens || '0'}</td>
-          <td>$${(l.cost_usd || 0).toFixed(2)}</td>
-        </tr>
-      `).join('');
-      
-      // Accuracy
-      const labels = ['信号准确率', '互动率', '代码质量'];
-      document.getElementById('accuracy-grid').innerHTML = (data.accuracy || []).map((a, i) => {
-        const val = a.signal_accuracy || a.engagement_rate || a.code_quality || 0;
-        return `<div class="accuracy-card">
-          <div class="accuracy-label">${a.agent}</div>
-          <div class="accuracy-value">${val}%</div>
-          <div class="accuracy-label">${labels[i]}</div>
-        </div>`;
-      }).join('');
-      
-      // Graveyard
-      document.getElementById('graveyard-list').innerHTML = (data.graveyard || []).map(g => `
-        <div class="graveyard-item">
-          <div class="graveyard-idea">💀 ${g.idea}</div>
-          <div class="graveyard-reason">死因：${g.killed_by}</div>
-          <div class="graveyard-date">${g.date}</div>
-          <div class="graveyard-lesson">教训：${g.lesson}</div>
-        </div>
-      `).join('');
-      
-      // Logs
-      document.getElementById('logs').innerHTML = (data.logs || []).map(l => `
-        <div class="log-item">
-          <span class="log-time">${l.time}</span>
-          <span class="log-agent">${l.agent}</span>
-          <span class="log-msg">${l.msg}</span>
-        </div>
-      `).join('');
+// Init positions
+AGENTS.forEach(a => {
+  const d = DESK_POS[a.desk];
+  a.x = d.x + 45;
+  a.y = d.y + 45;
+  a.baseX = a.x;
+  a.baseY = a.y;
+  a.state = 'WORKING';
+  a.target = null;
+  a.bubbleText = '';
+  a.bubbleTimer = 0;
+  a.nextStateIn = rand(a.workDur[0], a.workDur[1]);
+  a.phaseTimer = 0;
+  a.walkFrame = 0;
+  a.walkSpeed = 0;
+  a.facing = 1; // 1=right, -1=left
+  a.atDesk = true;
+  a.interactWith = null;
+  a.interactFrame = 0;
+});
+
+// ─────────────────────────────────────────────
+//  HELPERS
+// ─────────────────────────────────────────────
+function rand(a,b){ return a + Math.random()*(b-a); }
+function dist(a,b){ return Math.sqrt((a.x-b.x)**2 + (a.y-b.y)**2); }
+function lerp(a,b,t){ return a + (b-a)*t; }
+function ease(t){ return t<0.5? 2*t*t : -1+(4-2*t)*t; }
+
+function getDeskCenter(deskKey) {
+  const d = DESK_POS[deskKey];
+  return { x: d.x + 45, y: d.y + 45 };
+}
+
+function randomOtherAgent(agent) {
+  const others = AGENTS.filter(a => a.id !== agent.id);
+  return others[Math.floor(Math.random()*others.length)];
+}
+
+function randomRestSpot() {
+  return REST_SPOTS[Math.floor(Math.random()*REST_SPOTS.length)];
+}
+
+// ─────────────────────────────────────────────
+//  STATE MACHINE
+// ─────────────────────────────────────────────
+function updateAgent(agent, dt) {
+  agent.phaseTimer += dt;
+
+  switch(agent.state) {
+    case 'WORKING':
+      // Show bubble occasionally
+      if (!agent.bubbleText && Math.random() < 0.01) {
+        agent.bubbleText = agent.messages[Math.floor(Math.random()*agent.messages.length)];
+        agent.bubbleTimer = 3000;
+      }
+      if (agent.bubbleTimer > 0) {
+        agent.bubbleTimer -= dt;
+        if (agent.bubbleTimer <= 0) agent.bubbleText = '';
+      }
+      // Transition
+      if (agent.phaseTimer >= agent.nextStateIn) {
+        agent.phaseTimer = 0;
+        const roll = Math.random();
+        if (roll < 0.4) {
+          // Go to rest area
+          agent.state = 'WALKING';
+          const spot = randomRestSpot();
+          agent.target = { x: spot.x, y: spot.y };
+          agent.atDesk = false;
+          agent.bubbleText = '';
+        } else if (roll < 0.7) {
+          // Go interact with another agent
+          const other = randomOtherAgent(agent);
+          agent.state = 'WALKING';
+          agent.target = getDeskCenter(other.desk);
+          agent.interactWith = other;
+          agent.atDesk = false;
+          agent.bubbleText = '';
+        } else {
+          // Go for a walk around
+          agent.state = 'WALKING';
+          agent.target = {
+            x: 100 + Math.random()*(W-200),
+            y: 100 + Math.random()*(H-200)
+          };
+          agent.atDesk = false;
+          agent.bubbleText = '';
+        }
+        agent.nextStateIn = rand(agent.workDur[0], agent.workDur[1]);
+      }
+      break;
+
+    case 'WALKING':
+      if (!agent.target) { agent.state='WORKING'; break; }
+      const dx = agent.target.x - agent.x;
+      const dy = agent.target.y - agent.y;
+      const d = Math.sqrt(dx*dx + dy*dy);
+      agent.facing = dx > 0 ? 1 : -1;
+      if (d < 4) {
+        agent.x = agent.target.x;
+        agent.y = agent.target.y;
+        agent.target = null;
+        if (agent.interactWith) {
+          agent.state = 'INTERACTING';
+          agent.phaseTimer = 0;
+          agent.nextStateIn = rand(agent.interactDur[0], agent.interactDur[1]);
+        } else if (!agent.atDesk) {
+          // Decide next: rest or return
+          if (Math.random() < 0.5) {
+            agent.state = 'RESTING';
+            agent.phaseTimer = 0;
+            agent.nextStateIn = rand(agent.restDur[0], agent.restDur[1]);
+          } else {
+            // Return to desk
+            agent.state = 'WALKING';
+            agent.target = getDeskCenter(agent.desk);
+          }
+        } else {
+          agent.state = 'WORKING';
+        }
+      } else {
+        const spd = 1.2;
+        agent.x += (dx/d)*spd;
+        agent.y += (dy/d)*spd;
+        agent.walkFrame = (agent.walkFrame + 0.15) % 2;
+      }
+      break;
+
+    case 'INTERACTING':
+      if (!agent.interactWith) { agent.state='WORKING'; break; }
+      agent.interactFrame = (agent.interactFrame + 0.08) % 2;
+      if (!agent.bubbleText && Math.random() < 0.02) {
+        agent.bubbleText = agent.messages[Math.floor(Math.random()*agent.messages.length)];
+        agent.bubbleTimer = 2500;
+      }
+      if (agent.bubbleTimer > 0) {
+        agent.bubbleTimer -= dt;
+        if (agent.bubbleTimer <= 0) agent.bubbleText = '';
+      }
+      if (agent.phaseTimer >= agent.nextStateIn) {
+        agent.phaseTimer = 0;
+        // End interaction and return to desk
+        agent.interactWith = null;
+        agent.state = 'WALKING';
+        agent.target = getDeskCenter(agent.desk);
+        agent.atDesk = true;
+        agent.bubbleText = '';
+      }
+      break;
+
+    case 'RESTING':
+      if (!agent.bubbleText && Math.random() < 0.008) {
+        const restMsgs = ['休息一下 😌','☕ 充充电','😴 小憩一会','放空 🧘'];
+        agent.bubbleText = restMsgs[Math.floor(Math.random()*restMsgs.length)];
+        agent.bubbleTimer = 3000;
+      }
+      if (agent.bubbleTimer > 0) {
+        agent.bubbleTimer -= dt;
+        if (agent.bubbleTimer <= 0) agent.bubbleText = '';
+      }
+      if (agent.phaseTimer >= agent.nextStateIn) {
+        agent.phaseTimer = 0;
+        agent.state = 'WALKING';
+        agent.target = getDeskCenter(agent.desk);
+        agent.atDesk = true;
+        agent.bubbleText = '';
+      }
+      break;
+  }
+}
+
+// ─────────────────────────────────────────────
+//  DRAWING HELPERS
+// ─────────────────────────────────────────────
+function roundRect(x,y,w,h,r,color) {
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);
+  ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r);
+  ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h);
+  ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r);
+  ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+  ctx.fillStyle = color;
+  ctx.fill();
+}
+
+function drawArea(area) {
+  // Floor
+  roundRect(area.x+4, area.y+4, area.w-8, area.h-8, 8, area.floor);
+
+  // Inner subtle grid
+  ctx.save();
+  ctx.strokeStyle = area.color;
+  ctx.lineWidth = 0.5;
+  ctx.globalAlpha = 0.3;
+  for(let gx=area.x+20; gx<area.x+area.w; gx+=30){
+    ctx.beginPath(); ctx.moveTo(gx,area.y+4); ctx.lineTo(gx,area.y+area.h-4); ctx.stroke();
+  }
+  for(let gy=area.y+20; gy<area.y+area.h; gy+=30){
+    ctx.beginPath(); ctx.moveTo(area.x+4,gy); ctx.lineTo(area.x+area.w-4,gy); ctx.stroke();
+  }
+  ctx.restore();
+
+  // Area label
+  ctx.font = 'bold 11px Courier New';
+  ctx.fillStyle = area.accent;
+  ctx.globalAlpha = 0.7;
+  ctx.fillText(area.label, area.x+14, area.y+22);
+  ctx.globalAlpha = 1;
+}
+
+function drawDesk(cx, cy, deskW, deskH, color, computer=true) {
+  // Desk surface (top-down oval/rect)
+  roundRect(cx - deskW/2, cy - deskH/2, deskW, deskH, 6, color);
+
+  // Desk border
+  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+  ctx.lineWidth = 1;
+  roundRect(cx - deskW/2, cy - deskH/2, deskW, deskH, 6, color);
+  ctx.stroke();
+
+  if (computer) {
+    // Monitor (top-down rect)
+    const mw = 32, mh = 22;
+    roundRect(cx - mw/2, cy - mh/2 - 4, mw, mh, 3, '#1a1a2a');
+    ctx.fillStyle = '#1a2940';
+    ctx.fillRect(cx - mw/2+2, cy - mh/2-2, mw-4, mh-4);
+    // Screen glow
+    ctx.fillStyle = 'rgba(80,160,255,0.3)';
+    ctx.fillRect(cx - mw/2+2, cy - mh/2-2, mw-4, mh-4);
+    // Screen content lines
+    ctx.fillStyle = 'rgba(100,200,255,0.5)';
+    ctx.fillRect(cx - mw/2+4, cy - mh/2, 14, 2);
+    ctx.fillRect(cx - mw/2+4, cy - mh/2+4, 10, 2);
+    ctx.fillRect(cx - mw/2+4, cy - mh/2+8, 18, 2);
+    // Monitor stand
+    ctx.fillStyle = '#444';
+    ctx.fillRect(cx-3, cy+2, 6, 4);
+
+    // Keyboard (top-down)
+    const kbW = 22, kbH = 10;
+    roundRect(cx - kbW/2, cy + 8, kbW, kbH, 2, '#2a2a3a');
+    // Key rows
+    ctx.fillStyle = '#3a3a4a';
+    for(let kr=0; kr<2; kr++){
+      for(let kc=0; kc<4; kc++){
+        ctx.fillRect(cx - kbW/2+2+kc*5, cy+9+kr*4, 3, 3);
+      }
     }
 
-    // Load and auto-refresh
-    async function load() {
-      try {
-        const res = await fetch(DATA_URL + '?t=' + Date.now());
-        const data = await res.json();
-        render(data);
-        document.title = `办公室 | ${data.company || '诸葛灯泡'}`;
-      } catch(e) { console.warn('数据加载失败', e); }
+    // Cup (circle)
+    ctx.beginPath();
+    ctx.arc(cx + deskW/2 - 10, cy - deskH/2 + 8, 5, 0, Math.PI*2);
+    ctx.fillStyle = '#c8a060';
+    ctx.fill();
+    ctx.strokeStyle = '#a08040';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+}
+
+// Nameplate below desk
+function drawNameplate(cx, cy, name, color) {
+  ctx.font = 'bold 9px Courier New';
+  const tw = ctx.measureText(name).width;
+  roundRect(cx - tw/2 - 5, cy + 24, tw + 10, 14, 4, 'rgba(0,0,0,0.7)');
+  ctx.fillStyle = color;
+  ctx.textAlign = 'center';
+  ctx.fillText(name, cx, cy + 34);
+  ctx.textAlign = 'left';
+}
+
+// Draw area dividers
+function drawDividers() {
+  // Vertical divider
+  ctx.strokeStyle = 'rgba(245,197,66,0.4)';
+  ctx.lineWidth = 2;
+  ctx.setLineDash([8,6]);
+  ctx.beginPath(); ctx.moveTo(480, 10); ctx.lineTo(480, H-10); ctx.stroke();
+  // Horizontal divider
+  ctx.beginPath(); ctx.moveTo(10, 330); ctx.lineTo(W-10, 330); ctx.stroke();
+  ctx.setLineDash([]);
+}
+
+// ─── REST AREA ───
+function drawRestArea() {
+  const a = AREAS.rest;
+  // Sofa
+  roundRect(640, 480, 130, 60, 8, '#5a3060');
+  roundRect(648, 488, 114, 44, 6, '#703870');
+  // Sofa back
+  roundRect(640, 478, 130, 16, 6, '#4a2050');
+  // Coffee table
+  roundRect(860, 500, 80, 40, 6, '#3a2518');
+  // Coffee cup on table
+  ctx.beginPath(); ctx.arc(900, 515, 6, 0, Math.PI*2);
+  ctx.fillStyle = '#d4a060'; ctx.fill();
+  ctx.strokeStyle = '#b08040'; ctx.lineWidth = 0.8; ctx.stroke();
+  // Gaming table
+  roundRect(1000, 480, 130, 60, 8, '#1a3040');
+  roundRect(1008, 490, 114, 40, 6, '#1e3850');
+  // Screen on gaming table
+  ctx.fillStyle = '#0a1520';
+  ctx.fillRect(1020, 493, 90, 30);
+  ctx.fillStyle = 'rgba(0,200,120,0.4)';
+  ctx.fillRect(1022, 495, 86, 26);
+  // Game label
+  ctx.font = 'bold 8px Courier New';
+  ctx.fillStyle = 'rgba(0,200,120,0.7)';
+  ctx.fillText('GAME', 1040, 510);
+  // "REST AREA" label
+  ctx.font = 'bold 12px Courier New';
+  ctx.fillStyle = '#d47a9a';
+  ctx.globalAlpha = 0.6;
+  ctx.fillText('休息室 ☕', 640, 462);
+  ctx.globalAlpha = 1;
+}
+
+// ─── PERSON (top-down view) ───
+function drawPerson(x, y, agent, highlight) {
+  const facing = agent.facing;
+  const wf = Math.floor(agent.walkFrame); // 0 or 1
+  const state = agent.state;
+
+  ctx.save();
+  if (highlight) {
+    ctx.shadowColor = '#f5c542';
+    ctx.shadowBlur = 16;
+  }
+
+  // Shadow
+  ctx.beginPath();
+  ctx.ellipse(x, y+14, 10, 5, 0, 0, Math.PI*2);
+  ctx.fillStyle = 'rgba(0,0,0,0.3)';
+  ctx.fill();
+
+  // Legs (only visible when walking, shown as small ovals below body)
+  if (state === 'WALKING') {
+    const legOff = wf === 0 ? 3 : -3;
+    ctx.beginPath();
+    ctx.ellipse(x-5, y+12, 3, 5, 0, 0, Math.PI*2);
+    ctx.fillStyle = agent.shirtColor;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(x+5, y+12, 3, 5, 0, 0, Math.PI*2);
+    ctx.fillStyle = agent.shirtColor;
+    ctx.fill();
+  }
+
+  // Body (half-circle, bottom-facing)
+  ctx.beginPath();
+  ctx.arc(x, y, 12, 0, Math.PI); // bottom half
+  ctx.fillStyle = agent.shirtColor;
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0,0,0,0.2)';
+  ctx.lineWidth = 0.5;
+  ctx.stroke();
+
+  // Arms
+  if (state === 'WORKING' || (state === 'INTERACTING' && agent.interactFrame < 1)) {
+    // Arms down/side
+    ctx.beginPath();
+    ctx.ellipse(x - 14, y + 2, 4, 3, -0.3, 0, Math.PI*2);
+    ctx.fillStyle = agent.shirtColor;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(x + 14, y + 2, 4, 3, 0.3, 0, Math.PI*2);
+    ctx.fill();
+  } else if (state === 'WALKING' || state === 'RESTING') {
+    // Slight swing
+    const swing = state === 'WALKING' ? (wf===0?6:-6) : 0;
+    ctx.beginPath();
+    ctx.ellipse(x - 14 + swing, y, 4, 3, -0.3, 0, Math.PI*2);
+    ctx.fillStyle = agent.shirtColor;
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(x + 14 - swing, y, 4, 3, 0.3, 0, Math.PI*2);
+    ctx.fill();
+  }
+
+  // Head (circle on top)
+  ctx.beginPath();
+  ctx.arc(x, y - 8, 9, 0, Math.PI*2);
+  ctx.fillStyle = agent.skinColor;
+  ctx.fill();
+
+  // Hair (top cap, doesn't block top — hair is drawn as arc at top of head)
+  ctx.beginPath();
+  ctx.arc(x, y - 8, 9, Math.PI*1.1, Math.PI*1.9); // top arc only
+  ctx.fillStyle = agent.hairColor;
+  ctx.fill();
+
+  // Eyes (small dots, facing direction)
+  ctx.fillStyle = '#1a1a1a';
+  ctx.beginPath();
+  ctx.arc(x - 3 + facing*1, y - 9, 1.5, 0, Math.PI*2);
+  ctx.arc(x + 3 + facing*1, y - 9, 1.5, 0, Math.PI*2);
+  ctx.fill();
+
+  // Avatar on head
+  ctx.font = '9px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(agent.avatar, x, y - 18);
+  ctx.textAlign = 'left';
+
+  // Name tag below feet
+  ctx.font = 'bold 8px Courier New';
+  const tw = ctx.measureText(agent.name).width;
+  roundRect(x - tw/2 - 3, y + 16, tw + 6, 12, 3, 'rgba(0,0,0,0.7)');
+  ctx.fillStyle = '#f5c542';
+  ctx.textAlign = 'center';
+  ctx.fillText(agent.name, x, y + 24);
+  ctx.textAlign = 'left';
+
+  // State icon
+  if (state === 'RESTING') {
+    ctx.font = '10px Arial';
+    ctx.fillText('💤', x + 12, y - 20);
+  } else if (state === 'THINKING') {
+    ctx.font = '10px Arial';
+    ctx.fillText('🤔', x + 12, y - 20);
+  } else if (state === 'INTERACTING') {
+    ctx.font = '10px Arial';
+    ctx.fillText('💬', x - 20, y - 20);
+  }
+
+  ctx.restore();
+}
+
+// ─── SPEECH BUBBLE (above head, never blocking hair) ───
+function drawBubble(x, y, text) {
+  ctx.save();
+  ctx.font = 'bold 9px Courier New';
+  const tw = ctx.measureText(text).width;
+  const bw = tw + 16;
+  const bh = 18;
+  // Position: well above head (y - 38 from center)
+  const bx = x - bw/2;
+  const by = y - 38 - bh;
+
+  // Bubble background
+  roundRect(bx, by, bw, bh, 6, 'rgba(255,255,255,0.95)');
+  ctx.strokeStyle = '#f5c542';
+  ctx.lineWidth = 1.5;
+  roundRect(bx, by, bw, bh, 6, 'rgba(255,255,255,0.95)');
+  ctx.stroke();
+
+  // Tail (triangle pointing down to person)
+  ctx.fillStyle = 'rgba(255,255,255,0.95)';
+  ctx.beginPath();
+  ctx.moveTo(x - 5, by + bh);
+  ctx.lineTo(x + 5, by + bh);
+  ctx.lineTo(x, by + bh + 7);
+  ctx.closePath();
+  ctx.fill();
+  ctx.strokeStyle = '#f5c542';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  ctx.moveTo(x - 5, by + bh);
+  ctx.lineTo(x, by + bh + 7);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x + 5, by + bh);
+  ctx.lineTo(x, by + bh + 7);
+  ctx.stroke();
+
+  // Text
+  ctx.fillStyle = '#1a0a00';
+  ctx.textAlign = 'center';
+  ctx.fillText(text, x, by + 13);
+  ctx.textAlign = 'left';
+  ctx.restore();
+}
+
+// ─────────────────────────────────────────────
+//  CLICK DETECTION
+// ─────────────────────────────────────────────
+let selectedAgent = null;
+
+canvas.addEventListener('click', function(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const mx = (e.clientX - rect.left) * scaleX;
+  const my = (e.clientY - rect.top) * scaleY;
+
+  let found = null;
+  for (const a of AGENTS) {
+    if (Math.abs(a.x - mx) < 20 && Math.abs(a.y - my) < 24) {
+      found = a;
+      break;
     }
-    load();
-    setInterval(load, 10000); // 10s 刷新
-  </script>
+  }
+
+  if (found) {
+    selectedAgent = found;
+    const panel = document.getElementById('detailPanel');
+    document.getElementById('d-avatar').textContent = found.avatar;
+    document.getElementById('d-name').textContent = found.name;
+    document.getElementById('d-role').textContent = found.team + ' · ' + found.role;
+    document.getElementById('d-status').textContent = found.state;
+    document.getElementById('d-task').textContent = found.task;
+    document.getElementById('d-mood').textContent = '⭐'.repeat(found.mood) + '☆'.repeat(10-found.mood) + ' ' + found.mood + '/10';
+    document.getElementById('d-tokens').textContent = found.tokens.toLocaleString();
+    document.getElementById('d-cost').textContent = found.cost;
+    document.getElementById('d-journal').textContent = found.journal;
+    panel.classList.add('open');
+  } else {
+    closeDetail();
+  }
+});
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('open');
+  selectedAgent = null;
+}
+
+// ─────────────────────────────────────────────
+//  STATS UPDATE
+// ─────────────────────────────────────────────
+function updateStats() {
+  let interacting=0, walking=0, resting=0;
+  AGENTS.forEach(a => {
+    if (a.state==='INTERACTING') interacting++;
+    else if (a.state==='WALKING') walking++;
+    else if (a.state==='RESTING') resting++;
+  });
+  document.getElementById('interacting').textContent = interacting;
+  document.getElementById('walking').textContent = walking;
+  document.getElementById('resting').textContent = resting;
+}
+
+// ─────────────────────────────────────────────
+//  MAIN DRAW
+// ─────────────────────────────────────────────
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+
+  // Background
+  ctx.fillStyle = '#0d0a06';
+  ctx.fillRect(0, 0, W, H);
+
+  // Draw 4 areas
+  for (const key in AREAS) drawArea(AREAS[key]);
+
+  // Dividers
+  drawDividers();
+
+  // Rest area furniture
+  drawRestArea();
+
+  // Draw desks
+  // CoPaw desk
+  drawDesk(170, 155, 90, 60, '#3a2a10', true);
+  drawNameplate(170, 155, '诸葛灯泡 💡', '#f5c542');
+
+  // CrewAI desks
+  const crewDesks = [
+    {x:560,y:115}, {x:740,y:115}, {x:920,y:115},
+    {x:620,y:235}, {x:820,y:235}
+  ];
+  const crewNames = ['船长 🧑‍✈️','探长 🕵️','秀才 🧑‍🏫','巧匠 👨‍🔧','掌柜 🧑‍💼'];
+  crewDesks.forEach((d,i) => {
+    drawDesk(d.x, d.y, 80, 50, '#0a2038', true);
+    drawNameplate(d.x, d.y, crewNames[i], '#4da6d4');
+  });
+
+  // OpenClaw desks
+  drawDesk(195, 445, 80, 50, '#0a2018', true);
+  drawNameplate(195, 445, '小花 🐱', '#52c47a');
+  drawDesk(355, 445, 80, 50, '#0a2018', true);
+  drawNameplate(355, 445, '工程师 👨‍💻', '#52c47a');
+
+  // Draw agents (sorted by y for depth)
+  const sorted = [...AGENTS].sort((a,b) => a.y - b.y);
+  sorted.forEach(a => {
+    const highlight = selectedAgent && selectedAgent.id === a.id;
+    drawPerson(a.x, a.y, a, highlight);
+    if (a.bubbleText) drawBubble(a.x, a.y, a.bubbleText);
+  });
+}
+
+// ─────────────────────────────────────────────
+//  GAME LOOP
+// ─────────────────────────────────────────────
+let lastTime = 0;
+function loop(ts) {
+  const dt = Math.min(ts - lastTime, 50);
+  lastTime = ts;
+
+  AGENTS.forEach(a => updateAgent(a, dt));
+  updateStats();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+requestAnimationFrame(loop);
+</script>
 </body>
 </html>

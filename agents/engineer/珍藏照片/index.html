@@ -4,64 +4,71 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>珍藏记忆</title>
-<meta name="description" content="我们的时光相册 · 512 张珍贵回忆">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💕</text></svg>">
+<meta name="description" content="我们的时光相册 · 599 张珍贵回忆">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
 <meta property="og:title" content="珍藏记忆">
-<meta property="og:description" content="我们的时光相册 · 512 张珍贵回忆">
+<meta property="og:description" content="我们的时光相册 · 599 张珍贵回忆">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#ff6b6b">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#ff6b6b 0%,#ffa07a 100%);min-height:100vh;overflow-x:hidden}
+body{font-family:'Noto Sans SC','PingFang SC','Microsoft YaHei',sans-serif;background:#faf6f1;min-height:100vh;overflow-x:hidden;background-image:radial-gradient(ellipse at 20% 50%,rgba(255,224,195,0.3) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(255,210,180,0.2) 0%,transparent 50%),radial-gradient(ellipse at 50% 80%,rgba(248,200,170,0.15) 0%,transparent 50%)}
 .bg-hearts{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden}
-.heart{position:absolute;font-size:20px;opacity:0.3;animation:float 15s infinite}
-@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-100px) rotate(180deg)}}
-header{text-align:center;padding:80px 20px 40px;position:relative;z-index:1}
-header h1{font-size:clamp(32px,6vw,64px);color:#fff;text-shadow:2px 2px 8px rgba(0,0,0,0.3);margin-bottom:16px;font-weight:300;letter-spacing:12px}
-header p{font-size:18px;color:#fff;opacity:0.95;font-weight:300;text-shadow:1px 1px 4px rgba(0,0,0,0.3)}
-.timeline-nav{display:flex;justify-content:center;gap:12px;padding:16px 20px;flex-wrap:wrap;position:sticky;top:0;z-index:100;max-width:1200px;margin:0 auto;background:linear-gradient(135deg,rgba(255,107,107,0.95) 0%,rgba(255,160,122,0.95) 100%);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.nav-btn{padding:8px 18px;border:2px solid #fff;background:rgba(255,255,255,0.2);color:#fff;border-radius:30px;cursor:pointer;font-size:14px;transition:all 0.3s;font-weight:600;backdrop-filter:blur(10px);white-space:nowrap}
-.nav-btn:hover,.nav-btn.active{background:#fff;color:#ff6b6b;transform:scale(1.05);box-shadow:0 4px 20px rgba(255,255,255,0.3)}
+.heart{position:absolute;font-size:16px;opacity:0.1;animation:float 20s infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-40px) rotate(8deg)}}
+header{text-align:center;padding:50px 20px 24px;position:relative;z-index:1}
+header h1{font-size:clamp(26px,5vw,44px);color:#5a3e2b;margin-bottom:6px;font-weight:400;letter-spacing:4px}
+header p{font-size:15px;color:#8b7355;font-weight:300}
+header p+p{font-size:13px;color:#a08060;margin-top:6px;font-style:italic}
+.timeline-nav{display:flex;justify-content:center;gap:10px;padding:12px 20px;flex-wrap:wrap;position:sticky;top:0;z-index:100;max-width:1200px;margin:0 auto;background:rgba(250,246,241,0.95);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:gap 0.3s,padding 0.3s;border-bottom:1px solid rgba(139,115,85,0.1)}
+.nav-btn{padding:7px 16px;border:1.5px solid #d4b896;background:rgba(255,255,255,0.8);color:#8b7355;border-radius:30px;cursor:pointer;font-size:13px;transition:all 0.3s;font-weight:500;backdrop-filter:blur(5px);white-space:nowrap;flex-shrink:0}
+.nav-btn:hover,.nav-btn.active{background:#f5e6d3;color:#5a3e2b;border-color:#c4a47a;box-shadow:0 2px 10px rgba(139,115,85,0.12)}
 main{max-width:1400px;margin:0 auto;padding:40px 20px;position:relative;z-index:1}
 .photo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:32px}
-.photo-card{background:#fff;padding:12px 12px 40px;border-radius:4px;box-shadow:0 8px 30px rgba(0,0,0,0.15);transition:transform 0.4s,box-shadow 0.4s;cursor:pointer;will-change:transform;content-visibility:auto;contain-intrinsic-size:0 280px}
-.photo-card:nth-child(odd){transform:rotate(-2deg)}
-.photo-card:nth-child(even){transform:rotate(2deg)}
-.photo-card:hover{transform:scale(1.05) rotate(0deg);box-shadow:0 15px 50px rgba(0,0,0,0.25);z-index:10}
-.photo-card img{width:100%;height:220px;object-fit:cover;border-radius:2px;background:#f0f0f0}
-.photo-info{padding:16px 8px 8px;text-align:center}
-.photo-info h3{font-size:14px;color:#333;margin-bottom:4px}
-.photo-info p{font-size:11px;color:#999}
-.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.95);z-index:2000;justify-content:center;align-items:center;padding:20px}
+.photo-card{background:#fff;padding:12px 12px 36px;border-radius:4px;box-shadow:0 3px 12px rgba(90,62,43,0.06);transition:transform 0.4s,box-shadow 0.4s;cursor:pointer;will-change:transform;content-visibility:auto;contain-intrinsic-size:0 280px;border:1px solid rgba(212,184,150,0.25)}
+.photo-card:nth-child(odd){transform:rotate(-1deg)}
+.photo-card:nth-child(even){transform:rotate(1deg)}
+.photo-card:hover{transform:scale(1.03) rotate(0deg);box-shadow:0 6px 24px rgba(90,62,43,0.12);z-index:10}
+.photo-card img{width:100%;height:220px;object-fit:cover;border-radius:2px;background:#f5f0eb;image-orientation:from-image}
+.photo-info{padding:14px 6px 6px;text-align:center}
+.photo-info h3{font-size:13px;color:#8b7355;margin-bottom:3px;font-weight:500}
+.photo-info p{font-size:11px;color:#b8a08a}
+.modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(30,20,10,0.92);z-index:2000;justify-content:center;align-items:center;padding:20px}
 .modal.active{display:flex}
 .modal-content{max-width:90vw;max-height:90vh;position:relative;display:flex;justify-content:center;align-items:center}
-.modal-content img{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 0 50px rgba(255,255,255,0.2);object-fit:contain}
+.modal-content img{max-width:100%;max-height:90vh;border-radius:8px;box-shadow:0 0 50px rgba(255,255,255,0.2);object-fit:contain;image-orientation:from-image}
 .modal-close{position:absolute;top:-50px;right:0;font-size:36px;color:#fff;cursor:pointer;background:none;border:none;transition:transform 0.3s}
 .modal-close:hover{transform:rotate(90deg)}
 .modal-nav{position:absolute;top:50%;transform:translateY(-50%);font-size:48px;color:#fff;cursor:pointer;padding:20px;background:none;border:none;transition:color 0.3s;z-index:10}
-.modal-nav:hover{color:#ff6b6b}
+.modal-nav:hover{color:#d4b896}
 .modal-prev{left:20px}
 .modal-next{right:20px}
 .modal-counter{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);color:#fff;font-size:16px;white-space:nowrap}
-.modal-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);border-top-color:#ff6b6b;border-radius:50%;animation:spin 0.8s linear infinite}
+.modal-loading{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:40px;border:3px solid rgba(255,255,255,0.1);border-top-color:#d4b896;border-radius:50%;animation:spin 0.8s linear infinite}
 @keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
-.back-to-top{position:fixed;bottom:30px;right:30px;width:48px;height:48px;border-radius:50%;background:#fff;color:#ff6b6b;border:none;font-size:24px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);z-index:500;opacity:0;transition:all 0.3s;pointer-events:none}
+.back-to-top{position:fixed;bottom:30px;right:30px;width:44px;height:44px;border-radius:50%;background:#f5e6d3;color:#8b7355;border:1px solid #d4b896;font-size:18px;cursor:pointer;box-shadow:0 3px 12px rgba(90,62,43,0.1);z-index:500;opacity:0;transition:all 0.3s;pointer-events:none}
 .back-to-top.visible{opacity:1;pointer-events:auto}
-.back-to-top:hover{transform:scale(1.1)}
-footer{text-align:center;padding:60px 20px;color:#fff;position:relative;z-index:1}
-footer p{font-size:14px;opacity:0.9}
+.back-to-top:hover{transform:scale(1.1);background:#eddcc8}
+footer{text-align:center;padding:50px 20px 30px;color:#8b7355;position:relative;z-index:1}
+footer p{font-size:14px;opacity:0.8}
+footer p+p{font-size:13px;color:#a08060;margin-top:6px}
 @media(max-width:1024px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}}
-@media(max-width:768px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px}.photo-card{padding:8px 8px 30px}.nav-btn{padding:8px 16px;font-size:13px}.modal-nav{font-size:36px;padding:12px}.modal-prev{left:10px}.modal-next{right:10px}.back-to-top{bottom:20px;right:20px;width:40px;height:40px;font-size:20px}}
+@media(max-width:768px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:20px}.photo-card{padding:8px 8px 30px}.modal-nav{font-size:36px;padding:12px}.modal-prev{left:10px}.modal-next{right:10px}.back-to-top{bottom:20px;right:20px;width:40px;height:40px;font-size:20px}
+/* 手机端年份导航：横向滚动不换行 */
+.timeline-nav{flex-wrap:nowrap;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:12px 12px;gap:8px;scrollbar-width:none;-ms-overflow-style:none}
+.timeline-nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:6px 14px;font-size:12px;border-width:1.5px}}
 @media(max-width:480px){.photo-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}}
-@media(prefers-color-scheme:dark){body{background:linear-gradient(135deg,#c0392b 0%,#e67e22 100%)}}
+@media(prefers-color-scheme:dark){body{background:#2a2218;background-image:radial-gradient(ellipse at 20% 50%,rgba(55,40,25,0.4) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(50,35,20,0.3) 0%,transparent 50%)}header h1{color:#e8d5c0}header p{color:#c4a47a}.timeline-nav{background:rgba(42,34,24,0.95);border-bottom-color:rgba(139,115,85,0.15)}.nav-btn{background:rgba(55,40,25,0.7);color:#c4a47a;border-color:#5a3e2b}.nav-btn:hover,.nav-btn.active{background:#3a2d1e;color:#e8d5c0}.photo-card{background:#332a20;border-color:rgba(90,62,43,0.2)}.photo-info h3{color:#c4a47a}.photo-info p{color:#8a7560}footer{color:#8a7560}.back-to-top{background:#3a2d1e;color:#c4a47a;border-color:#5a3e2b}}
 </style>
 </head>
 <body>
 <div class="bg-hearts" id="bgHearts"></div>
-<header>
-  <h1>珍藏记忆</h1>
-  <p>我们的时光相册 · 512 张珍贵回忆</p>
+  <header>
+  <h1>🏡 我们的家</h1>
+  <p>599 张珍贵回忆 · 每一个瞬间都值得</p>
+  <p style="font-size:13px;color:#a08060;margin-top:6px;font-style:italic">—— 时光会走远，但记忆会留下 ——</p>
 </header>
 <nav class="timeline-nav" id="timelineNav" aria-label="年份导航"></nav>
 <main>
@@ -78,8 +85,8 @@ footer p{font-size:14px;opacity:0.9}
   </div>
 </div>
 <footer>
-  <p>💕 一起走过的每一天都值得珍藏 💕</p>
-  <p>2013 - 2022 · 512 个珍贵瞬间</p>
+  <p>🏠 有你的地方，就是家</p>
+  <p style="font-size:13px;color:#a08060;margin-top:6px">2013 - 2023 · 我们一起走过的十年</p>
 </footer>
 <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="返回顶部">↑</button>
 <script>
@@ -93,7 +100,12 @@ const photosByFolder = {
     "JING 235.jpg",
     "JING 236.jpg",
     "JING 237.jpg",
-    "JING 319.jpg"
+    "JING 319.jpg",
+    "JING 1009.jpg",
+    "JING 1503.jpg",
+    "JING 417.jpg",
+    "JING 466.jpg",
+    "JING 584.jpg"
   ],
   "2014年": [
     "-221182379.jpeg",
@@ -107,7 +119,17 @@ const photosByFolder = {
     "IMG_20140517_105436.jpg",
     "P1060417.JPG",
     "P1070306.JPG",
-    "P1070401.JPG"
+    "P1070401.JPG",
+    "-1844445898.jpeg",
+    "20140120_190549.jpg",
+    "C360_2014-05-09-22-58-06-942.jpg",
+    "IMG_0367.JPG",
+    "IMG_20130729_175337.jpg",
+    "IMG_20140517_105424.jpg",
+    "IMG_20140601_221936.jpg",
+    "IMG_20140902_154359.jpg",
+    "IMG_20140917_104922.jpg",
+    "IMG_20150708_204610.jpg"
   ],
   "2015年": [
     "IMAG0436.jpg",
@@ -121,7 +143,15 @@ const photosByFolder = {
     "mmexport1445125945280.jpg",
     "mmexport1445125948401.jpg",
     "mmexport1445125954966.jpg",
-    "mmexport1445494468284(1).jpg"
+    "mmexport1445494468284(1).jpg",
+    "IMAG0647.jpg",
+    "IMAG1099.jpg",
+    "IMAG1125.jpg",
+    "IMAG1238.jpg",
+    "IMG_20150701_153837.jpg",
+    "IMG_20150705_172051_mh1436088174348.jpg",
+    "IMG_20151120_220305.jpg",
+    "mmexport1445160857385_mh1445161038845.jpg"
   ],
   "2015年婚纱照": [
     "5K4A5720.JPG",
@@ -617,8 +647,74 @@ const photosByFolder = {
     "P9231718.JPG",
     "P9242102.JPG",
     "a19942ee9v940af5a3e44893b62d010d (1).jpg"
-  ]
-};
+  ],
+  "2023年": [
+    "002c2ecac4a87f4bfddb9fd481941a91.jpg",
+    "0cb3900e7d9730136a6fcd80ee6adc19.jpg",
+    "0e1dd216b8b79719f2d47dcd64502de0.jpg",
+    "211a1d490a134b7915dfa774e8638836.jpg",
+    "2c01821d692c3328d05994b934b1780b.jpg",
+    "2d7a09f77350b3ca95acbc6a902ff3ba.jpg",
+    "38f989d8c3698a4ae99967ecb99e2f9c.jpg",
+    "3c5d092a278a3f963d5d3c0c8f3b4e84.jpg",
+    "5c4ae77d6e893c4d7cc2a000280cb0ef.jpg",
+    "IMG_0092 (1).JPG",
+    "IMG_0094 (1).JPG",
+    "IMG_0346.JPG",
+    "IMG_1165.JPG",
+    "IMG_1529.JPG",
+    "IMG_1643.JPG",
+    "IMG_2030.JPG",
+    "IMG_2605.JPG",
+    "IMG_3759.JPG",
+    "IMG_3877.JPG",
+    "IMG_3905.JPG",
+    "IMG_3906.JPG",
+    "IMG_3996.JPG",
+    "IMG_3997.JPG",
+    "IMG_4282.JPG",
+    "IMG_5043.JPG",
+    "IMG_6374.PNG",
+    "IMG_6391.PNG",
+    "IMG_6442.PNG",
+    "IMG_6736.JPG",
+    "IMG_6737.JPG",
+    "IMG_7042.JPG",
+    "IMG_7043.JPG",
+    "IMG_7103.JPG",
+    "IMG_7600.JPG",
+    "IMG_7602.JPG",
+    "IMG_9369.JPG",
+    "IMG_9371.JPG",
+    "IMG_9444.JPG",
+    "P1012782.JPG",
+    "P1012787.JPG",
+    "P1012791.JPG",
+    "P2122826.JPG",
+    "P2122852.JPG",
+    "P9302145.JPG",
+    "PA022221.JPG",
+    "PA022271.JPG",
+    "PA052324.JPG",
+    "PA062390.JPG",
+    "PA102401.JPG",
+    "PC042531.JPG",
+    "R0010033.JPG",
+    "R0010036.JPG",
+    "R0010098.JPG",
+    "R0010115.JPG",
+    "R0010217.JPG",
+    "R0010220.JPG",
+    "R0010296.JPG",
+    "R0010790.JPG",
+    "R0010798.JPG",
+    "R0010809.JPG",
+    "R0011019.JPG",
+    "R0011033.JPG",
+    "fc2f3fb4855d5a6231ed948f29f500e9.jpg",
+    "fe03cd76d5c75dc420c31dd3a1307e8f.jpg"
+  ],
+};;
 
 // 扁平化所有照片
 let allPhotos = [];
@@ -636,7 +732,7 @@ function createHearts() {
   for (let i = 0; i < 20; i++) {
     const heart = document.createElement('div');
     heart.className = 'heart';
-    heart.textContent = ['💕', '💖', '💗', '💓', '💞'][Math.floor(Math.random() * 5)];
+    heart.textContent = ['🏠', '🌿', '☕', '🕯️', '📷', '🍂', '🌸', '🍵'][Math.floor(Math.random() * 8)];
     heart.style.left = Math.random() * 100 + '%';
     heart.style.top = Math.random() * 100 + '%';
     heart.style.animationDelay = Math.random() * 5 + 's';
@@ -652,7 +748,7 @@ function renderNav() {
   const frag = document.createDocumentFragment();
   const allBtn = document.createElement('button');
   allBtn.className = 'nav-btn active';
-  allBtn.textContent = '💕 全部';
+  allBtn.textContent = '🏡 全部';
   allBtn.onclick = () => filterFolder('all', allBtn);
   frag.appendChild(allBtn);
   for (const folder of Object.keys(photosByFolder)) {
@@ -685,7 +781,7 @@ function renderPhotos(folder = 'all') {
     card.className = 'photo-card';
     const esc = p.file.replace(/'/g, "\\'");
     const globalIndex = allPhotos.findIndex(ph => ph.folder === p.folder && ph.file === p.file);
-    card.innerHTML = `<img src="thumbnails/${esc}" alt="${p.folder}" loading="lazy" decoding="async" onclick="openModal(${globalIndex})"><div class="photo-info"><h3>${p.folder}</h3></div>`;
+    card.innerHTML = `<img src="thumbnails/${esc.toLowerCase()}" alt="${p.folder}" loading="lazy" decoding="async" onclick="openModal(${globalIndex})"><div class="photo-info"><h3>${p.folder}</h3></div>`;
     frag.appendChild(card);
   });
   grid.appendChild(frag);
@@ -696,6 +792,10 @@ function filterFolder(folder, btn) {
   document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderPhotos(folder);
+  // 手机端：点击后自动滚动按钮到可见区域
+  if (window.innerWidth <= 768) {
+    btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }
 }
 
 // 灯箱

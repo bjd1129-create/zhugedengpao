@@ -3,813 +3,1019 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🏢 诸葛灯泡 HQ — 办公室</title>
+<title>诸葛灯泡 HQ — 办公室</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Courier New',monospace;background:#1a1510;color:#fff;min-height:100vh;overflow-x:hidden}
-
-nav{background:#0d0d0d;border-bottom:2px solid #3a2a10;padding:12px 24px;display:flex;align-items:center;gap:24px}
-.nav-brand{font-size:1.1rem;font-weight:700;color:#f5c542;text-decoration:none}
-.nav-links{display:flex;gap:20px}
-.nav-links a{color:#aaa;text-decoration:none;font-size:0.85rem;padding:4px 10px;border-radius:4px}
-.nav-links a:hover,.nav-links a.active{background:#2a1a08;color:#f5c542}
-
-.page-header{text-align:center;padding:16px 0 8px}
-.page-header h1{font-size:1.4rem;color:#f5c542}
-.page-header p{font-size:0.75rem;color:#888;margin-top:4px}
-
-#office-canvas{display:block;margin:0 auto;border:2px solid #3a2a10;border-radius:8px;cursor:pointer;max-width:100%}
-
-.detail-panel{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;justify-content:center;align-items:center;z-index:100}
-.detail-panel.open{display:flex}
-.detail-card{background:#1e160c;border:2px solid #f5c542;border-radius:12px;padding:24px;width:340px;max-width:90vw;position:relative}
-.detail-close{position:absolute;top:10px;right:14px;background:none;border:none;color:#888;font-size:1.2rem;cursor:pointer}
-.detail-avatar{font-size:3rem;text-align:center;margin-bottom:8px}
-.detail-name{text-align:center;font-size:1.3rem;font-weight:700;color:#f5c542}
-.detail-role{text-align:center;font-size:0.8rem;color:#aaa;margin-bottom:16px}
-.detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #2a1a08;font-size:0.82rem}
-.detail-row .label{color:#888}
-.detail-row .val{color:#f5c542;font-weight:700}
-.detail-journal{background:#0d0d0d;border-radius:8px;padding:10px;margin-top:12px;font-size:0.78rem;color:#ccc;line-height:1.6;min-height:60px}
-
-.status-row{display:flex;justify-content:center;gap:24px;padding:10px;flex-wrap:wrap}
-.stat-chip{background:#1e160c;border:1px solid #3a2a10;border-radius:20px;padding:4px 14px;font-size:0.75rem;color:#aaa}
-.stat-chip strong{color:#f5c542}
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #fff9e6;
+    font-family: 'Courier New', monospace;
+    overflow: hidden;
+    user-select: none;
+  }
+  .page-header {
+    background: var(--border, #4a4a4a);
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.05em;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 3px solid var(--accent, #ffb703);
+  }
+  .page-header a { color: var(--accent, #ffb703); text-decoration: none; margin-right: 12px; }
+  .header-sub { font-size: 11px; color: #ccc; font-weight: normal; margin-left: auto; }
+  canvas {
+    display: block;
+    cursor: pointer;
+    width: 100vw;
+    height: calc(100vh - 40px);
+  }
+  /* Detail panel */
+  .detail-panel {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .detail-panel.open { display: flex; }
+  .detail-card {
+    background: #fff9e6;
+    border: 3px solid #4a4a4a;
+    box-shadow: 6px 6px 0 #4a4a4a;
+    border-radius: 12px;
+    padding: 24px;
+    width: 280px;
+    position: relative;
+    color: #1a1a1a;
+  }
+  .detail-close {
+    position: absolute; top: 10px; right: 12px;
+    background: none; border: none; font-size: 20px; cursor: pointer; color: #4a4a4a;
+  }
+  .detail-avatar {
+    font-size: 48px; text-align: center; margin-bottom: 8px;
+    background: #fff; border: 2px solid #4a4a4a; border-radius: 50%;
+    width: 72px; height: 72px; line-height: 72px; margin: 0 auto 8px;
+  }
+  .detail-name { text-align: center; font-size: 20px; font-weight: bold; color: #1a1a1a; }
+  .detail-role { text-align: center; font-size: 12px; color: #6b6b75; margin-bottom: 12px; }
+  .detail-team {
+    text-align: center; font-size: 11px; font-weight: bold;
+    padding: 3px 10px; border-radius: 20px; display: inline-block;
+    margin: 0 auto 12px; width: 100%;
+  }
+  .detail-row {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 6px 0; border-bottom: 1px dashed #e6dfc5; font-size: 13px;
+  }
+  .detail-row .label { color: #6b6b75; }
+  .detail-row .val { font-weight: bold; color: #1a1a1a; }
+  .detail-journal {
+    margin-top: 12px; padding: 10px; background: #fff;
+    border: 2px solid #e6dfc5; border-radius: 8px;
+    font-size: 12px; color: #4a4a4a; line-height: 1.6;
+    font-style: italic;
+  }
+  .detail-journal::before { content: "📝 "; }
 </style>
 </head>
 <body>
 
-<nav>
-  <a href="/index.html" class="nav-brand">💡 诸葛灯泡 HQ</a>
-  <div class="nav-links">
-    <a href="/office.html" class="active">办公室</a>
-    <a href="/radar.html">雷达</a>
-    <a href="/stage.html">工作台</a>
-  </div>
-</nav>
-
 <div class="page-header">
-  <h1>🏢 Inside the Office — 俯视实况</h1>
-  <p>点击任意小人查看档案 · 实时模拟 · 走动 · 沟通 · 休息</p>
+  <a href="/">🏠</a>
+  <a href="/">诸葛灯泡 HQ</a>
+  <span>/</span>
+  <a href="/office" style="color:#ffb703;">办公室</a>
+  <a href="/radar">雷达</a>
+  <a href="/stage">工作台</a>
+  <span class="header-sub">🏢 实时 · 2×2 四象限 · 点击任意角色查看档案</span>
 </div>
 
-<canvas id="office-canvas" width="1200" height="680"></canvas>
+<canvas id="c"></canvas>
 
-<div class="status-row">
-  <div class="stat-chip">👥 在线 <strong id="onlineCount">8</strong></div>
-  <div class="stat-chip">💬 互动中 <strong id="interacting">0</strong></div>
-  <div class="stat-chip">🚶 移动中 <strong id="walking">0</strong></div>
-  <div class="stat-chip">😴 休息中 <strong id="resting">0</strong></div>
-</div>
-
+<!-- Detail Panel -->
 <div class="detail-panel" id="detailPanel">
-  <div class="detail-card">
+  <div class="detail-card" id="detailCard">
     <button class="detail-close" onclick="closeDetail()">✕</button>
     <div class="detail-avatar" id="d-avatar"></div>
     <div class="detail-name" id="d-name"></div>
     <div class="detail-role" id="d-role"></div>
+    <div style="text-align:center"><span class="detail-team" id="d-team"></span></div>
     <div class="detail-row"><span class="label">状态</span><span class="val" id="d-status"></span></div>
     <div class="detail-row"><span class="label">当前任务</span><span class="val" id="d-task"></span></div>
-    <div class="detail-row"><span class="label">心情指数</span><span class="val" id="d-mood"></span></div>
+    <div class="detail-row"><span class="label">心情</span><span class="val" id="d-mood"></span></div>
     <div class="detail-row"><span class="label">今日 Tokens</span><span class="val" id="d-tokens"></span></div>
-    <div class="detail-row"><span class="label">今日消耗</span><span class="val" id="d-cost"></span></div>
     <div class="detail-journal" id="d-journal"></div>
   </div>
 </div>
 
 <script>
-// ─────────────────────────────────────────────
-//  CONSTANTS
-// ─────────────────────────────────────────────
-const canvas = document.getElementById('office-canvas');
+// ─── Canvas Setup ────────────────────────────────────────────
+const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
-const W = canvas.width;   // 1200
-const H = canvas.height;  // 680
+const W = 2000, H = 1200;
+canvas.width = W;
+canvas.height = H;
 
-// Areas (left, top, width, height)
-const AREAS = {
-  copaw:   { x:0,   y:0,   w:480, h:330, label:'CoPaw 🏛️',       color:'#2a1e08', floor:'#3a2a10', accent:'#f5c542' },
-  crewai:  { x:480, y:0,   w:720, h:330, label:'CrewAI 🧠',      color:'#081828', floor:'#0a2030', accent:'#4da6d4' },
-  openclaw:{ x:0,   y:330, w:480, h:350, label:'OpenClaw ⚡',     color:'#081a10', floor:'#0a2010', accent:'#52c47a' },
-  rest:    { x:480, y:330, w:720, h:350, label:'休息室 ☕',       color:'#1a0a10', floor:'#200a18', accent:'#d47a9a' }
+// ─── Color Palette (from main site) ──────────────────────────
+const C = {
+  bg: '#fff9e6',         // warm cream background
+  bgDot: '#e6dfc5',      // dot grid
+  border: '#4a4a4a',     // dark border
+  text: '#1a1a1a',       // dark text
+  muted: '#6b6b75',      // muted text
+  accent: '#ffb703',     // golden yellow
+  green: '#38b000',
+  blue: '#0077b6',
+  purple: '#7209b7',
+  // Zone colors
+  copaw:   { floor:'#FFF0C0', accent:'#ffb703', border:'#C88A00', name:'CoPaw 主脑' },
+  crewai:  { floor:'#D0E8FF', accent:'#0077b6', border:'#004F8A', name:'CrewAI 参谋部' },
+  openclaw:{ floor:'#C0F0D8', accent:'#38b000', border:'#1A7A00', name:'OpenClaw 工程队' },
+  rest:    { floor:'#FFE4E4', accent:'#e05070', border:'#AA2040', name:'休息室' },
 };
 
-// Desk positions for each agent
-const DESK_POS = {
-  // CoPaw area
-  'copaw-lead':  { x:170, y:130 },
-  // CrewAI area (5 desks, 2+3 layout)
-  'crew-1':      { x:560, y:90  },
-  'crew-2':      { x:740, y:90  },
-  'crew-3':      { x:920, y:90  },
-  'crew-4':      { x:620, y:210 },
-  'crew-5':      { x:820, y:210 },
-  // OpenClaw area (2 side by side)
-  'open-1':      { x:160, y:420 },
-  'open-2':      { x:320, y:420 },
+// ─── Zone Layout (L/R half, T/B half) ───────────────────────
+const ZONES = {
+  copaw:    { x:0,   y:0,   w:1000, h:600  },
+  crewai:   { x:1000,y:0,   w:1000, h:600  },
+  openclaw: { x:0,   y:600, w:1000, h:600  },
+  rest:     { x:1000,y:600, w:1000, h:600  },
 };
 
-// Rest area spots
-const REST_SPOTS = [
-  { x:700, y:500, type:'sofa'    },
-  { x:870, y:500, type:'coffee'  },
-  { x:1040,y:500, type:'gaming'  },
-];
+// ─── Desk & Character sizes (big!) ───────────────────────────
+const DESK_W = 180;
+const DESK_H = 130;
+const CHAR_R = 42; // character radius
 
-// Walking targets (near desk, for interaction)
-function nearDesk(deskKey) {
-  const d = DESK_POS[deskKey];
-  return { x: d.x + 45, y: d.y + 45 };
-}
-
-// ─────────────────────────────────────────────
-//  AGENT DATA
-// ─────────────────────────────────────────────
+// ─── Agent Definitions ───────────────────────────────────────
 const AGENTS = [
-  {
-    id:'copaw', name:'诸葛灯泡', team:'CoPaw', avatar:'💡',
-    role:'船长 / CEO', desk:'copaw-lead',
-    hairColor:'#f5c542', skinColor:'#f0c090', shirtColor:'#c8a030',
-    mood:9, task:'审批信号报告', tokens:89608, cost:'$0.20',
-    journal:'5个Agent，1个团队。今天要继续推进克隆计划，不能停。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['审批中... 💡','这个信号不错 👍','需要调整一下','同意！'],
-    workDur:[12000,20000], interactDur:[6000,12000], restDur:[8000,15000]
-  },
-  {
-    id:'captain', name:'船长', team:'CrewAI', avatar:'🧑‍✈️',
-    role:'方案审批官', desk:'crew-1',
-    hairColor:'#4a3020', skinColor:'#e0b080', shirtColor:'#2a5080',
-    mood:8, task:'审批产品方案', tokens:54000, cost:'$0.12',
-    journal:'方案要稳，执行要快。船长就是要掌好舵。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['方案通过 ✅','需要修改第3点','讨论中...','可以执行'],
-    workDur:[15000,25000], interactDur:[5000,10000], restDur:[6000,12000]
-  },
-  {
-    id:'detective', name:'探长', team:'CrewAI', avatar:'🕵️',
-    role:'情报侦察官', desk:'crew-2',
-    hairColor:'#1a1020', skinColor:'#d09060', shirtColor:'#803020',
-    mood:10, task:'Polymarket信号扫描', tokens:66900, cost:'$0.07',
-    journal:'发现了一个新的开源项目，可能对我们的Radar有帮助。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['发现信号 🔍','这个情报很有价值','需要深入调查','数据已记录'],
-    workDur:[10000,18000], interactDur:[4000,8000], restDur:[5000,10000]
-  },
-  {
-    id:'scholar', name:'秀才', team:'CrewAI', avatar:'🧑‍🏫',
-    role:'内容创作官', desk:'crew-3',
-    hairColor:'#2a1a0a', skinColor:'#f0c8a0', shirtColor:'#306040',
-    mood:9, task:'博文润色中', tokens:36876, cost:'$0',
-    journal:'写文章最怕说AI废话。说人话，有观点，才是好文章。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['润色中... ✍️','这句话要改','文章已完成','再来一遍'],
-    workDur:[18000,30000], interactDur:[5000,9000], restDur:[7000,14000]
-  },
-  {
-    id:'craftsman', name:'巧匠', team:'CrewAI', avatar:'👨‍🔧',
-    role:'方案设计师', desk:'crew-4',
-    hairColor:'#806040', skinColor:'#e0a860', shirtColor:'#405080',
-    mood:9, task:'Vault页面开发', tokens:14962, cost:'$0',
-    journal:'4000万token随便用，代码质量必须高。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['画图ing...','这个设计不错','需要调整','完成 ✓'],
-    workDur:[14000,22000], interactDur:[4000,8000], restDur:[6000,11000]
-  },
-  {
-    id:'steward', name:'掌柜', team:'CrewAI', avatar:'🧑‍💼',
-    role:'成本运营官', desk:'crew-5',
-    hairColor:'#3a1a10', skinColor:'#d0a070', shirtColor:'#604030',
-    mood:8, task:'整理Ledger数据', tokens:39157, cost:'$0',
-    journal:'日志整理完毕，明天的报表有数据了。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['统计中...','数据都在这里','报表完成','核销完毕'],
-    workDur:[16000,26000], interactDur:[5000,10000], restDur:[7000,13000]
-  },
-  {
-    id:'xiaohua', name:'小花', team:'OpenClaw', avatar:'🐱',
-    role:'工程主脑', desk:'open-1',
-    hairColor:'#f080c0', skinColor:'#f8d0b0', shirtColor:'#50a060',
-    mood:9, task:'Agent行为树调试', tokens:28400, cost:'$0.05',
-    journal:'工程狮上线了！尾巴摇起来 🚀',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['代码跑起来了 🐱','这个bug有意思','工程狮模式 ON','搞定！'],
-    workDur:[12000,20000], interactDur:[5000,10000], restDur:[6000,12000]
-  },
-  {
-    id:'engineer', name:'工程师', team:'OpenClaw', avatar:'👨‍💻',
-    role:'代码构建官', desk:'open-2',
-    hairColor:'#1a1a1a', skinColor:'#e0b890', shirtColor:'#3070a0',
-    mood:8, task:'修复Session写锁', tokens:22100, cost:'$0.04',
-    journal:'写锁问题找到根因了。并发处理还需要优化。',
-    state:'WORKING', target:null, x:0, y:0,
-    messages:['commit #44','这个bug难搞','代码质量必须高','测试通过 ✓'],
-    workDur:[13000,21000], interactDur:[4000,9000], restDur:[5000,10000]
-  }
+  // CoPaw — 1
+  { id:'copaw', name:'诸葛灯泡', emoji:'💡', team:'CoPaw', zone:'copaw',
+    deskX:430, deskY:180, color:'#ffb703', shirt:'#ffb703',
+    hair:'#2C1810', skin:'#F5CBA7',
+    job:'主脑 / 决策', status:'Thinking',
+    mood:9, tokens:'8.9万', cost:'$0.20',
+    journal:'今天继续推进克隆计划，不能停。5个Agent，1个团队。' },
+
+  // CrewAI — 5
+  { id:'captain', name:'船长', emoji:'🧑‍✈️', team:'CrewAI', zone:'crewai',
+    deskX:250, deskY:180, color:'#0055AA', shirt:'#0055AA',
+    hair:'#1C1C1C', skin:'#FDBCB4',
+    job:'方案审批', status:'Working',
+    mood:8, tokens:'4.2万', cost:'$0.05',
+    journal:'每个方案都要过我这关，质量是底线。' },
+  { id:'tanzhang', name:'探长', emoji:'🕵️', team:'CrewAI', zone:'crewai',
+    deskX:550, deskY:180, color:'#CC3355', shirt:'#CC3355',
+    hair:'#3D1308', skin:'#F5CBA7',
+    job:'情报分析', status:'Working',
+    mood:10, tokens:'6.7万', cost:'$0.07',
+    journal:'发现了一个新开源项目，可能对我们的 Radar 有帮助。' },
+  { id:'xiucai', name:'秀才', emoji:'🧑‍🏫', team:'CrewAI', zone:'crewai',
+    deskX:250, deskY:380, color:'#2277AA', shirt:'#2277AA',
+    hair:'#5C3317', skin:'#FDBCB4',
+    job:'内容创作', status:'Thinking',
+    mood:9, tokens:'3.7万', cost:'$0',
+    journal:'写文章最怕说AI废话。说人话，有观点，才是好文章。' },
+  { id:'qiaojiang', name:'巧匠', emoji:'👨‍🔧', team:'CrewAI', zone:'crewai',
+    deskX:550, deskY:380, color:'#3366BB', shirt:'#3366BB',
+    hair:'#000000', skin:'#C68642',
+    job:'工程设计', status:'Working',
+    mood:9, tokens:'1.5万', cost:'$0',
+    journal:'4000万token随便用，代码质量必须高。' },
+  { id:'zhanggui', name:'掌柜', emoji:'🧑‍💼', team:'CrewAI', zone:'crewai',
+    deskX:800, deskY:280, color:'#2255AA', shirt:'#2255AA',
+    hair:'#4A2C00', skin:'#FDBCB4',
+    job:'成本运营', status:'Thinking',
+    mood:8, tokens:'3.9万', cost:'$0',
+    journal:'日志整理完毕，明天的报表有数据了。' },
+
+  // OpenClaw — 2
+  { id:'xiaohua', name:'小花', emoji:'🐱', team:'OpenClaw', zone:'openclaw',
+    deskX:300, deskY:280, color:'#38b000', shirt:'#38b000',
+    hair:'#FF8800', skin:'#F5CBA7',
+    job:'工程主脑', status:'Working',
+    mood:9, tokens:'2.1万', cost:'$0',
+    journal:'代码质量是生命线，每一个commit都要经得起review。' },
+  { id:'engineer', name:'工程师', emoji:'👨‍💻', team:'OpenClaw', zone:'openclaw',
+    deskX:600, deskY:280, color:'#2A8A00', shirt:'#2A8A00',
+    hair:'#1C1C1C', skin:'#C68642',
+    job:'代码构建', status:'Working',
+    mood:8, tokens:'1.8万', cost:'$0',
+    journal:'写码五分钟，debug两小时。但看到跑通的那一刻，值了。' },
 ];
 
-// Init positions
+// ─── Speech Bubbles per Agent ────────────────────────────────
+const SPEECH = {
+  WORKING: [
+    '处理中...', '写代码中...', '分析数据...', '审批方案...',
+    '整理报表...', '扫描信号...', '润色文章...', '设计中...',
+  ],
+  INTERACTING: [
+    '这个方案不错 👍', '我觉得可以再优化', '信号已同步给你', '一起看看？',
+    '这行代码有问题', '报表数据对齐了', '逻辑清晰，同意', '需要调整参数',
+  ],
+  RESTING: [
+    '休息一下 😌', '☕ 充充电', '打个盹 💤', '放松一下 ~',
+  ],
+  THINKING: [
+    '让我想想...', '🤔 思考中', '有点复杂...', '等一下...',
+  ],
+  WALKING: [
+    '走，去看看', '去找下...', '动起来', '👣 移动中',
+  ],
+};
+
+// ─── Agent State Machine ─────────────────────────────────────
 AGENTS.forEach(a => {
-  const d = DESK_POS[a.desk];
-  a.x = d.x + 45;
-  a.y = d.y + 45;
-  a.baseX = a.x;
-  a.baseY = a.y;
+  a.x = a.deskX + DESK_W / 2;
+  a.y = a.deskY + DESK_H + CHAR_R + 10;
   a.state = 'WORKING';
-  a.target = null;
-  a.bubbleText = '';
-  a.bubbleTimer = 0;
-  a.nextStateIn = rand(a.workDur[0], a.workDur[1]);
-  a.phaseTimer = 0;
+  a.stateTimer = rand(600, 1400); // frames
+  a.animFrame = 0;
+  a.targetX = a.x;
+  a.targetY = a.y;
+  a.speechBubble = '';
+  a.speechTimer = 0;
+  a.speechOwner = false; // for interaction bubbles
+  a.interactPartner = null;
   a.walkFrame = 0;
-  a.walkSpeed = 0;
-  a.facing = 1; // 1=right, -1=left
-  a.atDesk = true;
-  a.interactWith = null;
-  a.interactFrame = 0;
 });
 
-// ─────────────────────────────────────────────
-//  HELPERS
-// ─────────────────────────────────────────────
-function rand(a,b){ return a + Math.random()*(b-a); }
-function dist(a,b){ return Math.sqrt((a.x-b.x)**2 + (a.y-b.y)**2); }
-function lerp(a,b,t){ return a + (b-a)*t; }
-function ease(t){ return t<0.5? 2*t*t : -1+(4-2*t)*t; }
+// ─── Helper Functions ───────────────────────────────────────
+function rand(a, b) { return a + Math.random() * (b - a); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function dist(x1, y1, x2, y2) { return Math.hypot(x2 - x1, y2 - y1); }
 
-function getDeskCenter(deskKey) {
-  const d = DESK_POS[deskKey];
-  return { x: d.x + 45, y: d.y + 45 };
+function zoneFor(x, y) {
+  if (x < 1000) return y < 600 ? 'copaw' : 'openclaw';
+  return y < 600 ? 'crewai' : 'rest';
 }
 
-function randomOtherAgent(agent) {
-  const others = AGENTS.filter(a => a.id !== agent.id);
-  return others[Math.floor(Math.random()*others.length)];
+function restSpot() {
+  const spots = [
+    { x: 1130, y: 760 }, { x: 1220, y: 780 }, { x: 1310, y: 760 },
+    { x: 1130, y: 860 }, { x: 1220, y: 880 }, { x: 1310, y: 860 },
+    { x: 1400, y: 820 }, { x: 1500, y: 800 }, { x: 1580, y: 840 },
+    { x: 1700, y: 820 }, { x: 1780, y: 870 }, { x: 1850, y: 800 },
+  ];
+  return spots[Math.floor(Math.random() * spots.length)];
 }
 
-function randomRestSpot() {
-  return REST_SPOTS[Math.floor(Math.random()*REST_SPOTS.length)];
+function pickTarget(a) {
+  const roll = Math.random();
+  if (roll < 0.10) {
+    // Go to rest area
+    const s = restSpot();
+    a.targetX = s.x + rand(-20, 20);
+    a.targetY = s.y + rand(-10, 10);
+    a.state = 'WALKING';
+    a.stateTimer = rand(400, 800);
+  } else if (roll < 0.55) {
+    // Go to another agent's desk (interaction)
+    const others = AGENTS.filter(b => b.id !== a.id);
+    const b = others[Math.floor(Math.random() * others.length)];
+    a.targetX = b.deskX + DESK_W / 2 + rand(-50, 50);
+    a.targetY = b.deskY + DESK_H + CHAR_R + 10;
+    a.interactPartner = b;
+    a.state = 'WALKING';
+    a.stateTimer = rand(500, 1000);
+  } else {
+    // Random walk within zone
+    const z = ZONES[a.zone];
+    a.targetX = z.x + rand(60, z.w - 60);
+    a.targetY = z.y + rand(60, z.h - 60);
+    a.state = 'WALKING';
+    a.stateTimer = rand(300, 600);
+  }
 }
 
-// ─────────────────────────────────────────────
-//  STATE MACHINE
-// ─────────────────────────────────────────────
-function updateAgent(agent, dt) {
-  agent.phaseTimer += dt;
+function setSpeech(a, type) {
+  const list = SPEECH[type] || SPEECH.WORKING;
+  a.speechBubble = list[Math.floor(Math.random() * list.length)];
+  a.speechTimer = rand(80, 160);
+  a.speechOwner = true;
+}
 
-  switch(agent.state) {
-    case 'WORKING':
-      // Show bubble occasionally
-      if (!agent.bubbleText && Math.random() < 0.01) {
-        agent.bubbleText = agent.messages[Math.floor(Math.random()*agent.messages.length)];
-        agent.bubbleTimer = 3000;
-      }
-      if (agent.bubbleTimer > 0) {
-        agent.bubbleTimer -= dt;
-        if (agent.bubbleTimer <= 0) agent.bubbleText = '';
-      }
-      // Transition
-      if (agent.phaseTimer >= agent.nextStateIn) {
-        agent.phaseTimer = 0;
-        const roll = Math.random();
-        if (roll < 0.4) {
-          // Go to rest area
-          agent.state = 'WALKING';
-          const spot = randomRestSpot();
-          agent.target = { x: spot.x, y: spot.y };
-          agent.atDesk = false;
-          agent.bubbleText = '';
-        } else if (roll < 0.7) {
-          // Go interact with another agent
-          const other = randomOtherAgent(agent);
-          agent.state = 'WALKING';
-          agent.target = getDeskCenter(other.desk);
-          agent.interactWith = other;
-          agent.atDesk = false;
-          agent.bubbleText = '';
+// ─── Update Loop ─────────────────────────────────────────────
+function update() {
+  AGENTS.forEach(a => {
+    a.animFrame++;
+    a.walkFrame++;
+    if (a.speechTimer > 0) a.speechTimer--;
+
+    a.stateTimer--;
+
+    if (a.stateTimer <= 0) {
+      if (a.state === 'WORKING') {
+        pickTarget(a);
+        setSpeech(a, 'WALKING');
+      } else if (a.state === 'WALKING') {
+        if (a.interactPartner) {
+          a.state = 'INTERACTING';
+          a.interactPartner.interactPartner = null;
+          setSpeech(a, 'INTERACTING');
+        } else if (zoneFor(a.x, a.y) === 'rest') {
+          a.state = 'RESTING';
+          setSpeech(a, 'RESTING');
         } else {
-          // Go for a walk around
-          agent.state = 'WALKING';
-          agent.target = {
-            x: 100 + Math.random()*(W-200),
-            y: 100 + Math.random()*(H-200)
-          };
-          agent.atDesk = false;
-          agent.bubbleText = '';
+          a.state = 'WORKING';
+          setSpeech(a, 'WORKING');
         }
-        agent.nextStateIn = rand(agent.workDur[0], agent.workDur[1]);
-      }
-      break;
-
-    case 'WALKING':
-      if (!agent.target) { agent.state='WORKING'; break; }
-      const dx = agent.target.x - agent.x;
-      const dy = agent.target.y - agent.y;
-      const d = Math.sqrt(dx*dx + dy*dy);
-      agent.facing = dx > 0 ? 1 : -1;
-      if (d < 4) {
-        agent.x = agent.target.x;
-        agent.y = agent.target.y;
-        agent.target = null;
-        if (agent.interactWith) {
-          agent.state = 'INTERACTING';
-          agent.phaseTimer = 0;
-          agent.nextStateIn = rand(agent.interactDur[0], agent.interactDur[1]);
-        } else if (!agent.atDesk) {
-          // Decide next: rest or return
-          if (Math.random() < 0.5) {
-            agent.state = 'RESTING';
-            agent.phaseTimer = 0;
-            agent.nextStateIn = rand(agent.restDur[0], agent.restDur[1]);
-          } else {
-            // Return to desk
-            agent.state = 'WALKING';
-            agent.target = getDeskCenter(agent.desk);
-          }
-        } else {
-          agent.state = 'WORKING';
+        a.interactPartner = null;
+        a.stateTimer = rand(400, 1200);
+      } else if (a.state === 'INTERACTING') {
+        // Switch bubble between two agents
+        if (a.interactPartner && a.animFrame % 120 === 0) {
+          setSpeech(a, 'INTERACTING');
         }
-      } else {
-        const spd = 1.2;
-        agent.x += (dx/d)*spd;
-        agent.y += (dy/d)*spd;
-        agent.walkFrame = (agent.walkFrame + 0.15) % 2;
-      }
-      break;
-
-    case 'INTERACTING':
-      if (!agent.interactWith) { agent.state='WORKING'; break; }
-      agent.interactFrame = (agent.interactFrame + 0.08) % 2;
-      if (!agent.bubbleText && Math.random() < 0.02) {
-        agent.bubbleText = agent.messages[Math.floor(Math.random()*agent.messages.length)];
-        agent.bubbleTimer = 2500;
-      }
-      if (agent.bubbleTimer > 0) {
-        agent.bubbleTimer -= dt;
-        if (agent.bubbleTimer <= 0) agent.bubbleText = '';
-      }
-      if (agent.phaseTimer >= agent.nextStateIn) {
-        agent.phaseTimer = 0;
-        // End interaction and return to desk
-        agent.interactWith = null;
-        agent.state = 'WALKING';
-        agent.target = getDeskCenter(agent.desk);
-        agent.atDesk = true;
-        agent.bubbleText = '';
-      }
-      break;
-
-    case 'RESTING':
-      if (!agent.bubbleText && Math.random() < 0.008) {
-        const restMsgs = ['休息一下 😌','☕ 充充电','😴 小憩一会','放空 🧘'];
-        agent.bubbleText = restMsgs[Math.floor(Math.random()*restMsgs.length)];
-        agent.bubbleTimer = 3000;
-      }
-      if (agent.bubbleTimer > 0) {
-        agent.bubbleTimer -= dt;
-        if (agent.bubbleTimer <= 0) agent.bubbleText = '';
-      }
-      if (agent.phaseTimer >= agent.nextStateIn) {
-        agent.phaseTimer = 0;
-        agent.state = 'WALKING';
-        agent.target = getDeskCenter(agent.desk);
-        agent.atDesk = true;
-        agent.bubbleText = '';
-      }
-      break;
-  }
-}
-
-// ─────────────────────────────────────────────
-//  DRAWING HELPERS
-// ─────────────────────────────────────────────
-function roundRect(x,y,w,h,r,color) {
-  ctx.beginPath();
-  ctx.moveTo(x+r,y);
-  ctx.lineTo(x+w-r,y);
-  ctx.arcTo(x+w,y,x+w,y+r,r);
-  ctx.lineTo(x+w,y+h-r);
-  ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
-  ctx.lineTo(x+r,y+h);
-  ctx.arcTo(x,y+h,x,y+h-r,r);
-  ctx.lineTo(x,y+r);
-  ctx.arcTo(x,y,x+r,y,r);
-  ctx.closePath();
-  ctx.fillStyle = color;
-  ctx.fill();
-}
-
-function drawArea(area) {
-  // Floor
-  roundRect(area.x+4, area.y+4, area.w-8, area.h-8, 8, area.floor);
-
-  // Inner subtle grid
-  ctx.save();
-  ctx.strokeStyle = area.color;
-  ctx.lineWidth = 0.5;
-  ctx.globalAlpha = 0.3;
-  for(let gx=area.x+20; gx<area.x+area.w; gx+=30){
-    ctx.beginPath(); ctx.moveTo(gx,area.y+4); ctx.lineTo(gx,area.y+area.h-4); ctx.stroke();
-  }
-  for(let gy=area.y+20; gy<area.y+area.h; gy+=30){
-    ctx.beginPath(); ctx.moveTo(area.x+4,gy); ctx.lineTo(area.x+area.w-4,gy); ctx.stroke();
-  }
-  ctx.restore();
-
-  // Area label
-  ctx.font = 'bold 11px Courier New';
-  ctx.fillStyle = area.accent;
-  ctx.globalAlpha = 0.7;
-  ctx.fillText(area.label, area.x+14, area.y+22);
-  ctx.globalAlpha = 1;
-}
-
-function drawDesk(cx, cy, deskW, deskH, color, computer=true) {
-  // Desk surface (top-down oval/rect)
-  roundRect(cx - deskW/2, cy - deskH/2, deskW, deskH, 6, color);
-
-  // Desk border
-  ctx.strokeStyle = 'rgba(255,255,255,0.15)';
-  ctx.lineWidth = 1;
-  roundRect(cx - deskW/2, cy - deskH/2, deskW, deskH, 6, color);
-  ctx.stroke();
-
-  if (computer) {
-    // Monitor (top-down rect)
-    const mw = 32, mh = 22;
-    roundRect(cx - mw/2, cy - mh/2 - 4, mw, mh, 3, '#1a1a2a');
-    ctx.fillStyle = '#1a2940';
-    ctx.fillRect(cx - mw/2+2, cy - mh/2-2, mw-4, mh-4);
-    // Screen glow
-    ctx.fillStyle = 'rgba(80,160,255,0.3)';
-    ctx.fillRect(cx - mw/2+2, cy - mh/2-2, mw-4, mh-4);
-    // Screen content lines
-    ctx.fillStyle = 'rgba(100,200,255,0.5)';
-    ctx.fillRect(cx - mw/2+4, cy - mh/2, 14, 2);
-    ctx.fillRect(cx - mw/2+4, cy - mh/2+4, 10, 2);
-    ctx.fillRect(cx - mw/2+4, cy - mh/2+8, 18, 2);
-    // Monitor stand
-    ctx.fillStyle = '#444';
-    ctx.fillRect(cx-3, cy+2, 6, 4);
-
-    // Keyboard (top-down)
-    const kbW = 22, kbH = 10;
-    roundRect(cx - kbW/2, cy + 8, kbW, kbH, 2, '#2a2a3a');
-    // Key rows
-    ctx.fillStyle = '#3a3a4a';
-    for(let kr=0; kr<2; kr++){
-      for(let kc=0; kc<4; kc++){
-        ctx.fillRect(cx - kbW/2+2+kc*5, cy+9+kr*4, 3, 3);
+        a.stateTimer = rand(300, 700);
+        if (a.stateTimer <= 50) {
+          a.state = 'WALKING';
+          a.targetX = a.deskX + DESK_W / 2;
+          a.targetY = a.deskY + DESK_H + CHAR_R + 10;
+          a.interactPartner = null;
+          a.stateTimer = rand(300, 600);
+        }
+      } else if (a.state === 'RESTING') {
+        a.stateTimer = rand(500, 1200);
+        if (a.stateTimer < 80) {
+          setSpeech(a, 'RESTING');
+        }
+        if (a.stateTimer <= 0) {
+          a.state = 'WALKING';
+          a.targetX = a.deskX + DESK_W / 2;
+          a.targetY = a.deskY + DESK_H + CHAR_R + 10;
+          a.stateTimer = rand(300, 600);
+        }
+      } else if (a.state === 'THINKING') {
+        setSpeech(a, 'THINKING');
+        a.stateTimer = rand(300, 700);
       }
     }
 
-    // Cup (circle)
-    ctx.beginPath();
-    ctx.arc(cx + deskW/2 - 10, cy - deskH/2 + 8, 5, 0, Math.PI*2);
-    ctx.fillStyle = '#c8a060';
-    ctx.fill();
-    ctx.strokeStyle = '#a08040';
-    ctx.lineWidth = 0.8;
-    ctx.stroke();
+    // Move toward target
+    const speed = a.state === 'WALKING' ? 3.5 : 0;
+    const d = dist(a.x, a.y, a.targetX, a.targetY);
+    if (d > speed) {
+      a.x += (a.targetX - a.x) / d * speed;
+      a.y += (a.targetY - a.y) / d * speed;
+    } else {
+      a.x = a.targetX;
+      a.y = a.targetY;
+    }
+
+    // Partner interaction bubble sync
+    if (a.state === 'INTERACTING' && a.interactPartner && a.animFrame % 100 === 0) {
+      const partner = a.interactPartner;
+      partner.speechBubble = SPEECH.INTERACTING[Math.floor(Math.random() * SPEECH.INTERACTING.length)];
+      partner.speechTimer = 120;
+      partner.speechOwner = false;
+    }
+  });
+}
+
+// ─── Draw Functions ───────────────────────────────────────────
+function drawBg() {
+  // Warm cream base
+  ctx.fillStyle = C.bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Dot grid pattern (matches main site)
+  ctx.fillStyle = C.bgDot;
+  for (let x = 0; x < W; x += 28) {
+    for (let y = 0; y < H; y += 28) {
+      ctx.beginPath();
+      ctx.arc(x, y, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 }
 
-// Nameplate below desk
-function drawNameplate(cx, cy, name, color) {
-  ctx.font = 'bold 9px Courier New';
-  const tw = ctx.measureText(name).width;
-  roundRect(cx - tw/2 - 5, cy + 24, tw + 10, 14, 4, 'rgba(0,0,0,0.7)');
-  ctx.fillStyle = color;
-  ctx.textAlign = 'center';
-  ctx.fillText(name, cx, cy + 34);
-  ctx.textAlign = 'left';
-}
+function drawZones() {
+  // Zone floors
+  const zColors = { copaw:'#FFF5CC', crewai:'#E0F0FF', openclaw:'#D8F8E8', rest:'#FFE4E8' };
+  const zNames = { copaw:'🏛️ CoPaw 主脑', crewai:'🧠 CrewAI 参谋部', openclaw:'⚡ OpenClaw 工程队', rest:'☕ 休息室' };
+  const zAccents= { copaw:C.accent, crewai:C.blue, openclaw:C.green, rest:'#e05070' };
 
-// Draw area dividers
-function drawDividers() {
-  // Vertical divider
-  ctx.strokeStyle = 'rgba(245,197,66,0.4)';
-  ctx.lineWidth = 2;
-  ctx.setLineDash([8,6]);
-  ctx.beginPath(); ctx.moveTo(480, 10); ctx.lineTo(480, H-10); ctx.stroke();
-  // Horizontal divider
-  ctx.beginPath(); ctx.moveTo(10, 330); ctx.lineTo(W-10, 330); ctx.stroke();
+  Object.entries(ZONES).forEach(([k, z]) => {
+    // Floor
+    ctx.fillStyle = zColors[k];
+    ctx.fillRect(z.x, z.y, z.w, z.h);
+
+    // Floor pattern overlay (subtle)
+    ctx.fillStyle = 'rgba(0,0,0,0.015)';
+    ctx.fillRect(z.x, z.y, z.w, z.h);
+
+    // Border
+    ctx.strokeStyle = C.border;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(z.x + 2, z.y + 2, z.w - 4, z.h - 4);
+
+    // Accent top border
+    ctx.strokeStyle = zAccents[k];
+    ctx.lineWidth = 5;
+    ctx.beginPath();
+    ctx.moveTo(z.x, z.y);
+    ctx.lineTo(z.x + z.w, z.y);
+    ctx.stroke();
+
+    // Zone label
+    ctx.font = 'bold 26px Courier New';
+    ctx.fillStyle = zAccents[k];
+    ctx.fillText(zNames[k], z.x + 20, z.y + 40);
+
+    // Subtle zone divider lines
+    ctx.strokeStyle = 'rgba(74,74,74,0.15)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([10, 8]);
+    ctx.beginPath();
+    ctx.moveTo(z.x + z.w / 2, z.y);
+    ctx.lineTo(z.x + z.w / 2, z.y + z.h);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(z.x, z.y + z.h / 2);
+    ctx.lineTo(z.x + z.w, z.y + z.h / 2);
+    ctx.stroke();
+    ctx.setLineDash([]);
+  });
+
+  // Center cross divider
+  ctx.strokeStyle = C.border;
+  ctx.lineWidth = 4;
+  ctx.setLineDash([16, 10]);
+  ctx.beginPath();
+  ctx.moveTo(W / 2, 0);
+  ctx.lineTo(W / 2, H);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(0, H / 2);
+  ctx.lineTo(W, H / 2);
+  ctx.stroke();
   ctx.setLineDash([]);
 }
 
-// ─── REST AREA ───
-function drawRestArea() {
-  const a = AREAS.rest;
-  // Sofa
-  roundRect(640, 480, 130, 60, 8, '#5a3060');
-  roundRect(648, 488, 114, 44, 6, '#703870');
-  // Sofa back
-  roundRect(640, 478, 130, 16, 6, '#4a2050');
-  // Coffee table
-  roundRect(860, 500, 80, 40, 6, '#3a2518');
-  // Coffee cup on table
-  ctx.beginPath(); ctx.arc(900, 515, 6, 0, Math.PI*2);
-  ctx.fillStyle = '#d4a060'; ctx.fill();
-  ctx.strokeStyle = '#b08040'; ctx.lineWidth = 0.8; ctx.stroke();
-  // Gaming table
-  roundRect(1000, 480, 130, 60, 8, '#1a3040');
-  roundRect(1008, 490, 114, 40, 6, '#1e3850');
-  // Screen on gaming table
-  ctx.fillStyle = '#0a1520';
-  ctx.fillRect(1020, 493, 90, 30);
-  ctx.fillStyle = 'rgba(0,200,120,0.4)';
-  ctx.fillRect(1022, 495, 86, 26);
-  // Game label
-  ctx.font = 'bold 8px Courier New';
-  ctx.fillStyle = 'rgba(0,200,120,0.7)';
-  ctx.fillText('GAME', 1040, 510);
-  // "REST AREA" label
-  ctx.font = 'bold 12px Courier New';
-  ctx.fillStyle = '#d47a9a';
-  ctx.globalAlpha = 0.6;
-  ctx.fillText('休息室 ☕', 640, 462);
-  ctx.globalAlpha = 1;
-}
-
-// ─── PERSON (top-down view) ───
-function drawPerson(x, y, agent, highlight) {
-  const facing = agent.facing;
-  const wf = Math.floor(agent.walkFrame); // 0 or 1
-  const state = agent.state;
-
-  ctx.save();
-  if (highlight) {
-    ctx.shadowColor = '#f5c542';
-    ctx.shadowBlur = 16;
-  }
+function drawDesk(a) {
+  const x = a.deskX, y = a.deskY, w = DESK_W, h = DESK_H;
+  const ac = a.color;
 
   // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.12)';
   ctx.beginPath();
-  ctx.ellipse(x, y+14, 10, 5, 0, 0, Math.PI*2);
-  ctx.fillStyle = 'rgba(0,0,0,0.3)';
+  ctx.ellipse(x + w / 2, y + h + 8, w / 2 + 10, 14, 0, 0, Math.PI * 2);
   ctx.fill();
 
-  // Legs (only visible when walking, shown as small ovals below body)
-  if (state === 'WALKING') {
-    const legOff = wf === 0 ? 3 : -3;
-    ctx.beginPath();
-    ctx.ellipse(x-5, y+12, 3, 5, 0, 0, Math.PI*2);
-    ctx.fillStyle = agent.shirtColor;
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(x+5, y+12, 3, 5, 0, 0, Math.PI*2);
-    ctx.fillStyle = agent.shirtColor;
-    ctx.fill();
-  }
+  // Desk legs
+  ctx.fillStyle = '#B0A090';
+  ctx.fillRect(x + 12, y + h - 10, 14, 16);
+  ctx.fillRect(x + w - 26, y + h - 10, 14, 16);
 
-  // Body (half-circle, bottom-facing)
-  ctx.beginPath();
-  ctx.arc(x, y, 12, 0, Math.PI); // bottom half
-  ctx.fillStyle = agent.shirtColor;
-  ctx.fill();
-  ctx.strokeStyle = 'rgba(0,0,0,0.2)';
-  ctx.lineWidth = 0.5;
-  ctx.stroke();
+  // Desk body
+  const grad = ctx.createLinearGradient(x, y, x, y + h);
+  grad.addColorStop(0, lighten(ac, 0.5));
+  grad.addColorStop(1, ac);
+  ctx.fillStyle = grad;
+  roundRect(x, y, w, h, 12, true, false);
 
-  // Arms
-  if (state === 'WORKING' || (state === 'INTERACTING' && agent.interactFrame < 1)) {
-    // Arms down/side
-    ctx.beginPath();
-    ctx.ellipse(x - 14, y + 2, 4, 3, -0.3, 0, Math.PI*2);
-    ctx.fillStyle = agent.shirtColor;
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(x + 14, y + 2, 4, 3, 0.3, 0, Math.PI*2);
-    ctx.fill();
-  } else if (state === 'WALKING' || state === 'RESTING') {
-    // Slight swing
-    const swing = state === 'WALKING' ? (wf===0?6:-6) : 0;
-    ctx.beginPath();
-    ctx.ellipse(x - 14 + swing, y, 4, 3, -0.3, 0, Math.PI*2);
-    ctx.fillStyle = agent.shirtColor;
-    ctx.fill();
-    ctx.beginPath();
-    ctx.ellipse(x + 14 - swing, y, 4, 3, 0.3, 0, Math.PI*2);
-    ctx.fill();
-  }
+  // Desk top border
+  ctx.strokeStyle = darken(ac, 0.8);
+  ctx.lineWidth = 3;
+  roundRect(x, y, w, h, 12, false, true);
 
-  // Head (circle on top)
-  ctx.beginPath();
-  ctx.arc(x, y - 8, 9, 0, Math.PI*2);
-  ctx.fillStyle = agent.skinColor;
-  ctx.fill();
+  // Monitor
+  const mx = x + w / 2 - 55, my = y + 14;
+  ctx.fillStyle = '#222';
+  roundRect(mx, my, 110, 75, 6, true, false);
+  ctx.fillStyle = '#0a1520';
+  roundRect(mx + 5, my + 5, 100, 62, 4, true, false);
 
-  // Hair (top cap, doesn't block top — hair is drawn as arc at top of head)
-  ctx.beginPath();
-  ctx.arc(x, y - 8, 9, Math.PI*1.1, Math.PI*1.9); // top arc only
-  ctx.fillStyle = agent.hairColor;
-  ctx.fill();
-
-  // Eyes (small dots, facing direction)
-  ctx.fillStyle = '#1a1a1a';
-  ctx.beginPath();
-  ctx.arc(x - 3 + facing*1, y - 9, 1.5, 0, Math.PI*2);
-  ctx.arc(x + 3 + facing*1, y - 9, 1.5, 0, Math.PI*2);
-  ctx.fill();
-
-  // Avatar on head
-  ctx.font = '9px Arial';
-  ctx.textAlign = 'center';
-  ctx.fillText(agent.avatar, x, y - 18);
-  ctx.textAlign = 'left';
-
-  // Name tag below feet
-  ctx.font = 'bold 8px Courier New';
-  const tw = ctx.measureText(agent.name).width;
-  roundRect(x - tw/2 - 3, y + 16, tw + 6, 12, 3, 'rgba(0,0,0,0.7)');
-  ctx.fillStyle = '#f5c542';
-  ctx.textAlign = 'center';
-  ctx.fillText(agent.name, x, y + 24);
-  ctx.textAlign = 'left';
-
-  // State icon
-  if (state === 'RESTING') {
-    ctx.font = '10px Arial';
-    ctx.fillText('💤', x + 12, y - 20);
-  } else if (state === 'THINKING') {
-    ctx.font = '10px Arial';
-    ctx.fillText('🤔', x + 12, y - 20);
-  } else if (state === 'INTERACTING') {
-    ctx.font = '10px Arial';
-    ctx.fillText('💬', x - 20, y - 20);
-  }
-
-  ctx.restore();
-}
-
-// ─── SPEECH BUBBLE (above head, never blocking hair) ───
-function drawBubble(x, y, text) {
-  ctx.save();
-  ctx.font = 'bold 9px Courier New';
-  const tw = ctx.measureText(text).width;
-  const bw = tw + 16;
-  const bh = 18;
-  // Position: well above head (y - 38 from center)
-  const bx = x - bw/2;
-  const by = y - 38 - bh;
-
-  // Bubble background
-  roundRect(bx, by, bw, bh, 6, 'rgba(255,255,255,0.95)');
-  ctx.strokeStyle = '#f5c542';
-  ctx.lineWidth = 1.5;
-  roundRect(bx, by, bw, bh, 6, 'rgba(255,255,255,0.95)');
-  ctx.stroke();
-
-  // Tail (triangle pointing down to person)
-  ctx.fillStyle = 'rgba(255,255,255,0.95)';
-  ctx.beginPath();
-  ctx.moveTo(x - 5, by + bh);
-  ctx.lineTo(x + 5, by + bh);
-  ctx.lineTo(x, by + bh + 7);
-  ctx.closePath();
-  ctx.fill();
-  ctx.strokeStyle = '#f5c542';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  ctx.moveTo(x - 5, by + bh);
-  ctx.lineTo(x, by + bh + 7);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(x + 5, by + bh);
-  ctx.lineTo(x, by + bh + 7);
-  ctx.stroke();
-
-  // Text
-  ctx.fillStyle = '#1a0a00';
-  ctx.textAlign = 'center';
-  ctx.fillText(text, x, by + 13);
-  ctx.textAlign = 'left';
-  ctx.restore();
-}
-
-// ─────────────────────────────────────────────
-//  CLICK DETECTION
-// ─────────────────────────────────────────────
-let selectedAgent = null;
-
-canvas.addEventListener('click', function(e) {
-  const rect = canvas.getBoundingClientRect();
-  const scaleX = canvas.width / rect.width;
-  const scaleY = canvas.height / rect.height;
-  const mx = (e.clientX - rect.left) * scaleX;
-  const my = (e.clientY - rect.top) * scaleY;
-
-  let found = null;
-  for (const a of AGENTS) {
-    if (Math.abs(a.x - mx) < 20 && Math.abs(a.y - my) < 24) {
-      found = a;
-      break;
+  // Screen content (animated when working)
+  ctx.fillStyle = 'rgba(255,255,255,0.08)';
+  ctx.fillRect(mx + 8, my + 8, 94, 56);
+  if (a.state === 'WORKING') {
+    // Code lines
+    const lines = ['#38B000','#00B4D8','#FFD60A','#E8A87C','#38B000'];
+    lines.forEach((c, i) => {
+      ctx.fillStyle = c;
+      ctx.fillRect(mx + 10, my + 10 + i * 10, 20 + Math.random() * 60, 4);
+    });
+    // Blinking cursor
+    if (Math.floor(a.animFrame / 30) % 2 === 0) {
+      ctx.fillStyle = '#FFD60A';
+      ctx.fillRect(mx + 90, my + 44, 8, 6);
+    }
+  } else if (a.state === 'THINKING') {
+    ctx.fillStyle = '#FFD60A';
+    ctx.font = '20px Arial';
+    ctx.fillText('...', mx + 40, my + 42);
+  } else {
+    // Simple content
+    ctx.fillStyle = 'rgba(255,255,255,0.2)';
+    for (let i = 0; i < 4; i++) {
+      ctx.fillRect(mx + 10, my + 12 + i * 14, 80 - i * 15, 5);
     }
   }
 
-  if (found) {
-    selectedAgent = found;
-    const panel = document.getElementById('detailPanel');
-    document.getElementById('d-avatar').textContent = found.avatar;
-    document.getElementById('d-name').textContent = found.name;
-    document.getElementById('d-role').textContent = found.team + ' · ' + found.role;
-    document.getElementById('d-status').textContent = found.state;
-    document.getElementById('d-task').textContent = found.task;
-    document.getElementById('d-mood').textContent = '⭐'.repeat(found.mood) + '☆'.repeat(10-found.mood) + ' ' + found.mood + '/10';
-    document.getElementById('d-tokens').textContent = found.tokens.toLocaleString();
-    document.getElementById('d-cost').textContent = found.cost;
-    document.getElementById('d-journal').textContent = found.journal;
-    panel.classList.add('open');
-  } else {
-    closeDetail();
+  // Monitor stand
+  ctx.fillStyle = '#555';
+  ctx.fillRect(mx + 45, my + 75, 20, 10);
+  ctx.fillRect(mx + 35, my + 83, 40, 8);
+
+  // Keyboard (pixel style)
+  const kx = x + w / 2 - 40, ky = y + h - 32;
+  ctx.fillStyle = '#888';
+  roundRect(kx, ky, 80, 26, 4, true, false);
+  // Key rows
+  ctx.fillStyle = '#aaa';
+  for (let r = 0; r < 3; r++) {
+    for (let c = 0; c < 8; c++) {
+      ctx.fillRect(kx + 5 + c * 9, ky + 4 + r * 7, 7, 5);
+    }
   }
-});
 
-function closeDetail() {
-  document.getElementById('detailPanel').classList.remove('open');
-  selectedAgent = null;
+  // Desk decoration: coffee cup
+  ctx.fillStyle = '#fff8e0';
+  ctx.beginPath();
+  ctx.ellipse(x + w - 28, y + h - 18, 12, 7, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = ac;
+  ctx.beginPath();
+  ctx.ellipse(x + w - 28, y + h - 22, 12, 7, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = '#C8A87A';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(x + w - 18, y + h - 22, 6, -0.5, 1.5);
+  ctx.stroke();
+
+  // Name tag on desk
+  ctx.font = 'bold 18px Courier New';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.fillText(a.emoji + ' ' + a.name, x + w / 2, y - 10);
+  ctx.textAlign = 'left';
 }
 
-// ─────────────────────────────────────────────
-//  STATS UPDATE
-// ─────────────────────────────────────────────
-function updateStats() {
-  let interacting=0, walking=0, resting=0;
-  AGENTS.forEach(a => {
-    if (a.state==='INTERACTING') interacting++;
-    else if (a.state==='WALKING') walking++;
-    else if (a.state==='RESTING') resting++;
-  });
-  document.getElementById('interacting').textContent = interacting;
-  document.getElementById('walking').textContent = walking;
-  document.getElementById('resting').textContent = resting;
+function drawCharacter(a) {
+  const x = a.x, y = a.y, r = CHAR_R;
+  const isWalking = a.state === 'WALKING';
+  const walkCycle = isWalking ? Math.sin(a.walkFrame * 0.35) : 0;
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.15)';
+  ctx.beginPath();
+  ctx.ellipse(x, y + r + 4, r * 0.9, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // ── Legs (walk animation) ──
+  if (isWalking) {
+    // Left leg
+    ctx.fillStyle = darken(a.skin, 0.7);
+    ctx.beginPath();
+    ctx.ellipse(x - 10 + walkCycle * 8, y + r - 2 + Math.abs(walkCycle) * 4, 7, 10, walkCycle * 0.3, 0, Math.PI * 2);
+    ctx.fill();
+    // Right leg
+    ctx.beginPath();
+    ctx.ellipse(x + 10 - walkCycle * 8, y + r - 2 + Math.abs(-walkCycle) * 4, 7, 10, -walkCycle * 0.3, 0, Math.PI * 2);
+    ctx.fill();
+  } else {
+    // Static legs
+    ctx.fillStyle = darken(a.skin, 0.7);
+    ctx.beginPath();
+    ctx.ellipse(x - 10, y + r - 2, 7, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(x + 10, y + r - 2, 7, 10, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // ── Body / Shirt ──
+  ctx.fillStyle = a.shirt;
+  ctx.beginPath();
+  ctx.ellipse(x, y + 12, r * 0.85, r * 1.1, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = darken(a.shirt, 0.7);
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // ── Arms ──
+  const armSwing = isWalking ? walkCycle * 12 : 0;
+  ctx.fillStyle = a.skin;
+  // Left arm
+  ctx.beginPath();
+  ctx.ellipse(x - r - 4, y + 8 + armSwing, 8, 13, 0.3 + armSwing * 0.02, 0, Math.PI * 2);
+  ctx.fill();
+  // Right arm
+  ctx.beginPath();
+  ctx.ellipse(x + r + 4, y + 8 - armSwing, 8, 13, -0.3 - armSwing * 0.02, 0, Math.PI * 2);
+  ctx.fill();
+
+  // ── Head ──
+  ctx.fillStyle = a.skin;
+  ctx.beginPath();
+  ctx.arc(x, y - r * 0.3, r, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.strokeStyle = darken(a.skin, 0.6);
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // ── Hair ──
+  ctx.fillStyle = a.hair;
+  ctx.beginPath();
+  ctx.arc(x, y - r * 0.3 - 6, r * 0.9, Math.PI, Math.PI * 2);
+  ctx.fill();
+  // Hair top detail
+  ctx.beginPath();
+  ctx.arc(x, y - r * 0.3 - r * 0.5, r * 0.7, Math.PI * 1.1, Math.PI * 1.9);
+  ctx.fill();
+  // Side hair
+  ctx.beginPath();
+  ctx.ellipse(x - r * 0.7, y - r * 0.1, 6, 14, -0.3, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.ellipse(x + r * 0.7, y - r * 0.1, 6, 14, 0.3, 0, Math.PI * 2);
+  ctx.fill();
+
+  // ── Eyes ──
+  ctx.fillStyle = '#1a1a1a';
+  ctx.beginPath();
+  ctx.arc(x - r * 0.28, y - r * 0.3, 4, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(x + r * 0.28, y - r * 0.3, 4, 0, Math.PI * 2);
+  ctx.fill();
+  // Eye shine
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.arc(x - r * 0.28 + 1.5, y - r * 0.3 - 1.5, 1.5, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(x + r * 0.28 + 1.5, y - r * 0.3 - 1.5, 1.5, 0, Math.PI * 2);
+  ctx.fill();
+
+  // ── Mouth (state-based) ──
+  ctx.strokeStyle = darken(a.skin, 0.8);
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  if (a.state === 'RESTING') {
+    // Sleeping: Zzz line
+    ctx.beginPath();
+    ctx.moveTo(x - 8, y - r * 0.05);
+    ctx.lineTo(x + 8, y - r * 0.05);
+    ctx.stroke();
+  } else if (a.state === 'INTERACTING') {
+    // Talking
+    ctx.beginPath();
+    ctx.arc(x, y + r * 0.05, 8, 0, Math.PI);
+    ctx.stroke();
+  } else if (a.state === 'THINKING') {
+    // Small o
+    ctx.beginPath();
+    ctx.arc(x, y - r * 0.05, 4, 0, Math.PI * 2);
+    ctx.stroke();
+  } else {
+    // Working/Normal smile
+    ctx.beginPath();
+    ctx.arc(x, y - r * 0.2, 8, 0.1, Math.PI - 0.1);
+    ctx.stroke();
+  }
+  ctx.lineCap = 'butt';
+
+  // ── Name tag below ──
+  const tagW = ctx.measureText(a.name).width + 24;
+  ctx.font = 'bold 16px Courier New';
+  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  roundRect(x - tagW / 2, y + r + 14, tagW, 24, 6, true, false);
+  ctx.strokeStyle = a.color;
+  ctx.lineWidth = 2;
+  roundRect(x - tagW / 2, y + r + 14, tagW, 24, 6, false, true);
+  ctx.fillStyle = C.text;
+  ctx.textAlign = 'center';
+  ctx.fillText(a.name, x, y + r + 30);
+  ctx.textAlign = 'left';
+
+  // ── Status icon above head ──
+  let statusIcon = '';
+  if (a.state === 'WORKING') statusIcon = '💻';
+  else if (a.state === 'THINKING') statusIcon = '🤔';
+  else if (a.state === 'INTERACTING') statusIcon = '💬';
+  else if (a.state === 'RESTING') statusIcon = '💤';
+  else if (a.state === 'WALKING') statusIcon = '👣';
+
+  ctx.font = '22px Arial';
+  ctx.textAlign = 'center';
+  ctx.fillText(statusIcon, x, y - r * 1.8);
+  ctx.textAlign = 'left';
+
+  // ── Speech Bubble (well above head) ──
+  if (a.speechBubble && a.speechTimer > 0) {
+    drawSpeechBubble(a);
+  }
 }
 
-// ─────────────────────────────────────────────
-//  MAIN DRAW
-// ─────────────────────────────────────────────
+function drawSpeechBubble(a) {
+  const text = a.speechBubble;
+  ctx.font = 'bold 20px Courier New';
+  const tw = ctx.measureText(text).width;
+  const bw = tw + 36, bh = 42;
+  const bx = a.x - bw / 2;
+  const by = a.y - CHAR_R * 2.8; // well above head (r=42, so well clear)
+
+  ctx.fillStyle = '#fff';
+  roundRect(bx, by, bw, bh, 10, true, false);
+  ctx.strokeStyle = C.border;
+  ctx.lineWidth = 2;
+  roundRect(bx, by, bw, bh, 10, false, true);
+
+  // Tail pointing down to character
+  ctx.fillStyle = '#fff';
+  ctx.beginPath();
+  ctx.moveTo(a.x - 10, by + bh);
+  ctx.lineTo(a.x, by + bh + 14);
+  ctx.lineTo(a.x + 10, by + bh);
+  ctx.fill();
+  ctx.strokeStyle = C.border;
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(a.x - 10, by + bh);
+  ctx.lineTo(a.x, by + bh + 14);
+  ctx.lineTo(a.x + 10, by + bh);
+  ctx.stroke();
+
+  // Border covers tail seam
+  ctx.strokeStyle = '#fff';
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(bx, by + bh);
+  ctx.lineTo(a.x - 10, by + bh);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(a.x + 10, by + bh);
+  ctx.lineTo(bx + bw, by + bh);
+  ctx.stroke();
+
+  // Text
+  ctx.fillStyle = C.text;
+  ctx.textAlign = 'center';
+  ctx.fillText(text, a.x, by + 28);
+  ctx.textAlign = 'left';
+}
+
+function drawRestArea() {
+  const z = ZONES.rest;
+  const cx = z.x + z.w / 2, cy = z.y + z.h / 2;
+
+  // Big sofa (center)
+  const sx = cx - 160, sy = cy - 50;
+  // Sofa body
+  ctx.fillStyle = '#e05070';
+  roundRect(sx, sy, 320, 110, 20, true, false);
+  ctx.strokeStyle = '#aa2040';
+  ctx.lineWidth = 3;
+  roundRect(sx, sy, 320, 110, 20, false, true);
+  // Sofa back
+  ctx.fillStyle = '#c84060';
+  roundRect(sx + 5, sy - 30, 310, 40, 12, true, false);
+  // Cushions
+  ctx.fillStyle = '#e87090';
+  roundRect(sx + 20, sy + 15, 90, 60, 10, true, false);
+  roundRect(sx + 120, sy + 15, 90, 60, 10, true, false);
+  roundRect(sx + 220, sy + 15, 80, 60, 10, true, false);
+  // Sofa legs
+  ctx.fillStyle = '#8a3020';
+  ctx.fillRect(sx + 20, sy + 108, 20, 16);
+  ctx.fillRect(sx + sx + 280, sy + 108, 20, 16);
+
+  // Coffee table
+  ctx.fillStyle = '#c8a060';
+  roundRect(cx - 80, cy + 90, 160, 50, 8, true, false);
+  ctx.strokeStyle = '#8a6030';
+  ctx.lineWidth = 2;
+  roundRect(cx - 80, cy + 90, 160, 50, 8, false, true);
+  // Coffee cup on table
+  ctx.fillStyle = '#fff8e0';
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + 100, 14, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.fillStyle = '#6b3010';
+  ctx.beginPath();
+  ctx.ellipse(cx, cy + 97, 14, 8, 0, 0, Math.PI * 2);
+  ctx.fill();
+  // Steam
+  ctx.strokeStyle = 'rgba(150,150,150,0.6)';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.moveTo(cx - 5, cy + 85); ctx.quadraticCurveTo(cx - 10, cy + 78, cx - 5, cy + 72);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(cx + 5, cy + 85); ctx.quadraticCurveTo(cx + 10, cy + 78, cx + 5, cy + 72);
+  ctx.stroke();
+
+  // Game table (right)
+  ctx.fillStyle = '#38b000';
+  roundRect(cx + 180, cy - 30, 120, 90, 10, true, false);
+  ctx.strokeStyle = '#1a7a00';
+  ctx.lineWidth = 2;
+  roundRect(cx + 180, cy - 30, 120, 90, 10, false, true);
+  ctx.font = 'bold 28px Courier New';
+  ctx.fillStyle = '#fff';
+  ctx.textAlign = 'center';
+  ctx.fillText('🎮', cx + 240, cy + 20);
+  ctx.textAlign = 'left';
+
+  // Rest area label
+  ctx.font = 'bold 20px Courier New';
+  ctx.fillStyle = '#e05070';
+  ctx.fillText('休息一下~ 充电后再出发', cx - 140, z.y + z.h - 20);
+
+  // Plants
+  drawPlant(z.x + 40, z.y + z.h - 80, '🌿');
+  drawPlant(z.x + z.w - 60, z.y + z.h - 80, '🌵');
+  drawPlant(z.x + z.w - 120, z.y + z.h - 80, '🪴');
+}
+
+function drawPlant(px, py, emoji) {
+  ctx.font = '36px Arial';
+  ctx.fillText(emoji, px, py);
+}
+
+function drawRestingAgent(a) {
+  // When in rest zone, agent sits on sofa/chair
+  const x = a.x, y = a.y;
+  const r = CHAR_R * 0.85;
+
+  // Shadow
+  ctx.fillStyle = 'rgba(0,0,0,0.12)';
+  ctx.beginPath();
+  ctx.ellipse(x, y + r + 4, r * 1.2, 6, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Body (relaxed)
+  ctx.fillStyle = a.shirt;
+  ctx.beginPath();
+  ctx.ellipse(x, y + 10, r * 1.1, r * 0.9, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Head
+  ctx.fillStyle = a.skin;
+  ctx.beginPath();
+  ctx.arc(x, y - r * 0.5, r * 0.9, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Hair
+  ctx.fillStyle = a.hair;
+  ctx.beginPath();
+  ctx.arc(x, y - r * 0.5 - 5, r * 0.8, Math.PI, Math.PI * 2);
+  ctx.fill();
+
+  // Eyes (sleeping: lines)
+  ctx.strokeStyle = '#1a1a1a';
+  ctx.lineWidth = 2.5;
+  ctx.lineCap = 'round';
+  ctx.beginPath();
+  ctx.moveTo(x - r * 0.35, y - r * 0.5);
+  ctx.lineTo(x - r * 0.1, y - r * 0.5);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(x + r * 0.1, y - r * 0.5);
+  ctx.lineTo(x + r * 0.35, y - r * 0.5);
+  ctx.stroke();
+  ctx.lineCap = 'butt';
+
+  // Zzz
+  if (Math.floor(a.animFrame / 40) % 3 === 0) {
+    ctx.font = '18px Arial';
+    ctx.fillStyle = C.accent;
+    ctx.fillText('Z', x + r + 5, y - r * 1.5);
+  }
+  if (Math.floor(a.animFrame / 40) % 3 === 1) {
+    ctx.font = '14px Arial';
+    ctx.fillStyle = C.accent;
+    ctx.fillText('z', x + r + 18, y - r * 2);
+  }
+
+  // Name tag
+  ctx.font = 'bold 15px Courier New';
+  ctx.fillStyle = '#fff';
+  roundRect(x - 28, y + r + 10, 56, 22, 5, true, false);
+  ctx.strokeStyle = a.color;
+  ctx.lineWidth = 1.5;
+  roundRect(x - 28, y + r + 10, 56, 22, 5, false, true);
+  ctx.fillStyle = C.text;
+  ctx.textAlign = 'center';
+  ctx.fillText(a.name, x, y + r + 25);
+  ctx.textAlign = 'left';
+
+  // Speech bubble
+  if (a.speechBubble && a.speechTimer > 0) {
+    drawSpeechBubble(a);
+  }
+}
+
+// ─── Utility Drawing ─────────────────────────────────────────
+function roundRect(x, y, w, h, r, fill, stroke) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+  if (fill) ctx.fill();
+  if (stroke) ctx.stroke();
+}
+
+function lighten(hex, amount) {
+  const c = parseInt(hex.slice(1), 16);
+  const r = Math.min(255, ((c >> 16) & 0xff) + Math.round(amount * 255));
+  const g = Math.min(255, ((c >> 8) & 0xff) + Math.round(amount * 255));
+  const b = Math.min(255, (c & 0xff) + Math.round(amount * 255));
+  return `rgb(${r},${g},${b})`;
+}
+
+function darken(hex, amount) {
+  const c = parseInt(hex.slice(1), 16);
+  const r = Math.max(0, ((c >> 16) & 0xff) - Math.round(amount * 255));
+  const g = Math.max(0, ((c >> 8) & 0xff) - Math.round(amount * 255));
+  const b = Math.max(0, (c & 0xff) - Math.round(amount * 255));
+  return `rgb(${r},${g},${b})`;
+}
+
+// ─── Main Draw ───────────────────────────────────────────────
 function draw() {
-  ctx.clearRect(0, 0, W, H);
-
-  // Background
-  ctx.fillStyle = '#0d0a06';
-  ctx.fillRect(0, 0, W, H);
-
-  // Draw 4 areas
-  for (const key in AREAS) drawArea(AREAS[key]);
-
-  // Dividers
-  drawDividers();
-
-  // Rest area furniture
+  drawBg();
+  drawZones();
   drawRestArea();
 
   // Draw desks
-  // CoPaw desk
-  drawDesk(170, 155, 90, 60, '#3a2a10', true);
-  drawNameplate(170, 155, '诸葛灯泡 💡', '#f5c542');
+  AGENTS.forEach(a => drawDesk(a));
 
-  // CrewAI desks
-  const crewDesks = [
-    {x:560,y:115}, {x:740,y:115}, {x:920,y:115},
-    {x:620,y:235}, {x:820,y:235}
-  ];
-  const crewNames = ['船长 🧑‍✈️','探长 🕵️','秀才 🧑‍🏫','巧匠 👨‍🔧','掌柜 🧑‍💼'];
-  crewDesks.forEach((d,i) => {
-    drawDesk(d.x, d.y, 80, 50, '#0a2038', true);
-    drawNameplate(d.x, d.y, crewNames[i], '#4da6d4');
-  });
-
-  // OpenClaw desks
-  drawDesk(195, 445, 80, 50, '#0a2018', true);
-  drawNameplate(195, 445, '小花 🐱', '#52c47a');
-  drawDesk(355, 445, 80, 50, '#0a2018', true);
-  drawNameplate(355, 445, '工程师 👨‍💻', '#52c47a');
-
-  // Draw agents (sorted by y for depth)
-  const sorted = [...AGENTS].sort((a,b) => a.y - b.y);
-  sorted.forEach(a => {
-    const highlight = selectedAgent && selectedAgent.id === a.id;
-    drawPerson(a.x, a.y, a, highlight);
-    if (a.bubbleText) drawBubble(a.x, a.y, a.bubbleText);
+  // Draw characters
+  AGENTS.forEach(a => {
+    const inRest = a.state === 'RESTING' && zoneFor(a.x, a.y) === 'rest';
+    if (inRest) {
+      drawRestingAgent(a);
+    } else {
+      drawCharacter(a);
+    }
   });
 }
 
-// ─────────────────────────────────────────────
-//  GAME LOOP
-// ─────────────────────────────────────────────
-let lastTime = 0;
-function loop(ts) {
-  const dt = Math.min(ts - lastTime, 50);
-  lastTime = ts;
+// ─── Click Interaction ────────────────────────────────────────
+canvas.addEventListener('click', e => {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = W / rect.width;
+  const scaleY = H / rect.height;
+  const mx = (e.clientX - rect.left) * scaleX;
+  const my = (e.clientY - rect.top) * scaleY;
 
-  AGENTS.forEach(a => updateAgent(a, dt));
-  updateStats();
+  for (const a of AGENTS) {
+    if (dist(mx, my, a.x, a.y) < CHAR_R + 20) {
+      openDetail(a);
+      return;
+    }
+  }
+});
+
+function openDetail(a) {
+  document.getElementById('d-avatar').textContent = a.emoji;
+  document.getElementById('d-name').textContent = a.name;
+  document.getElementById('d-role').textContent = a.job;
+  document.getElementById('d-status').textContent = a.state;
+  document.getElementById('d-task').textContent = a.job;
+  document.getElementById('d-mood').textContent = '⭐'.repeat(a.mood) + '☆'.repeat(10 - a.mood) + ' ' + a.mood + '/10';
+  document.getElementById('d-tokens').textContent = a.tokens;
+  document.getElementById('d-journal').textContent = a.journal;
+
+  const teamColors = { CoPaw:'#fff9e6', CrewAI:'#d0e8ff', OpenClaw:'#c0f0d8' };
+  const teamEl = document.getElementById('d-team');
+  teamEl.textContent = a.team;
+  teamEl.style.background = teamColors[a.team] || '#eee';
+  teamEl.style.color = a.team === 'CoPaw' ? '#C88A00' : a.team === 'CrewAI' ? '#004F8A' : '#1A7A00';
+
+  document.getElementById('detailPanel').classList.add('open');
+}
+
+function closeDetail() {
+  document.getElementById('detailPanel').classList.remove('open');
+}
+
+document.getElementById('detailPanel').addEventListener('click', e => {
+  if (e.target === document.getElementById('detailPanel')) closeDetail();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+// ─── Game Loop ───────────────────────────────────────────────
+function loop() {
+  update();
   draw();
   requestAnimationFrame(loop);
 }
-
-requestAnimationFrame(loop);
+loop();
 </script>
 </body>
 </html>

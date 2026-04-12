@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - 点亮你的每一个灵感</title>
+    <meta name="description" content="诸葛灯泡AI团队，一个普通人出身的创业者和他的AI龙虾团队，不睡觉，不摸鱼，永不打烊。">
+    <meta name="keywords" content="AI团队, AI Agent, 诸葛团队, 数字团队, 创业">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="诸葛灯泡 - 点亮你的每一个灵感">
+    <meta property="og:description" content="一个普通人出身的创业者，和他的AI龙虾团队">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts - 手写风格字体 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS 变量系统 - 手绘温暖风配色方案
+           ======================================== */
+        :root {
+            /* 暖色调配色 */
+            --bg-cream: #FFF9E6;          /* 米白背景 */
+            --bg-warm: #FFF5E1;          /* 暖黄背景 */
+            --card-bg: #FFFCF5;           /* 卡片背景 */
+            --accent-yellow: #FFB703;      /* 橙黄强调 */
+            --accent-orange: #FF8C42;      /* 橙色点缀 */
+            --accent-brown: #D4A87C;      /* 暖棕主色 */
+            --text-dark: #5A4A42;          /* 深棕文字 */
+            --text-muted: #8A7A72;        /* 浅棕文字 */
+            --border-soft: #E8DCC8;        /* 柔和边框 */
+            --shadow-warm: rgba(139, 90, 43, 0.12);  /* 温暖阴影 */
+            
+            /* 手写字体 */
+            --font-hand: 'Caveat', cursive;
+            --font-body: 'Noto Sans SC', -apple-system, sans-serif;
+            
+            /* 手绘边框 - 不规则圆角 */
+            --radius-sm: 8px 6px 10px 4px;
+            --radius-md: 12px 8px 14px 6px;
+            --radius-lg: 16px 10px 20px 8px;
+            --radius-xl: 20px 12px 25px 10px;
+            --radius-round: 50% 50% 50% 50% / 50% 50% 50% 50%;
+        }
+        
+        /* ========================================
+           基础重置与全局样式
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            /* 手绘点阵背景纹理 */
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(255, 183, 3, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 80% 70%, rgba(212, 168, 124, 0.1) 1px, transparent 1px);
+            background-size: 30px 30px;
+            min-height: 100vh;
+        }
+        
+        a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-brown);
+        }
+        
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        /* ========================================
+           容器与布局
+           ======================================== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ========================================
+           导航栏 - 手绘风格
+           ======================================== */
+        .nav {
+            background: var(--card-bg);
+            border-bottom: 3px solid var(--border-soft);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            /* 手绘阴影 */
+            box-shadow: 0 4px 12px var(--shadow-warm);
+        }
+        
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-brand {
+            font-family: var(--font-hand);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-brown);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-brand:hover {
+            color: var(--accent-orange);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            font-family: var(--font-hand);
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            padding: 5px 15px;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--accent-yellow);
+            color: var(--text-dark);
+        }
+        
+        /* 移动端菜单 */
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        /* ========================================
+           Hero 区域 - 手绘灯泡插图
+           ======================================== */
+        .hero {
+            padding: 80px 0 60px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .hero-bulb {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 30px;
+            position: relative;
+            /* 轻微旋转模拟手绘 */
+            transform: rotate(-3deg);
+        }
+        
+        /* 手绘灯泡 SVG */
+        .hero-bulb svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(4px 4px 0 var(--border-soft));
+        }
+        
+        .hero-title {
+            font-family: var(--font-hand);
+            font-size: 3.5rem;
+            color: var(--accent-brown);
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0 var(--border-soft);
+            letter-spacing: 3px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .hero-tagline {
+            font-family: var(--font-hand);
+            font-size: 1.6rem;
+            color: var(--accent-orange);
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: var(--bg-warm);
+            border: 2px dashed var(--accent-yellow);
+            border-radius: var(--radius-lg);
+            display: inline-block;
+        }
+        
+        /* ========================================
+           内容区块 - 通用卡片样式
+           ======================================== */
+        .section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            font-family: var(--font-hand);
+            font-size: 2.2rem;
+            color: var(--accent-brown);
+            margin-bottom: 35px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-yellow);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+        
+        /* 手绘卡片 */
+        .card {
+            background: var(--card-bg);
+            border: 3px solid var(--border-soft);
+            border-radius: var(--radius-xl);
+            padding: 25px;
+            box-shadow: 6px 6px 0 var(--border-soft);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: 10px 10px 0 var(--accent-yellow);
+            border-color: var(--accent-yellow);
+        }
+        
+        /* ========================================
+           野外笔记预览 - 3张卡片
+           ======================================== */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .note-card {
+            cursor: pointer;
+        }
+        
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 15px;
+            width: 40px;
+            height: 20px;
+            background: var(--accent-yellow);
+            border: 2px solid var(--border-soft);
+            border-radius: 20px 20px 0 0;
+        }
+        
+        .note-thumb {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(135deg, var(--bg-warm) 0%, var(--accent-yellow) 100%);
+            border-radius: var(--radius-md);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            /* 手绘边框效果 */
+            border: 2px dashed var(--border-soft);
+        }
+        
+        .note-title {
+            font-family: var(--font-hand);
+            font-size: 1.5rem;
+            color: var(--accent-brown);
+            margin-bottom: 8px;
+        }
+        
+        .note-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+        
+        .note-summary {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .note-tags {
+            display: flex;
+            gap: 8px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .note-tag {
+            font-size: 0.75rem;
+            padding: 3px 10px;
+            background: var(--bg-warm);
+            border: 1px solid var(--border-soft);
+            border-radius: 12px;
+            color: var(--text-muted);
+        }
+        
+        /* ========================================
+           关于我们区块
+           ======================================== */
+        .about-section {
+            background: var(--bg-warm);
+            border-top: 3px solid var(--border-soft);
+            border-bottom: 3px solid var(--border-soft);
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+        
+        .about-text h3 {
+            font-family: var(--font-hand);
+            font-size: 2rem;
+            color: var(--accent-brown);
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 15px;
+            color: var(--text-dark);
+        }
+        
+        .about-team {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-avatar {
+            width: 60px;
+            height: 60px;
+            background: var(--accent-yellow);
+            border: 3px solid var(--border-soft);
+            border-radius: var(--radius-round);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin: 0 auto 8px;
+        }
+        
+        .team-name {
+            font-family: var(--font-hand);
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+        
+        .about-visual {
+            text-align: center;
+        }
+        
+        .about-visual .illustration {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        
+        /* ========================================
+           页脚 - 手绘风格
+           ======================================== */
+        .footer {
+            background: var(--card-bg);
+            border-top: 3px solid var(--border-soft);
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-lamp {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-tagline {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: var(--accent-brown);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .footer-links a {
+            font-size: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            transform: scale(1.2);
+        }
+        
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .footer-copy span {
+            color: var(--accent-orange);
+        }
+        
+        /* ========================================
+           响应式设计
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-bottom: 3px solid var(--border-soft);
+                box-shadow: 0 4px 12px var(--shadow-warm);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .hero {
+                padding: 50px 0 40px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+                padding: 0 15px;
+            }
+            
+            .hero-tagline {
+                font-size: 1.3rem;
+                padding: 10px 20px;
+            }
+            
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .about-visual {
+                order: -1;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-bulb {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .footer-links {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         导航栏
+         ======================================== -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="index.html" class="nav-brand">
+                💡 诸葛灯泡
+            </a>
+            <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="active">首页</a>
+                <a href="pages/field-notes.html">野外笔记</a>
+                <a href="#about">关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ========================================
+         Hero 区域
+         ======================================== -->
+    <section class="hero">
+        <div class="container">
+            <!-- 手绘灯泡插图 -->
+            <div class="hero-bulb">
+                <svg viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- 灯泡主体 - 手绘风格 -->
+                    <ellipse cx="50" cy="45" rx="35" ry="38" fill="#FFF5DC" stroke="#D4A87C" stroke-width="3" stroke-linecap="round"/>
+                    <!-- 灯丝 -->
+                    <path d="M40 45 Q50 35 60 45" stroke="#FFB703" stroke-width="3" stroke-linecap="round" fill="none"/>
+                    <path d="M43 50 Q50 40 57 50" stroke="#FF8C42" stroke-width="2" stroke-linecap="round" fill="none"/>
+                    <!-- 高光 -->
+                    <ellipse cx="38" cy="35" rx="8" ry="12" fill="white" opacity="0.6"/>
+                    <!-- 灯泡底部 -->
+                    <rect x="35" y="80" width="30" height="12" rx="3" fill="#D4A87C" stroke="#D4A87C" stroke-width="2"/>
+                    <!-- 螺纹 -->
+                    <path d="M32 92 L68 92" stroke="#D4A87C" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M30 98 L70 98" stroke="#D4A87C" stroke-width="4" stroke-linecap="round"/>
+                    <!-- 光芒 -->
+                    <circle cx="15" cy="25" r="3" fill="#FFB703" opacity="0.8"/>
+                    <circle cx="85" cy="30" r="2" fill="#FFB703" opacity="0.6"/>
+                    <circle cx="12" cy="55" r="2" fill="#FFB703" opacity="0.5"/>
+                    <circle cx="88" cy="60" r="3" fill="#FFB703" opacity="0.7"/>
+                </svg>
+            </div>
+            
+            <h1 class="hero-title">诸葛灯泡</h1>
+            <p class="hero-subtitle">一个普通人出身的创业者，和他的 AI 龙虾团队。不睡觉，不摸鱼，永不打烊。</p>
+            <div class="hero-tagline">✨ 点亮你的每一个灵感</div>
+        </div>
+    </section>
+    
+    <!-- ========================================
+         最新笔记预览
+         ======================================== -->
+    <section class="section" id="notes">
+        <div class="container">
+            <h2 class="section-title">📝 最新野外笔记</h2>
+            <div class="notes-grid">
+                <!-- 笔记卡片 1 -->
+                <article class="card note-card" onclick="goToNote('note-001')">
+                    <div class="note-thumb">🌊</div>
+                    <h3 class="note-title">AI 时代的创业思考</h3>
+                    <p class="note-date">2026-04-10</p>
+                    <p class="note-summary">在AI浪潮中，普通人如何找到自己的定位？分享一些关于人机协作的实战心得。</p>
+                    <div class="note-tags">
+                        <span class="note-tag">#创业</span>
+                        <span class="note-tag">#AI</span>
+                    </div>
+                </article>
+                
+                <!-- 笔记卡片 2 -->
+                <article class="card note-card" onclick="goToNote('note-002')">
+                    <div class="note-thumb">📊</div>
+                    <h3 class="note-title">数据驱动的内容运营</h3>
+                    <p class="note-date">2026-04-08</p>
+                    <p class="note-summary">如何用数据思维指导内容创作？从选题到分发，我的完整工作流分享。</p>
+                    <div class="note-tags">
+                        <span class="note-tag">#运营</span>
+                        <span class="note-tag">#数据</span>
+                    </div>
+                </article>
+                
+                <!-- 笔记卡片 3 -->
+                <article class="card note-card" onclick="goToNote('note-003')">
+                    <div class="note-thumb">🚀</div>
+                    <h3 class="note-title">小团队的高效协作实践</h3>
+                    <p class="note-date">2026-04-05</p>
+                    <p class="note-summary">5个AI Agent + 1个真实公司，我们是如何做到7×24小时运转的？</p>
+                    <div class="note-tags">
+                        <span class="note-tag">#协作</span>
+                        <span class="note-tag">#团队</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========================================
+         关于我们
+         ======================================== -->
+    <section class="section about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">👥 关于我们</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>诸葛灯泡团队</h3>
+                    <p>我们是一个由人类和AI共同组成的创业团队。创始人老庄负责方向把控，AI Agent们各司其职：探长负责情报分析、秀才负责内容创作、巧匠负责技术开发、掌柜负责运营协调。</p>
+                    <p>在这里，你可以看到最真实的AI团队工作状态，也可以了解我们如何用AI工具提升创业效率。</p>
+                    <div class="about-team">
+                        <div class="team-member">
+                            <div class="team-avatar">🔍</div>
+                            <span class="team-name">探长</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">📝</div>
+                            <span class="team-name">秀才</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">🔧</div>
+                            <span class="team-name">巧匠</span>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-avatar">🦞</div>
+                            <span class="team-name">掌柜</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-visual">
+                    <div class="illustration">
+                        <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- 背景圆 -->
+                            <circle cx="100" cy="100" r="90" fill="#FFF5DC" stroke="#D4A87C" stroke-width="3"/>
+                            <!-- 龙虾剪影 -->
+                            <ellipse cx="100" cy="110" rx="50" ry="35" fill="#FF8C42"/>
+                            <circle cx="80" cy="95" r="8" fill="white"/>
+                            <circle cx="82" cy="96" r="4" fill="#333"/>
+                            <circle cx="120" cy="95" r="8" fill="white"/>
+                            <circle cx="122" cy="96" r="4" fill="#333"/>
+                            <ellipse cx="100" cy="120" rx="15" ry="8" fill="#D4A87C"/>
+                            <path d="M70 75 Q65 60 55 65" stroke="#FF8C42" stroke-width="4" stroke-linecap="round"/>
+                            <path d="M130 75 Q135 60 145 65" stroke="#FF8C42" stroke-width="4" stroke-linecap="round"/>
+                            <!-- 灯泡符号 -->
+                            <text x="100" y="55" text-anchor="middle" font-size="24">💡</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- ========================================
+         页脚
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-lamp">💡</div>
+            <p class="footer-tagline">欢迎常来，这里永远亮着一盏灯</p>
+            <div class="footer-links">
+                <a href="https://github.com/bjd1129-create" title="GitHub">🐙</a>
+                <a href="#" title="Twitter/X">🐦</a>
+                <a href="#" title="微信">💬</a>
+            </div>
+            <p class="footer-copy">
+                © 2026 诸葛灯泡 | 用<span>AI</span>点亮未来
+            </p>
+        </div>
+    </footer>
+    
+    <!-- ========================================
+         JavaScript
+         ======================================== -->
+    <script>
+        // 移动端菜单切换
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // 跳转到笔记详情（预留路由）
+        function goToNote(noteId) {
+            // 实际项目中可以跳转到 note.html?id=noteId
+            console.log('跳转到笔记:', noteId);
+            alert('笔记详情页开发中，敬请期待！\n\n笔记ID: ' + noteId);
+        }
+        
+        // 点击导航链接关闭移动端菜单
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

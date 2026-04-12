@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>野外笔记 | 诸葛灯泡</title>
+    <meta name="description" content="诸葛灯泡团队的野外笔记，记录创业路上的思考、实践与发现。">
+    <meta name="keywords" content="野外笔记, 创业, AI, 团队协作, 内容运营">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="野外笔记 | 诸葛灯泡">
+    <meta property="og:description" content="诸葛灯泡团队的野外笔记，记录创业路上的思考与实践">
+    <meta property="og:type" content="website">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================
+           CSS 变量系统 - 与首页保持一致
+           ======================================== */
+        :root {
+            /* 暖色调配色 */
+            --bg-cream: #FFF9E6;
+            --bg-warm: #FFF5E1;
+            --card-bg: #FFFCF5;
+            --accent-yellow: #FFB703;
+            --accent-orange: #FF8C42;
+            --accent-brown: #D4A87C;
+            --text-dark: #5A4A42;
+            --text-muted: #8A7A72;
+            --border-soft: #E8DCC8;
+            --shadow-warm: rgba(139, 90, 43, 0.12);
+            
+            /* 字体 */
+            --font-hand: 'Caveat', cursive;
+            --font-body: 'Noto Sans SC', -apple-system, sans-serif;
+            
+            /* 手绘边框 */
+            --radius-sm: 8px 6px 10px 4px;
+            --radius-md: 12px 8px 14px 6px;
+            --radius-lg: 16px 10px 20px 8px;
+            --radius-xl: 20px 12px 25px 10px;
+        }
+        
+        /* ========================================
+           基础重置
+           ======================================== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background-color: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            background-image: 
+                radial-gradient(circle at 15% 25%, rgba(255, 183, 3, 0.08) 1px, transparent 1px),
+                radial-gradient(circle at 85% 75%, rgba(212, 168, 124, 0.1) 1px, transparent 1px);
+            background-size: 28px 28px;
+            min-height: 100vh;
+        }
+        
+        a {
+            color: var(--accent-orange);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+        
+        a:hover {
+            color: var(--accent-brown);
+        }
+        
+        /* ========================================
+           布局容器
+           ======================================== */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* ========================================
+           导航栏
+           ======================================== */
+        .nav {
+            background: var(--card-bg);
+            border-bottom: 3px solid var(--border-soft);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px var(--shadow-warm);
+        }
+        
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-brand {
+            font-family: var(--font-hand);
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-brown);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .nav-brand:hover {
+            color: var(--accent-orange);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            font-family: var(--font-hand);
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            padding: 5px 15px;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+        }
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            background: var(--accent-yellow);
+            color: var(--text-dark);
+        }
+        
+        .nav-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
+        }
+        
+        /* ========================================
+           页面头部
+           ======================================== */
+        .page-header {
+            padding: 60px 0 40px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-family: var(--font-hand);
+            font-size: 3rem;
+            color: var(--accent-brown);
+            margin-bottom: 15px;
+            text-shadow: 3px 3px 0 var(--border-soft);
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* ========================================
+           搜索与筛选
+           ======================================== */
+        .filters {
+            background: var(--card-bg);
+            border: 3px solid var(--border-soft);
+            border-radius: var(--radius-xl);
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 6px 6px 0 var(--border-soft);
+        }
+        
+        .search-box {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 12px 20px;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            border: 2px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            transition: all 0.2s ease;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-yellow);
+            box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.2);
+        }
+        
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+        
+        .tag-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tag {
+            font-family: var(--font-hand);
+            font-size: 1rem;
+            padding: 6px 16px;
+            background: var(--bg-warm);
+            border: 2px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-dark);
+        }
+        
+        .filter-tag:hover,
+        .filter-tag.active {
+            background: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+            transform: translateY(-2px);
+        }
+        
+        /* ========================================
+           笔记卡片网格
+           ======================================== */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        /* 笔记卡片 */
+        .note-card {
+            background: var(--card-bg);
+            border: 3px solid var(--border-soft);
+            border-radius: var(--radius-xl);
+            padding: 25px;
+            box-shadow: 6px 6px 0 var(--border-soft);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-8px) rotate(1deg);
+            box-shadow: 12px 12px 0 var(--accent-yellow);
+            border-color: var(--accent-yellow);
+        }
+        
+        /* 书签角标 */
+        .note-card::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            width: 45px;
+            height: 25px;
+            background: var(--accent-yellow);
+            border: 2px solid var(--border-soft);
+            border-radius: 25px 25px 0 0;
+        }
+        
+        /* 缩略图 */
+        .note-thumb {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, var(--bg-warm) 0%, var(--accent-yellow) 50%, var(--accent-orange) 100%);
+            border-radius: var(--radius-lg);
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            border: 2px dashed var(--border-soft);
+        }
+        
+        /* 笔记标题 */
+        .note-title {
+            font-family: var(--font-hand);
+            font-size: 1.6rem;
+            color: var(--accent-brown);
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+        
+        /* 日期 */
+        .note-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        /* 摘要 */
+        .note-summary {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        /* 标签 */
+        .note-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .note-tag {
+            font-size: 0.75rem;
+            padding: 4px 12px;
+            background: var(--bg-warm);
+            border: 1px solid var(--border-soft);
+            border-radius: 15px;
+            color: var(--text-muted);
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 40px;
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: var(--text-muted);
+        }
+        
+        /* 无结果 */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            background: var(--card-bg);
+            border: 3px dashed var(--border-soft);
+            border-radius: var(--radius-xl);
+        }
+        
+        .no-results-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+        }
+        
+        .no-results-title {
+            font-family: var(--font-hand);
+            font-size: 1.8rem;
+            color: var(--accent-brown);
+            margin-bottom: 10px;
+        }
+        
+        .no-results-text {
+            color: var(--text-muted);
+        }
+        
+        /* ========================================
+           分页
+           ======================================== */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin: 50px 0;
+        }
+        
+        .page-btn {
+            font-family: var(--font-hand);
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            background: var(--card-bg);
+            border: 2px solid var(--border-soft);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-dark);
+        }
+        
+        .page-btn:hover:not(:disabled) {
+            background: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+            transform: translateY(-2px);
+        }
+        
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .page-btn.active {
+            background: var(--accent-yellow);
+            border-color: var(--accent-yellow);
+        }
+        
+        .page-info {
+            font-family: var(--font-hand);
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            padding: 0 15px;
+        }
+        
+        /* ========================================
+           页脚
+           ======================================== */
+        .footer {
+            background: var(--card-bg);
+            border-top: 3px solid var(--border-soft);
+            padding: 40px 0 30px;
+            text-align: center;
+        }
+        
+        .footer-lamp {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .footer-tagline {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: var(--accent-brown);
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .footer-links a {
+            font-size: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            transform: scale(1.2);
+        }
+        
+        .footer-copy {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        
+        .footer-copy span {
+            color: var(--accent-orange);
+        }
+        
+        /* ========================================
+           响应式设计
+           ======================================== */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--card-bg);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-bottom: 3px solid var(--border-soft);
+                box-shadow: 0 4px 12px var(--shadow-warm);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-toggle {
+                display: block;
+            }
+            
+            .page-header {
+                padding: 40px 0 30px;
+            }
+            
+            .page-title {
+                font-size: 2.2rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pagination {
+                flex-wrap: wrap;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .note-card {
+                padding: 20px;
+            }
+            
+            .note-thumb {
+                height: 150px;
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ========================================
+         导航栏
+         ======================================== -->
+    <nav class="nav">
+        <div class="container nav-inner">
+            <a href="../index.html" class="nav-brand">
+                💡 诸葛灯泡
+            </a>
+            <div class="nav-toggle" onclick="toggleMenu()">☰</div>
+            <div class="nav-links" id="navLinks">
+                <a href="../index.html">首页</a>
+                <a href="field-notes.html" class="active">野外笔记</a>
+                <a href="../index.html#about">关于</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- ========================================
+         页面头部
+         ======================================== -->
+    <header class="page-header">
+        <div class="container">
+            <h1 class="page-title">📓 野外笔记</h1>
+            <p class="page-subtitle">记录创业路上的思考、实践与发现。每一篇都是真实的成长脚印。</p>
+        </div>
+    </header>
+    
+    <!-- ========================================
+         搜索与筛选
+         ======================================== -->
+    <section class="container">
+        <div class="filters">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput" 
+                    placeholder="🔍 搜索笔记标题或内容..."
+                    oninput="filterNotes()"
+                >
+            </div>
+            <div class="tag-filters" id="tagFilters">
+                <span class="filter-tag active" data-tag="all" onclick="filterByTag('all')">全部</span>
+                <span class="filter-tag" data-tag="创业" onclick="filterByTag('创业')">#创业</span>
+                <span class="filter-tag" data-tag="AI" onclick="filterByTag('AI')">#AI</span>
+                <span class="filter-tag" data-tag="运营" onclick="filterByTag('运营')">#运营</span>
+                <span class="filter-tag" data-tag="团队" onclick="filterByTag('团队')">#团队</span>
+                <span class="filter-tag" data-tag="技术" onclick="filterByTag('技术')">#技术</span>
+                <span class="filter-tag" data-tag="生活" onclick="filterByTag('生活')">#生活</span>
+            </div>
+        </div>
+        
+        <!-- 笔记网格 -->
+        <div class="notes-grid" id="notesGrid">
+            <!-- 笔记卡片将由 JavaScript 动态生成 -->
+        </div>
+        
+        <!-- 无结果提示 -->
+        <div class="no-results" id="noResults" style="display: none;">
+            <div class="no-results-icon">🔍</div>
+            <h3 class="no-results-title">没有找到相关笔记</h3>
+            <p class="no-results-text">试试其他关键词或标签吧~</p>
+        </div>
+        
+        <!-- 分页 -->
+        <div class="pagination" id="pagination">
+            <button class="page-btn" id="prevBtn" onclick="prevPage()">← 上一页</button>
+            <span class="page-info" id="pageInfo">第 1 / 1 页</span>
+            <button class="page-btn" id="nextBtn" onclick="nextPage()">下一页 →</button>
+        </div>
+    </section>
+    
+    <!-- ========================================
+         页脚
+         ======================================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-lamp">💡</div>
+            <p class="footer-tagline">欢迎常来，这里永远亮着一盏灯</p>
+            <div class="footer-links">
+                <a href="https://github.com/bjd1129-create" title="GitHub">🐙</a>
+                <a href="#" title="Twitter/X">🐦</a>
+                <a href="#" title="微信">💬</a>
+            </div>
+            <p class="footer-copy">
+                © 2026 诸葛灯泡 | 用<span>AI</span>点亮未来
+            </p>
+        </div>
+    </footer>
+    
+    <!-- ========================================
+         JavaScript
+         ======================================== -->
+    <script>
+        // ========================================
+        // 笔记数据
+        // ========================================
+        const notesData = [
+            {
+                id: 'note-001',
+                title: 'AI 时代的创业思考',
+                date: '2026-04-10',
+                emoji: '🌊',
+                summary: '在AI浪潮中，普通人如何找到自己的定位？分享一些关于人机协作的实战心得。从选题到执行，我摸索出了一套适合自己的工作流。',
+                tags: ['创业', 'AI']
+            },
+            {
+                id: 'note-002',
+                title: '数据驱动的内容运营',
+                date: '2026-04-08',
+                emoji: '📊',
+                summary: '如何用数据思维指导内容创作？从选题到分发，我的完整工作流分享。数据不是万能的，但没有数据是万万不能的。',
+                tags: ['运营', '数据']
+            },
+            {
+                id: 'note-003',
+                title: '小团队的高效协作实践',
+                date: '2026-04-05',
+                emoji: '🚀',
+                summary: '5个AI Agent + 1个真实公司，我们是如何做到7×24小时运转的？揭秘团队协作的底层逻辑。',
+                tags: ['团队', '协作']
+            },
+            {
+                id: 'note-004',
+                title: '从0到1的产品开发之路',
+                date: '2026-04-03',
+                emoji: '💡',
+                summary: '产品MVP应该如何定义？如何在资源有限的情况下快速验证想法？分享一些踩坑经验和避坑指南。',
+                tags: ['创业', '产品']
+            },
+            {
+                id: 'note-005',
+                title: 'AI 写作工具使用心得',
+                date: '2026-04-01',
+                emoji: '✍️',
+                summary: '用了半年AI写作助手，总结出一套高效提示词模板。不吹不黑，真实分享AI能做什么、不能做什么。',
+                tags: ['AI', '工具']
+            },
+            {
+                id: 'note-006',
+                title: '每周复盘模板分享',
+                date: '2026-03-28',
+                emoji: '📅',
+                summary: '坚持每周复盘已经超过100周，这套模板帮我从混沌中找到方向。免费分享给大家~',
+                tags: ['方法论', '效率']
+            },
+            {
+                id: 'note-007',
+                title: '创业者的至暗时刻',
+                date: '2026-03-25',
+                emoji: '🌑',
+                summary: '每个创业者都有想放弃的时刻。分享我最难熬的那段时间，以及如何走出来的真实经历。',
+                tags: ['创业', '生活']
+            },
+            {
+                id: 'note-008',
+                title: '用户反馈的正确打开方式',
+                date: '2026-03-22',
+                emoji: '💬',
+                summary: '用户骂你的时候，其实是爱你。分享如何把用户反馈变成产品迭代的燃料。',
+                tags: ['运营', '产品']
+            },
+            {
+                id: 'note-009',
+                title: '技术选型的思考框架',
+                date: '2026-03-20',
+                emoji: '⚙️',
+                summary: '技术选型不是选最新的，而是选最合适的。从成本、维护、社区三个维度聊聊我的思考。',
+                tags: ['技术', '创业']
+            },
+            {
+                id: 'note-010',
+                title: '早起工作真的高效吗？',
+                date: '2026-03-18',
+                emoji: '🌅',
+                summary: '坚持早起500天后，我开始质疑这个"政治正确"。适合别人的不一定适合你，找到自己的节奏最重要。',
+                tags: ['生活', '效率']
+            },
+            {
+                id: 'note-011',
+                title: '内容创作的素材积累法',
+                date: '2026-03-15',
+                emoji: '📚',
+                summary: '好内容来自日积月累。分享我的第二大脑搭建方案，如何用工具管理无限信息。',
+                tags: ['运营', '工具']
+            },
+            {
+                id: 'note-012',
+                title: '与AI协作的边界在哪里',
+                date: '2026-03-12',
+                emoji: '🤖',
+                summary: 'AI是工具，不是替代品。探讨人机协作的边界，以及哪些事必须人做。',
+                tags: ['AI', '思考']
+            }
+        ];
+        
+        // ========================================
+        // 分页与筛选状态
+        // ========================================
+        let currentPage = 1;
+        const itemsPerPage = 6;
+        let currentTag = 'all';
+        let searchQuery = '';
+        let filteredNotes = [...notesData];
+        
+        // ========================================
+        // 初始化
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNotes();
+        });
+        
+        // ========================================
+        // 渲染笔记列表
+        // ========================================
+        function renderNotes() {
+            const grid = document.getElementById('notesGrid');
+            const noResults = document.getElementById('noResults');
+            
+            // 计算分页
+            const totalPages = Math.ceil(filteredNotes.length / itemsPerPage);
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageNotes = filteredNotes.slice(startIndex, endIndex);
+            
+            // 更新分页信息
+            updatePagination(totalPages);
+            
+            // 无结果
+            if (filteredNotes.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            noResults.style.display = 'none';
+            
+            // 生成卡片 HTML
+            grid.innerHTML = pageNotes.map(note => `
+                <article class="note-card" onclick="goToNote('${note.id}')">
+                    <div class="note-thumb">${note.emoji}</div>
+                    <h3 class="note-title">${note.title}</h3>
+                    <p class="note-date">📅 ${note.date}</p>
+                    <p class="note-summary">${note.summary}</p>
+                    <div class="note-tags">
+                        ${note.tags.map(tag => `<span class="note-tag">#${tag}</span>`).join('')}
+                    </div>
+                </article>
+            `).join('');
+        }
+        
+        // ========================================
+        // 搜索功能
+        // ========================================
+        function filterNotes() {
+            searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            currentPage = 1;
+            applyFilters();
+        }
+        
+        // ========================================
+        // 标签筛选
+        // ========================================
+        function filterByTag(tag) {
+            currentTag = tag;
+            
+            // 更新标签按钮状态
+            document.querySelectorAll('.filter-tag').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.tag === tag) {
+                    btn.classList.add('active');
+                }
+            });
+            
+            currentPage = 1;
+            applyFilters();
+        }
+        
+        // ========================================
+        // 应用所有筛选
+        // ========================================
+        function applyFilters() {
+            filteredNotes = notesData.filter(note => {
+                // 标签筛选
+                const tagMatch = currentTag === 'all' || note.tags.includes(currentTag);
+                
+                // 搜索筛选
+                const searchMatch = searchQuery === '' || 
+                    note.title.toLowerCase().includes(searchQuery) ||
+                    note.summary.toLowerCase().includes(searchQuery) ||
+                    note.tags.some(tag => tag.toLowerCase().includes(searchQuery));
+                
+                return tagMatch && searchMatch;
+            });
+            
+            renderNotes();
+        }
+        
+        // ========================================
+        // 分页控制
+        // ========================================
+        function updatePagination(totalPages) {
+            const pageInfo = document.getElementById('pageInfo');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            pageInfo.textContent = `第 ${currentPage} / ${totalPages || 1} 页`;
+            
+            prevBtn.disabled = currentPage <= 1;
+            nextBtn.disabled = currentPage >= totalPages;
+        }
+        
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderNotes();
+            }
+        }
+        
+        function nextPage() {
+            const totalPages = Math.ceil(filteredNotes.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                renderNotes();
+            }
+        }
+        
+        // ========================================
+        // 跳转笔记详情
+        // ========================================
+        function goToNote(noteId) {
+            console.log('跳转到笔记:', noteId);
+            alert('笔记详情页开发中，敬请期待！\n\n笔记ID: ' + noteId);
+        }
+        
+        // ========================================
+        // 移动端菜单
+        // ========================================
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        // 点击导航链接关闭移动端菜单
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navLinks').classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI团队即产品</title>
+    <style>
+        /* 采用奶油手绘风格的整体样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 249, 230, 0.8) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 249, 230, 0.8) 0%, transparent 20%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 249, 230, 0.8));
+            border: 2px dashed #ffcc00; /* 手绘虚线边框 */
+            box-shadow: 0 8px 20px rgba(255, 204, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #ff6600;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(255, 102, 0, 0.2);
+            position: relative;
+            display: inline-block;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #ff9900;
+            margin-bottom: 20px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            color: #cc6600;
+            max-width: 600px;
+            margin: 0 auto 25px;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 249, 230, 0.9));
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px dashed #ffcc00; /* 手绘虚线边框 */
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(255, 204, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 204, 0, 0.3);
+        }
+        
+        .card h2 {
+            color: #ff6600;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            border-bottom: 2px dashed #ffcc00; /* 手绘虚线底部边框 */
+            padding-bottom: 10px;
+        }
+        
+        .card p {
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        /* 信号追踪器部分 */
+        .signals-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 249, 230, 0.9));
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px dashed #ffcc00; /* 手绘虚线边框 */
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 6px 15px rgba(255, 204, 0, 0.2);
+        }
+        
+        .signals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .signal-card {
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 20px 5px 20px 5px/5px 20px 5px 20px; /* 较小的手绘圆角 */
+            border: 1px solid #ffcc00;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 204, 0, 0.1);
+        }
+        
+        .signal-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6600;
+            margin-bottom: 5px;
+        }
+        
+        .signal-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+        
+        /* 用户证言部分 */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 249, 230, 0.9));
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px dashed #ffcc00; /* 手绘虚线边框 */
+            padding: 25px;
+            box-shadow: 0 6px 15px rgba(255, 204, 0, 0.2);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: -5px;
+            font-size: 2rem;
+            color: #ffcc00;
+        }
+        
+        .testimonial-author {
+            text-align: right;
+            color: #ff6600;
+            font-weight: bold;
+        }
+        
+        /* 定价计划部分 */
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+        
+        .pricing-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 249, 230, 0.9));
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px dashed #ffcc00; /* 手绘虚线边框 */
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(255, 204, 0, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card.popular::before {
+            content: '推荐';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff6600;
+            color: white;
+            padding: 5px 15px;
+            font-size: 0.8rem;
+            border-radius: 20px 5px 20px 5px/5px 20px 5px 20px;
+            transform: rotate(45deg);
+        }
+        
+        .plan-name {
+            font-size: 1.5rem;
+            color: #ff6600;
+            margin-bottom: 15px;
+        }
+        
+        .plan-price {
+            font-size: 2.5rem;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .plan-features li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #ffcc00;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ff6600;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 50px 10px 50px 10px/10px 50px 10px 50px; /* 手绘按钮圆角 */
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid #ff6600;
+        }
+        
+        .btn:hover {
+            background: #ff9900;
+            transform: scale(1.05);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            color: #ff6600;
+        }
+        
+        .btn-outline:hover {
+            background: #ff6600;
+            color: white;
+        }
+        
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(255, 249, 230, 0.8));
+            border: 2px dashed #ffcc00; /* 手绘虚线边框 */
+        }
+        
+        /* 高亮笔效果 */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.3));
+            padding: 2px 6px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .signals-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 网站头部 -->
+        <header>
+            <h1>诸葛灯泡</h1>
+            <div class="subtitle">AI团队即产品</div>
+            <p class="tagline">专为中国创业者打造的智能信号追踪系统 - <span class="highlight">差异化定位：专注中文内容+中国市场需求</span></p>
+        </header>
+        
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <div class="card">
+                <h2>关于诸葛灯泡</h2>
+                <p>我们不只是信号追踪器，而是将AI团队作为产品交付的解决方案。通过Nexus、Scout、Smith三大核心Agent，为中国的创业者提供精准的市场洞察。</p>
+                <p>我们的优势在于：<strong>专注中国市场、中文内容处理、本土化应用场景</strong>，帮助您在竞争激烈的环境中找到独特机会。</p>
+            </div>
+            
+            <div class="card">
+                <h2>核心价值</h2>
+                <p><strong>AI团队即产品：</strong>5个AI Agent协同工作，形成完整的智能分析链条</p>
+                <p><strong>中文优化：</strong>专门针对中文内容进行优化，更准确理解中国市场动态</p>
+                <p><strong>场景聚焦：</strong>专注于副业、创业等具体场景，提供实用建议</p>
+                <p><strong>实时更新：</strong>每日自动分析最新信号，确保信息时效性</p>
+            </div>
+            
+            <div class="card">
+                <h2>我们的团队</h2>
+                <p><strong>Nexus（枢纽）：</strong>协调各Agent工作，整合分析结果</p>
+                <p><strong>Scout（侦察）：</strong>主动搜索市场信号和新兴趋势</p>
+                <p><strong>Smith（锻造）：</strong>深度分析信号价值，提出可行方案</p>
+                <p><strong>Brain（大脑）：</strong>决策支持，验证方案可行性</p>
+                <p><strong>Hands（执行）：</strong>实现具体任务，完成最终交付</p>
+            </div>
+        </div>
+        
+        <!-- 信号追踪器部分 -->
+        <div class="signals-section">
+            <h2 style="text-align: center; color: #ff6600; margin-bottom: 20px;">今日市场信号追踪</h2>
+            <div id="signals-container" class="signals-grid">
+                <!-- 信号数据将通过JavaScript动态加载 -->
+                <div class="signal-card">
+                    <div class="signal-value">432</div>
+                    <div class="signal-label">总信号数</div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-value">94</div>
+                    <div class="signal-label">GitHub趋势</div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-value">89</div>
+                    <div class="signal-label">学术论文</div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-value">59</div>
+                    <div class="signal-label">市场信号</div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-value">91</div>
+                    <div class="signal-label">科技新闻</div>
+                </div>
+                <div class="signal-card">
+                    <div class="signal-value">104</div>
+                    <div class="signal-label">竞品分析</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 用户证言部分 -->
+        <h2 style="text-align: center; color: #ff6600; margin: 40px 0 20px;">用户证言</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <div class="testimonial-text">诸葛灯泡帮我发现了新的副业机会，精准的中文内容分析让我不再错过任何有价值的市场信号。</div>
+                <div class="testimonial-author">- 张创业者</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">作为初创公司CEO，这个AI团队大大提升了我们对市场的敏感度，节省了大量信息收集时间。</div>
+                <div class="testimonial-author">- 李创始人</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-text">相比其他工具，诸葛灯泡对中国市场的理解更加深入，推荐的功能非常实用。</div>
+                <div class="testimonial-author">- 王产品经理</div>
+            </div>
+        </div>
+        
+        <!-- 定价计划部分 -->
+        <h2 style="text-align: center; color: #ff6600; margin: 40px 0 20px;">选择您的计划</h2>
+        <div class="pricing-plans">
+            <div class="pricing-card">
+                <div class="plan-name">探索者</div>
+                <div class="plan-price">¥79</div>
+                <ul class="plan-features">
+                    <li>基础信号追踪</li>
+                    <li>每日简报</li>
+                    <li>邮件支持</li>
+                    <li>5个市场类别</li>
+                </ul>
+                <a href="#" class="btn btn-outline">开始免费试用</a>
+            </div>
+            
+            <div class="pricing-card popular">
+                <div class="plan-name">创业者</div>
+                <div class="plan-price">¥199</div>
+                <ul class="plan-features">
+                    <li>高级信号分析</li>
+                    <li>个性化洞察</li>
+                    <li>优先支持</li>
+                    <li>全部市场类别</li>
+                    <li>定制化报告</li>
+                    <li>API访问</li>
+                </ul>
+                <a href="#" class="btn">立即订阅</a>
+            </div>
+            
+            <div class="pricing-card">
+                <div class="plan-name">企业版</div>
+                <div class="plan-price">¥499</div>
+                <ul class="plan-features">
+                    <li>所有Pro功能</li>
+                    <li>团队协作</li>
+                    <li>专属客户经理</li>
+                    <li>定制AI模型</li>
+                    <li>SAML SSO</li>
+                    <li>SLA保障</li>
+                </ul>
+                <a href="#" class="btn btn-outline">联系我们</a>
+            </div>
+        </div>
+        
+        <!-- 页脚 -->
+        <footer>
+            <p>© 2026 诸葛灯泡 - AI团队即产品 | 专注中国市场信号追踪</p>
+            <p>我们致力于帮助中国创业者发现下一个大机会</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 动态加载信号数据
+        document.addEventListener('DOMContentLoaded', function() {
+            // 从本地模拟数据加载信号信息
+            const signalsData = {
+                total_signals: 432,
+                by_category: {
+                    "GitHub Trends": 94,
+                    "arXiv Papers": 89,
+                    "Market Signals": 59,
+                    "Tech News": 91,
+                    "Competitor Analysis": 104
+                }
+            };
+            
+            // 更新信号数据到页面
+            const signalsContainer = document.getElementById('signals-container');
+            if(signalsContainer) {
+                // 清空现有内容
+                signalsContainer.innerHTML = '';
+                
+                // 添加总计信号数
+                const totalCard = document.createElement('div');
+                totalCard.className = 'signal-card';
+                totalCard.innerHTML = `
+                    <div class="signal-value">${signalsData.total_signals}</div>
+                    <div class="signal-label">总信号数</div>
+                `;
+                signalsContainer.appendChild(totalCard);
+                
+                // 添加各类别信号数
+                for(const [category, count] of Object.entries(signalsData.by_category)) {
+                    const card = document.createElement('div');
+                    card.className = 'signal-card';
+                    card.innerHTML = `
+                        <div class="signal-value">${count}</div>
+                        <div class="signal-label">${category}</div>
+                    `;
+                    signalsContainer.appendChild(card);
+                }
+            }
+            
+            // 添加交互效果
+            const cards = document.querySelectorAll('.card, .pricing-card, .testimonial-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>

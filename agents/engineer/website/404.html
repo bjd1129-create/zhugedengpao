@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — 页面未找到 | 诸葛灯泡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
+  <style>
+    :root {
+      --bg-color: #FFF9E6; --bg-dot: #E6DFC5; --paper-white: #FFFFFF; --ink-color: #2B2B2B;
+      --text-main: #1F1F1F; --text-muted: #6B6B75;
+      --accent-yellow: #FFD166; --accent-orange: #F4A261;
+      --font-cn: 'Caveat', 'Noto Sans SC', sans-serif; --font-en: 'Patrick Hand', cursive; --font-body: 'Noto Sans SC', sans-serif;
+      --radius: 255px 15px 225px 15px / 15px 225px 15px 255px; --shadow: 4px 4px 0 var(--ink-color);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-color); background-image: radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px); background-size: 24px 24px; color: var(--text-main); font-family: var(--font-body); line-height: 1.6; min-height: 100vh; display: flex; justify-content: center; align-items: center; }
+    .error-page { text-align: center; padding: 40px 20px; max-width: 500px; }
+    .error-code { font-family: var(--font-cn); font-size: 120px; color: var(--accent-orange); line-height: 1; margin-bottom: 10px; text-shadow: 4px 4px 0 var(--ink-color); }
+    .error-title { font-family: var(--font-cn); font-size: 36px; margin-bottom: 16px; }
+    .error-desc { color: var(--text-muted); margin-bottom: 30px; font-size: 16px; }
+    .error-ascii { font-family: monospace; font-size: 12px; color: var(--text-muted); margin-bottom: 30px; white-space: pre; line-height: 1.2; }
+    .btn { display: inline-block; padding: 14px 32px; font-family: var(--font-en); font-size: 22px; font-weight: 700; text-decoration: none; color: var(--ink-color); background: var(--paper-white); border: 3px solid var(--ink-color); border-radius: var(--radius); box-shadow: var(--shadow); transition: all 0.2s; }
+    .btn:hover { transform: translateY(-3px); box-shadow: 6px 6px 0 var(--ink-color); }
+  </style>
+</head>
+<body>
+  <div class="error-page">
+    <div class="error-code">404</div>
+    <div class="error-title">页面走丢了...</div>
+    <div class="error-ascii">
+    ╱|、
+   (˚ˎ 。7  
+    |、˜          
+    じしˍ,)ノ
+    </div>
+    <p class="error-desc">这个页面可能被 Agent 们误删了，或者它从未存在过。<br>没关系，回首页重新探索吧。</p>
+    <a href="/" class="btn">🏠 返回首页</a>
+  </div>
+</body>
+</html>

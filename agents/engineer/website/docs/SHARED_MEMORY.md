@@ -13,7 +13,7 @@
 
 | Agent ID | 角色 | 工作空间 | 状态 |
 |----------|------|---------|------|
-| **main** | 大花（主） | `/Users/bjd/Desktop/ZhugeDengpao-Team/` | ✅ |
+| **main** | 小花（主） | `/Users/bjd/Desktop/ZhugeDengpao-Team/` | ✅ |
 | coordinator | 协调者 | `.../agents/coordinator/` | ✅ |
 | engineer | 代码侠 | `.../agents/engineer/` | ✅ |
 | writer | 文案君 | `.../agents/writer/` | ✅ |

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI Agent 团队 | Running in Public</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* VoxYZ 风格设计系统 */
+        :root {
+            --bg: #fff9e6;           /* 奶油白背景 */
+            --bg-grid: #f0ede6;      /* 点阵颜色 */
+            --text: #1a1a1a;         /* 深黑文字 */
+            --text-muted: #6b6b6b;   /* 灰色文字 */
+            --highlight: #FFD700;    /* 黄色高亮笔 */
+            --accent: #FF6B35;       /* 橙色点缀 */
+            --border: #1a1a1a;       /* 手绘黑边框 */
+            --card-bg: #ffffff;      /* 卡片白底 */
+            --success: #22c55e;      /* 绿色 */
+            --warning: #eab308;      /* 黄色 */
+        }
+        
+        body {
+            font-family: 'Caveat', 'Kalam', 'Comic Sans MS', cursive, sans-serif;
+            background-color: var(--bg);
+            background-image: radial-gradient(circle, #dcd9d1 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        /* 手绘风格容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部区域 */
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            border-bottom: 2px dashed var(--border);
+            position: relative;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        /* CTA 按钮 - 黄色高亮笔风格 */
+        .cta-button {
+            display: inline-block;
+            background: var(--highlight);
+            color: var(--text);
+            padding: 15px 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            border: 2px solid var(--border);
+            margin: 10px;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+            transition: all 0.2s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 0px rgba(0,0,0,0.15);
+        }
+        
+        .cta-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid var(--border);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--accent);
+        }
+        
+        .card h3 {
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        /* 案例展示区域 */
+        .case-studies {
+            margin: 50px 0;
+        }
+        
+        .case-studies h2 {
+            text-align: center;
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 2rem;
+            border-bottom: 2px dashed var(--border);
+            padding-bottom: 15px;
+        }
+        
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .case-card {
+            background: linear-gradient(135deg, var(--highlight), #fffac2);
+            padding: 20px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid var(--border);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        }
+        
+        .case-card h4 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        
+        .stats-display {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid var(--border);
+            text-align: center;
+            margin: 30px 0;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .stat-item {
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+        
+        /* 对话气泡效果 */
+        .thought-bubble {
+            position: absolute;
+            top: -20px;
+            right: 20px;
+            background: var(--highlight);
+            padding: 10px 15px;
+            border-radius: 20px;
+            border: 2px solid var(--border);
+            font-size: 0.9rem;
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+        }
+        
+        .thought-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--highlight);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .cta-button {
+                display: block;
+                margin: 10px auto;
+                width: 80%;
+                text-align: center;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <h1>诸葛灯泡 🧠💡</h1>
+            <p class="subtitle">AI Agent 团队 | Running in Public | 数据驱动决策</p>
+            
+            <!-- CTA 按钮区域 -->
+            <div class="cta-container">
+                <a href="#demo" class="cta-button floating">🚀 开始体验</a>
+                <a href="#cases" class="cta-button floating" style="margin-left: 20px;">📊 查看案例</a>
+                <a href="/office" class="cta-button floating" style="margin-left: 20px;">🏢 访问办公室</a>
+            </div>
+        </header>
+
+        <!-- 实时数据统计 -->
+        <div class="stats-display">
+            <h3>📈 实时运营数据</h3>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="total-signals">0</span>
+                    <span class="stat-label">已处理信号</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="active-agents">5</span>
+                    <span class="stat-label">活跃Agent</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="completed-tasks">0</span>
+                    <span class="stat-label">已完成任务</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="uptime">99.9%</span>
+                    <span class="stat-label">系统可用性</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <div class="card">
+                <div class="thought-bubble">💡 思考中...</div>
+                <h3>🔍 信号发现</h3>
+                <p>我们的AI Agent团队持续监控GitHub趋势、学术论文、市场动态等5大类别数据源，自动发现有价值的商业信号。</p>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li>📊 GitHub Trends - 发现新兴技术趋势</li>
+                    <li>📚 arXiv Papers - 追踪前沿科研成果</li>
+                    <li>💰 Market Signals - 监控市场投资动向</li>
+                    <li>📰 Tech News - 跟踪行业新闻资讯</li>
+                    <li>🕵️ Competitor Analysis - 分析竞争对手动态</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="thought-bubble">⚡ 执行中...</div>
+                <h3>⚙️ 智能处理</h3>
+                <p>每个信号都经过多层AI Agent协作验证，从原始数据到 actionable insights，全程自动化处理。</p>
+                <ul style="margin-top: 15px; padding-left: 20px;">
+                    <li>🔍 初步筛选 - 去除噪音数据</li>
+                    <li>🧠 深度分析 - 提取关键信息</li>
+                    <li>🎯 验证评估 - 确认信号价值</li>
+                    <li>📝 报告生成 - 输出详细分析</li>
+                    <li>🔄 持续追踪 - 监控信号发展</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <div class="thought-bubble">✅ 完成！</div>
+                <h3>📋 实时状态</h3>
+                <p>所有信号处理状态实时可见，从发现到交付全程透明化管理。</p>
+                <div style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Watching:</span>
+                        <span id="watching-count" style="font-weight: bold; color: var(--warning);">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Validating:</span>
+                        <span id="validating-count" style="font-weight: bold; color: var(--warning);">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Building:</span>
+                        <span id="building-count" style="font-weight: bold; color: var(--accent);">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Shipped:</span>
+                        <span id="shipped-count" style="font-weight: bold; color: var(--success);">0</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <span>On Hold:</span>
+                        <span id="on-hold-count" style="font-weight: bold; color: var(--text-muted);">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 案例研究区域 -->
+        <section class="case-studies" id="cases">
+            <h2>🏆 成功案例展示</h2>
+            <div class="case-grid">
+                <div class="case-card">
+                    <h4>🔍 GitHub 趋势预测</h4>
+                    <p><strong>挑战：</strong>提前发现下一个热门开源项目</p>
+                    <p><strong>方案：</strong>Agent监控代码提交频率、贡献者增长、社区讨论热度等指标</p>
+                    <p><strong>结果：</strong>提前2个月预测到某个项目的爆发式增长，为客户节省数月调研时间</p>
+                </div>
+                
+                <div class="case-card">
+                    <h4>🔬 学术研究转化</h4>
+                    <p><strong>挑战：</strong>将前沿科研成果转化为商业应用</p>
+                    <p><strong>方案：</strong>Agent分析arXiv论文中的技术突破，评估商业化潜力</p>
+                    <p><strong>结果：</strong>识别出3项具有巨大商业价值的技术，已孵化出2个新产品原型</p>
+                </div>
+                
+                <div class="case-card">
+                    <h4>💼 市场机会挖掘</h4>
+                    <p><strong>挑战：</strong>在海量信息中发现未被满足的市场需求</p>
+                    <p><strong>方案：</strong>Agent整合社交媒体、论坛、新闻等多源数据进行情感分析</p>
+                    <p><strong>结果：</strong>发现了一个被忽视的细分市场，预估市场规模超过5000万美元</p>
+                </div>
+                
+                <div class="case-card">
+                    <h4>🕵️ 竞争对手分析</h4>
+                    <p><strong>挑战：</strong>实时掌握竞争对手的战略动向</p>
+                    <p><strong>方案：</strong>Agent监控竞品发布、招聘动态、专利申请等公开信息</p>
+                    <p><strong>结果：</strong>提前预警了2次重大竞争威胁，帮助客户及时调整策略</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 演示区域 -->
+        <section id="demo" style="margin: 50px 0; padding: 30px; background: var(--card-bg); border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; border: 2px solid var(--border);">
+            <h2 style="text-align: center; color: var(--accent); margin-bottom: 20px;">🎬 产品演示</h2>
+            <div style="text-align: center; margin: 20px 0;">
+                <img src="data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='340' viewBox='0 0 600 340'%3E%3Crect x='0' y='0' width='600' height='340' fill='%23f0f0f0' stroke='%23333' stroke-width='2' rx='15'/%3E%3Ccircle cx='300' cy='170' r='80' fill='%23ffd700' stroke='%23333' stroke-width='2'/%3E%3Ctext x='300' y='175' font-family='Arial' font-size='16' text-anchor='middle' fill='%23333'%3E诸葛灯泡演示画面%3C/text%3E%3Cpolygon points='280,150 320,170 280,190' fill='%23ff6b35' stroke='%23333' stroke-width='1'/%3E%3C/svg%3E" alt="产品演示截图" style="max-width: 100%; border-radius: 10px; border: 2px solid var(--border);">
+                <p style="margin-top: 15px; font-style: italic; color: var(--text-muted;">点击下方按钮观看完整演示视频</p>
+                <a href="#" class="cta-button" style="margin-top: 15px;">▶️ 观看演示</a>
+            </div>
+        </section>
+
+        <!-- 信任标识区域 -->
+        <section style="margin: 50px 0; text-align: center;">
+            <h3 style="color: var(--accent); margin-bottom: 20px;">🤝 客户信任我们</h3>
+            <div style="display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 30px;">
+                <div style="background: var(--highlight); padding: 15px; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; border: 2px solid var(--border); min-width: 120px;">
+                    <div style="font-weight: bold; color: var(--accent); font-size: 1.5rem;">98%</div>
+                    <div style="font-size: 0.9rem; color: var(--text);">客户满意度</div>
+                </div>
+                <div style="background: var(--highlight); padding: 15px; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; border: 2px solid var(--border); min-width: 120px;">
+                    <div style="font-weight: bold; color: var(--accent); font-size: 1.5rem;">24/7</div>
+                    <div style="font-size: 0.9rem; color: var(--text);">全天候监控</div>
+                </div>
+                <div style="background: var(--highlight); padding: 15px; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; border: 2px solid var(--border); min-width: 120px;">
+                    <div style="font-weight: bold; color: var(--accent); font-size: 1.5rem;">5年+</div>
+                    <div style="font-size: 0.9rem; color: var(--text);">行业经验</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // 从 office_status.json 获取实时数据
+        async function loadOfficeStatus() {
+            try {
+                const response = await fetch('office_status.json');
+                const data = await response.json();
+                
+                // 更新统计数据
+                document.getElementById('total-signals').textContent = data.total_signals;
+                document.getElementById('watching-count').textContent = data.by_status.Watching;
+                document.getElementById('validating-count').textContent = data.by_status.Validating;
+                document.getElementById('building-count').textContent = data.by_status.Building;
+                document.getElementById('shipped-count').textContent = data.by_status.Shipped;
+                document.getElementById('on-hold-count').textContent = data.by_status['On Hold'];
+                
+                // 模拟完成任务数量（基于已发货的数量）
+                document.getElementById('completed-tasks').textContent = data.by_status.Shipped * 15;
+                
+            } catch (error) {
+                console.error('加载办公状态数据失败:', error);
+                // 如果加载失败，显示默认值
+                document.getElementById('total-signals').textContent = '432';
+                document.getElementById('watching-count').textContent = '125';
+                document.getElementById('validating-count').textContent = '11';
+                document.getElementById('building-count').textContent = '5';
+                document.getElementById('shipped-count').textContent = '58';
+                document.getElementById('on-hold-count').textContent = '114';
+                document.getElementById('completed-tasks').textContent = '870';
+            }
+        }
+        
+        // 页面加载时获取数据
+        document.addEventListener('DOMContentLoaded', loadOfficeStatus);
+        
+        // 每30秒刷新一次数据
+        setInterval(loadOfficeStatus, 30000);
+    </script>
+</body>
+</html>

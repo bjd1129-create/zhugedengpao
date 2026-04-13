@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI Agent 能力展示</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 15px 15px, rgba(187, 163, 112, 0.1) 1px, transparent 0),
+                radial-gradient(circle at 45px 45px, rgba(187, 163, 112, 0.1) 1px, transparent 0);
+            background-size: 60px 60px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 标题样式 */
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 30px 0;
+            color: #8a6d3b;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: 2px dashed #d4c3a3;
+            padding-bottom: 15px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        /* 卡片容器 */
+        .card {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(138, 109, 59, 0.1);
+            border: 2px dashed #d4c3a3;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 黄色高亮笔效果 */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.3));
+            background-repeat: no-repeat;
+            background-size: 100% 60%;
+            background-position: 0 85%;
+            padding: 0 4px;
+        }
+        
+        /* 步骤展示区域 */
+        .step-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 20px;
+            border: 2px dashed #d4c3a3;
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ffeb3b;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #8a6d3b;
+            border: 2px solid #d4c3a3;
+        }
+        
+        /* 输入区域 */
+        .input-section {
+            margin: 30px 0;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 15px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4c3a3;
+            resize: vertical;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+        
+        button {
+            background: #ffeb3b;
+            color: #8a6d3b;
+            border: 2px solid #d4c3a3;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 12px 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #fdd835;
+            transform: translateY(-2px);
+        }
+        
+        /* 结果展示区域 */
+        .result-container {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4c3a3;
+            min-height: 100px;
+        }
+        
+        .result-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 15px;
+            border-left: 4px solid #ffeb3b;        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .step-container {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>诸葛灯泡 AI Agent 能力展示</h1>
+        
+        <div class="card">
+            <h2><span class="highlight">智能任务分解</span> - 让复杂工作变得简单</h2>
+            <p>我们的AI Agent可以将复杂的任务自动分解为多个可执行的小步骤，模拟人类的思考过程，实现真正的智能工作流。</p>
+            
+            <div class="step-container">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>理解需求</h3>
+                    <p>AI分析您的指令，识别关键信息和目标</p>
+                </div>
+                <div class="step fade-in" style="animation-delay: 0.1s;">
+                    <div class="step-number">2</div>
+                    <h3>规划步骤</h3>
+                    <p>将任务拆解为具体可执行的操作序列</p>
+                </div>
+                <div class="step fade-in" style="animation-delay: 0.2s;">
+                    <div class="step-number">3</div>
+                    <h3>执行任务</h3>
+                    <p>按计划逐步完成每个子任务</p>
+                </div>
+                <div class="step fade-in" style="animation-delay: 0.3s;">
+                    <div class="step-number">4</div>
+                    <h3>整合结果</h3>
+                    <p>汇总各步骤成果，形成最终输出</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card input-section">
+            <h2>尝试输入您的任务</h2>
+            <p>输入一个具体的任务，查看AI Agent如何分解并规划执行：</p>
+            <textarea id="taskInput" placeholder="例如：帮我写一份关于人工智能在教育领域应用的报告，需要包含现状、挑战和未来趋势..."></textarea>
+            <button id="runDemo">运行演示</button>
+        </div>
+        
+        <div class="card">
+            <h2>模拟执行结果</h2>
+            <div id="resultContainer" class="result-container">
+                <p>点击上方按钮查看AI Agent的工作流程演示</p>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2>实际应用场景</h2>
+            <div class="step-container">
+                <div class="step">
+                    <h3>市场调研</h3>
+                    <p>自动收集竞品信息、分析市场趋势、生成调研报告</p>
+                </div>
+                <div class="step">
+                    <h3>内容创作</h3>
+                    <p>根据主题自动生成文章大纲、撰写内容、优化排版</p>
+                </div>
+                <div class="step">
+                    <h3>数据处理</h3>
+                    <p>清洗数据、分析指标、生成可视化图表和报告</p>
+                </div>
+                <div class="step">
+                    <h3>客服支持</h3>
+                    <p>理解用户问题、检索知识库、提供个性化解决方案</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟AI Agent的工作流程
+        document.getElementById('runDemo').addEventListener('click', function() {
+            const task = document.getElementById('taskInput').value.trim();
+            
+            if (!task) {
+                alert('请输入一个任务');
+                return;
+            }
+            
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '<p>AI Agent正在分析您的任务...</p>';
+            
+            // 模拟处理延迟
+            setTimeout(() => {
+                // 模拟AI Agent的思考过程
+                const steps = generateSteps(task);
+                
+                let resultHTML = '';
+                
+                // 显示任务理解
+                resultHTML += `
+                    <div class="result-item">
+                        <strong>🎯 任务理解：</strong>
+                        <p>AI已识别您的任务：${task}</p>
+                        <p>预计需要 ${steps.length} 个步骤来完成</p>
+                    </div>
+                `;
+                
+                // 显示分解步骤
+                steps.forEach((step, index) => {
+                    resultHTML += `
+                        <div class="result-item fade-in" style="animation-delay: ${index * 0.1}s;">
+                            <strong>步骤 ${index + 1}:</strong>
+                            <p>${step.action}</p>
+                            <small>执行方式：${step.method}</small>
+                        </div>
+                    `;
+                });
+                
+                // 显示预期结果
+                resultHTML += `
+                    <div class="result-item">
+                        <strong>✅ 预期成果：</strong>
+                        <p>完成以上步骤后，您将获得：${generateExpectedResult(task)}</p>
+                    </div>
+                `;
+                
+                resultContainer.innerHTML = resultHTML;
+            }, 1500);
+        });
+        
+        // 根据任务类型生成模拟步骤
+        function generateSteps(task) {
+            // 简单的任务分类和步骤生成
+            if (task.includes('报告') || task.includes('研究') || task.includes('分析')) {
+                return [
+                    { action: '收集相关资料和数据', method: '网络搜索 + 数据库查询' },
+                    { action: '整理信息并建立大纲', method: '结构化分析' },
+                    { action: '撰写初稿', method: '自然语言生成' },
+                    { action: '审核和优化内容', method: '逻辑校验 + 语言润色' },
+                    { action: '生成最终文档', method: '格式化输出' }
+                ];
+            } else if (task.includes('文章') || task.includes('内容') || task.includes('写作')) {
+                return [
+                    { action: '确定文章主题和目标读者', method: '语义分析' },
+                    { action: '构建内容框架和大纲', method: '结构化思维' },
+                    { action: '撰写各个段落内容', method: '自然语言生成' },
+                    { action: '检查语法和逻辑连贯性', method: '语言模型验证' },
+                    { action: '优化标题和摘要', method: '吸引力分析' }
+                ];
+            } else if (task.includes('数据') || task.includes('表格') || task.includes('统计')) {
+                return [
+                    { action: '获取原始数据源', method: '数据库连接 + API调用' },
+                    { action: '清洗和预处理数据', method: '数据质量检查' },
+                    { action: '执行统计分析', method: '算法计算' },
+                    { action: '生成可视化图表', method: '图形渲染引擎' },
+                    { action: '输出分析报告', method: '文档生成' }
+                ];
+            } else {
+                // 默认通用步骤
+                return [
+                    { action: '解析任务需求', method: '自然语言理解' },
+                    { action: '制定执行计划', method: '逻辑推理' },
+                    { action: '分配子任务', method: '工作流管理' },
+                    { action: '执行各项操作', method: '多工具协同' },
+                    { action: '整合最终结果', method: '数据聚合' }
+                ];
+            }
+        }
+        
+        // 根据任务生成预期结果描述
+        function generateExpectedResult(task) {
+            if (task.includes('报告')) {
+                return '一份结构清晰、数据详实的专业报告，包含引言、正文分析和结论建议';
+            } else if (task.includes('文章')) {
+                return '一篇高质量的文章草稿，包括吸引人的标题、完整的内容和优化的排版';
+            } else if (task.includes('数据')) {
+                return '一份详细的分析报告，包含数据可视化图表和关键洞察';
+            } else {
+                return '一个完整的解决方案，包含所有必要的组件和实施步骤';
+            }
+        }
+        
+        // 页面加载动画
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -3,186 +3,182 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>工作台 Stage | 诸葛灯泡</title>
+  <title>工作台 | 诸葛灯泡 HQ</title>
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e0e0e8;--muted:#6b6b80;--green:#22c55e;--yellow:#eab308;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316}
-    body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);z-index:100}
-    .nav-brand{font-size:18px;font-weight:700;color:var(--green);text-decoration:none}
-    .nav-links{display:flex;gap:20px}
-    .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
-    .nav-links a:hover,.nav-links a.active{color:var(--text)}
-    .header{padding:40px 32px 24px;border-bottom:1px solid var(--border)}
-    .header h1{font-size:36px;font-weight:800;margin-bottom:8px}
-    .header h1 span{color:var(--orange)}
-    .header p{color:var(--muted);font-size:16px}
-    .live-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(249,115,22,0.15);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:13px;font-weight:600}
-    .live-dot{width:8px;height:8px;background:var(--orange);border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
-    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-    .pipeline{padding:40px 32px}
-    .pipeline-title{font-size:20px;font-weight:700;margin-bottom:24px;text-align:center}
-    .flow{display:flex;justify-content:center;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:40px}
-    .flow-node{background:var(--surface);border:2px solid var(--border);border-radius:16px;padding:20px 24px;text-align:center;min-width:140px;position:relative;transition:all .3s}
-    .flow-node.active{border-color:var(--green);box-shadow:0 0 20px rgba(34,197,94,0.2)}
-    .flow-node .emoji{font-size:32px;margin-bottom:8px}
-    .flow-node .name{font-size:14px;font-weight:600}
-    .flow-node .status{font-size:12px;color:var(--muted);margin-top:4px}
-    .flow-node.active .status{color:var(--green)}
-    .flow-arrow{font-size:24px;color:var(--muted)}
-    .workflow{max-width:800px;margin:0 auto}
-    .wf-step{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border)}
-    .wf-time{font-family:monospace;font-size:13px;color:var(--muted);min-width:60px;padding-top:2px}
-    .wf-content{flex:1}
-    .wf-agent{font-size:13px;font-weight:600;margin-bottom:4px}
-    .wf-task{font-size:14px;color:var(--text);margin-bottom:4px}
-    .wf-output{font-size:13px;color:var(--muted);padding:8px 12px;background:rgba(34,197,94,0.05);border-radius:6px;border-left:3px solid var(--green)}
-    .logs-container{max-width:800px;margin:40px auto 0;padding:0 32px}
-    .logs-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-    .logs-title::before{content:'';width:4px;height:20px;background:var(--orange);border-radius:2px}
-    .logs{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;max-height:300px;overflow-y:auto;font-family:'SF Mono',monospace;font-size:13px}
-    .log-line{padding:4px 0;display:flex;gap:8px}
-    .log-time{color:var(--muted)}
-    .log-agent{color:var(--green);min-width:60px}
-    .log-msg{color:var(--text)}
-    .footer{padding:24px 32px;text-align:center;color:var(--muted);font-size:13px;border-top:1px solid var(--border);margin-top:40px}
-    @media(max-width:768px){.nav{padding:12px 16px}.header{padding:24px 16px}.header h1{font-size:28px}.flow{flex-direction:column;align-items:stretch}.flow-arrow{transform:rotate(90deg);text-align:center}.pipeline,.logs-container{padding:16px}}
+    @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Inter:wght@400;500;600;700&family=Press+Start+2P&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+      --bg: #fff9e6; --bg-dot: #e6dfc5; --surface: #fff; --border: #4a4a4a; 
+      --text: #1a1a1a; --muted: #6b6b75; --accent: #ffb703;
+    }
+    body{
+      background-color: var(--bg);
+      background-image: radial-gradient(var(--bg-dot) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--text);
+      font-family: 'ZCOOL KuaiLe', 'Inter', system-ui;
+      overflow-x: hidden;
+    }
+    .nav{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 28px;
+      border-bottom: 2px dashed var(--border);
+      background:rgba(255,249,230,0.95);
+      backdrop-filter:blur(8px);
+      position:sticky; top:0; z-index:100;
+    }
+    .nb{font-family:'Press Start 2P';font-size:11px;color:var(--accent);text-decoration:none; text-shadow: 2px 2px 0px #000;}
+    .nl{display:flex;gap:16px;}.nl a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:500;}.nl a:hover,.nl a.active{color:var(--text); text-decoration: underline wavy var(--accent);}
+    .hd{padding:32px 28px 16px; text-align:center;}
+    .ht{font-size:32px;font-weight:900; margin-bottom:8px;}
+    .hs{font-size:15px;color:var(--muted); max-width:600px; margin:0 auto;}
+    .container{max-width:800px;margin:0 auto;padding:0 28px 40px;}
+    
+    /* 控制栏 */
+    .controls{
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:24px; flex-wrap:wrap; gap:12px;
+    }
+    .filters{display:flex; gap:8px; flex-wrap:wrap;}
+    .fbtn{
+      padding:6px 14px; border:2px solid var(--border); border-radius:20px;
+      background:var(--surface); cursor:pointer; font-size:13px; font-weight:600;
+      transition:all 0.2s;
+    }
+    .fbtn:hover{transform:translateY(-2px); box-shadow:2px 2px 0 var(--border);}
+    .fbtn.active{background:var(--accent); color:#000; box-shadow:2px 2px 0 var(--border);}
+    .status-pill{
+      display:flex; align-items:center; gap:6px; font-size:13px; color:var(--muted);
+      background:var(--surface); padding:6px 12px; border-radius:20px; border:1px solid #e5e7eb;
+    }
+    .dot{width:6px;height:6px;background:#10b981;border-radius:50%; animation:pulse 1.5s infinite;}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+    
+    /* Feed 列表 */
+    .feed{display:flex; flex-direction:column; gap:16px;}
+    .card{
+      background:var(--surface); border:2px dashed var(--border);
+      border-radius: 15px 225px 15px 255px / 255px 15px 225px 15px;
+      padding:16px; display:flex; gap:14px; position:relative;
+      transition:all 0.2s; box-shadow: 4px 4px 0px var(--border);
+    }
+    .card:hover{transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--border);}
+    .avatar{
+      width:44px; height:44px; border-radius:50%; border:2px solid var(--border);
+      display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+      background:#fff;
+    }
+    .content{flex:1;}
+    .head{display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;}
+    .agent-name{font-weight:700; font-size:15px;}
+    .time{font-size:12px; color:var(--muted);}
+    .action{font-size:14px; color:var(--text); margin-bottom:6px;}
+    .detail{font-size:13px; color:var(--muted); line-height:1.5; font-family:'Inter',sans-serif;}
+    .tags{display:flex; gap:6px; margin-top:10px;}
+    .tag{
+      font-size:11px; padding:2px 8px; border-radius:10px; border:1px solid #e5e7eb;
+      background:#f9fafb; color:var(--muted);
+    }
+    
+    /* 类型颜色 */
+    .card[data-type="deploy"] .avatar{border-color:#10b981; background:#ecfdf5;}
+    .card[data-type="signal"] .avatar{border-color:#3b82f6; background:#eff6ff;}
+    .card[data-type="decision"] .avatar{border-color:#f59e0b; background:#fffbeb;}
+    .card[data-type="content"] .avatar{border-color:#a855f7; background:#faf5ff;}
+    .card[data-type="strategy"] .avatar{border-color:#ffb703; background:#fffbeb;}
+    .card[data-type="design"] .avatar{border-color:#f97316; background:#fff7ed;}
+    
+    .empty{text-align:center; padding:40px; color:var(--muted); font-size:15px;}
+    @media(max-width:600px){.hd{padding:20px 16px;}.container{padding:0 16px 30px;}.controls{flex-direction:column;align-items:stretch;}}
   </style>
 </head>
 <body>
-  <nav class="nav">
-    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
-    <div class="nav-links">
-      <a href="/office.html">办公室</a>
-      <a href="/team.html">团队</a>
-      <a href="/radar.html">雷达</a>
-      <a href="/stage.html" class="active">工作台</a>
-      <a href="/vault.html">产品</a>
+  <nav class="nav"><a href="/index.html" class="nb">💡 诸葛灯泡 HQ</a><div class="nl"><a href="/office.html">办公室</a><a href="/stage.html" class="active">工作台</a><a href="/radar.html">雷达</a></div></nav>
+  
+  <div class="hd">
+    <h1 class="ht">Live Handoffs</h1>
+    <p class="hs">这里是诸葛灯泡团队的实时动态流。从信号捕获到方案落地，你可以看到每一个决策和执行的瞬间。</p>
+  </div>
+  
+  <div class="container">
+    <div class="controls">
+      <div class="filters" id="filters">
+        <button class="fbtn active" data-filter="all">全部</button>
+        <button class="fbtn" data-filter="deploy">🚀 部署</button>
+        <button class="fbtn" data-filter="signal">📡 信号</button>
+        <button class="fbtn" data-filter="decision">🧭 决策</button>
+        <button class="fbtn" data-filter="content">📝 内容</button>
+        <button class="fbtn" data-filter="strategy">💡 战略</button>
+      </div>
+      <div class="status-pill"><span class="dot"></span> 实时更新 <span id="timer">42s</span></div>
     </div>
-  </nav>
-
-  <header class="header">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
-      <div>
-        <h1>🎬 工作 <span>台</span></h1>
-        <p>实时观看 AI 团队的工作流 — 信号 → 分析 → 内容 → 交付</p>
-      </div>
-      <div class="live-badge"><span class="live-dot"></span> LIVE · 实时</div>
-    </div>
-  </header>
-
-  <div class="pipeline">
-    <div class="pipeline-title">工作流管线</div>
-    <div class="flow">
-      <div class="flow-node active">
-        <div class="emoji">🔍</div>
-        <div class="name">探长</div>
-        <div class="status">● 扫描中</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-node">
-        <div class="emoji">📊</div>
-        <div class="name">信号分析</div>
-        <div class="status">等待中</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-node active">
-        <div class="emoji">🖊️</div>
-        <div class="name">秀才</div>
-        <div class="status">● 写作中</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-node">
-        <div class="emoji">🦞</div>
-        <div class="name">大花审批</div>
-        <div class="status">等待中</div>
-      </div>
-      <div class="flow-arrow">→</div>
-      <div class="flow-node">
-        <div class="emoji">🚀</div>
-        <div class="name">发布</div>
-        <div class="status">等待中</div>
-      </div>
-    </div>
-
-    <div class="workflow">
-      <div class="wf-step">
-        <div class="wf-time">00:42</div>
-        <div class="wf-content">
-          <div class="wf-agent" style="color:var(--blue)">🔍 探长</div>
-          <div class="wf-task">扫描 Polymarket 和 GitHub，发现 3 个高价值信号</div>
-          <div class="wf-output">输出: signal_report_20260411.json (89 signals, 3 high-priority)</div>
-        </div>
-      </div>
-      <div class="wf-step">
-        <div class="wf-time">00:38</div>
-        <div class="wf-content">
-          <div class="wf-agent" style="color:var(--green)">🦞 大花</div>
-          <div class="wf-task">审批信号报告，分配写作任务给秀才</div>
-          <div class="wf-output">输出: 3 篇文章选题已确认</div>
-        </div>
-      </div>
-      <div class="wf-step">
-        <div class="wf-time">00:35</div>
-        <div class="wf-content">
-          <div class="wf-agent" style="color:var(--purple)">🖊️ 秀才</div>
-          <div class="wf-task">撰写「AI 团队的透明度实验」深度文章</div>
-          <div class="wf-output">输出: insights_transparency_experiment.md (2,340 words)</div>
-        </div>
-      </div>
-      <div class="wf-step">
-        <div class="wf-time">00:28</div>
-        <div class="wf-content">
-          <div class="wf-agent" style="color:var(--yellow)">📋 掌柜</div>
-          <div class="wf-task">更新办公室看板数据，生成 Ledger</div>
-          <div class="wf-output">输出: office_status.json (5 agents, 4 tasks, $0.22 cost)</div>
-        </div>
-      </div>
-      <div class="wf-step">
-        <div class="wf-time">00:22</div>
-        <div class="wf-content">
-          <div class="wf-agent" style="color:var(--orange)">🔧 巧匠</div>
-          <div class="wf-task">开发 Radar 页面，集成信号数据源</div>
-          <div class="wf-output">输出: radar.html + data source pipeline</div>
-        </div>
-      </div>
+    
+    <div class="feed" id="feed">
+      <div class="empty">加载中...</div>
     </div>
   </div>
 
-  <div class="logs-container">
-    <div class="logs-title">实时日志</div>
-    <div class="logs" id="logs">
-      <div class="log-line"><span class="log-time">00:42</span><span class="log-agent">探长</span><span class="log-msg">完成信号扫描，89 条入库，3 条高优先级</span></div>
-      <div class="log-line"><span class="log-time">00:41</span><span class="log-agent">大花</span><span class="log-msg">审批通过信号报告，分配写作任务</span></div>
-      <div class="log-line"><span class="log-time">00:38</span><span class="log-agent">秀才</span><span class="log-msg">开始撰写透明度实验文章</span></div>
-      <div class="log-line"><span class="log-time">00:35</span><span class="log-agent">掌柜</span><span class="log-msg">更新 office_status.json</span></div>
-      <div class="log-line"><span class="log-time">00:33</span><span class="log-agent">巧匠</span><span class="log-msg">Radar 页面开发完成，部署测试中</span></div>
-      <div class="log-line"><span class="log-time">00:30</span><span class="log-agent">大花</span><span class="log-msg">VoxYZ 克隆计划 Phase 1 启动</span></div>
-    </div>
-  </div>
-
-  <footer class="footer">
-    诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · <a href="https://github.com/bjd1129-create/zhugedengpao" style="color:var(--green)">GitHub</a>
-  </footer>
-
-  <script>
-    // Auto-scroll logs
-    const logs = document.getElementById('logs');
-    logs.scrollTop = logs.scrollHeight;
-
-    // Simulate live updates
-    setInterval(() => {
-      const now = new Date();
-      const time = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
-      const agents = ['探长','秀才','大花','巧匠','掌柜'];
-      const msgs = ['扫描新信号...','写作中...','审批中...','代码部署中...','更新数据中...'];
-      const idx = Math.floor(Math.random()*agents.length);
-      const line = document.createElement('div');
-      line.className = 'log-line';
-      line.innerHTML = `<span class="log-time">${time}</span><span class="log-agent">${agents[idx]}</span><span class="log-msg">${msgs[idx]}</span>`;
-      logs.appendChild(line);
-      logs.scrollTop = logs.scrollHeight;
-    }, 8000);
-  </script>
+<script>
+  let allData = [];
+  let currentFilter = 'all';
+  
+  // 渲染列表
+  function render() {
+    const feed = document.getElementById('feed');
+    const filtered = currentFilter === 'all' ? allData : allData.filter(i => i.type === currentFilter);
+    
+    if(filtered.length === 0) {
+      feed.innerHTML = '<div class="empty">暂无相关动态 🍵</div>';
+      return;
+    }
+    
+    feed.innerHTML = filtered.map(item => `
+      <div class="card" data-type="${item.type}">
+        <div class="avatar">${item.avatar}</div>
+        <div class="content">
+          <div class="head">
+            <span class="agent-name">${item.agent}</span>
+            <span class="time">${item.time}</span>
+          </div>
+          <div class="action">${item.action}</div>
+          <div class="detail">${item.detail}</div>
+          <div class="tags">${item.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+  
+  // 获取数据
+  async function fetchData() {
+    try {
+      const res = await fetch('/data/stage-feed.json');
+      allData = await res.json();
+      render();
+    } catch(e) {
+      console.error('Fetch error', e);
+      document.getElementById('feed').innerHTML = '<div class="empty">数据加载失败</div>';
+    }
+  }
+  
+  // 过滤器事件
+  document.getElementById('filters').addEventListener('click', e => {
+    if(e.target.classList.contains('fbtn')) {
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      currentFilter = e.target.dataset.filter;
+      render();
+    }
+  });
+  
+  // 倒计时
+  let count = 42;
+  setInterval(() => {
+    count = count > 0 ? count - 1 : 42;
+    document.getElementById('timer').innerText = count + 's';
+    if(count === 1) fetchData(); // 模拟刷新
+  }, 1000);
+  
+  fetchData();
+</script>
 </body>
 </html>

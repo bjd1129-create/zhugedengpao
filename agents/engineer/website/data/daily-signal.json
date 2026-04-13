@@ -1,0 +1,24 @@
+{
+  "type": "competitor_update",
+  "source": "\u63a2\u957f\u96f7\u8fbe",
+  "timestamp": "2026-04-11T15:43:43.493955",
+  "changes": [
+    {
+      "page": "voxyz_office",
+      "status": "new",
+      "url": "https://www.voxyz.ai/office"
+    },
+    {
+      "page": "voxyz_stage",
+      "status": "new",
+      "url": "https://www.voxyz.ai/stage"
+    },
+    {
+      "page": "voxyz_radar",
+      "status": "new",
+      "url": "https://www.voxyz.ai/radar"
+    }
+  ],
+  "action_required": "review_design",
+  "priority": "high"
+}

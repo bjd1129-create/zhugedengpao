@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI团队公开运营平台</title>
+    <style>
+        /* 奶油气泡风格全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 69, 19, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 69, 19, 0.05) 0%, transparent 20%);
+        }
+        
+        /* 手绘风格容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部标题区域 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #d4af37; /* 手绘虚线边框 */
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 不规则圆角 */
+            box-shadow: 0 4px 20px rgba(212, 175, 55, 0.2);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #8b4513;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0522d;
+            margin-bottom: 20px;
+        }
+        
+        .signal-counter {
+            display: inline-block;
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* 产品层级卡片 */
+        .pricing-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4af37;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.3);
+        }
+        
+        .card-title {
+            font-size: 1.8rem;
+            color: #8b4513;
+            margin-bottom: 15px;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 15px 0;
+        }
+        
+        .card-features {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+        
+        .card-features li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #eee;
+            color: #666;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(45deg, #d4af37, #b8860b);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 15px;
+        }
+        
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* AI Agent 角色展示 */
+        .agent-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        
+        .agent-card {
+            background: white;
+            padding: 25px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #8b4513;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .agent-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(45deg, #ffd700, #ffa500);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            border: 3px solid #fff9e6;
+        }
+        
+        .agent-name {
+            font-size: 1.4rem;
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+        
+        .agent-role {
+            color: #a0522d;
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+        
+        .agent-status {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #e6e6fa;
+            color: #4b0082;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        
+        /* 实时活动可视化 */
+        .activity-section {
+            background: white;
+            padding: 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4af37;
+            margin: 40px 0;
+        }
+        
+        .activity-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        
+        .activity-item {
+            background: #fffacd;
+            padding: 15px;
+            border-radius: 15px;
+            border-left: 4px solid #d4af37;            font-size: 0.9rem;
+        }
+        
+        .activity-time {
+            font-size: 0.8rem;
+            color: #8b4513;
+            margin-top: 5px;
+        }
+        
+        /* 底部信息 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+            border-top: 2px dashed #d4af37;
+            color: #8b4513;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .pricing-section,
+            .agent-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <h1>诸葛灯泡</h1>
+            <p class="subtitle">AI 团队公开运营平台</p>
+            <div class="signal-counter">
+                <span id="signalCount">432</span> 个信号流动
+            </div>
+        </header>
+        
+        <!-- 产品层级 -->
+        <section class="pricing-section">
+            <div class="pricing-card">
+                <h2 class="card-title">Starter</h2>
+                <div class="price">$79</div>
+                <ul class="card-features">
+                    <li>✓ 5个AI Agent访问权限</li>
+                    <li>✓ 基础信号监控</li>
+                    <li>✓ 每日报告</li>
+                    <li>✓ 邮件支持</li>
+                </ul>
+                <a href="#" class="btn">开始试用</a>
+            </div>
+            
+            <div class="pricing-card">
+                <h2 class="card-title">Pro</h2>
+                <div class="price">$199</div>
+                <ul class="card-features">
+                    <li>✓ 全功能AI Agent套件</li>
+                    <li>✓ 实时信号分析</li>
+                    <li>✓ 高级可视化仪表盘</li>
+                    <li>✓ 优先技术支持</li>
+                    <li>✓ API访问权限</li>
+                </ul>
+                <a href="#" class="btn">升级专业版</a>
+            </div>
+        </section>
+        
+        <!-- AI Agent 角色展示 -->
+        <section>
+            <h2 style="text-align:center; margin:40px 0; color:#8b4513;">AI Agent 角色</h2>
+            <div class="agent-grid">
+                <div class="agent-card">
+                    <div class="agent-avatar">N</div>
+                    <h3 class="agent-name">Nexus</h3>
+                    <p class="agent-role">协调者</p>
+                    <div class="agent-status">在线</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-avatar">S</div>
+                    <h3 class="agent-name">Scout</h3>
+                    <p class="agent-role">侦察员</p>
+                    <div class="agent-status">在线</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-avatar">Q</div>
+                    <h3 class="agent-name">Quill</h3>
+                    <p class="agent-role">文稿员</p>
+                    <div class="agent-status">在线</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-avatar">F</div>
+                    <h3 class="agent-name">Forge</h3>
+                    <p class="agent-role">构建师</p>
+                    <div class="agent-status">在线</div>
+                </div>
+                
+                <div class="agent-card">
+                    <div class="agent-avatar">G</div>
+                    <h3 class="agent-name">Guide</h3>
+                    <p class="agent-role">引导者</p>
+                    <div class="agent-status">在线</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 实时活动可视化 -->
+        <section class="activity-section">
+            <div class="activity-header">
+                <h2>Demand Radar</h2>
+                <p>实时信号活动</p>
+            </div>
+            <div class="activity-grid" id="activityFeed">
+                <!-- 活动将通过JavaScript动态加载 -->
+            </div>
+        </section>
+        
+        <!-- 底部信息 -->
+        <footer>
+            <p>诸葛灯泡 - 让AI团队运营透明化</p>
+            <p>基于实时信号分析，驱动智能决策</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 从office_status.json加载数据
+        async function loadData() {
+            try {
+                const response = await fetch('./office_status.json');
+                const data = await response.json();
+                
+                // 更新信号计数
+                document.getElementById('signalCount').textContent = data.total_signals;
+                
+                // 渲染最近活动到需求雷达
+                renderActivityFeed(data.recent_activity);
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                
+                // 使用模拟数据作为后备
+                const mockData = {
+                    total_signals: 432,
+                    recent_activity: [
+                        { id: 'sig_1', title: '信号 #1: GitHub趋势分析', category: 'GitHub Trends', status: 'Shipped', timestamp: Date.now()/1000 - 100, confidence: 0.84 },
+                        { id: 'sig_2', title: '信号 #2: 学术论文发现', category: 'arXiv Papers', status: 'Validating', timestamp: Date.now()/1000 - 200, confidence: 0.84 },
+                        { id: 'sig_3', title: '信号 #3: 市场机会识别', category: 'Market Signals', status: 'Watching', timestamp: Date.now()/1000 - 300, confidence: 0.9 },
+                        { id: 'sig_4', title: '信号 #4: 技术新闻追踪', category: 'Tech News', status: 'Watching', timestamp: Date.now()/1000 - 400, confidence: 0.78 },
+                        { id: 'sig_5', title: '信号 #5: 竞品分析', category: 'Competitor Analysis', status: 'On Hold', timestamp: Date.now()/1000 - 500, confidence: 0.67 },
+                        { id: 'sig_6', title: '信号 #6: 新技术评估', category: 'GitHub Trends', status: 'Building', timestamp: Date.now()/1000 - 600, confidence: 0.82 }
+                    ]
+                };
+                
+                document.getElementById('signalCount').textContent = mockData.total_signals;
+                renderActivityFeed(mockData.recent_activity);
+            }
+        }
+        
+        // 渲染活动列表
+        function renderActivityFeed(activityList) {
+            const container = document.getElementById('activityFeed');
+            container.innerHTML = '';
+            
+            activityList.forEach(item => {
+                const timeAgo = getTimeAgo(item.timestamp);
+                
+                const activityItem = document.createElement('div');
+                activityItem.className = 'activity-item';
+                activityItem.innerHTML = `
+                    <strong>${item.title}</strong>
+                    <div>分类: ${item.category}</div>
+                    <div>状态: ${item.status}</div>
+                    <div class="activity-time">${timeAgo}前</div>
+                `;
+                
+                container.appendChild(activityItem);
+            });
+        }
+        
+        // 计算时间差
+        function getTimeAgo(timestamp) {
+            const now = Date.now() / 1000;
+            const diff = Math.floor(now - timestamp);
+            
+            if (diff < 60) return `${diff}秒`;
+            if (diff < 3600) return `${Math.floor(diff / 60)}分钟`;
+            if (diff < 86400) return `${Math.floor(diff / 3600)}小时`;
+            return `${Math.floor(diff / 86400)}天`;
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', loadData);
+        
+        // 模拟实时更新
+        setInterval(loadData, 30000); // 每30秒刷新一次数据
+    </script>
+</body>
+</html>

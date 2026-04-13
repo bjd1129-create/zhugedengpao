@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI驱动的市场信号分析平台</title>
+    <style>
+        /* 奶油手绘风格全局样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #5d4037; /* 深棕色文字 */
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(139, 69, 19, 0.05) 0.5px, transparent 1px),
+                radial-gradient(circle at 85% 30%, rgba(139, 69, 19, 0.05) 0.5px, transparent 1px);
+            background-size: 30px 30px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+            border-bottom: 2px dashed #d4af37; /* 手绘虚线边框 */
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            color: #d4af37; /* 黄金色标题 */
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            color: #8d6e63;
+            max-width: 700px;
+            margin: 0 auto 25px;
+        }
+        
+        /* 主要功能区卡片 */
+        .feature-section {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px solid #d4af37;
+            width: 300px;
+            text-align: center;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #d4af37;
+        }
+        
+        .feature-title {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: #5d4037;
+        }
+        
+        /* 信号漏斗可视化 */
+        .funnel-section {
+            background: white;
+            padding: 40px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid #d4af37;
+            margin: 40px auto;
+            max-width: 900px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .funnel-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 30px;
+        }
+        
+        .funnel-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .funnel-stage {
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .stage-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        
+        .stage-name {
+            font-size: 1.1rem;
+            color: #5d4037;
+        }
+        
+        .funnel-arrow {
+            font-size: 2rem;
+            color: #8d6e63;
+        }
+        
+        /* 定价套餐 */
+        .pricing-section {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 50px 0;
+        }
+        
+        .pricing-card {
+            background: white;
+            padding: 35px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid #d4af37;
+            width: 280px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .pricing-card.popular::before {
+            content: '推荐';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #d4af37;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            font-size: 0.8rem;
+            transform: rotate(15deg);
+        }
+        
+        .plan-name {
+            font-size: 1.6rem;
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+        
+        .plan-price {
+            font-size: 2.2rem;
+            color: #5d4037;
+            margin-bottom: 20px;
+        }
+        
+        .plan-price span {
+            font-size: 1rem;
+            color: #8d6e63;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+        
+        .plan-features li {
+            padding: 8px 0;
+            border-bottom: 1px dashed #d4af37;
+        }
+        
+        .cta-button {
+            background: linear-gradient(to right, #d4af37, #b8860b);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        /* 社区统计 */
+        .community-stats {
+            text-align: center;
+            background: white;
+            padding: 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px solid #d4af37;
+            margin: 40px auto;
+            max-width: 600px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            color: #d4af37;
+            font-weight: bold;
+            display: block;
+        }
+        
+        .stats-label {
+            font-size: 1.1rem;
+            color: #5d4037;
+        }
+        
+        /* 底部 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-top: 2px dashed #d4af37;
+            color: #8d6e63;
+        }
+        
+        /* 高亮笔效果 */
+        .highlight {
+            background: linear-gradient(120deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.3));
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 80%;
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1>诸葛灯泡</h1>
+            <p class="subtitle">AI驱动的市场信号分析平台，帮助您发现下一个百万美元的机会</p>
+            <p>基于432个实时市场信号，为您提供精准的商业洞察</p>
+        </header>
+
+        <!-- 功能特性 -->
+        <section class="feature-section">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">智能信号监测</h3>
+                <p>实时追踪GitHub趋势、学术论文、市场动态等多维度信号源</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3 class="feature-title">AI深度分析</h3>
+                <p>利用先进算法识别潜在商业机会，过滤噪音信号</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">可视化洞察</h3>
+                <p>直观展示信号转化路径，助您快速决策</p>
+            </div>
+        </section>
+
+        <!-- 信号漏斗 -->
+        <section class="funnel-section">
+            <h2 class="funnel-title">Demand Radar - 信号转化漏斗</h2>
+            <div class="funnel-container">
+                <div class="funnel-stage">
+                    <span class="stage-number">432</span>
+                    <span class="stage-name">Watching<br><small>监控中</small></span>
+                </div>
+                <div class="funnel-arrow">→</div>
+                <div class="funnel-stage">
+                    <span class="stage-number">11</span>
+                    <span class="stage-name">Validating<br><small>验证中</small></span>
+                </div>
+                <div class="funnel-arrow">→</div>
+                <div class="funnel-stage">
+                    <span class="stage-number">5</span>
+                    <span class="stage-name">Building<br><small>开发中</small></span>
+                </div>
+                <div class="funnel-arrow">→</div>
+                <div class="funnel-stage">
+                    <span class="stage-number">58</span>
+                    <span class="stage-name">Shipped<br><small>已发布</small></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 定价套餐 -->
+        <section style="text-align: center; margin: 50px 0;">
+            <h2 style="font-size: 2rem; color: #d4af37; margin-bottom: 20px;">选择适合您的计划</h2>
+            <p style="color: #8d6e63; margin-bottom: 40px;">所有计划均包含完整的信号分析功能</p>
+            
+            <div class="pricing-section">
+                <div class="pricing-card">
+                    <h3 class="plan-name">Starter</h3>
+                    <div class="plan-price">$79<span>/月</span></div>
+                    <ul class="plan-features">
+                        <li>✓ 100个精选信号</li>
+                        <li>✓ 基础分析报告</li>
+                        <li>✓ 邮件通知</li>
+                        <li>✓ 社区支持</li>
+                    </ul>
+                    <a href="#" class="cta-button">立即开始</a>
+                </div>
+                
+                <div class="pricing-card popular">
+                    <h3 class="plan-name">Pro</h3>
+                    <div class="plan-price">$199<span>/月</span></div>
+                    <ul class="plan-features">
+                        <li>✓ 全部432个信号</li>
+                        <li>✓ 高级AI分析</li>
+                        <li>✓ 实时推送</li>
+                        <li>✓ 专属客户经理</li>
+                        <li>✓ 定制化报告</li>
+                    </ul>
+                    <a href="#" class="cta-button">获取专业版</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社区统计 -->
+        <div class="community-stats">
+            <span class="stats-number">700+</span>
+            <span class="stats-label">活跃订阅者社区</span>
+            <p style="margin-top: 15px; color: #8d6e63;">加入我们的创新者社区，共享商业洞察</p>
+        </div>
+
+        <!-- AI Agent介绍 -->
+        <section style="text-align: center; margin: 50px 0;">
+            <h2 style="font-size: 2rem; color: #d4af37; margin-bottom: 30px;">强大的AI Agent组合</h2>
+            <div class="feature-section">
+                <div class="feature-card">
+                    <div class="feature-icon">💡</div>
+                    <h3 class="feature-title">Nexus</h3>
+                    <p>核心协调Agent，整合所有信号来源</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔍</div>
+                    <h3 class="feature-title">Scout</h3>
+                    <p>市场侦察Agent，发现新兴趋势</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✍️</div>
+                    <h3 class="feature-title">Quill</h3>
+                    <p>内容生成Agent，撰写分析报告</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔨</div>
+                    <h3 class="feature-title">Forge</h3>
+                    <p>产品构建Agent，辅助原型开发</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧭</div>
+                    <h3 class="feature-title">Guide</h3>
+                    <p>决策指导Agent，提供策略建议</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 底部 -->
+        <footer>
+            <p>© 2026 诸葛灯泡 - 让数据驱动决策</p>
+            <p>基于AI的市场信号分析平台</p>
+        </footer>
+    </div>
+
+    <script>
+        // 页面加载完成后显示动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有卡片添加进入动画
+            const cards = document.querySelectorAll('.feature-card, .pricing-card, .funnel-stage');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+            
+            // 为按钮添加点击效果
+            const buttons = document.querySelectorAll('.cta-button');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.textContent = '正在处理...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        this.textContent = '处理完成！';
+                        this.style.background = 'linear-gradient(to right, #4CAF50, #2E7D32)';
+                    }, 1500);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

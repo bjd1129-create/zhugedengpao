@@ -16,35 +16,47 @@
 <noscript><link rel="stylesheet" href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=ZCOOL+KuaiLe&family=Ma+Shan+Zheng&display=swap"></noscript>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Noto Sans SC',sans-serif;background:#f5f3ee;color:#333;padding-top:56px}
-nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid #e8e4df;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
-.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:#4A2508;text-decoration:none;font-weight:700}
+:root{
+  --bg: #F5E6D3; /* 米白底色 */
+  --bg-dot: #E6DFC5; /* 点阵网格 */
+  --surface: #FFFFFF; /* 卡片表面 */
+  --border: var(--accent); /* 深棕边框 */
+  --text: #1A1A1A; /* 主文字 */
+  --muted: #6B5B4B; /* 次要文字 */
+  --accent: #E8A87C; /* 暖橙点缀 */
+  --accent-light: #F4C2A1; /* 暖橙浅色 */
+  --accent-dim: rgba(232,168,124,0.15); /* 暖橙半透 */
+  --font-hand: "ZCOOL KuaiLe", "Patrick Hand", cursive;
+}
+body{font-family:'Noto Sans SC',sans-serif;background:#f5f3ee;color:var(--text);padding-top:56px}
+nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,255,0.97);backdrop-filter:blur(12px);border-bottom:2px solid var(--border);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 8px rgba(0,0,0,0.04)}
+.nav-logo{font-family:'ZCOOL KuaiLe',sans-serif;font-size:22px;color:var(--accent);text-decoration:none;font-weight:700}
 .nav-links{margin-left:auto;display:flex;gap:20px}
-.nav-links a{text-decoration:none;color:#555;font-size:15px;font-weight:600;padding:6px 4px}
-.nav-links a:hover,.nav-links a.active{color:#4A2508}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:15px;font-weight:600;padding:6px 4px}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
 
 /* ── Comic Tabs ── */
-.comic-section{background:#fff;border:1.5px solid #e8e4df;border-radius:14px;margin:24px 0;overflow:hidden}
-.comic-tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:0;border-bottom:1.5px solid #e8e4df}
+.comic-section{background:#fff;border:1.5px solid var(--border);border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;margin:24px 0;overflow:hidden}
+.comic-tabs{display:flex;overflow-x:auto;scrollbar-width:none;gap:0;border-bottom:1.5px solid var(--border)}
 .comic-tabs::-webkit-scrollbar{display:none}
-.comic-tab{padding:10px 18px;font-size:13px;font-weight:600;color:#555;cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;flex-shrink:0;transition:color .2s,border-color .2s}
-.comic-tab:hover{color:#4A2508}
-.comic-tab.active{color:#4A2508;border-bottom-color:#4A2508}
+.comic-tab{padding:10px 18px;font-size:13px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;border-bottom:2.5px solid transparent;flex-shrink:0;transition:color .2s,border-color .2s}
+.comic-tab:hover{color:var(--accent)}
+.comic-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
 .comic-panels{padding:16px}
 .comic-panel{display:none;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px}
 .comic-panel.active{display:grid}
-.comic-thumb{aspect-ratio:3/4;background:#f0ede8;border-radius:8px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;border:1.5px solid #e8e4df}
+.comic-thumb{aspect-ratio:3/4;background:#f0ede8;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;overflow:hidden;cursor:pointer;transition:transform .15s,box-shadow .15s;border:1.5px solid var(--border)}
 .comic-thumb:hover{transform:scale(1.04);box-shadow:0 4px 16px rgba(0,0,0,0.12)}
 .comic-thumb img{width:100%;height:100%;object-fit:cover}
-.comic-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;background:#f0ede8;border-radius:8px;border:1.5px dashed #ccc;color:#bbb;font-size:12px;gap:6px}
+.comic-placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;aspect-ratio:3/4;background:#f0ede8;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1.5px dashed #ccc;color:#bbb;font-size:12px;gap:6px}
 .comic-placeholder span{font-size:24px}
 
 /* Lightbox */
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;display:none;align-items:center;justify-content:center;flex-direction:column}
 .lightbox.open{display:flex}
-.lightbox img{max-width:90vw;max-height:80vh;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
+.lightbox img{max-width:90vw;max-height:80vh;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;box-shadow:0 8px 40px rgba(0,0,0,0.4)}
 .lightbox-nav{display:flex;gap:16px;margin-top:16px}
-.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:14px}
+.lightbox-nav button{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.3);color:#fff;padding:8px 20px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;cursor:pointer;font-size:14px}
 .lightbox-nav button:hover{background:rgba(255,255,255,0.25)}
 .lightbox-close{position:absolute;top:20px;right:24px;background:none;border:none;color:#fff;font-size:28px;cursor:pointer;line-height:1}
 .lightbox-counter{color:rgba(255,255,255,0.6);font-size:13px;margin-top:10px}
@@ -52,18 +64,18 @@ nav{position:fixed;top:0;left:0;width:100%;z-index:1000;background:rgba(255,255,
 /* ── Story Content ── */
 article{max-width:680px;margin:0 auto;padding:24px 20px 40px}
 h1{font-size:24px;font-weight:900;line-height:1.4;margin-bottom:8px}
-.subtitle{font-size:14px;color:#555;margin-bottom:24px;line-height:1.6}
-.diamond{text-align:center;color:#4A2508;font-size:14px;margin:32px 0;letter-spacing:8px}
+.subtitle{font-size:14px;color:var(--muted);margin-bottom:24px;line-height:1.6}
+.diamond{text-align:center;color:var(--accent);font-size:14px;margin:32px 0;letter-spacing:8px}
 h2{font-family:'ZCOOL KuaiLe',sans-serif;font-size:20px;color:#c44434;border-left:4px solid #c44434;padding-left:12px;margin:32px 0 16px}
 p{font-size:15px;line-height:2;margin:10px 0}
-.quote{background:#f7f5f2;border-left:3px solid #E07A5A;padding:12px 16px;margin:16px 0;font-size:14px;color:#555;border-radius:0 8px 8px 0}
+.quote{background:#f7f5f2;border-left:3px solid #E07A5A;padding:12px 16px;margin:16px 0;font-size:14px;color:var(--muted);border-radius:0 8px 8px 0}
 .highlight{color:#6B3F2A;font-weight:700}
-.data-card{background:#fff;border:1.5px solid #e8e4df;border-radius:10px;padding:16px;margin:16px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
-.data-card .num{font-size:22px;font-weight:900;color:#4A2508}
-.data-card .label{font-size:11px;color:#555}
-.scene{font-family:'Ma Shan Zheng',serif;font-size:16px;color:#555;font-style:italic;margin:8px 0}
-footer{text-align:center;padding:20px;font-size:11px;color:#555;border-top:2px solid #ddd;background:#f5f3ee;margin-top:40px}
-footer a{color:#555;text-decoration:none;margin:0 8px}
+.data-card{background:#fff;border:1.5px solid var(--border);border-radius:10px;padding:16px;margin:16px 0;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.data-card .num{font-size:22px;font-weight:900;color:var(--accent)}
+.data-card .label{font-size:11px;color:var(--muted)}
+.scene{font-family:'Ma Shan Zheng',serif;font-size:16px;color:var(--muted);font-style:italic;margin:8px 0}
+footer{text-align:center;padding:20px;font-size:11px;color:var(--muted);border-top:2px solid #ddd;background:#f5f3ee;margin-top:40px}
+footer a{color:var(--muted);text-decoration:none;margin:0 8px}
 @media(max-width:600px){
   .nav-links{display:none}
   .data-card{grid-template-columns:repeat(2,1fr)}
@@ -89,7 +101,9 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 <a href="articles.html">📝 文章</a>
 
 <a href="bagua.html">🎯 八卦</a>
-<a href="trading.html">📈 操盘</a>
+<a href="radar.html">📡 信号雷达</a>
+    <a href="office.html">办公室</a>
+    <a href="trading.html">📈 操盘</a>
 </div>
 </nav>
 
@@ -347,7 +361,7 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 <p>说干就干。</p>
 
 <p>规则很简单：</p>
-<ul style="font-size:14px;line-height:2.2;color:#555;padding-left:20px;margin:8px 0">
+<ul style="font-size:14px;line-height:2.2;color:var(--muted);padding-left:20px;margin:8px 0">
 <li>每天和AI对话，给它真实的工作任务</li>
 <li>不教它怎么做，只告诉它要什么</li>
 <li>让它自己犯错、自己总结、自己写规则</li>
@@ -438,15 +452,15 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 <p>小花设计了一个9角色团队：</p>
 
 <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:16px 0">
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🎯 总指挥</strong>（小花本人）— 协调、汇报、决策</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>✍️ 笔杆子</strong> — 公众号、文章、X Thread</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🧠 参谋</strong> — 研究、情报、选题分析</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>📢 协调官</strong> — 推广、邮件、日程</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>💬 社区官</strong> — 互动、回复、留言管理</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🧬 进化官</strong> — 系统升级、代码、能力提升</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🔍 洞察官</strong> — 竞品分析、行业观察</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>📋 推进官</strong> — 任务跟踪、进度推进</div>
-<div style="background:#fff;padding:10px;border-radius:8px;border:1px solid #eee;font-size:13px"><strong>🛡️ 支持专员</strong> — 防护、检查、风险管理</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>🎯 总指挥</strong>（小花本人）— 协调、汇报、决策</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>✍️ 笔杆子</strong> — 公众号、文章、X Thread</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>🧠 参谋</strong> — 研究、情报、选题分析</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>📢 协调官</strong> — 推广、邮件、日程</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>💬 社区官</strong> — 互动、回复、留言管理</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>🧬 进化官</strong> — 系统升级、代码、能力提升</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>🔍 洞察官</strong> — 竞品分析、行业观察</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>📋 推进官</strong> — 任务跟踪、进度推进</div>
+<div style="background:#fff;padding:10px;border-radius: 15px 255px 15px 225px/225px 15px 255px 15px;border:1px solid #eee;font-size:13px"><strong>🛡️ 支持专员</strong> — 防护、检查、风险管理</div>
 </div>
 
 <p>每个角色有自己的记忆文件、自己的技能库。Agent之间可以互相教学——一个学会了新技能，其他1秒钟同步。</p>
@@ -464,7 +478,7 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 
 <p>老庄睡着了。但他的9个Agent全部在线：</p>
 
-<ul style="font-size:14px;line-height:2.2;color:#555;padding-left:20px;margin:8px 0">
+<ul style="font-size:14px;line-height:2.2;color:var(--muted);padding-left:20px;margin:8px 0">
 <li>参谋在扫描AI行业最新动态，筛选值得跟踪的内容</li>
 <li>笔杆子在根据参谋推荐的选题写文章初稿</li>
 <li>社区官在回复留言和用户消息</li>
@@ -547,7 +561,7 @@ footer a{color:#555;text-decoration:none;margin:0 8px}
 </div>
 
 <!-- CTA -->
-<div style="text-align:center;background:#fff;border:2px solid #E07A5A;border-radius:14px;padding:24px;margin-top:32px">
+<div style="text-align:center;background:#fff;border:2px solid #E07A5A;border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;padding:24px;margin-top:32px">
 <p style="font-size:15px;font-weight:700;margin-bottom:12px">想养一只自己的龙虾？</p>
 <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
 <a href="diary.html" style="padding:10px 20px;border-radius:10px;background:#fff;color:#c44434;border:1.5px solid #c44434;font-weight:700;font-size:14px;text-decoration:none">📖 看完整日记</a>

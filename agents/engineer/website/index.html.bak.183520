@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - 智能信号分析系统</title>
+    <style>
+        /* 奶油气泡风格基础样式 */
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 15px 15px, rgba(128, 128, 128, 0.1) 1px, transparent 1px),
+                radial-gradient(circle at 50px 50px, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 手绘风格标题 */
+        h1 {
+            text-align: center;
+            color: #d4af37;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 2px dashed #d4af37;
+            padding-bottom: 15px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #8b7500;
+            font-size: 1.2em;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+        
+        /* 状态卡片容器 */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: white;
+            padding: 20px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4af37;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .status-title {
+            color: #d4af37;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        
+        .status-value {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #8b7500;
+        }
+        
+        /* 实时活动区域 */
+        .activity-section {
+            background: white;
+            padding: 25px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4af37;
+            margin-bottom: 30px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .section-title {
+            color: #d4af37;
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px dashed #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        /* 信号列表 */
+        .signal-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .signal-item {
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fffde7;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border-left: 4px solid #d4af37;
+            position: relative;
+        }
+        
+        .signal-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .signal-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        .signal-status {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .status-Watching { background-color: #e3f2fd; color: #1976d2; }
+        .status-Validating { background-color: #fff3e0; color: #f57c00; }
+        .status-Building { background-color: #e8f5e8; color: #388e3c; }
+        .status-Shipped { background-color: #f3e5f5; color: #7b1fa2; }
+        .status-On Hold { background-color: #ffebee; color: #d32f2f; }
+        
+        /* 底部信息 */
+        .footer {
+            text-align: center;
+            color: #8b7500;
+            font-size: 0.9em;
+            margin-top: 30px;
+            padding: 20px;
+        }
+        
+        /* 刷新按钮 */
+        .refresh-btn {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px;
+            background: #d4af37;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .refresh-btn:hover {
+            background: #b8860b;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>诸葛灯泡</h1>
+        <div class="subtitle">智能信号分析与决策支持系统</div>
+        
+        <!-- 动态系统状态卡片 -->
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-title">在线代理</div>
+                <div class="status-value" id="agents-online">8</div>
+            </div>
+            <div class="status-card">
+                <div class="status-title">今日处理信号</div>
+                <div class="status-value" id="signals-today">42</div>
+            </div>
+            <div class="status-card">
+                <div class="status-title">活跃信号</div>
+                <div class="status-value" id="active-signals">141</div>
+            </div>
+            <div class="status-card">
+                <div class="status-title">总信号数</div>
+                <div class="status-value" id="total-signals">432</div>
+            </div>
+        </div>
+        
+        <!-- 实时活动区域 -->
+        <div class="activity-section">
+            <h2 class="section-title">实时信号活动</h2>
+            <ul class="signal-list" id="recent-activity">
+                <!-- 通过JavaScript动态填充 -->
+            </ul>
+        </div>
+        
+        <button class="refresh-btn" onclick="loadStatus()">🔄 刷新状态</button>
+        
+        <div class="footer">
+            诸葛灯泡系统 • 实时监控 • 智能分析
+        </div>
+    </div>
+
+    <script>
+        // 页面加载时获取初始数据
+        document.addEventListener('DOMContentLoaded', loadStatus);
+        
+        async function loadStatus() {
+            try {
+                // 从本地JSON文件获取数据
+                const response = await fetch('./data/office_status.json');
+                const data = await response.json();
+                
+                // 更新统计卡片
+                updateStats(data);
+                
+                // 更新最近活动列表
+                updateActivityList(data.recent_activity);
+                
+            } catch (error) {
+                console.error('加载状态数据失败:', error);
+                alert('加载数据失败，请检查网络连接');
+            }
+        }
+        
+        function updateStats(data) {
+            // 计算在线代理数量（Watching + Validating + Building）
+            const onlineAgents = (data.by_status.Watching || 0) + 
+                                (data.by_status.Validating || 0) + 
+                                (data.by_status.Building || 0);
+            
+            // 今日处理信号数量（这里简单用Shipped数量代替）
+            const signalsToday = data.by_status.Shipped || 0;
+            
+            // 活跃信号数量（Watching + Validating + Building）
+            const activeSignals = onlineAgents;
+            
+            // 总信号数
+            const totalSignals = data.total_signals || 0;
+            
+            // 更新DOM元素
+            document.getElementById('agents-online').textContent = onlineAgents;
+            document.getElementById('signals-today').textContent = signalsToday;
+            document.getElementById('active-signals').textContent = activeSignals;
+            document.getElementById('total-signals').textContent = totalSignals;
+        }
+        
+        function updateActivityList(activityList) {
+            const container = document.getElementById('recent-activity');
+            container.innerHTML = ''; // 清空现有内容
+            
+            activityList.forEach(item => {
+                const li = document.createElement('li');
+                li.className = 'signal-item';
+                
+                // 格式化时间戳为可读格式
+                const date = new Date(item.timestamp * 1000);
+                const timeStr = date.toLocaleString('zh-CN');
+                
+                li.innerHTML = `
+                    <div class="signal-title">${item.title}</div>
+                    <div class="signal-meta">
+                        <span class="signal-category">分类: ${item.category}</span>
+                        <span class="signal-status status-${item.status}">${item.status}</span>
+                    </div>
+                    <div class="signal-meta">
+                        <span>时间: ${timeStr}</span>
+                        <span>置信度: ${(item.confidence * 100).toFixed(0)}%</span>
+                    </div>
+                `;
+                
+                container.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>

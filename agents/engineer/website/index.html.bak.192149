@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI驱动的智能决策平台</title>
+    <style>
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #333;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(255, 223, 128, 0.1) 2px, transparent 2px),
+                radial-gradient(circle at 85% 80%, rgba(255, 223, 128, 0.1) 2px, transparent 2px);
+            background-size: 40px 40px;
+            min-height: 100vh;
+        }
+
+        /* 页面容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部区域 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 12px rgba(255, 170, 0, 0.2);
+            border: 3px solid #ffaa00;
+        }
+
+        .logo::before {
+            content: '💡';
+            font-size: 60px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #8b7500;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 主要内容区域 */
+        main {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        @media (max-width: 768px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 卡片通用样式 */
+        .card {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+            border: 2px dashed #d4af37; /* 手绘虚线边框 */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(212, 175, 55, 0.25);
+        }
+
+        .card h2 {
+            color: #d4af37;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px dashed #ffd700; /* 黄色虚线分隔 */
+            font-size: 1.5rem;
+        }
+
+        /* 实时数据区域 */
+        .realtime-data {
+            grid-column: 1 / -1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #fff9e6, #fff5cc);
+            padding: 15px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #ffd700;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #8b7500;
+        }
+
+        /* 用户证言 */
+        .testimonial {
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255, 253, 230, 0.7);
+            border-left: 4px solid #ffd700;
+            border-radius: 0 15px 15px 0;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #d4af37;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* 付费方案 */
+        .pricing-plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .pricing-card {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin: 10px 0;
+        }
+
+        .price-old {
+            text-decoration: line-through;
+            color: #ccc;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: #333;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(255, 170, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(255, 170, 0, 0.4);
+        }
+
+        /* 订阅表单 */
+        .subscription-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ffd700;
+            border-radius: 50px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        /* 团队成员 */
+        .team-member {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 10px;
+            background: rgba(255, 253, 230, 0.7);
+            border-radius: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 1.5rem;
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .member-role {
+            font-size: 0.9rem;
+            color: #8b7500;
+        }
+
+        /* 底部区域 */
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 50px;
+            color: #8b7500;
+            border-top: 2px dashed #ffd700;
+        }
+
+        /* 高亮笔效果 */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.3));
+            background-repeat: no-repeat;
+            background-size: 100% 60%;
+            background-position: 0 85%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <div class="logo"></div>
+            <h1>诸葛灯泡</h1>
+            <p class="subtitle">AI驱动的智能决策平台，为您提供实时市场洞察与竞争分析</p>
+        </header>
+
+        <!-- 主要内容 -->
+        <main>
+            <!-- 实时数据 -->
+            <section class="card realtime-data">
+                <h2>📊 实时数据监控</h2>
+                <div id="data-display">
+                    <p>正在加载数据...</p>
+                </div>
+                <div class="stats-grid" id="stats-grid">
+                    <!-- 统计卡片将通过JavaScript动态生成 -->
+                </div>
+            </section>
+
+            <!-- 用户证言 -->
+            <section class="card">
+                <h2>👥 用户证言</h2>
+                <div class="testimonial">
+                    <p>“诸葛灯泡帮助我们提前发现了3个市场机会，让我们在竞争中抢占先机！”</p>
+                    <p class="testimonial-author">- 张总，某科技公司CEO</p>
+                </div>
+                <div class="testimonial">
+                    <p>“数据准确度很高，每天的报告节省了我们团队大量的调研时间。”</p>
+                    <p class="testimonial-author">- 李经理，投资分析师</p>
+                </div>
+                <div class="testimonial">
+                    <p>“这个平台改变了我们的决策流程，现在每个战略决定都有数据支撑。”</p>
+                    <p class="testimonial-author">- 王总监，产品负责人</p>
+                </div>
+            </section>
+
+            <!-- 付费方案 -->
+            <section class="card">
+                <h2>💰 付费方案</h2>
+                <div class="pricing-plans">
+                    <div class="card pricing-card">
+                        <h3>基础版</h3>
+                        <p class="price-old">¥299/月</p>
+                        <p class="price">¥199/月</p>
+                        <p>适合初创企业</p>
+                        <ul style="text-align: left; margin-top: 10px;">
+                            <li>✅ 100个信号/月</li>
+                            <li>✅ 基础分析报告</li>
+                            <li>✅ 邮件提醒</li>
+                        </ul>
+                        <a href="#subscribe" class="btn">立即订阅</a>
+                    </div>
+                    <div class="card pricing-card">
+                        <h3>专业版</h3>
+                        <p class="price-old">¥599/月</p>
+                        <p class="price">¥399/月</p>
+                        <p>适合成长型企业</p>
+                        <ul style="text-align: left; margin-top: 10px;">
+                            <li>✅ 500个信号/月</li>
+                            <li>✅ 详细分析报告</li>
+                            <li>✅ 优先客服支持</li>
+                            <li>✅ API访问</li>
+                        </ul>
+                        <a href="#subscribe" class="btn">立即订阅</a>
+                    </div>
+                    <div class="card pricing-card">
+                        <h3>企业版</h3>
+                        <p class="price-old">¥1299/月</p>
+                        <p class="price">¥899/月</p>
+                        <p>适合大型企业</p>
+                        <ul style="text-align: left; margin-top: 10px;">
+                            <li>✅ 无限信号</li>
+                            <li>✅ 定制化报告</li>
+                            <li>✅ 专属客户经理</li>
+                            <li>✅ API无限访问</li>
+                            <li>✅ 定制集成</li>
+                        </ul>
+                        <a href="#subscribe" class="btn">立即订阅</a>
+                    </div>
+                </div>
+                <p style="margin-top: 20px; color: #ff6b00;">⚠️ 限时优惠：前100名订阅用户享受首年5折优惠！</p>
+            </section>
+
+            <!-- 订阅区域 -->
+            <section class="card" id="subscribe">
+                <h2>📧 订阅我们的服务</h2>
+                <p>获取每周精选市场洞察和独家分析报告</p>
+                <div class="subscription-form">
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="请输入您的邮箱地址" required>
+                    </div>
+                    <button class="btn" onclick="subscribe()">立即订阅</button>
+                </div>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: #8b7500;">已有 <span class="highlight">728</span> 名用户订阅我们的服务</span></p>
+            </section>
+
+            <!-- 团队介绍 -->
+            <section class="card">
+                <h2>👤 我们的AI代理团队</h2>
+                <div class="team-member">
+                    <div class="avatar">🔍</div>
+                    <div class="member-info">
+                        <div class="member-name">探员阿智 (Agent Scout)</div>
+                        <div class="member-role">信号搜集专家 - 专门负责从各大平台收集市场信号</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">🧠</div>
+                    <div class="member-info">
+                        <div class="member-name">分析师小谋 (Agent Smith)</div>
+                        <div class="member-role">数据分析专家 - 负责对收集到的信息进行深度分析</div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="avatar">🚀</div>
+                    <div class="member-info">
+                        <div class="member-name">执行官老诸 (Agent Nexus)</div>
+                        <div class="member-role">决策协调专家 - 统筹各方信息并推动决策执行</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- 底部 -->
+        <footer>
+            <p>© 2026 诸葛灯泡 - AI驱动的智能决策平台 | 让数据为您点亮商业之路</p>
+        </footer>
+    </div>
+
+    <script>
+        // 加载实时数据
+        async function loadRealtimeData() {
+            try {
+                // 从本地加载模拟数据
+                const response = await fetch('office_status.json');
+                const data = await response.json();
+                
+                // 更新统计数据显示
+                document.getElementById('data-display').innerHTML = `
+                    <p><strong>最后更新时间:</strong> ${new Date(data.timestamp).toLocaleString('zh-CN')}</p>
+                    <p><strong>总信号数:</strong> ${data.total_signals}</p>
+                `;
+                
+                // 生成分类统计卡片
+                const statsGrid = document.getElementById('stats-grid');
+                statsGrid.innerHTML = '';
+                
+                for (const [category, count] of Object.entries(data.by_category)) {
+                    const statCard = document.createElement('div');
+                    statCard.className = 'card stat-card';
+                    statCard.innerHTML = `
+                        <div class="stat-value">${count}</div>
+                        <div class="stat-label">${category}</div>
+                    `;
+                    statsGrid.appendChild(statCard);
+                }
+                
+                // 状态统计
+                const statusStatCard = document.createElement('div');
+                statusStatCard.className = 'card stat-card';
+                statusStatCard.innerHTML = `
+                    <div class="stat-value">${data.by_status.Shipped}</div>
+                    <div class="stat-label">已交付项目</div>
+                `;
+                statsGrid.appendChild(statusStatCard);
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                document.getElementById('data-display').innerHTML = '<p>数据加载失败，请稍后重试</p>';
+            }
+        }
+        
+        // 订阅功能
+        function subscribe() {
+            const email = document.getElementById('email').value;
+            if (!email) {
+                alert('请先输入邮箱地址');
+                return;
+            }
+            
+            // 这里可以添加实际的订阅逻辑
+            alert(`感谢您订阅我们的服务！我们将发送确认邮件到: ${email}`);
+            document.getElementById('email').value = '';
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRealtimeData();
+            
+            // 每30秒自动刷新一次数据
+            setInterval(loadRealtimeData, 30000);
+        });
+    </script>
+</body>
+</html>

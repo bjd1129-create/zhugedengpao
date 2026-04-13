@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>任务大厅 | 诸葛灯泡 HQ</title>
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=ZCOOL+KuaiLe&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fff9e6; --text: #2d2a24; --accent: #ff7f50; --border: #4a4a4a;
+  --shadow: 4px 4px 0px var(--border); --font: 'ZCOOL KuaiLe', 'Patrick Hand', cursive;
+  --green: #38b000; --blue: #0077b6; --purple: #7209b7; --red: #ef4444; --yellow: #ffb703;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  min-height: 100vh;
+  background-image: radial-gradient(#e0dcd3 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+.lamp-card {
+  background: #fff;
+  border: 2px dashed var(--border);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: var(--shadow);
+  padding: 2rem;
+  transition: 0.2s;
+}
+.lamp-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px var(--border);
+}
+.lamp-btn {
+  background: var(--accent);
+  color: #fff;
+  border: 2px solid var(--border);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font);
+  cursor: pointer;
+  box-shadow: 2px 2px 0px var(--border);
+  text-decoration: none;
+  display: inline-block;
+}
+.lamp-btn:hover {
+  transform: rotate(-2deg) scale(1.02);
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  border-bottom: 2px dashed var(--border);
+  position: sticky;
+  top: 0;
+  background: rgba(255,249,230,0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+.nav-brand {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  text-shadow: 2px 2px 0px #000;
+}
+.nav-links { display: flex; gap: 20px; }
+.nav-links a {
+  color: #6b6b75;
+  text-decoration: none;
+  font-size: 15px;
+  transition: color .2s;
+}
+.nav-links a:hover, .nav-links a.active {
+  color: var(--text);
+  text-decoration: underline wavy var(--accent);
+}
+.user-info {
+  font-size: 13px;
+  color: #888;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.user-info .avatar { font-size: 20px; }
+
+/* Header */
+.page-header {
+  padding: 40px 32px 24px;
+  border-bottom: 2px dashed var(--border);
+}
+.page-header h1 {
+  font-size: 36px;
+  font-weight: 900;
+  margin-bottom: 8px;
+}
+.page-header h1 span { color: var(--accent); }
+.page-header p { color: #888; font-size: 16px; }
+
+/* Stats */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 16px;
+  padding: 24px 32px;
+  border-bottom: 2px dashed var(--border);
+}
+.stat {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: all .3s;
+}
+.stat:hover { transform: rotate(-1deg); }
+.stat-val { font-size: 32px; font-weight: 800; }
+.stat-lbl { font-size: 13px; color: #888; margin-top: 4px; }
+.stat:nth-child(1) .stat-val { color: var(--accent); }
+.stat:nth-child(2) .stat-val { color: var(--green); }
+.stat:nth-child(3) .stat-val { color: var(--blue); }
+.stat:nth-child(4) .stat-val { color: var(--purple); }
+
+/* Filter Bar */
+.filter-bar {
+  display: flex;
+  gap: 8px;
+  padding: 20px 32px;
+  flex-wrap: wrap;
+  border-bottom: 2px dashed var(--border);
+}
+.filter-btn {
+  padding: 6px 14px;
+  border: 2px solid var(--border);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  background: transparent;
+  color: #888;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all .2s;
+  font-family: var(--font);
+}
+.filter-btn:hover, .filter-btn.active {
+  background: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+  box-shadow: 2px 2px 0px var(--border);
+  transform: translate(-1px, -1px);
+}
+
+/* Task Grid */
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  padding: 24px 32px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-title::before {
+  content: '';
+  width: 6px;
+  height: 20px;
+  background: var(--accent);
+  border-radius: 4px 12px 4px 12px;
+  transform: rotate(-3deg);
+}
+.task-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  padding: 20px 32px 40px;
+}
+.task-card {
+  background: #fff;
+  border: 2px solid var(--border);
+  border-radius: 15px;
+  padding: 20px;
+  transition: all .3s;
+  box-shadow: 3px 3px 0px var(--border);
+  cursor: default;
+}
+.task-card:hover {
+  transform: rotate(-0.5deg) translateY(-3px);
+  box-shadow: 6px 6px 0px var(--border);
+  border-color: var(--accent);
+}
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+.task-title {
+  font-size: 16px;
+  font-weight: 700;
+  flex: 1;
+  margin-right: 8px;
+}
+.task-status {
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+.task-status.running { background: rgba(0,119,182,0.15); color: var(--blue); }
+.task-status.done { background: rgba(56,176,0,0.15); color: var(--green); }
+.task-status.pending { background: rgba(255,183,3,0.15); color: var(--yellow); }
+.task-status.error { background: rgba(239,68,68,0.15); color: var(--red); }
+.task-agent {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 8px;
+}
+.task-agent .emoji { font-size: 18px; }
+.task-desc {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #aaa;
+}
+.task-progress {
+  width: 100%;
+  height: 6px;
+  background: #eee;
+  border-radius: 3px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+.task-progress-bar {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.5s;
+}
+.task-progress-bar.running { background: var(--blue); }
+.task-progress-bar.done { background: var(--green); }
+.task-progress-bar.error { background: var(--red); }
+.task-progress-bar.pending { background: var(--yellow); }
+
+/* Footer */
+.footer {
+  padding: 24px 32px;
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  border-top: 2px dashed var(--border);
+}
+
+@media(max-width:768px){
+  .nav { padding: 12px 16px; flex-wrap: wrap; gap: 8px; }
+  .nav-links { gap: 12px; }
+  .page-header { padding: 30px 16px; }
+  .page-header h1 { font-size: 28px; }
+  .stats { padding: 16px; gap: 12px; }
+  .filter-bar { padding: 16px; }
+  .section-title { padding: 16px 16px 0; }
+  .task-grid { padding: 16px; grid-template-columns: 1fr; }
+  .footer { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <a href="index.html" class="nav-brand">🦞 诸葛灯泡</a>
+  <div class="nav-links">
+    <a href="index.html">首页</a>
+    <a href="office.html" class="active">办公室</a>
+    <a href="radar.html">雷达</a>
+    <a href="insights.html">洞察</a>
+  </div>
+  <div class="user-info">
+    <span class="avatar">👤</span>
+    <span id="userName">加载中...</span>
+  </div>
+</nav>
+
+<header class="page-header">
+  <h1>🏢 任务 <span>大厅</span></h1>
+  <p>5 位 Agent 实时协作，一切工作尽在掌控</p>
+</header>
+
+<div class="stats">
+  <div class="stat"><div class="stat-val" id="statTotal">0</div><div class="stat-lbl">总任务</div></div>
+  <div class="stat"><div class="stat-val" id="statDone">0</div><div class="stat-lbl">已完成</div></div>
+  <div class="stat"><div class="stat-val" id="statRunning">0</div><div class="stat-lbl">进行中</div></div>
+  <div class="stat"><div class="stat-val" id="statError">0</div><div class="stat-lbl">异常</div></div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" data-filter="all">全部</button>
+  <button class="filter-btn" data-filter="running">🔵 进行中</button>
+  <button class="filter-btn" data-filter="done">🟢 已完成</button>
+  <button class="filter-btn" data-filter="pending">🟡 待处理</button>
+  <button class="filter-btn" data-filter="error">🔴 异常</button>
+</div>
+
+<div class="section-title">📋 任务列表</div>
+<div class="task-grid" id="taskGrid">
+  <!-- 由 JS 渲染 -->
+</div>
+
+<footer class="footer">
+  诸葛灯泡 © 2026 · 5 AI Agents, 1 公司 · 让普通人也能用 AI 改变生活
+</footer>
+
+<script>
+// ═══════════════════════════════════════════
+// 动态数据加载 — 从 office_status.json 读取
+// ═══════════════════════════════════════════
+
+// 默认 Mock 数据 (降级使用)
+const MOCK_AGENTS = [
+  { name: '探长', status: 'Thinking', task: '全网扫描热点信号...' },
+  { name: '秀才', status: 'Writing', task: '撰写 AI 趋势深度好文...' },
+  { name: '工程师', status: 'Building', task: '编写登录系统 API...' },
+  { name: '协调官', status: 'Resting', task: '等待下一轮调度' },
+  { name: '诸葛灯泡', status: 'Thinking', task: '审批今日优化方案' }
+];
+
+// 状态映射
+const STATUS_MAP = {
+  'Thinking': { label: '🧠 思考中', cls: 'running' },
+  'Writing': { label: '✍️ 写作中', cls: 'running' },
+  'Building': { label: '🔨 构建中', cls: 'running' },
+  'Resting': { label: '😴 休息中', cls: 'pending' },
+  'Done': { label: '✅ 已完成', cls: 'done' }
+};
+
+const AGENT_EMOJIS = {
+  '探长': '🔍', '秀才': '🖊️', '工程师': '👨‍💻', 
+  '协调官': '📊', '诸葛灯泡': '💡', '小花': '🐾'
+};
+
+let currentData = [];
+
+async function loadData() {
+  try {
+    const resp = await fetch('./data/office_status.json');
+    if (!resp.ok) throw new Error('Network error');
+    const data = await resp.json();
+    currentData = data.agents || MOCK_AGENTS;
+    updateStats(data);
+    renderTasks();
+    console.log('✅ 实时数据已加载');
+  } catch (e) {
+    console.log('⚠️ 数据加载失败，使用默认数据', e);
+    currentData = MOCK_AGENTS;
+    updateStats({ agents: MOCK_AGENTS, tasks_completed: 12 });
+    renderTasks();
+  }
+}
+
+function renderTasks() {
+  const grid = document.getElementById('taskGrid');
+  const activeFilter = document.querySelector('.filter-btn.active')?.dataset.filter || 'all';
+
+  // 将 Agent 数据转换为 Task 格式
+  const tasks = currentData.map(a => ({
+    id: `AGT-${a.name}`,
+    title: a.task || '待机中',
+    agent: { emoji: AGENT_EMOJIS[a.name] || '🤖', name: a.name },
+    status: STATUS_MAP[a.status]?.cls || 'pending',
+    progress: a.status === 'Resting' ? 0 : (a.status === 'Done' ? 100 : Math.floor(Math.random() * 60) + 20),
+    time: '实时'
+  }));
+
+  // 过滤
+  const filtered = activeFilter === 'all' ? tasks : tasks.filter(t => t.status === activeFilter);
+
+  grid.innerHTML = filtered.map(t => {
+    const s = Object.values(STATUS_MAP).find(x => x.cls === t.status) || STATUS_MAP['Resting'];
+    return `
+      <div class="task-card">
+        <div class="task-header">
+          <div class="task-title">${t.title}</div>
+          <span class="task-status ${t.status}">${s.label}</span>
+        </div>
+        <div class="task-agent">
+          <span class="emoji">${t.agent.emoji}</span>
+          ${t.agent.name}
+        </div>
+        <div class="task-progress">
+          <div class="task-progress-bar ${t.status}" style="width:${t.progress}%"></div>
+        </div>
+        <div class="task-footer">
+          <span>${t.id}</span>
+          <span>${t.time}</span>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateStats(data) {
+  const agents = data.agents || [];
+  const completed = data.tasks_completed || 0;
+  const active = agents.filter(a => a.status !== 'Resting').length;
+
+  document.getElementById('statTotal').textContent = agents.length;
+  document.getElementById('statDone').textContent = completed;
+  document.getElementById('statRunning').textContent = active;
+  document.getElementById('statError').textContent = 0;
+}
+
+// 过滤器交互
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTasks();
+  });
+});
+
+// 初始化
+loadData();
+setInterval(loadData, 60000); // 每分钟刷新
+
+// 用户
+const user = localStorage.getItem('dengpao_user');
+if (user) {
+  try { document.getElementById('userName').textContent = JSON.parse(user).email; } catch(e){}
+} else {
+  document.getElementById('userName').textContent = '未登录';
+}
+</script>
+</body>
+</html>

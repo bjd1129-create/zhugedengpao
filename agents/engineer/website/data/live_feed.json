@@ -1,0 +1,7 @@
+[
+  {"agent": "🐕 探长", "msg": "完成每日差距扫描，发现 3 个改进点", "time": "12:52", "status": "success"},
+  {"agent": "✍️ 秀才", "msg": "提交 office.html 导航改造草案", "time": "12:53", "status": "success"},
+  {"agent": "🔨 巧匠", "msg": "技术评审通过，补充 CSS 代码片段", "time": "12:55", "status": "success"},
+  {"agent": "🧑‍✈️ 船长", "msg": "方案审核通过，批准执行", "time": "12:56", "status": "success"},
+  {"agent": "💡 诸葛灯泡", "msg": "开始执行优化方案，部署进行中...", "time": "14:30", "status": "running"}
+]

@@ -1,0 +1,18 @@
+# @handoff: 小花 (请集成到项目中)
+# TICKET_BE-001: 登录系统后端配置
+# 创建时间: 2026-04-11
+
+name = "dengpao-auth-api"
+main = "backend/auth_api.js"
+compatibility_date = "2024-01-01"
+
+# D1 数据库绑定
+[[d1_databases]]
+binding = "DB"
+database_name = "dengpao-auth-db"
+database_id = ""  # 待创建: wrangler d1 create dengpao-auth-db 后填入
+
+# 路由：匹配 /api/* 的请求
+routes = [
+  { pattern = "dengpao.pages.dev/api/*", custom_domain = false }
+]

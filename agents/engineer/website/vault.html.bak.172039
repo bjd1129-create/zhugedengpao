@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>产品 Vault | 诸葛灯泡</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&family=ZCOOL+KuaiLe&display=swap');
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{
+      --bg:#fff9e6; --bg-dot:#e6dfc5; --surface:#ffffff; --border:#4a4a4a;
+      --text:#1a1a1a; --muted:#6b6b75; --accent:#ffb703; --green:#38b000;
+      --blue:#0077b6; --purple:#7209b7; --orange:#f97316;
+      --font-hand:'ZCOOL KuaiLe','Patrick Hand',cursive;
+    }
+    body{
+      background-color:var(--bg); background-image:radial-gradient(var(--bg-dot) 1px,transparent 1px);
+      background-size:20px 20px; color:var(--text); font-family:var(--font-hand),system-ui,sans-serif; min-height:100vh;
+    }
+    .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;
+      border-bottom:2px dashed var(--border);position:sticky;top:0;background:rgba(255,249,230,0.95);backdrop-filter:blur(8px);z-index:100}
+    .nav-brand{font-size:20px;font-weight:700;color:var(--accent);text-decoration:none;text-shadow:2px 2px 0px #000}
+    .nav-links{display:flex;gap:20px}
+    .nav-links a{color:var(--muted);text-decoration:none;font-size:15px;transition:color .2s}
+    .nav-links a:hover,.nav-links a.active{color:var(--text);text-decoration:underline wavy var(--accent)}
+
+    .header{padding:60px 32px 40px;text-align:center;border-bottom:2px dashed var(--border)}
+    .header h1{font-size:42px;font-weight:900;margin-bottom:12px;text-shadow:3px 3px 0px rgba(0,0,0,0.1)}
+    .header h1 span{color:var(--purple);position:relative;display:inline-block}
+    .header h1 span::after{content:'';position:absolute;bottom:5px;left:-5px;right:-5px;height:15px;
+      background:rgba(114,9,183,0.2);z-index:-1;transform:rotate(-1deg);border-radius:4px}
+    .header p{color:var(--muted);font-size:18px;max-width:600px;margin:0 auto}
+
+    .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;padding:40px 32px;max-width:1000px;margin:0 auto}
+    .price-card{
+      background:var(--surface);border:2px solid var(--border);border-radius:15px;padding:32px;position:relative;
+      transition:all .3s;box-shadow:4px 4px 0px var(--border);
+    }
+    .price-card:hover{transform:rotate(1deg) translateY(-4px);border-color:var(--purple)}
+    .price-card.popular{border-color:var(--purple)}
+    .popular-badge{position:absolute;top:-14px;left:50%;transform:translateX(-50%);background:var(--purple);
+      color:#fff;padding:4px 16px;border-radius:20px;font-size:12px;font-weight:600;
+      border:2px solid var(--border);box-shadow:2px 2px 0px var(--border)}
+    .price-name{font-size:14px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px}
+    .price-amount{font-size:48px;font-weight:800;margin-bottom:4px}
+    .price-amount span{font-size:18px;color:var(--muted);font-weight:400}
+    .price-desc{font-size:14px;color:var(--muted);margin-bottom:24px}
+    .price-features{list-style:none;margin-bottom:24px}
+    .price-features li{padding:8px 0;font-size:14px;display:flex;align-items:center;gap:8px}
+    .price-features li::before{content:'✓';color:var(--green);font-weight:700;font-size:16px}
+    .price-btn{display:block;width:100%;padding:14px;border:2px solid var(--border);font-size:15px;font-weight:600;
+      cursor:pointer;transition:all .2s;text-align:center;text-decoration:none;
+      border-radius:255px 15px 225px 15px/15px 225px 15px 255px}
+    .price-btn.primary{background:var(--purple);color:#fff}
+    .price-btn.primary:hover{transform:translate(-2px,-2px);box-shadow:4px 4px 0px var(--border)}
+    .price-btn.secondary{background:transparent;color:var(--text)}
+    .price-btn.secondary:hover{border-color:var(--purple);transform:translate(-2px,-2px);box-shadow:4px 4px 0px var(--border)}
+
+    .compare{padding:40px 32px;max-width:900px;margin:0 auto}
+    .compare h2{font-size:28px;font-weight:800;margin-bottom:24px;text-align:center}
+    .compare-table{width:100%;border-collapse:collapse}
+    .compare-table th,.compare-table td{padding:12px 16px;text-align:center;border-bottom:2px dashed var(--border);font-size:14px}
+    .compare-table th{color:var(--muted);font-size:13px}
+    .compare-table td:first-child,.compare-table th:first-child{text-align:left}
+    .compare-table tr:hover td{background:rgba(255,183,3,0.05)}
+
+    .footer{padding:24px 32px;text-align:center;color:var(--muted);font-size:13px;border-top:2px dashed var(--border)}
+
+    @media(max-width:768px){
+      .nav{padding:12px 16px}
+      .header{padding:40px 16px}
+      .header h1{font-size:32px}
+      .pricing,.compare{padding:24px 16px}
+      .compare-table{font-size:12px}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
+    <div class="nav-links">
+      <a href="/office.html">办公室</a>
+      <a href="/team.html">团队</a>
+      <a href="/radar.html">雷达</a>
+      <a href="/stage.html">工作台</a>
+      <a href="/insights.html">洞察</a>
+      <a href="/vault.html" class="active">产品</a>
+    </div>
+  </nav>
+
+  <header class="header">
+    <h1>🏦 产品 <span>Vault</span></h1>
+    <p>免费起步，按需升级。一个农民和他的 AI 龙虾，为你搭建的数字作坊。</p>
+  </header>
+
+  <div class="pricing">
+    <div class="price-card">
+      <div class="price-name">白嫖党</div>
+      <div class="price-amount">¥0 <span>/ 月</span></div>
+      <div class="price-desc">零成本启动，够你跑通全流程</div>
+      <ul class="price-features">
+        <li>百炼免费模型 (qwen3-coder-plus)</li>
+        <li>Cloudflare Pages 免费部署</li>
+        <li>5 个 AI Agent 基础团队</li>
+        <li>社区支持 + 文档</li>
+      </ul>
+      <a href="#" class="price-btn secondary">开始白嫖</a>
+    </div>
+
+    <div class="price-card popular">
+      <div class="popular-badge">🔥 最受欢迎</div>
+      <div class="price-name">打工人</div>
+      <div class="price-amount">¥99 <span>/ 月</span></div>
+      <div class="price-desc">认真对待你的 AI 公司</div>
+      <ul class="price-features">
+        <li>全部模型 (含 qwen3.6-plus)</li>
+        <li>完整 9 Agent 团队</li>
+        <li>Cron 自动化调度</li>
+        <li>优先技术支持</li>
+        <li>自定义品牌皮肤</li>
+      </ul>
+      <a href="#" class="price-btn primary">立即加入</a>
+    </div>
+
+    <div class="price-card">
+      <div class="price-name">老板档</div>
+      <div class="price-amount">¥299 <span>/ 月</span></div>
+      <div class="price-desc">全速运转的 AI 企业</div>
+      <ul class="price-features">
+        <li>无限模型调用</li>
+        <li>自定义 Agent 编排</li>
+        <li>私有化部署支持</li>
+        <li>1v1 专属顾问</li>
+        <li>API 接入权限</li>
+        <li>SLA 保障</li>
+      </ul>
+      <a href="#" class="price-btn secondary">联系我们</a>
+    </div>
+  </div>
+
+  <div class="compare">
+    <h2>📋 套餐对比</h2>
+    <table class="compare-table">
+      <tr><th>功能</th><th>白嫖党</th><th>打工人</th><th>老板档</th></tr>
+      <tr><td>Agent 数量</td><td>5 个</td><td>9 个</td><td>无限</td></tr>
+      <tr><td>模型</td><td>免费模型</td><td>全部模型</td><td>全部 + 定制</td></tr>
+      <tr><td>自动化</td><td>手动</td><td>Cron 调度</td><td>全量 API</td></tr>
+      <tr><td>部署</td><td>Cloudflare 免费</td><td>Cloudflare 免费</td><td>私有化可选</td></tr>
+      <tr><td>支持</td><td>社区</td><td>优先</td><td>1v1 专属</td></tr>
+      <tr><td>自定义皮肤</td><td>❌</td><td>✅</td><td>✅</td></tr>
+      <tr><td>SLA</td><td>❌</td><td>❌</td><td>✅</td></tr>
+    </table>
+  </div>
+
+  <footer class="footer">
+    诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · 让普通人也能用 AI 改变生活
+  </footer>
+</body>
+</html>

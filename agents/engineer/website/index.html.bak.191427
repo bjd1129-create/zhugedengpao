@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - Demand Radar & 信号订阅</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 69, 19, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(139, 69, 19, 0.05) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #d4af37;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #8b4513;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #a0522d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Demand Radar 漏斗样式 */
+        .demand-radar {
+            background: white;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demand-radar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #d4af37, #ffd700, #d4af37);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #8b4513;
+            margin-bottom: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 3px;
+            background: #d4af37;
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+
+        .funnel-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .funnel-stage {
+            width: 100%;
+            background: #fff9e6;
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .funnel-stage:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        .stage-name {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+
+        .stage-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .stage-description {
+            font-size: 0.9rem;
+            color: #a0522d;
+            margin-top: 8px;
+        }
+
+        .arrow-down {
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 20px solid #d4af37;
+            margin: 10px auto;
+        }
+
+        /* 信号订阅区域样式 */
+        .subscription-area {
+            background: white;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subscription-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #d4af37, #ffd700, #d4af37);
+        }
+
+        .pricing-section {
+            background: linear-gradient(135deg, #fff9e6, #fefce8);
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .plan {
+            background: white;
+            border: 2px solid #d4af37;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .plan-title {
+            font-size: 1.4rem;
+            color: #8b4513;
+            margin-bottom: 10px;
+        }
+
+        .plan-price {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 15px;
+        }
+
+        .plan-features {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .plan-features li {
+            padding: 5px 0;
+            color: #a0522d;
+        }
+
+        .subscribe-form {
+            margin-top: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        input[type="email"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px dashed #d4af37;
+            border-radius: 15px;
+            font-size: 1rem;
+            background: #fff9e6;
+        }
+
+        button {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #c5a227;
+            transform: scale(1.05);
+        }
+
+        /* 信号列表样式 */
+        .signals-list {
+            margin-top: 30px;
+        }
+
+        .signal-item {
+            background: #fff9e6;
+            border: 1px dashed #d4af37;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .signal-info {
+            flex: 1;
+        }
+
+        .signal-title {
+            font-weight: bold;
+            color: #8b4513;
+        }
+
+        .signal-category {
+            font-size: 0.9rem;
+            color: #a0522d;
+        }
+
+        .signal-status {
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .status-Watching { background: #e6f3ff; color: #0066cc; }
+        .status-Validating { background: #fff3cd; color: #856404; }
+        .status-Building { background: #d4edda; color: #155724; }
+        .status-Shipped { background: #f8d7da; color: #721c24; }
+        .status-On Hold { background: #e2e3e5; color: #383d41; }
+
+        .subscribe-btn {
+            background: #d4af37;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .subscribe-btn.subscribed {
+            background: #28a745;
+        }
+
+        /* 高亮笔效果 */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.3));
+            background-repeat: no-repeat;
+            background-size: 100% 60%;
+            background-position: 0 80%;
+        }
+
+        /* 底部统计信息 */
+        .stats-summary {
+            background: white;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .stat-card {
+            background: #fff9e6;
+            border: 1px dashed #d4af37;
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d4af37;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #a0522d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部 -->
+        <header>
+            <h1>诸葛灯泡 Demand Radar</h1>
+            <p class="subtitle">洞察市场信号，把握未来趋势，实现商业价值转化</p>
+        </header>
+
+        <!-- 主要内容区域 -->
+        <div class="main-content">
+            <!-- Demand Radar 漏斗 -->
+            <div class="demand-radar">
+                <h2 class="section-title">Demand Radar 漏斗</h2>
+                <div class="funnel-container">
+                    <div class="funnel-stage">
+                        <div class="stage-name">Watching (观察中)</div>
+                        <div class="stage-count" id="watching-count">125</div>
+                        <div class="stage-description">广泛监控市场信号</div>
+                    </div>
+                    <div class="arrow-down"></div>
+                    <div class="funnel-stage">
+                        <div class="stage-name">Validating (验证中)</div>
+                        <div class="stage-count" id="validating-count">11</div>
+                        <div class="stage-description">深度分析与验证可行性</div>
+                    </div>
+                    <div class="arrow-down"></div>
+                    <div class="funnel-stage">
+                        <div class="stage-name">Building (构建中)</div>
+                        <div class="stage-count" id="building-count">5</div>
+                        <div class="stage-description">产品开发与原型测试</div>
+                    </div>
+                    <div class="arrow-down"></div>
+                    <div class="funnel-stage">
+                        <div class="stage-name">Shipped (已发布)</div>
+                        <div class="stage-count" id="shipped-count">58</div>
+                        <div class="stage-description">成功推向市场的产品</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 信号订阅区域 -->
+            <div class="subscription-area">
+                <h2 class="section-title">信号订阅服务</h2>
+                
+                <div class="pricing-section">
+                    <h3 class="highlight">立即订阅，获取独家市场洞察！</h3>
+                    <div class="plans">
+                        <div class="plan">
+                            <div class="plan-title">Starter 计划</div>
+                            <div class="plan-price">$79/月</div>
+                            <ul class="plan-features">
+                                <li>✓ 访问 Watching 阶段信号</li>
+                                <li>✓ 每周市场报告</li>
+                                <li>✓ 基础数据分析</li>
+                            </ul>
+                        </div>
+                        <div class="plan">
+                            <div class="plan-title">Pro 计划</div>
+                            <div class="plan-price">$199/月</div>
+                            <ul class="plan-features">
+                                <li>✓ 访问所有阶段信号</li>
+                                <li>✓ 实时更新通知</li>
+                                <li>✓ 深度分析报告</li>
+                                <li>✓ 专家咨询服务</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subscribe-form">
+                    <h3>订阅最新信号更新</h3>
+                    <div class="form-group">
+                        <input type="email" id="email" placeholder="输入您的邮箱地址">
+                    </div>
+                    <button id="subscribe-btn">立即订阅</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 信号列表 -->
+        <div class="signals-list">
+            <h2 class="section-title">最新信号动态</h2>
+            <div id="signals-container">
+                <!-- 信号项将通过JavaScript动态加载 -->
+            </div>
+        </div>
+
+        <!-- 统计摘要 -->
+        <div class="stats-summary">
+            <h2 class="section-title">数据概览</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="total-signals">432</div>
+                    <div class="stat-label">总信号数</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="active-signals">141</div>
+                    <div class="stat-label">活跃信号</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="subscribers">0</div>
+                    <div class="stat-label">订阅用户</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="conversion-rate">13.2%</div>
+                    <div class="stat-label">转化率</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 从本地存储获取初始数据
+        let subscribedSignals = JSON.parse(localStorage.getItem('subscribedSignals')) || [];
+        let subscriberCount = localStorage.getItem('subscriberCount') || 0;
+        
+        // 模拟从后端获取数据
+        const fetchData = async () => {
+            try {
+                // 这里模拟获取数据，实际应用中应替换为真实的API调用
+                const mockData = {
+                    "timestamp": "2026-04-11T16:38:17.678784",
+                    "total_signals": 432,
+                    "by_category": {
+                        "GitHub Trends": 94,
+                        "arXiv Papers": 89,
+                        "Market Signals": 59,
+                        "Tech News": 91,
+                        "Competitor Analysis": 104
+                    },
+                    "by_status": {
+                        "Watching": 125,
+                        "Validating": 11,
+                        "Building": 5,
+                        "Shipped": 58,
+                        "On Hold": 114
+                    },
+                    "recent_activity": [
+                        {
+                            "id": "sig_1",
+                            "title": "信号 #1: 新发现的市场机会",
+                            "category": "Competitor Analysis",
+                            "status": "Shipped",
+                            "timestamp": 1775896697.678822,
+                            "confidence": 0.84
+                        },
+                        {
+                            "id": "sig_2",
+                            "title": "信号 #2: 新发现的市场机会",
+                            "category": "Competitor Analysis",
+                            "status": "Validating",
+                            "timestamp": 1775896397.678839,
+                            "confidence": 0.84
+                        },
+                        {
+                            "id": "sig_3",
+                            "title": "信号 #3: 新发现的市场机会",
+                            "category": "arXiv Papers",
+                            "status": "Watching",
+                            "timestamp": 1775896097.678845,
+                            "confidence": 0.9
+                        },
+                        {
+                            "id": "sig_4",
+                            "title": "信号 #4: 新发现的市场机会",
+                            "category": "arXiv Papers",
+                            "status": "Watching",
+                            "timestamp": 1775895797.67885,
+                            "confidence": 0.78
+                        },
+                        {
+                            "id": "sig_5",
+                            "title": "信号 #5: 新发现的市场机会",
+                            "category": "arXiv Papers",
+                            "status": "On Hold",
+                            "timestamp": 1775895497.678854,
+                            "confidence": 0.67
+                        },
+                        {
+                            "id": "sig_6",
+                            "title": "信号 #6: 新发现的市场机会",
+                            "category": "Market Signals",
+                            "status": "Watching",
+                            "timestamp": 1775895197.678857,
+                            "confidence": 0.64
+                        },
+                        {
+                            "id": "sig_7",
+                            "title": "信号 #7: 新发现的市场机会",
+                            "category": "arXiv Papers",
+                            "status": "Shipped",
+                            "timestamp": 1775894897.678861,
+                            "confidence": 0.85
+                        },
+                        {
+                            "id": "sig_8",
+                            "title": "信号 #8: 新发现的市场机会",
+                            "category": "Competitor Analysis",
+                            "status": "Building",
+                            "timestamp": 1775894597.678864,
+                            "confidence": 0.7
+                        },
+                        {
+                            "id": "sig_9",
+                            "title": "信号 #9: 新发现的市场机会",
+                            "category": "Competitor Analysis",
+                            "status": "Validating",
+                            "timestamp": 1775894297.678867,
+                            "confidence": 0.88
+                        },
+                        {
+                            "id": "sig_10",
+                            "title": "信号 #10: 新发现的市场机会",
+                            "category": "GitHub Trends",
+                            "status": "Validating",
+                            "timestamp": 1775893997.678871,
+                            "confidence": 0.72
+                        }
+                    ]
+                };
+                
+                updateUI(mockData);
+            } catch (error) {
+                console.error('获取数据失败:', error);
+            }
+        };
+
+        // 更新UI函数
+        const updateUI = (data) => {
+            // 更新统计数据
+            document.getElementById('total-signals').textContent = data.total_signals;
+            document.getElementById('watching-count').textContent = data.by_status.Watching;
+            document.getElementById('validating-count').textContent = data.by_status.Validating;
+            document.getElementById('building-count').textContent = data.by_status.Building;
+            document.getElementById('shipped-count').textContent = data.by_status.Shipped;
+            
+            // 计算活跃信号数 (Watching + Validating + Building)
+            const activeSignals = data.by_status.Watching + data.by_status.Validating + data.by_status.Building;
+            document.getElementById('active-signals').textContent = activeSignals;
+            
+            // 更新订阅者数量
+            document.getElementById('subscribers').textContent = subscriberCount;
+            
+            // 渲染信号列表
+            renderSignalList(data.recent_activity);
+        };
+
+        // 渲染信号列表
+        const renderSignalList = (signals) => {
+            const container = document.getElementById('signals-container');
+            container.innerHTML = '';
+            
+            signals.forEach(signal => {
+                const signalElement = document.createElement('div');
+                signalElement.className = 'signal-item';
+                
+                // 检查该信号是否已被订阅
+                const isSubscribed = subscribedSignals.includes(signal.id);
+                
+                signalElement.innerHTML = `
+                    <div class="signal-info">
+                        <div class="signal-title">${signal.title}</div>
+                        <div class="signal-category">分类: ${signal.category} | 置信度: ${(signal.confidence * 100).toFixed(0)}%</div>
+                    </div>
+                    <div>
+                        <span class="signal-status status-${signal.status.replace(' ', '-')}">${signal.status}</span>
+                        <button class="subscribe-btn ${isSubscribed ? 'subscribed' : ''}" 
+                                data-signal-id="${signal.id}">
+                            ${isSubscribed ? '已订阅' : '订阅'}
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(signalElement);
+            });
+            
+            // 为所有订阅按钮添加事件监听器
+            document.querySelectorAll('.subscribe-btn').forEach(btn => {
+                btn.addEventListener('click', handleSubscribeClick);
+            });
+        };
+
+        // 处理订阅点击事件
+        const handleSubscribeClick = (event) => {
+            const signalId = event.target.getAttribute('data-signal-id');
+            
+            if (subscribedSignals.includes(signalId)) {
+                // 取消订阅
+                subscribedSignals = subscribedSignals.filter(id => id !== signalId);
+                event.target.textContent = '订阅';
+                event.target.classList.remove('subscribed');
+            } else {
+                // 订阅
+                subscribedSignals.push(signalId);
+                event.target.textContent = '已订阅';
+                event.target.classList.add('subscribed');
+            }
+            
+            // 保存到本地存储
+            localStorage.setItem('subscribedSignals', JSON.stringify(subscribedSignals));
+        };
+
+        // 处理订阅表单提交
+        document.getElementById('subscribe-btn').addEventListener('click', () => {
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value.trim();
+            
+            if (!email) {
+                alert('请输入您的邮箱地址');
+                return;
+            }
+            
+            if (!validateEmail(email)) {
+                alert('请输入有效的邮箱地址');
+                return;
+            }
+            
+            // 模拟订阅成功
+            subscriberCount++;
+            localStorage.setItem('subscriberCount', subscriberCount.toString());
+            
+            // 更新UI
+            document.getElementById('subscribers').textContent = subscriberCount;
+            
+            // 清空输入框并提示
+            emailInput.value = '';
+            alert('订阅成功！您将收到最新的市场信号更新。');
+        });
+
+        // 邮箱验证函数
+        const validateEmail = (email) => {
+            const re = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            return re.test(email);
+        };
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchData();
+        });
+    </script>
+</body>
+</html>

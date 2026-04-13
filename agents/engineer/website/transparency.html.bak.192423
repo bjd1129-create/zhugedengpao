@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - 透明度中心</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: radial-gradient(#d4c8a9 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.1);
+            border: 2px dashed #d4a017; /* 手绘虚线边框 */
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* 黄色高亮笔效果 */
+        .highlight {
+            background: linear-gradient(120deg, rgba(255, 255, 0, 0.3), rgba(255, 255, 0, 0.3));
+            background-repeat: no-repeat;
+            background-size: 100% 60%;
+            background-position: 0 90%;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            color: #8b4513;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: #d4a017;
+            border-radius: 2px;
+        }
+        
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 15px;
+            background-color: #fffae6;
+            border-left: 4px solid #d4a017;
+        }
+        
+        h2 {
+            color: #8b4513;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border-bottom: 2px dashed #d4a017;
+            padding-bottom: 10px;
+        }
+        
+        p {
+            margin: 15px 0;
+            font-size: 1.1rem;
+        }
+        
+        .repo-link {
+            display: block;
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f9f3e0, #ede0c8);
+            border-radius: 20px;
+            border: 2px dashed #d4a017;
+        }
+        
+        .repo-link a {
+            font-size: 1.4rem;
+            color: #8b4513;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 15px 30px;
+            background-color: #fff9e6;
+            border-radius: 50px;
+            border: 2px solid #d4a017;
+            transition: all 0.3s ease;
+        }
+        
+        .repo-link a:hover {
+            background-color: #d4a017;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 160, 23, 0.4);
+        }
+        
+        .status-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #4caf50;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed #d4a017;
+            color: #8b4513;
+        }
+        
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            background-image: 
+                linear-gradient(rgba(212, 160, 23, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(212, 160, 23, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-overlay"></div>
+    <div class="container">
+        <h1><span class="highlight">诸葛灯泡透明度中心</span></h1>
+        
+        <div class="section">
+            <h2>关于我们的项目</h2>
+            <p>诸葛灯泡是一个致力于提高工作流程透明度和效率的开源项目。我们相信开放和协作是推动创新的关键。</p>
+            <p>通过这个透明度中心，您可以了解我们的开发进度、决策过程以及未来的规划。</p>
+        </div>
+        
+        <div class="section">
+            <h2>开发状态</h2>
+            <p>我们的团队正在积极开发新功能，并持续改进现有系统。所有开发活动都在 GitHub 上公开进行。</p>
+            <p>项目目前处于活跃开发阶段，每周都会发布更新。</p>
+        </div>
+        
+        <div class="repo-link">
+            <a href="https://github.com/zhuge-leaves/zhuge-bulb" target="_blank">访问诸葛灯泡 GitHub 仓库</a>
+            <div class="status-indicator">
+                <div class="dot"></div>
+                <span>实时开发中</span>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>贡献指南</h2>
+            <p>我们欢迎社区成员参与项目贡献。无论您是开发者、设计师还是文档编写者，都可以为项目做出贡献。</p>
+            <p>请查看我们的贡献指南以了解如何开始。</p>
+        </div>
+        
+        <div class="section">
+            <h2>联系我们</h2>
+            <p>如果您有任何问题或建议，请随时通过 GitHub Issues 或邮件与我们联系。</p>
+            <p>我们重视每一个反馈，并努力在48小时内回复。</p>
+        </div>
+        
+        <div class="footer">
+            <p>诸葛灯泡项目 | 透明、高效、协作</p>
+            <p>© 2023-2026 诸葛灯泡团队保留所有权利</p>
+        </div>
+    </div>
+</body>
+</html>

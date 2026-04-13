@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI Agent团队解决方案</title>
+    <style>
+        /* 奶油气泡基础样式 */
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* 头部导航栏 */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px dashed #ffd700;
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #ff6b35;
+            text-shadow: 2px 2px 0px #ffd700;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: #5a4a42;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            background: linear-gradient(to right, #ffd700, #ffeaa7);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* 主要内容区域 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            text-align: center;
+            padding: 4rem 2rem;
+            margin: 2rem 0;
+            background: radial-gradient(circle at center, #ffffff 0%, #fff9e6 100%);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ff6b35;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            color: #ff6b35;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 0px #ffd700;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: #5a4a42;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b35, #ffd700);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            border: 2px solid #5a4a42;
+            box-shadow: 0 4px 0 #d16b3a;
+            transition: all 0.2s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #d16b3a;
+        }
+        
+        /* 产品功能区 */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffd700;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #ff6b35;
+            margin-top: 0;
+        }
+        
+        /* 定价计划 */
+        .pricing {
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .pricing-title {
+            font-size: 2.5rem;
+            color: #ff6b35;
+            margin-bottom: 3rem;
+            text-shadow: 2px 2px 0px #ffd700;
+        }
+        
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .plan {
+            background: white;
+            padding: 2rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 3px solid #ffd700;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .plan.popular::before {
+            content: '推荐';
+            position: absolute;
+            top: -10px;
+            right: -30px;
+            background: #ff6b35;
+            color: white;
+            padding: 0.5rem 2rem;
+            transform: rotate(45deg);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        
+        .plan h3 {
+            color: #ff6b35;
+            font-size: 1.8rem;
+            margin-top: 0;
+        }
+        
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #5a4a42;
+            margin: 1rem 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #999;
+        }
+        
+        .plan-features {
+            list-style: none;
+            padding: 0;
+            margin: 2rem 0;
+            text-align: left;
+        }
+        
+        .plan-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px dashed #eee;
+        }
+        
+        /* 信号统计区 */
+        .signals {
+            background: white;
+            padding: 3rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ff6b35;
+            margin: 4rem 0;
+            text-align: center;
+        }
+        
+        .signals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .signal-stat {
+            padding: 1.5rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            background: #fff9e6;
+            border: 2px dashed #ffd700;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6b35;
+            display: block;
+        }
+        
+        .stat-label {
+            color: #5a4a42;
+            font-size: 1.1rem;
+        }
+        
+        /* 社交证明区 */
+        .testimonials {
+            margin: 4rem 0;
+        }
+        
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffd700;
+            margin: 1rem 0;
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            font-size: 4rem;
+            color: #ffd700;
+            opacity: 0.3;
+        }
+        
+        .testimonial-author {
+            text-align: right;
+            margin-top: 1rem;
+            font-style: italic;
+            color: #5a4a42;
+        }
+        
+        /* 文章列表 */
+        .articles {
+            margin: 4rem 0;
+        }
+        
+        .article-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .article-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ff6b35;
+        }
+        
+        .article-card h3 {
+            color: #ff6b35;
+            margin-top: 0;
+        }
+        
+        .article-meta {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* 页脚 */
+        footer {
+            background: #5a4a42;
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .social-links a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <nav>
+            <div class="logo">诸葛灯泡</div>
+            <div class="nav-links">
+                <a href="#features">产品功能</a>
+                <a href="#pricing">定价计划</a>
+                <a href="#signals">信号追踪</a>
+                <a href="#testimonials">客户评价</a>
+                <a href="#articles">行业洞察</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <!-- 英雄区域 -->
+        <section class="hero">
+            <h1>构建您的AI Agent团队</h1>
+            <p>三周内打造具备Nexus协调者、Scout增长、Quill内容、Forge工程、Guide社区五大角色的专业AI团队。实时追踪432个市场信号，让您的业务快人一步。</p>
+            <a href="#pricing" class="cta-button">立即开始</a>
+        </section>
+
+        <!-- 产品功能区 -->
+        <section id="features" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🧠</div>
+                <h3>Nexus 协调者</h3>
+                <p>中央协调器，管理所有Agent间通信与任务分配，确保团队高效协作。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3>Scout 增长</h3>
+                <p>市场侦察兵，持续监测竞争动态和新兴机会，为业务增长提供情报支持。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">✍️</div>
+                <h3>Quill 内容</h3>
+                <p>专业内容创作师，生成高质量文案、报告和营销材料。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h3>Forge 工程</h3>
+                <p>技术实现专家，将想法转化为实际产品和功能模块。</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <h3>Guide 社区</h3>
+                <p>用户交互向导，管理社区关系并收集反馈信息。</p>
+            </div>
+        </section>
+
+        <!-- 定价计划 -->
+        <section id="pricing" class="pricing">
+            <h2 class="pricing-title">灵活的定价计划</h2>
+            <div class="plans">
+                <div class="plan">
+                    <h3>Starter</h3>
+                    <div class="price">$79<span>/月</span></div>
+                    <ul class="plan-features">
+                        <li>✅ 3个AI Agent</li>
+                        <li>✅ 100个信号追踪</li>
+                        <li>✅ 基础分析报告</li>
+                        <li>✅ 邮件支持</li>
+                        <li>❌ 高级功能</li>
+                    </ul>
+                    <a href="#" class="cta-button">选择此计划</a>
+                </div>
+                <div class="plan popular">
+                    <h3>Pro</h3>
+                    <div class="price">$199<span>/月</span></div>
+                    <ul class="plan-features">
+                        <li>✅ 5个AI Agent</li>
+                        <li>✅ 432个信号追踪</li>
+                        <li>✅ 高级分析报告</li>
+                        <li>✅ 优先技术支持</li>
+                        <li>✅ API访问权限</li>
+                    </ul>
+                    <a href="#" class="cta-button">选择此计划</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 信号统计区 -->
+        <section id="signals" class="signals">
+            <h2>Demand Radar - 实时信号追踪</h2>
+            <p>我们的需求雷达系统持续监控市场动态，为您提供最及时的商业洞察</p>
+            
+            <div class="signals-grid">
+                <div class="signal-stat">
+                    <span class="stat-number" id="total-signals">432</span>
+                    <div class="stat-label">总信号数</div>
+                </div>
+                <div class="signal-stat">
+                    <span class="stat-number" id="shipped-count">58</span>
+                    <div class="stat-label">已交付</div>
+                </div>
+                <div class="signal-stat">
+                    <span class="stat-number" id="validating-count">11</span>
+                    <div class="stat-label">验证中</div>
+                </div>
+                <div class="signal-stat">
+                    <span class="stat-number" id="building-count">5</span>
+                    <div class="stat-label">开发中</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 社交证明区 -->
+        <section id="testimonials" class="testimonials">
+            <h2 style="text-align: center; color: #ff6b35; margin-bottom: 3rem;">客户成功案例</h2>
+            
+            <div class="testimonial">
+                <p>“三周后我就有了一个能处理真实工作的5-Agent团队！诸葛灯泡的解决方案超出了我的预期。”</p>
+                <div class="testimonial-author">- 李明，技术主管，TechInnovate</div>
+            </div>
+            
+            <div class="testimonial">
+                <p>“Demand Radar帮我们提前捕捉到了两个重要的市场机会，让我们在竞争中占据了先机。”</p>
+                <div class="testimonial-author">- 张伟，产品经理，FutureLabs</div>
+            </div>
+        </section>
+
+        <!-- 文章列表 -->
+        <section id="articles" class="articles">
+            <h2 style="text-align: center; color: #ff6b35; margin-bottom: 2rem;">行业洞察与案例研究</h2>
+            <div class="article-list" id="articles-container">
+                <!-- 文章将通过JavaScript加载 -->
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="footer-content">
+            <h3>诸葛灯泡 - 让AI为您创造价值</h3>
+            <p>我们致力于帮助企业构建高效的AI Agent团队，实现业务增长和创新</p>
+            <div class="social-links">
+                <a href="#">📘</a>
+                <a href="#">🐦</a>
+                <a href="#">💼</a>
+                <a href="#">📷</a>
+            </div>
+            <p>&copy; 2023 诸葛灯泡. 保留所有权利.</p>
+        </div>
+    </footer>
+
+    <script>
+        // 从office_status.json加载数据
+        async function loadSignalData() {
+            try {
+                const response = await fetch('office_status.json');
+                const data = await response.json();
+                
+                document.getElementById('total-signals').textContent = data.total_signals;
+                
+                // 计算各状态的数量
+                const shippedCount = data.recent_activity.filter(item => item.status === 'Shipped').length;
+                const validatingCount = data.recent_activity.filter(item => item.status === 'Validating').length;
+                const buildingCount = data.recent_activity.filter(item => item.status === 'Building').length;
+                
+                document.getElementById('shipped-count').textContent = shippedCount;
+                document.getElementById('validating-count').textContent = validatingCount;
+                document.getElementById('building-count').textContent = buildingCount;
+            } catch (error) {
+                console.error('加载信号数据失败:', error);
+            }
+        }
+        
+        // 从insights/content.json加载文章数据
+        async function loadArticles() {
+            try {
+                const response = await fetch('insights/content.json');
+                const data = await response.json();
+                
+                const container = document.getElementById('articles-container');
+                container.innerHTML = '';
+                
+                data.articles.forEach(article => {
+                    const articleCard = document.createElement('div');
+                    articleCard.className = 'article-card';
+                    articleCard.innerHTML = `
+                        <h3>${article.title}</h3>
+                        <div class="article-meta">
+                            ${article.category} • ${article.date} • ${article.read_time}
+                        </div>
+                        <p>${article.excerpt}</p>
+                        <a href="#" class="cta-button" style="display: inline-block; margin-top: 1rem;">阅读更多</a>
+                    `;
+                    container.appendChild(articleCard);
+                });
+            } catch (error) {
+                console.error('加载文章数据失败:', error);
+            }
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSignalData();
+            loadArticles();
+        });
+    </script>
+</body>
+</html>

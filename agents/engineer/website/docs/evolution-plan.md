@@ -1,4 +1,4 @@
-# 大花团队自动进化计划
+# 小花团队自动进化计划
 
 ## 资源配额（每5小时）
 
@@ -35,7 +35,7 @@
 
 ### Cron触发（每5小时）
 ```
-openclaw cron create "大花团队进化" --interval=5h --message "执行团队进化任务"
+openclaw cron create "小花团队进化" --interval=5h --message "执行团队进化任务"
 ```
 
 ### 任务队列（TASKS.md）

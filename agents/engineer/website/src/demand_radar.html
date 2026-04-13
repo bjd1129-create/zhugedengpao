@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - 需求雷达</title>
+    <style>
+        /* 奶油手绘风格全局样式 */
+        body {
+            font-family: 'Comic Sans MS', '微软雅黑', cursive;
+            background-color: #fff9e6;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255,249,230,0.1) 0%, transparent 5%),
+                radial-gradient(circle at 85% 30%, rgba(255,249,230,0.1) 0%, transparent 5%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #8B4513;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            border-bottom: 3px dashed #DAA520;
+            display: inline-block;
+            padding-bottom: 10px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #A0522D;
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+        
+        /* 信号状态漏斗可视化 */
+        .funnel-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 40px 0;
+            flex-wrap: wrap;
+        }
+        
+        .funnel-stage {
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+            min-width: 180px;
+            position: relative;
+        }
+        
+        .funnel-box {
+            width: 150px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border: 2px dashed #8B4513;
+        }
+        
+        .watching { background: linear-gradient(135deg, #FF6B6B, #FF8E53); }
+        .validating { background: linear-gradient(135deg, #4ECDC4, #556270); }
+        .building { background: linear-gradient(135deg, #1A535C, #4ECDC4); }
+        .shipped { background: linear-gradient(135deg, #4361ee, #3a0ca3); }
+        
+        .stage-label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #8B4513;
+        }
+        
+        .count {
+            font-size: 1.5em;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        /* 信号列表样式 */
+        .signals-container {
+            margin-top: 40px;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 15px;
+            background-color: #FFE4B2;
+            border: 2px dashed #DAA520;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #8B4513;
+        }
+        
+        .filter-btn.active {
+            background-color: #FFD700;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+        
+        .signal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .signal-card {
+            background-color: white;
+            border: 2px dashed #DAA520;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .signal-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .signal-title {
+            font-size: 1.3em;
+            color: #8B4513;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .signal-status {
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .status-watching { background-color: #FF6B6B; color: white; }
+        .status-validating { background-color: #4ECDC4; color: white; }
+        .status-building { background-color: #1A535C; color: white; }
+        .status-shipped { background-color: #4361ee; color: white; }
+        
+        .signal-source {
+            color: #A0522D;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+        
+        .signal-confidence {
+            color: #8B4513;
+            margin-bottom: 10px;
+        }
+        
+        .signal-description {
+            color: #5D4037;
+            line-height: 1.5;
+        }
+        
+        .signal-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            padding: 8px 12px;
+            background-color: #FFE4B2;
+            border: 1px solid #DAA520;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .action-btn.upvote {
+            background-color: #E8F5E9;
+            color: #2E7D32;
+        }
+        
+        .action-btn.downvote {
+            background-color: #FFEBEE;
+            color: #C62828;
+        }
+        
+        .upvotes {
+            color: #2E7D32;
+            font-weight: bold;
+        }
+        
+        .stats-bar {
+            background-color: #FFF8DC;
+            border: 2px dashed #DAA520;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+            font-weight: bold;
+            color: #8B4513;
+        }
+        
+        .highlight {
+            background-color: rgba(255, 255, 0, 0.3);
+            padding: 2px 5px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>诸葛灯泡 - 需求雷达</h1>
+        <p class="subtitle">实时追踪市场信号 • 漏斗式转化管理 • 社区驱动决策</p>
+        
+        <!-- 统计信息栏 -->
+        <div class="stats-bar">
+            <span class="highlight">总信号数: <span id="total-signals">0</span></span> | 
+            <span class="highlight">活跃信号: <span id="active-signals">0</span></span> | 
+            <span class="highlight">社区参与度: <span id="engagement-rate">0%</span></span>
+        </div>
+        
+        <!-- 漏斗可视化 -->
+        <div class="funnel-container">
+            <div class="funnel-stage">
+                <div class="funnel-box watching">
+                    <div class="count" id="watching-count">0</div>
+                </div>
+                <div class="stage-label">Watching</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="funnel-stage">
+                <div class="funnel-box validating">
+                    <div class="count" id="validating-count">0</div>
+                </div>
+                <div class="stage-label">Validating</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="funnel-stage">
+                <div class="funnel-box building">
+                    <div class="count" id="building-count">0</div>
+                </div>
+                <div class="stage-label">Building</div>
+            </div>
+            <div class="arrow">→</div>
+            <div class="funnel-stage">
+                <div class="funnel-box shipped">
+                    <div class="count" id="shipped-count">0</div>
+                </div>
+                <div class="stage-label">Shipped</div>
+            </div>
+        </div>
+        
+        <!-- 过滤器 -->
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">全部信号</button>
+            <button class="filter-btn" data-filter="Watching">观看中</button>
+            <button class="filter-btn" data-filter="Validating">验证中</button>
+            <button class="filter-btn" data-filter="Building">构建中</button>
+            <button class="filter-btn" data-filter="Shipped">已发布</button>
+            <button class="filter-btn" data-filter="high-confidence">高置信度</button>
+        </div>
+        
+        <!-- 信号列表 -->
+        <div class="signals-container">
+            <div class="signal-grid" id="signal-grid">
+                <!-- 信号卡片将通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟需求雷达数据
+        const signals = [
+            {
+                id: 1,
+                title: "AI助手集成需求",
+                description: "用户希望在现有系统中集成AI助手功能，提升工作效率",
+                status: "Watching",
+                source: "社区反馈",
+                confidence: 85,
+                upvotes: 42,
+                category: "功能增强",
+                agent: "市场调研Agent"
+            },
+            {
+                id: 2,
+                title: "移动端适配优化",
+                description: "移动端用户体验需要进一步优化，特别是支付流程",
+                status: "Validating",
+                source: "用户访谈",
+                confidence: 78,
+                upvotes: 31,
+                category: "用户体验",
+                agent: "用户研究Agent"
+            },
+            {
+                id: 3,
+                title: "数据分析仪表盘",
+                description: "为管理层提供实时业务数据可视化仪表盘",
+                status: "Building",
+                source: "内部需求",
+                confidence: 92,
+                upvotes: 28,
+                category: "管理工具",
+                agent: "产品规划Agent"
+            },
+            {
+                id: 4,
+                title: "自动化报告生成",
+                description: "自动生成周报、月报，减少人工操作",
+                status: "Shipped",
+                source: "运营部门",
+                confidence: 95,
+                upvotes: 56,
+                category: "效率工具",
+                agent: "运营分析Agent"
+            },
+            {
+                id: 5,
+                title: "社交分享功能",
+                description: "增加社交平台分享功能，提升产品传播力",
+                status: "Watching",
+                source: "竞品分析",
+                confidence: 70,
+                upvotes: 19,
+                category: "增长功能",
+                agent: "竞争情报Agent"
+            },
+            {
+                id: 6,
+                title: "个性化推荐引擎",
+                description: "基于用户行为的个性化内容推荐",
+                status: "Validating",
+                source: "数据挖掘",
+                confidence: 88,
+                upvotes: 37,
+                category: "智能功能",
+                agent: "算法研究Agent"
+            },
+            {
+                id: 7,
+                title: "多语言支持",
+                description: "扩展国际市场，需要支持多语言版本",
+                status: "Watching",
+                source: "客户咨询",
+                confidence: 65,
+                upvotes: 24,
+                category: "国际化",
+                agent: "客户服务Agent"
+            },
+            {
+                id: 8,
+                title: "安全认证升级",
+                description: "提升系统安全性，满足合规要求",
+                status: "Building",
+                source: "安全审计",
+                confidence: 94,
+                upvotes: 41,
+                category: "安全保障",
+                agent: "安全评估Agent"
+            }
+        ];
+
+        // DOM元素引用
+        const signalGrid = document.getElementById('signal-grid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        // 统计数据元素
+        const totalSignalsEl = document.getElementById('total-signals');
+        const activeSignalsEl = document.getElementById('active-signals');
+        const engagementRateEl = document.getElementById('engagement-rate');
+        
+        // 漏斗统计元素
+        const watchingCountEl = document.getElementById('watching-count');
+        const validatingCountEl = document.getElementById('validating-count');
+        const buildingCountEl = document.getElementById('building-count');
+        const shippedCountEl = document.getElementById('shipped-count');
+        
+        // 渲染信号卡片
+        function renderSignals(signalsToRender) {
+            signalGrid.innerHTML = '';
+            
+            signalsToRender.forEach(signal => {
+                const card = document.createElement('div');
+                card.className = 'signal-card';
+                
+                card.innerHTML = `
+                    <div class="signal-title">${signal.title}</div>
+                    <div class="signal-status status-${signal.status.toLowerCase()}">${getStatusText(signal.status)}</div>
+                    <div class="signal-source">来源: ${signal.source} | 代理: ${signal.agent}</div>
+                    <div class="signal-confidence">置信度: ${signal.confidence}%</div>
+                    <div class="signal-description">${signal.description}</div>
+                    <div class="signal-actions">
+                        <button class="action-btn upvote" onclick="updateVote(${signal.id}, 'up')">👍 ${signal.upvotes}</button>
+                        <button class="action-btn downvote" onclick="updateVote(${signal.id}, 'down')">👎</button>
+                        <span class="upvotes">社区热度: ${getEngagementLevel(signal.upvotes)}</span>
+                    </div>
+                `;
+                
+                signalGrid.appendChild(card);
+            });
+        }
+        
+        // 获取状态文本
+        function getStatusText(status) {
+            switch(status) {
+                case 'Watching': return '观看中';
+                case 'Validating': return '验证中';
+                case 'Building': return '构建中';
+                case 'Shipped': return '已发布';
+                default: return status;
+            }
+        }
+        
+        // 获取参与度等级
+        function getEngagementLevel(upvotes) {
+            if (upvotes > 40) return '🔥 高热度';
+            if (upvotes > 20) return '✨ 中等热度';
+            if (upvotes > 5) return '💡 低热度';
+            return '😴 待激活';
+        }
+        
+        // 更新投票数
+        function updateVote(signalId, type) {
+            const signal = signals.find(s => s.id === signalId);
+            if (signal) {
+                if (type === 'up') {
+                    signal.upvotes += 1;
+                } else if (type === 'down') {
+                    signal.upvotes = Math.max(0, signal.upvotes - 1);
+                }
+                // 重新渲染应用过滤器
+                applyFilters();
+            }
+        }
+        
+        // 应用过滤器
+        function applyFilters() {
+            const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+            let filteredSignals;
+            
+            if (activeFilter === 'all') {
+                filteredSignals = signals;
+            } else if (activeFilter === 'high-confidence') {
+                filteredSignals = signals.filter(s => s.confidence > 80);
+            } else {
+                filteredSignals = signals.filter(s => s.status === activeFilter);
+            }
+            
+            renderSignals(filteredSignals);
+            updateStats();
+        }
+        
+        // 更新统计数据
+        function updateStats() {
+            // 更新总数
+            totalSignalsEl.textContent = signals.length;
+            
+            // 计算活跃信号（非Shipped）
+            const activeSignals = signals.filter(s => s.status !== 'Shipped').length;
+            activeSignalsEl.textContent = activeSignals;
+            
+            // 计算平均参与度
+            const totalUpvotes = signals.reduce((sum, s) => sum + s.upvotes, 0);
+            const avgEngagement = signals.length ? Math.round((totalUpvotes / signals.length) * 10) : 0;
+            engagementRateEl.textContent = `${avgEngagement}%`;
+            
+            // 更新漏斗统计
+            watchingCountEl.textContent = signals.filter(s => s.status === 'Watching').length;
+            validatingCountEl.textContent = signals.filter(s => s.status === 'Validating').length;
+            buildingCountEl.textContent = signals.filter(s => s.status === 'Building').length;
+            shippedCountEl.textContent = signals.filter(s => s.status === 'Shipped').length;
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            // 设置过滤器事件监听器
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-btn').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+                    applyFilters();
+                });
+            });
+            
+            // 初始渲染
+            renderSignals(signals);
+            updateStats();
+        });
+    </script>
+</body>
+</html>

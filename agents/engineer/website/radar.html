@@ -2,132 +2,296 @@
 <html lang="zh">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="/logo.svg">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>需求雷达 | 诸葛灯泡</title>
+  <title>信号雷达 | 诸葛灯泡</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Patrick+Hand&family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    :root{--bg:#0a0a0f;--surface:#12121a;--border:#1e1e2e;--text:#e0e0e8;--muted:#6b6b80;--green:#22c55e;--yellow:#eab308;--blue:#3b82f6;--purple:#a855f7;--pink:#ec4899;--orange:#f97316;--red:#ef4444}
-    body{background:var(--bg);color:var(--text);font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,sans-serif;min-height:100vh}
-    .nav{display:flex;justify-content:space-between;align-items:center;padding:16px 32px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.9);backdrop-filter:blur(12px);z-index:100}
-    .nav-brand{font-size:18px;font-weight:700;color:var(--green);text-decoration:none}
-    .nav-links{display:flex;gap:20px}
-    .nav-links a{color:var(--muted);text-decoration:none;font-size:14px;transition:color .2s}
-    .nav-links a:hover,.nav-links a.active{color:var(--text)}
-    .header{padding:40px 32px 24px;border-bottom:1px solid var(--border)}
-    .header h1{font-size:36px;font-weight:800;margin-bottom:8px}
-    .header h1 span{color:var(--blue)}
-    .header p{color:var(--muted);font-size:16px}
-    .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;padding:24px 32px;border-bottom:1px solid var(--border)}
-    .stat{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center}
-    .stat-val{font-size:32px;font-weight:800}
-    .stat-lbl{font-size:13px;color:var(--muted);margin-top:4px}
-    .stat:nth-child(1) .stat-val{color:var(--blue)}
-    .stat:nth-child(2) .stat-val{color:var(--green)}
-    .stat:nth-child(3) .stat-val{color:var(--yellow)}
-    .stat:nth-child(4) .stat-val{color:var(--purple)}
-    .section{padding:24px 32px;border-bottom:1px solid var(--border)}
-    .section-title{font-size:20px;font-weight:700;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-    .section-title::before{content:'';width:4px;height:20px;background:var(--blue);border-radius:2px}
-    .filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-    .filter-btn{padding:6px 14px;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--muted);font-size:13px;cursor:pointer;transition:all .2s}
-    .filter-btn:hover,.filter-btn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
-    .signal-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
-    .signal-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;transition:all .3s;position:relative;overflow:hidden}
-    .signal-card:hover{border-color:var(--blue);transform:translateY(-2px)}
-    .signal-card.high::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)}
-    .signal-card.medium::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--yellow)}
-    .signal-card.low::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--muted)}
-    .signal-hd{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-    .signal-src{font-size:12px;padding:4px 8px;border-radius:4px;background:rgba(59,130,246,0.15);color:var(--blue)}
-    .signal-time{font-size:12px;color:var(--muted)}
-    .signal-title{font-size:16px;font-weight:600;margin-bottom:8px}
-    .signal-desc{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:12px}
-    .signal-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
-    .signal-tag{font-size:11px;padding:2px 8px;border-radius:10px;background:var(--border);color:var(--text)}
-    .signal-action{padding-top:12px;border-top:1px solid var(--border);font-size:13px;color:var(--green)}
-    .footer{padding:24px 32px;text-align:center;color:var(--muted);font-size:13px}
-    @media(max-width:768px){.nav{padding:12px 16px}.header{padding:24px 16px}.header h1{font-size:28px}.stats,.section{padding:16px}.signal-grid{grid-template-columns:1fr}}
+    :root {
+      --bg-color: #FFF9E6; --bg-dot: #E6DFC5; --paper-white: #FFFFFF; --ink-color: #2B2B2B;
+      --text-main: #1F1F1F; --text-muted: #6B6B75;
+      --accent-yellow: #FFD166; --accent-orange: #F4A261; --accent-blue: #48CAE4;
+      --font-cn: 'Caveat', 'Noto Sans SC', sans-serif; --font-en: 'Patrick Hand', cursive; --font-body: 'Noto Sans SC', sans-serif;
+      --radius: 255px 15px 225px 15px / 15px 225px 15px 255px; --shadow: 4px 4px 0 var(--ink-color);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg-color); background-image: radial-gradient(var(--bg-dot) 1.5px, transparent 1.5px); background-size: 24px 24px; color: var(--text-main); font-family: var(--font-body); line-height: 1.6; min-height: 100vh; }
+    
+    /* 导航 */
+    .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 32px; background: var(--paper-white); border-bottom: 3px solid var(--ink-color); border-radius: 0 0 255px 15px / 0 0 5px 5px; position: sticky; top: 0; z-index: 100; }
+    .nav-brand { font-family: var(--font-cn); font-size: 28px; font-weight: 700; color: var(--ink-color); text-decoration: none; text-shadow: 2px 2px 0 var(--accent-yellow); }
+    .nav-links { display: flex; gap: 16px; }
+    .nav-links a { font-family: var(--font-en); color: var(--text-muted); text-decoration: none; font-size: 20px; font-weight: 700; transition: all 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--ink-color); transform: rotate(-3deg) scale(1.05); }
+    .live-indicator { display: flex; align-items: center; gap: 8px; font-family: var(--font-en); font-size: 16px; color: var(--text-muted); }
+    .live-dot { width: 10px; height: 10px; background: #70E000; border-radius: 50%; border: 2px solid var(--ink-color); animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(0.8); } }
+
+    /* 布局 */
+    .container { max-width: 1200px; margin: 0 auto; padding: 40px 20px; }
+    .header { text-align: center; margin-bottom: 40px; }
+    .header h1 { font-family: var(--font-cn); font-size: 64px; color: var(--ink-color); position: relative; display: inline-block; }
+    .header h1::after { content: ''; position: absolute; bottom: -5px; left: -10px; width: calc(100% + 20px); height: 12px; background: var(--accent-yellow); opacity: 0.4; z-index: -1; transform: rotate(-2deg); border-radius: 6px; }
+    .header p { font-family: var(--font-cn); font-size: 26px; color: var(--text-muted); margin-top: 8px; }
+    .meta-info { font-family: var(--font-en); font-size: 14px; color: var(--text-muted); margin-top: 12px; display: flex; justify-content: center; gap: 20px; }
+    
+    .radar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 30px; margin-bottom: 40px; }
+    
+    /* 卡片通用 */
+    .card { background: var(--paper-white); border: 3px solid var(--ink-color); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); transition: all 0.3s; position: relative; overflow: hidden; }
+    .card:hover { transform: translateY(-5px) rotate(-1deg); }
+    .card-title { font-family: var(--font-cn); font-size: 32px; font-weight: 700; margin-bottom: 20px; border-bottom: 2px dashed #eee; padding-bottom: 10px; color: var(--ink-color); }
+    .card-subtitle { font-family: var(--font-en); font-size: 14px; color: var(--text-muted); display: block; margin-top: -15px; margin-bottom: 15px; }
+
+    /* 信号列表 */
+    .signal-list { list-style: none; }
+    .signal-item { display: flex; align-items: center; padding: 14px 0; border-bottom: 1px dashed #eee; }
+    .signal-item:last-child { border-bottom: none; }
+    .signal-rank { font-family: var(--font-en); font-size: 24px; color: #ccc; font-weight: bold; margin-right: 15px; width: 30px; text-align: center; }
+    .signal-content { flex: 1; }
+    .signal-topic { font-weight: bold; font-size: 16px; margin-bottom: 4px; color: var(--text-main); }
+    .signal-meta { font-size: 12px; color: var(--text-muted); display: flex; gap: 10px; align-items: center; }
+    .signal-tag { background: var(--accent-yellow); color: var(--ink-color); padding: 2px 6px; border-radius: 4px; font-size: 10px; font-weight: bold; border: 1px solid var(--ink-color); }
+    
+    /* 情绪分析 */
+    .sentiment-row { margin-bottom: 12px; }
+    .sentiment-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-bottom: 4px; }
+    .sentiment-bar-bg { height: 12px; background: #eee; border-radius: 6px; overflow: hidden; border: 1px solid var(--ink-color); }
+    .sentiment-bar { height: 100%; border-radius: 6px; width: 0%; transition: width 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+    
+    /* 底部 */
+    footer { text-align: center; padding: 30px; background: var(--paper-white); border-top: 3px solid var(--ink-color); margin-top: 40px; }
+    footer .brand { font-family: var(--font-cn); font-size: 24px; color: var(--ink-color); margin-bottom: 4px; }
+    footer .motto { font-family: var(--font-en); font-size: 16px; color: var(--text-muted); }
+    footer .links { margin-top: 14px; }
+    footer .links a { color: var(--text-muted); text-decoration: none; margin: 0 12px; font-size: 14px; font-family: var(--font-en); }
+    footer .links a:hover { color: var(--accent-orange); }
+
+    /* 加载状态 */
+    .loading { text-align: center; padding: 20px; color: var(--text-muted); font-style: italic; }
+
+    @media (max-width: 768px) {
+      .radar-grid { grid-template-columns: 1fr; }
+      .header h1 { font-size: 48px; }
+      .nav { flex-direction: column; gap: 12px; }
+    }
   </style>
 </head>
 <body>
+
   <nav class="nav">
-    <a href="/index.html" class="nav-brand">🦞 诸葛灯泡</a>
+    <a href="/" class="nav-brand">💡 诸葛灯泡</a>
     <div class="nav-links">
+      <a href="/">首页</a>
       <a href="/office.html">办公室</a>
-      <a href="/team.html">团队</a>
       <a href="/radar.html" class="active">雷达</a>
-      <a href="/trading.html">交易</a>
-      <a href="/articles.html">文章</a>
-      <a href="/bagua.html">八卦</a>
+      <a href="/team.html">团队</a>
+      <a href="/product.html">产品</a>
+    </div>
+    <div class="live-indicator">
+      <div class="live-dot"></div> Live
     </div>
   </nav>
 
-  <header class="header">
-    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
-      <div>
-        <h1>📡 需求 <span>雷达</span></h1>
-        <p>探长 24 小时不间断扫描 — 市场信号、热点趋势、被忽视的 Alpha</p>
+  <div class="container">
+    <header class="header">
+      <h1>📡 信号雷达 (Radar)</h1>
+      <p>实时捕捉全球 AI、Crypto、Tech 趋势与信号</p>
+      <div class="meta-info">
+        <span>📅 <span id="updateTime">更新中...</span></span>
+        <span>📡 Total Signals: <span id="signalCount">0</span></span>
       </div>
-      <div class="live-badge"><span class="live-dot"></span> LIVE · 自动扫描</div>
-    </div>
-  </header>
+    </header>
 
-  <div class="stats">
-    <div class="stat"><div class="stat-val">89</div><div class="stat-lbl">总信号</div></div>
-    <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">高价值机会</div></div>
-    <div class="stat"><div class="stat-val">12</div><div class="stat-lbl">今日新增</div></div>
-    <div class="stat"><div class="stat-val">87%</div><div class="stat-lbl">预测准确率</div></div>
+    <div class="radar-grid">
+      <!-- 卡片 1: 实时信号流 (趋势/预测/GitHub) -->
+      <div class="card" style="grid-column: span 2;">
+        <h2 class="card-title">📊 Real-time Signals</h2>
+        <span class="card-subtitle">Polymarket · GitHub Trends · X Signals</span>
+        <ul class="signal-list" id="radarList">
+          <li class="loading">正在连接信号源...</li>
+        </ul>
+      </div>
+
+      <!-- 卡片 2: 情绪与概率分析 -->
+      <div class="card">
+        <h2 class="card-title">🧠 Sentiment & Probability</h2>
+        <span class="card-subtitle">Market Confidence Analysis</span>
+        <div id="sentimentContainer">
+          <div class="loading">计算概率模型中...</div>
+        </div>
+      </div>
+
+      <!-- 卡片 3: 热门标签云 -->
+      <div class="card">
+        <h2 class="card-title"># Hot Hashtags</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px; min-height: 100px;" id="hashtagCloud">
+          <!-- JS 渲染 -->
+        </div>
+      </div>
+
+      <!-- 卡片 4: 竞品与项目动态 -->
+      <div class="card">
+        <h2 class="card-title">👀 GitHub Rising Projects</h2>
+        <span class="card-subtitle">Top Starred Repos (Real Data)</span>
+        <ul class="signal-list" id="githubList">
+          <li class="loading">扫描 GitHub 仓库中...</li>
+        </ul>
+      </div>
+
+    </div>
   </div>
 
-  <div class="section">
-    <div class="section-title">信号流</div>
-    <div class="filter-bar">
-      <button class="filter-btn active" onclick="filter('all',this)">全部</button>
-      <button class="filter-btn" onclick="filter('high',this)">🔥 高价值</button>
-      <button class="filter-btn" onclick="filter('polymarket',this)">Polymarket</button>
-      <button class="filter-btn" onclick="filter('github',this)">GitHub</button>
-      <button class="filter-btn" onclick="filter('ai',this)">AI/LLM</button>
-      <button class="filter-btn" onclick="filter('crypto',this)">Crypto</button>
+  <footer>
+    <div class="brand">💡 老庄与小花</div>
+    <div class="motto">极度透明 · 实时信号 · 普通人可用</div>
+    <div class="links">
+      <a href="https://x.com/ZhugeDengpao" target="_blank">X.com</a>
+      <a href="https://github.com/bjd1129-create/zhugedengpao" target="_blank">GitHub</a>
     </div>
-    <div class="signal-grid" id="grid"></div>
-  </div>
-
-  <footer class="footer">诸葛灯泡 © 2026 · 一个农民和他的 AI 龙虾 · 数据来源: Polymarket, GitHub, ArXiv</footer>
+    <div style="margin-top:8px; font-size:12px; color:#999;">© 2026 Zhuge Dengpao HQ. All rights reserved.</div>
+  </footer>
 
   <script>
-    const signals = [
-      {id:1,title:"AI Agent 框架竞争白热化",desc:"OpenClaw v2026.3.2 发布，新增自我进化插件。CrewAI 同步更新 v0.9。框架之战刚开始。",src:"GitHub",time:"2h",pri:"high",tags:["AI","框架","竞争"],action:"→ 建议关注 self-evolve-skill"},
-      {id:2,title:"Polymarket: AI 监管法案概率升至 41%",desc:"市场对 AI 监管立法的押注从 23% 升至 41%。科技股波动可能加剧，需关注对冲机会。",src:"Polymarket",time:"3h",pri:"high",tags:["政策","AI","市场"],action:"→ 关注科技股对冲机会"},
-      {id:3,title:"Claude 4 泄漏基准测试",desc:"Leaked benchmark 显示 Claude 4 在 coding 上超越 GPT-4o 15%。模型竞赛加速。",src:"Twitter/X",time:"5h",pri:"medium",tags:["LLM","基准","竞争"],action:"→ 评估迁移 Claude 4 API"},
-      {id:4,title:"百炼 qwen3-coder-plus 免费额度翻倍",desc:"阿里云免费 token 从 2000 万提升至 4000 万/天。工程师 Agent 可全力开发。",src:"阿里云",time:"6h",pri:"high",tags:["百炼","免费","开发"],action:"→ 立即调整模型配置，榨干额度"},
-      {id:5,title:"Web3 + AI Agent 融合趋势",desc:"多个 AI Agent 开始接入链上数据，自动执行 DeFi 策略。未来 6 个月大趋势。",src:"ArXiv",time:"8h",pri:"medium",tags:["Web3","AI","DeFi"],action:"→ 探长深入调研"},
-      {id:6,title:"OpenAI o3-mini 发布",desc:"o3-mini 在数学和推理上表现优异，价格仅为 o1 的 1/10。性价比之王。",src:"OpenAI",time:"12h",pri:"low",tags:["LLM","OpenAI","推理"],action:"→ 评估替代当前推理模型"},
-      {id:7,title:"Cloudflare Pages 免费额度提升",desc:"Pages 免费构建次数提升至 500 次/月。我们的部署成本继续为零。",src:"Cloudflare",time:"1d",pri:"medium",tags:["部署","免费","Cloudflare"],action:"→ 保持现有部署策略"},
-      {id:8,title:"GitHub Copilot Workspace 公测",desc:"GitHub 推出 Copilot Workspace，可直接在浏览器中完成完整开发流程。",src:"GitHub",time:"1d",pri:"medium",tags:["GitHub","AI","开发"],action:"→ 关注对 OpenClaw 的影响"},
-    ];
+    // --- 真实数据逻辑 ---
 
-    function filter(f, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const filtered = f === 'all' ? signals : signals.filter(s => {
-        if (f === 'high') return s.pri === 'high';
-        return s.tags.some(t => t.toLowerCase().includes(f));
-      });
-      document.getElementById('grid').innerHTML = filtered.map(s => `
-        <div class="signal-card ${s.pri}">
-          <div class="signal-hd">
-            <span class="signal-src">${s.src}</span>
-            <span class="signal-time">${s.time}</span>
-          </div>
-          <div class="signal-title">${s.title}</div>
-          <div class="signal-desc">${s.desc}</div>
-          <div class="signal-tags">${s.tags.map(t=>`<span class="signal-tag">${t}</span>`).join('')}</div>
-          <div class="signal-action">${s.action}</div>
-        </div>
-      `).join('');
+    function formatTimeAgo(isoString) {
+      // 简单处理：如果无法解析，返回 "Just now"
+      if (!isoString) return "Just now";
+      try {
+        const date = new Date(isoString);
+        const now = new Date();
+        const diff = Math.floor((now - date) / 1000);
+        if (diff < 60) return `${diff}s ago`;
+        if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+        if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+        return date.toLocaleDateString();
+      } catch(e) { return "Unknown"; }
     }
 
-    filter('all', document.querySelector('.filter-btn'));
+    async function fetchRadarData() {
+      try {
+        const res = await fetch('data/radar_signals.json');
+        if (!res.ok) throw new Error("Network response was not ok");
+        const data = await res.json();
+
+        // 1. 更新头部状态
+        document.getElementById('updateTime').textContent = new Date().toLocaleTimeString();
+        document.getElementById('signalCount').textContent = data.total_signals || data.signals.length;
+
+        // 2. 分类数据
+        const signals = data.signals || [];
+        const polySignals = signals.filter(s => s.source === 'Polymarket').slice(0, 8);
+        const gitSignals = signals.filter(s => s.source === 'GitHub').slice(0, 5);
+        const xSignals = signals.filter(s => s.source === 'X Trends');
+        
+        // 混合显示在雷达列表 (取前 12 个非空信号)
+        const feed = [...xSignals, ...polySignals, ...gitSignals].slice(0, 12);
+        
+        // 渲染雷达列表
+        const radarList = document.getElementById('radarList');
+        radarList.innerHTML = feed.map((s, i) => {
+          // 标签颜色逻辑
+          let tagColor = 'var(--accent-yellow)';
+          if (s.source === 'Polymarket') tagColor = '#48CAE4';
+          if (s.source === 'GitHub') tagColor = '#FFD166';
+          if (s.source === 'X Trends') tagColor = '#FF6B9D';
+          
+          const prob = s.desc ? s.desc.match(/是概率: ([\d.]+)%/) : null;
+          const probText = prob ? prob[1] + '%' : (s.volume ? `Vol: $${s.volume}` : '');
+
+          return `
+            <li class="signal-item">
+              <span class="signal-rank" style="color:${tagColor}">${i + 1}</span>
+              <div class="signal-content">
+                <div class="signal-topic">${s.title.substring(0, 40)}${s.title.length > 40 ? '...' : ''}</div>
+                <div class="signal-meta">
+                  <span class="signal-tag" style="background:${tagColor}">${s.source}</span>
+                  <span>${probText || 'Signal Active'}</span>
+                </div>
+              </div>
+            </li>
+          `;
+        }).join('');
+
+        // 渲染 GitHub 卡片
+        const githubList = document.getElementById('githubList');
+        if (gitSignals.length > 0) {
+          githubList.innerHTML = gitSignals.map((s, i) => `
+            <li class="signal-item">
+              <span class="signal-rank">🔥</span>
+              <div class="signal-content">
+                <div class="signal-topic">${s.title}</div>
+                <div class="signal-meta">
+                  <span class="signal-tag" style="background:var(--accent-yellow)">Stars: ${s.volume}</span>
+                </div>
+              </div>
+            </li>
+          `).join('');
+        } else {
+          githubList.innerHTML = '<li class="loading">暂无 GitHub 信号</li>';
+        }
+
+        // 渲染情绪/概率 (用 Polymarket 数据的平均概率模拟)
+        const sentimentContainer = document.getElementById('sentimentContainer');
+        if (polySignals.length > 0) {
+          // 计算平均概率
+          let sumProb = 0; 
+          let count = 0;
+          polySignals.forEach(s => {
+            const match = s.desc ? s.desc.match(/是概率: ([\d.]+)%/) : null;
+            if (match) { sumProb += parseFloat(match[1]); count++; }
+          });
+          const avgProb = count > 0 ? Math.round(sumProb / count) : 0;
+          const bearProb = 100 - avgProb;
+
+          sentimentContainer.innerHTML = `
+            <div class="sentiment-row">
+              <div class="sentiment-label"><span>🐂 Bullish (Avg Yes)</span><span id="posVal">${avgProb}%</span></div>
+              <div class="sentiment-bar-bg"><div class="sentiment-bar" style="width: 0%; background: var(--accent-green);" id="posBar"></div></div>
+            </div>
+            <div class="sentiment-row">
+              <div class="sentiment-label"><span>🐻 Bearish (Avg No)</span><span id="negVal">${bearProb}%</span></div>
+              <div class="sentiment-bar-bg"><div class="sentiment-bar" style="width: 0%; background: var(--accent-orange);" id="negBar"></div></div>
+            </div>
+            <div style="margin-top:20px; padding:10px; background:#f9f9f9; border:1px dashed #ccc; font-size:12px;">
+              💡 <strong>AI Insight:</strong> 基于 ${count} 个 Polymarket 信号的综合情绪。市场目前偏向${avgProb > 50 ? '乐观' : '谨慎'}。
+            </div>
+          `;
+          // 动画触发
+          setTimeout(() => {
+            document.getElementById('posBar').style.width = avgProb + '%';
+            document.getElementById('negBar').style.width = bearProb + '%';
+          }, 100);
+        }
+
+        // 渲染标签云
+        const cloud = document.getElementById('hashtagCloud');
+        // 提取所有 tags 并去重计数
+        const allTags = {};
+        signals.forEach(s => {
+          (s.tags || []).forEach(t => {
+            allTags[t] = (allTags[t] || 0) + 1;
+          });
+        });
+        
+        cloud.innerHTML = Object.keys(allTags).map(tag => 
+          `<span style="background: var(--accent-yellow); padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; border: 2px solid var(--ink-color);">#${tag}</span>`
+        ).join('');
+
+      } catch (e) {
+        console.error("Radar data load failed:", e);
+        document.getElementById('radarList').innerHTML = '<li class="loading">⚠️ 信号源暂时断开连接，请检查脚本运行状态。</li>';
+      }
+    }
+
+    // 初始化加载
+    fetchRadarData();
+    
+    // 每 60 秒刷新一次
+    setInterval(fetchRadarData, 60000);
   </script>
 </body>
 </html>

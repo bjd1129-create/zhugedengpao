@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🧠 回忆配对游戏</title>
+  <style>
+    :root {
+      --coral: #FF6B6B;
+      --coral-dark: #ee5a5a;
+      --coral-light: #FFE8E8;
+      --sand: #FFF5E4;
+      --text: #2D2D2D;
+      --card-back: #FF8C69;
+      --success: #4CAF50;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+      background: var(--sand);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px;
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+      color: var(--coral);
+      margin-bottom: 4px;
+      text-align: center;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 12px;
+    }
+
+    /* Stats */
+    .stats {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .stat-box {
+      background: white;
+      border-radius: 16px;
+      padding: 6px 16px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(255,107,107,0.15);
+      min-width: 72px;
+    }
+
+    .stat-label { font-size: 0.65rem; color: #aaa; text-transform: uppercase; letter-spacing: 1px; }
+    .stat-value { font-size: 1.3rem; font-weight: 700; color: var(--coral); }
+
+    /* Year filter */
+    .year-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 680px;
+    }
+
+    .year-btn {
+      padding: 4px 10px;
+      border-radius: 16px;
+      border: 2px solid var(--coral-light);
+      background: white;
+      color: var(--coral);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .year-btn.active, .year-btn:hover {
+      background: var(--coral);
+      color: white;
+      border-color: var(--coral);
+    }
+
+    .year-btn.all-btn { border-color: var(--coral); }
+
+    /* Difficulty */
+    .diff-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .diff-btn {
+      padding: 5px 12px;
+      border-radius: 18px;
+      border: 2px solid var(--coral);
+      background: white;
+      color: var(--coral);
+      font-size: 0.8rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-weight: 600;
+    }
+
+    .diff-btn.active, .diff-btn:hover { background: var(--coral); color: white; }
+
+    /* Progress */
+    .progress-bar {
+      width: 100%;
+      max-width: 680px;
+      height: 5px;
+      background: var(--coral-light);
+      border-radius: 3px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--coral);
+      border-radius: 3px;
+      transition: width 0.4s ease;
+    }
+
+    /* Grid */
+    .game-container {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 7px;
+      max-width: 680px;
+      width: 100%;
+      margin-bottom: 12px;
+    }
+
+    /* Card */
+    .card {
+      aspect-ratio: 1;
+      perspective: 600px;
+      cursor: pointer;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.45s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .card.flipped .card-inner,
+    .card.matched .card-inner { transform: rotateY(180deg); }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 8px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .card-back {
+      background: var(--card-back);
+      background-image: radial-gradient(circle at 25% 25%, rgba(255,255,255,0.25) 2px, transparent 2px),
+                        radial-gradient(circle at 75% 75%, rgba(255,255,255,0.25) 2px, transparent 2px);
+      background-size: 18px 18px;
+      box-shadow: 0 3px 10px rgba(255,107,107,0.3);
+      font-size: clamp(1rem, 4vw, 1.8rem);
+      color: white;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .card-front {
+      background: white;
+      transform: rotateY(180deg);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .card-front img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .card.matched .card-front {
+      box-shadow: 0 0 0 2.5px var(--success), 0 3px 14px rgba(76,175,80,0.35);
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 9px 24px;
+      border-radius: 24px;
+      border: none;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 3px;
+    }
+
+    .btn-primary {
+      background: var(--coral);
+      color: white;
+      box-shadow: 0 3px 10px rgba(255,107,107,0.3);
+    }
+
+    .btn-primary:hover { background: var(--coral-dark); transform: translateY(-1px); }
+    .btn-secondary { background: white; color: var(--coral); border: 2px solid var(--coral); }
+
+    /* Win overlay */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .overlay.show { display: flex; }
+
+    .win-card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px;
+      text-align: center;
+      max-width: 340px;
+      width: 90%;
+      animation: popIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .win-emoji { font-size: 3.5rem; margin-bottom: 8px; }
+    .win-title { font-size: 1.7rem; color: var(--coral); margin-bottom: 4px; }
+    .win-sub { color: #888; margin-bottom: 20px; }
+    .win-stats { display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; }
+    .win-stat { text-align: center; }
+    .win-stat-num { font-size: 1.8rem; font-weight: 700; color: var(--coral); }
+    .win-stat-label { font-size: 0.7rem; color: #aaa; text-transform: uppercase; }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      top: -10px;
+      width: 9px;
+      height: 9px;
+      border-radius: 2px;
+      animation: fall linear forwards;
+      z-index: 200;
+      pointer-events: none;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Loading */
+    .loading {
+      color: var(--coral);
+      font-size: 1rem;
+      padding: 40px;
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      .game-container { gap: 5px; }
+    }
+
+    @media (max-width: 380px) {
+      .game-container { grid-template-columns: repeat(4, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 回忆配对</h1>
+  <p class="subtitle">翻找相同的老照片，看你记性有多好！</p>
+
+  <div class="stats">
+    <div class="stat-box">
+      <div class="stat-label">⏱ 用时</div>
+      <div class="stat-value" id="timer">0:00</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">🔄 步数</div>
+      <div class="stat-value" id="moves">0</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">💯 配对</div>
+      <div class="stat-value" id="pairs">0/12</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-label">🏆 最佳</div>
+      <div class="stat-value" id="best">—</div>
+    </div>
+  </div>
+
+  <!-- 年份筛选 -->
+  <div class="year-bar" id="yearBar">
+    <button class="year-btn all-btn active" onclick="setYear('all', this)">全部 📷</button>
+  </div>
+
+  <div class="diff-bar">
+    <button class="diff-btn active" onclick="setDiff(6, 4, this)">简单 4×6</button>
+    <button class="diff-btn" onclick="setDiff(6, 5, this)">中等 5×6</button>
+    <button class="diff-btn" onclick="setDiff(6, 6, this)">困难 6×6</button>
+  </div>
+
+  <div class="progress-bar">
+    <div class="progress-fill" id="progress" style="width:0%"></div>
+  </div>
+
+  <div class="game-container" id="grid">
+    <div class="loading">加载中…</div>
+  </div>
+
+  <button class="btn btn-primary" onclick="initGame()">🔄 重新开始</button>
+
+  <!-- 通关弹窗 -->
+  <div class="overlay" id="winOverlay">
+    <div class="win-card">
+      <div class="win-emoji">🎉</div>
+      <div class="win-title">太厉害了！</div>
+      <div class="win-sub" id="winSub">全部配对成功！</div>
+      <div class="win-stats">
+        <div class="win-stat">
+          <div class="win-stat-num" id="winTime">0:00</div>
+          <div class="win-stat-label">用时</div>
+        </div>
+        <div class="win-stat">
+          <div class="win-stat-num" id="winMoves">0</div>
+          <div class="win-stat-label">步数</div>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="closeOverlay(); initGame();">再玩一次 🔄</button>
+      <button class="btn btn-secondary" onclick="closeOverlay()">关闭</button>
+    </div>
+  </div>
+
+  <script>
+    const PHOTO_DIR = './thumbnails/';
+
+    // 全量照片数据（从 photos_complete.json 加载）
+    let allPhotos = [];         // [{file, year, label}, ...]
+    let photosByYear = {};      // { "2017": [...], "2018": [...], ... }
+    let availableYears = [];     // ["2017","2018",...]
+
+    let currentYear = 'all';
+    let cols = 6, rows = 4;
+    let totalPairs = 12;
+    let flippedCards = [];
+    let matchedPairs = 0;
+    let moves = 0;
+    let seconds = 0;
+    let timerInterval = null;
+    let gameStarted = false;
+    let canFlip = true;
+
+    // ─── 加载照片 ───────────────────────────────────────
+    async function loadPhotos() {
+      const resp = await fetch('./photos_complete.json');
+      allPhotos = await resp.json();
+
+      // 按年份分组
+      photosByYear = {};
+      for (const p of allPhotos) {
+        const y = p.year;
+        if (!photosByYear[y]) photosByYear[y] = [];
+        photosByYear[y].push(p);
+      }
+
+      availableYears = Object.keys(photosByYear).sort();
+
+      // 渲染年份按钮（按年份倒序：最新的在前）
+      renderYearBar();
+
+      // 默认用照片最多的年份
+      if (availableYears.length > 0) {
+        const topYear = availableYears[availableYears.length - 1];
+        // 默认选"全部"
+        currentYear = 'all';
+      }
+    }
+
+    function renderYearBar() {
+      const bar = document.getElementById('yearBar');
+      // 保留"全部"按钮
+      bar.innerHTML = `<button class="year-btn all-btn active" onclick="setYear('all',this)">全部 📷</button>`;
+
+      // 按年份倒序
+      const years = [...availableYears].sort((a, b) => b.localeCompare(a));
+      for (const y of years) {
+        const count = photosByYear[y].length;
+        const btn = document.createElement('button');
+        btn.className = 'year-btn';
+        btn.textContent = `${y}年 (${count})`;
+        btn.onclick = () => setYear(y, btn);
+        bar.appendChild(btn);
+      }
+    }
+
+    function setYear(year, btn) {
+      currentYear = year;
+      document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      initGame();
+    }
+
+    function setDiff(c, r, btn) {
+      cols = c; rows = r;
+      totalPairs = Math.floor(cols * rows / 2);
+      document.querySelectorAll('.diff-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      initGame();
+    }
+
+    // ─── 游戏逻辑 ────────────────────────────────────────
+    function fmtTime(s) {
+      return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      if (timerInterval) return;
+      timerInterval = setInterval(() => {
+        seconds++;
+        document.getElementById('timer').textContent = fmtTime(seconds);
+      }, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+
+    function shuffle(arr) {
+      const a = [...arr];
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function getPool() {
+      if (currentYear === 'all') return allPhotos;
+      return photosByYear[currentYear] || [];
+    }
+
+    function makeCard(photo, index) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.file = photo.file;
+      card.dataset.index = index;
+      card.innerHTML = `
+        <div class="card-inner">
+          <div class="card-face card-back">?</div>
+          <div class="card-face card-front">
+            <img src="${PHOTO_DIR}${encodeURIComponent(photo.file)}"
+                 alt="photo"
+                 loading="lazy"
+                 onerror="this.parentElement.style.background='#FFE0B2'; this.parentElement.innerHTML='📷';" />
+          </div>
+        </div>`;
+      card.addEventListener('click', () => flipCard(card));
+      return card;
+    }
+
+    function flipCard(card) {
+      if (!canFlip) return;
+      if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      if (flippedCards.length >= 2) return;
+
+      if (!gameStarted) { gameStarted = true; startTimer(); }
+
+      card.classList.add('flipped');
+      flippedCards.push(card);
+
+      if (flippedCards.length === 2) {
+        moves++;
+        document.getElementById('moves').textContent = moves;
+        checkMatch();
+      }
+    }
+
+    function checkMatch() {
+      canFlip = false;
+      const [a, b] = flippedCards;
+      const ok = a.dataset.file === b.dataset.file;
+
+      if (ok) {
+        setTimeout(() => {
+          a.classList.add('matched');
+          b.classList.add('matched');
+          matchedPairs++;
+          document.getElementById('pairs').textContent = `${matchedPairs}/${totalPairs}`;
+          document.getElementById('progress').style.width = `${(matchedPairs / totalPairs) * 100}%`;
+          flippedCards = [];
+          canFlip = true;
+          if (matchedPairs === totalPairs) { stopTimer(); setTimeout(showWin, 400); }
+        }, 280);
+      } else {
+        setTimeout(() => {
+          a.classList.remove('flipped');
+          b.classList.remove('flipped');
+          flippedCards = [];
+          canFlip = true;
+        }, 850);
+      }
+    }
+
+    function showWin() {
+      document.getElementById('winTime').textContent = fmtTime(seconds);
+      document.getElementById('winMoves').textContent = moves;
+      const yearLabel = currentYear === 'all' ? '全部年份' : `${currentYear}年`;
+      document.getElementById('winSub').textContent = `${yearLabel} · ${totalPairs}对全部找到！`;
+      document.getElementById('winOverlay').classList.add('show');
+
+      const key = `best_${currentYear}_${cols}x${rows}`;
+      const prev = localStorage.getItem(key);
+      if (!prev || seconds < parseInt(prev)) {
+        localStorage.setItem(key, seconds);
+      }
+
+      for (let i = 0; i < 60; i++) setTimeout(spawnConfetti, i * 25);
+    }
+
+    function closeOverlay() {
+      document.getElementById('winOverlay').classList.remove('show');
+    }
+
+    function spawnConfetti() {
+      const el = document.createElement('div');
+      el.className = 'confetti';
+      el.style.left = Math.random() * 100 + 'vw';
+      el.style.background = ['#FF6B6B','#FFD700','#4CAF50','#64B5F6','#FF8C69','#E91E63'][Math.floor(Math.random()*6)];
+      el.style.animationDuration = (Math.random()*2+2) + 's';
+      const sz = Math.random()*7+6;
+      el.style.width = sz + 'px';
+      el.style.height = sz + 'px';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 4000);
+    }
+
+    function initGame() {
+      stopTimer();
+      gameStarted = false;
+      seconds = 0;
+      moves = 0;
+      matchedPairs = 0;
+      flippedCards = [];
+      canFlip = true;
+
+      document.getElementById('timer').textContent = '0:00';
+      document.getElementById('moves').textContent = '0';
+      document.getElementById('pairs').textContent = `0/${totalPairs}`;
+      document.getElementById('progress').style.width = '0%';
+      closeOverlay();
+
+      // 最佳成绩
+      const key = `best_${currentYear}_${cols}x${rows}`;
+      const best = localStorage.getItem(key);
+      document.getElementById('best').textContent = best ? fmtTime(parseInt(best)) : '—';
+
+      const pool = getPool();
+      if (pool.length < totalPairs) {
+        document.getElementById('grid').innerHTML =
+          `<div class="loading">${currentYear === 'all' ? '照片不够' : currentYear + '年'}照片只有 ${pool.length} 张，需要 ${totalPairs} 对，请降低难度或换年份 🙏</div>`;
+        return;
+      }
+
+      const picked = shuffle(pool).slice(0, totalPairs);
+      const grid = document.getElementById('grid');
+      grid.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+      grid.innerHTML = '';
+
+      shuffle([...picked, ...picked]).forEach((photo, i) => {
+        grid.appendChild(makeCard(photo, i));
+      });
+    }
+
+    // ─── 启动 ────────────────────────────────────────────
+    loadPhotos().then(() => initGame());
+  </script>
+
+</body>
+</html>

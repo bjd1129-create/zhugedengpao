@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - 信号流水线可视化</title>
+    <style>
+        /* 基础样式重置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            background-image: radial-gradient(#d4af37 1px, transparent 1px);
+            background-size: 20px 20px;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 页面标题样式 */
+        .page-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #d4af37;
+            margin: 20px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 2px dashed #d4af37;
+            padding-bottom: 15px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        /* 状态概览卡片 */
+        .overview-cards {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .status-card {
+            background: white;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 20px;
+            width: 180px;
+            text-align: center;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .status-count {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+        }
+        
+        .status-label {
+            font-size: 1rem;
+            color: #5a5a5a;
+        }
+        
+        /* 信号流水线容器 */
+        .pipeline-container {
+            background: white;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 20px;
+            margin: 30px 0;
+            box-shadow: 5px 5px 10px rgba(0,0,0,0.1);
+        }
+        
+        .pipeline-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #d4af37;
+            margin-bottom: 20px;
+            border-bottom: 1px dashed #d4af37;
+            padding-bottom: 10px;
+        }
+        
+        .pipeline-stages {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: nowrap;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .pipeline-stages {
+                flex-wrap: wrap;
+            }
+        }
+        
+        .stage {
+            flex: 1;
+            min-width: 200px;
+            background: #fffdf0;
+            border: 1px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 15px;
+            margin: 0 5px;
+            position: relative;
+        }
+        
+        .stage-header {
+            text-align: center;
+            font-weight: bold;
+            color: #d4af37;
+            margin-bottom: 10px;
+            padding-bottom: 5px;
+            border-bottom: 1px dashed #d4af37;
+        }
+        
+        .signals-list {
+            list-style: none;
+        }
+        
+        .signal-item {
+            background: #fffbdd;
+            border: 1px solid #d4af37;
+            border-radius: 15px 255px 15px 225px/255px 15px 225px 15px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .signal-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #d4af37, #ffd700, #d4af37);
+        }
+        
+        .signal-title {
+            font-weight: bold;
+            color: #5a5a5a;
+            margin-bottom: 5px;
+        }
+        
+        .signal-meta {
+            font-size: 0.8rem;
+            color: #888;
+        }
+        
+        .confidence-badge {
+            display: inline-block;
+            background: #d4af37;
+            color: white;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+        
+        /* 类别标签 */
+        .category-tag {
+            display: inline-block;
+            background: #ffd700;
+            color: #5a5a5a;
+            border-radius: 10px;
+            padding: 2px 8px;
+            font-size: 0.7rem;
+            margin-top: 5px;
+        }
+        
+        /* 加载状态 */
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #d4af37;
+            font-size: 1.2rem;
+        }
+        
+        /* 错误提示 */
+        .error {
+            background: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+            border-radius: 15px 255px 15px 225px/255px 15px 225px 15px;
+            padding: 15px;
+            margin: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="page-title">诸葛灯泡 - 信号流水线</h1>
+        
+        <!-- 状态概览 -->
+        <div class="overview-cards" id="overviewCards">
+            <div class="status-card">
+                <div class="status-count" id="watchingCount">0</div>
+                <div class="status-label">观察中</div>
+            </div>
+            <div class="status-card">
+                <div class="status-count" id="validatingCount">0</div>
+                <div class="status-label">验证中</div>
+            </div>
+            <div class="status-card">
+                <div class="status-count" id="buildingCount">0</div>
+                <div class="status-label">构建中</div>
+            </div>
+            <div class="status-card">
+                <div class="status-count" id="shippedCount">0</div>
+                <div class="status-label">已交付</div>
+            </div>
+            <div class="status-card">
+                <div class="status-count" id="onHoldCount">0</div>
+                <div class="status-label">暂停中</div>
+            </div>
+        </div>
+        
+        <!-- 信号流水线 -->
+        <div class="pipeline-container">
+            <h2 class="pipeline-title">信号流水线 - 实时状态</h2>
+            <div class="pipeline-stages" id="pipelineStages">
+                <div class="stage">
+                    <div class="stage-header"> Watching (观察中)</div>
+                    <ul class="signals-list" id="watchingStage"></ul>
+                </div>
+                <div class="stage">
+                    <div class="stage-header"> Validating (验证中)</div>
+                    <ul class="signals-list" id="validatingStage"></ul>
+                </div>
+                <div class="stage">
+                    <div class="stage-header"> Building (构建中)</div>
+                    <ul class="signals-list" id="buildingStage"></ul>
+                </div>
+                <div class="stage">
+                    <div class="stage-header"> Shipped (已交付)</div>
+                    <ul class="signals-list" id="shippedStage"></ul>
+                </div>
+                <div class="stage">
+                    <div class="stage-header"> On Hold (暂停中)</div>
+                    <ul class="signals-list" id="onHoldStage"></ul>
+                </div>
+            </div>
+        </div>
+        
+        <div id="errorMessage" class="error" style="display: none;"></div>
+    </div>
+
+    <script>
+        // 页面加载完成后获取数据并更新UI
+        document.addEventListener('DOMContentLoaded', async function() {
+            await updatePipelineData();
+            
+            // 设置定时刷新，每30秒更新一次数据
+            setInterval(updatePipelineData, 30000);
+        });
+        
+        // 获取数据并更新界面
+        async function updatePipelineData() {
+            try {
+                // 从本地JSON文件获取数据
+                const response = await fetch('./data/office_status.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                // 更新概览计数
+                document.getElementById('watchingCount').textContent = data.by_status.Watching || 0;
+                document.getElementById('validatingCount').textContent = data.by_status.Validating || 0;
+                document.getElementById('buildingCount').textContent = data.by_status.Building || 0;
+                document.getElementById('shippedCount').textContent = data.by_status.Shipped || 0;
+                document.getElementById('onHoldCount').textContent = data.by_status['On Hold'] || 0;
+                
+                // 清空所有阶段列表
+                ['watchingStage', 'validatingStage', 'buildingStage', 'shippedStage', 'onHoldStage'].forEach(stageId => {
+                    document.getElementById(stageId).innerHTML = '';
+                });
+                
+                // 将信号按状态分组并渲染到对应阶段
+                const signalsByStatus = {
+                    'Watching': [],
+                    'Validating': [],
+                    'Building': [],
+                    'Shipped': [],
+                    'On Hold': []
+                };
+                
+                // 将最近活动信号分类
+                data.recent_activity.forEach(signal => {
+                    if (signalsByStatus[signal.status]) {
+                        signalsByStatus[signal.status].push(signal);
+                    }
+                });
+                
+                // 渲染每个阶段的信号
+                Object.keys(signalsByStatus).forEach(status => {
+                    const stageElement = document.getElementById(`${getStageId(status)}Stage`);
+                    
+                    signalsByStatus[status].forEach(signal => {
+                        const signalItem = document.createElement('li');
+                        signalItem.className = 'signal-item';
+                        
+                        // 格式化时间戳为易读格式
+                        const date = new Date(signal.timestamp * 1000);
+                        const timeString = date.toLocaleString('zh-CN');
+                        
+                        signalItem.innerHTML = `
+                            <div class="signal-title">${signal.title}</div>
+                            <div class="signal-meta">ID: ${signal.id}</div>
+                            <div class="signal-meta">时间: ${timeString}</div>
+                            <span class="category-tag">${signal.category}</span>
+                            <span class="confidence-badge">置信度: ${(signal.confidence * 100).toFixed(0)}%</span>
+                        `;
+                        
+                        stageElement.appendChild(signalItem);
+                    });
+                });
+                
+                // 隐藏错误信息
+                document.getElementById('errorMessage').style.display = 'none';
+                
+            } catch (error) {
+                console.error('获取数据失败:', error);
+                document.getElementById('errorMessage').textContent = `加载数据失败: ${error.message}`;
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        }
+        
+        // 将状态名转换为对应的ID
+        function getStageId(status) {
+            switch(status) {
+                case 'Watching': return 'watching';
+                case 'Validating': return 'validating';
+                case 'Building': return 'building';
+                case 'Shipped': return 'shipped';
+                case 'On Hold': return 'onHold';
+                default: return 'unknown';
+            }
+        }
+    </script>
+</body>
+</html>

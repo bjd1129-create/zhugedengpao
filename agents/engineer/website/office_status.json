@@ -1,0 +1,100 @@
+{
+  "timestamp": "2026-04-12T10:25:30.123456",
+  "total_signals": 432,
+  "by_category": {
+    "GitHub Trends": 98,
+    "arXiv Papers": 76,
+    "Market Signals": 89,
+    "Tech News": 85,
+    "Competitor Analysis": 84
+  },
+  "by_status": {
+    "Watching": 125,
+    "Validating": 8,
+    "Building": 3,
+    "Shipped": 52,
+    "On Hold": 244
+  },
+  "recent_activity": [
+    {
+      "id": "sig_1",
+      "title": "信号 #1: 新发现的市场机会",
+      "category": "Tech News",
+      "status": "Watching",
+      "timestamp": 1749723930.123456,
+      "confidence": 0.87
+    },
+    {
+      "id": "sig_2",
+      "title": "信号 #2: 新发现的市场机会",
+      "category": "GitHub Trends",
+      "status": "Validating",
+      "timestamp": 1749723630.123456,
+      "confidence": 0.91
+    },
+    {
+      "id": "sig_3",
+      "title": "信号 #3: 新发现的市场机会",
+      "category": "Market Signals",
+      "status": "Shipped",
+      "timestamp": 1749723330.123456,
+      "confidence": 0.78
+    },
+    {
+      "id": "sig_4",
+      "title": "信号 #4: 新发现的市场机会",
+      "category": "Competitor Analysis",
+      "status": "Building",
+      "timestamp": 1749723030.123456,
+      "confidence": 0.85
+    },
+    {
+      "id": "sig_5",
+      "title": "信号 #5: 新发现的市场机会",
+      "category": "arXiv Papers",
+      "status": "On Hold",
+      "timestamp": 1749722730.123456,
+      "confidence": 0.69
+    },
+    {
+      "id": "sig_6",
+      "title": "信号 #6: 新发现的市场机会",
+      "category": "Tech News",
+      "status": "Watching",
+      "timestamp": 1749722430.123456,
+      "confidence": 0.92
+    },
+    {
+      "id": "sig_7",
+      "title": "信号 #7: 新发现的市场机会",
+      "category": "GitHub Trends",
+      "status": "Shipped",
+      "timestamp": 1749722130.123456,
+      "confidence": 0.83
+    },
+    {
+      "id": "sig_8",
+      "title": "信号 #8: 新发现的市场机会",
+      "category": "Market Signals",
+      "status": "Validating",
+      "timestamp": 1749721830.123456,
+      "confidence": 0.76
+    },
+    {
+      "id": "sig_9",
+      "title": "信号 #9: 新发现的市场机会",
+      "category": "Competitor Analysis",
+      "status": "Building",
+      "timestamp": 1749721530.123456,
+      "confidence": 0.89
+    },
+    {
+      "id": "sig_10",
+      "title": "信号 #10: 新发现的市场机会",
+      "category": "arXiv Papers",
+      "status": "Watching",
+      "timestamp": 1749721230.123456,
+      "confidence": 0.74
+    }
+  ]
+}

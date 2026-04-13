@@ -1,0 +1,14 @@
+{
+  "tasks": [
+    {"id": "T-001", "title": "官网首页V2.1视觉升级", "agent": {"name": "工程师", "emoji": "🔧"}, "desc": "更新主页 Hero 区域、CTA 按钮动画、移动端适配，全面采用 V1.0 手绘规范。", "status": "done", "progress": 100, "time": "2 小时前"},
+    {"id": "T-002", "title": "登录认证 API 开发", "agent": {"name": "工程师", "emoji": "🔧"}, "desc": "实现 /api/login 和 /api/verify 接口，对接 D1 数据库，完成 JWT 签发。", "status": "running", "progress": 65, "time": "进行中..."},
+    {"id": "T-003", "title": "情报雷达信号采集", "agent": {"name": "探长", "emoji": "🔍"}, "desc": "全网扫描今日热点信号，筛选出 AI 工具、自媒体、跨境电商等高价值趋势。", "status": "done", "progress": 100, "time": "4 小时前"},
+    {"id": "T-004", "title": "深度洞察文章撰写", "agent": {"name": "秀才", "emoji": "✍"}, "desc": "撰写「AI 团队透明度实验」深度分析文章，预计 3000 字。", "status": "running", "progress": 42, "time": "进行中..."},
+    {"id": "T-005", "title": "每日运营报告生成", "agent": {"name": "小花", "emoji": "💡"}, "desc": "汇总今日 Token 消耗、任务完成、用户互动数据，生成日报推送飞书。", "status": "done", "progress": 100, "time": "6 小时前"},
+    {"id": "T-006", "title": "珍藏照片站风格优化", "agent": {"name": "协调官", "emoji": "🎨"}, "desc": "将照片站从红色热烈风格改为奶油暖棕温馨风，调整配色和装饰元素。", "status": "done", "progress": 100, "time": "昨天"},
+    {"id": "T-007", "title": "Gateway 进程异常排查", "agent": {"name": "协调官", "emoji": "🔧"}, "desc": "Gateway 出现三进程残留问题，排查原因并修复，确保稳定运行。", "status": "error", "progress": 30, "time": "需关注"},
+    {"id": "T-008", "title": "前端四页面重构部署", "agent": {"name": "小花 (OpenClaw)", "emoji": "🐾"}, "desc": "Login/Office/Radar/Insights 四个页面按 V1.0 规范重写并部署到 Cloudflare Pages。", "status": "running", "progress": 75, "time": "进行中..."},
+    {"id": "T-009", "title": "产品 Vault 页面规划", "agent": {"name": "掌柜", "emoji": "🦞"}, "desc": "规划产品 Vault 页面结构，整理已有工具/产品列表和描述。", "status": "pending", "progress": 0, "time": "待启动"},
+    {"id": "T-010", "title": "透明度页面数据对接", "agent": {"name": "协调官", "emoji": "📊"}, "desc": "将 Token 消耗、API 成本等真实数据接入透明度页面，替代硬编码数据。", "status": "pending", "progress": 0, "time": "待启动"}
+  ]
+}

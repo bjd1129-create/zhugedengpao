@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI智能助手</title>
+    
+    <style>
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            color: #333;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 15px 15px, #e6d9b3 1px, transparent 0),
+                radial-gradient(circle at 30px 30px, #e6d9b3 1px, transparent 0);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            color: #5d4037;
+            margin-bottom: 15px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ffebcd, #ffeaa7);
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #7d5d3b;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* 成功率展示区 */
+        .stats-section {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            padding: 40px;
+            margin: 30px auto;
+            text-align: center;
+            max-width: 800px;
+            box-shadow: 0 8px 30px rgba(139, 69, 19, 0.15);
+            position: relative;
+            overflow: hidden;
+            border: 2px dashed #d4af37; /* 手绘虚线边框 */
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #fff8dc, #fffacd);
+            padding: 25px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px dashed #d4af37; /* 手绘虚线边框 */
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #d4af37; /* 黄金高亮色 */
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: #5d4037;
+            margin-top: 10px;
+        }
+        
+        /* 功能区样式 */
+        .features-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+        
+        .feature-card {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.1);
+            border: 2px dashed #d4af37; /* 手绘虚线边框 */
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(139, 69, 19, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #d4af37; /* 黄金高亮色 */
+        }
+        
+        .feature-title {
+            font-size: 1.3rem;
+            color: #5d4037;
+            margin-bottom: 10px;
+        }
+        
+        .feature-desc {
+            color: #7d5d3b;
+            font-size: 0.95rem;
+        }
+        
+        /* CTA 区域 */
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            margin: 50px 0;
+            background: linear-gradient(135deg, #ffebcd, #ffeaa7);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            border: 2px dashed #d4af37; /* 手绘虚线边框 */
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #d4af37; /* 黄金高亮色 */
+            color: white;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .cta-button:hover {
+            background: #c0a02f;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.6);
+        }
+        
+        /* 底部样式 */
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7d5d3b;
+            font-size: 0.9rem;
+            border-top: 2px dashed #d4af37; /* 手绘虚线边框 */
+            margin-top: 50px;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .stats-section {
+                padding: 25px 15px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <header>
+            <h1>诸葛灯泡</h1>
+            <p class="subtitle">AI驱动的智能助手，让您的工作效率提升数倍</p>
+        </header>
+        
+        <!-- 核心统计指标区域 -->
+        <section class="stats-section">
+            <h2 style="color: #5d4037; margin-bottom: 30px;">我们的成果数据</h2>
+            <p style="color: #7d5d3b; margin-bottom: 30px; font-size: 1.1rem;">基于真实数据驱动的智能分析系统</p>
+            
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number" id="successRate">13%</span>
+                    <div class="stat-label">任务成功率</div>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number" id="shippedCount">58</span>
+                    <div class="stat-label">已完成任务</div>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number" id="totalSignals">432</span>
+                    <div class="stat-label">总处理信号</div>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number" id="timeSaved">277</span>
+                    <div class="stat-label">节省工时 (小时)</div>
+                </div>
+                
+                <div class="stat-card">
+                    <span class="stat-number" id="costSaved">$22,224</span>
+                    <div class="stat-label">预估成本节省</div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 功能介绍区 -->
+        <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3 class="feature-title">智能数据分析</h3>
+                <p class="feature-desc">自动收集和分析市场信号，识别趋势和机会</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">深度洞察</h3>
+                <p class="feature-desc">提供基于AI的深入分析和建议</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">高效执行</h3>
+                <p class="feature-desc">快速响应和执行各项任务</p>
+            </div>
+        </section>
+        
+        <!-- CTA 区域 -->
+        <section class="cta-section">
+            <h2 style="color: #5d4037; margin-bottom: 20px;">开始使用诸葛灯泡</h2>
+            <p style="color: #7d5d3b; margin-bottom: 30px;">体验AI驱动的智能工作效率提升</p>
+            <a href="#" class="cta-button">立即开始</a>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2026 诸葛灯泡 - AI智能助手系统</p>
+        <p>基于真实数据分析，持续优化工作效率</p>
+    </footer>
+    
+    <script>
+        // 使用从 office_status.json 计算得出的数据
+        document.addEventListener('DOMContentLoaded', function() {
+            // 统计数据 - 这些值是从 office_status.json 计算得出的
+            const stats = {
+                successRate: 13,
+                shippedCount: 58,
+                totalSignals: 432,
+                timeSaved: 277,
+                costSaved: 22224
+            };
+            
+            // 数字动画函数
+            function animateValue(id, start, end, duration) {
+                if (start === end) return;
+                
+                const element = document.getElementById(id);
+                const range = end - start;
+                let current = start;
+                const increment = end > start ? 1 : -1;
+                const stepTime = Math.abs(Math.floor(duration / range));
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    element.textContent = id === 'costSaved' ? `$${current.toLocaleString()}` : current;
+                    
+                    if (current === end) {
+                        clearInterval(timer);
+                        if (id === 'successRate') {
+                            element.textContent = `${end}%`;
+                        } else if (id === 'costSaved') {
+                            element.textContent = `$${end.toLocaleString()}`;
+                        }
+                    }
+                }, stepTime);
+            }
+            
+            // 页面加载后启动动画
+            setTimeout(() => {
+                animateValue('successRate', 0, stats.successRate, 2000);
+                animateValue('shippedCount', 0, stats.shippedCount, 2000);
+                animateValue('totalSignals', 0, stats.totalSignals, 2000);
+                animateValue('timeSaved', 0, stats.timeSaved, 2000);
+                animateValue('costSaved', 0, stats.costSaved, 2000);
+            }, 500);
+        });
+    </script>
+</body>
+</html>

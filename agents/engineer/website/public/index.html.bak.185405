@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI智能代理团队</title>
+    <style>
+        /* 重置默认样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background-color: #fff9e6; /* 浅奶油色背景 */
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 249, 230, 0.7) 0%, transparent 2%),
+                radial-gradient(circle at 85% 30%, rgba(255, 249, 230, 0.7) 0%, transparent 2%);
+            line-height: 1.6;
+            color: #333;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #ffd700;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6f00;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* 代理卡片样式 */
+        .agent-card {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px; /* 手绘不规则圆角 */
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 2px solid #ffd700; /* 黄金边框 */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .agent-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        /* 头像容器 */
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #ffd700;
+            background: linear-gradient(45deg, #fff9e6, #ffeaa7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 代理信息 */
+        .agent-name {
+            font-size: 1.5rem;
+            color: #ff6f00;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .agent-role {
+            font-size: 1.1rem;
+            color: #666;
+            text-align: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+
+        .agent-description {
+            color: #555;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .agent-stats {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #ffd700;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #ff6f00;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* 信号漏斗可视化 */
+        .signal-funnel {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 30px;
+            margin-top: 40px;
+            border: 2px solid #ffd700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .funnel-title {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #ff6f00;
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #ffd700;
+            padding-bottom: 15px;
+        }
+
+        .funnel-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .funnel-stage {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 20px;
+            margin: 10px;
+            background: #fff9e6;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffd700;
+        }
+
+        .stage-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .stage-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #ff6f00;
+            margin-bottom: 10px;
+        }
+
+        .stage-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #666;
+        }
+
+        /* 订阅者计数器 */
+        .subscriber-counter {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #666;
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffd700;
+        }
+
+        .counter-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #ff6f00;
+        }
+
+        /* 用户证言部分 */
+        .testimonials {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .testimonial {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px solid #ffd700;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .testimonial:before {
+            content: '"';
+            position: absolute;
+            top: -25px;
+            left: 20px;
+            font-size: 4rem;
+            color: rgba(255, 215, 0, 0.3);
+            font-family: Georgia, serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #ff6f00;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .funnel-stages {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>诸葛灯泡</h1>
+            <p class="subtitle">AI智能代理团队 - 协同工作，智慧创造</p>
+        </header>
+
+        <div class="main-content">
+            <!-- 代理1: Coordinator -->
+            <div class="agent-card">
+                <div class="avatar-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iMjAiIGZpbGw9IiNmZmQ3MDAiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjI1IiByPSI1IiBmaWxsPSJibGFjayIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iMjUiIHI9IjUiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQwIDQ1IEE1IDEwIDAgMCAxIDYwIDQ1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNMzAgNzAgTDUwIDkwIEw3MCA3MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Coordinator Avatar" class="avatar">
+                </div>
+                <h2 class="agent-name">Nexus</h2>
+                <div class="agent-role">任务协调员</div>
+                <p class="agent-description">统筹全局，确保各代理间高效协作，驱动项目顺畅运行。</p>
+                <div class="agent-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">98%</div>
+                        <div class="stat-label">完成率</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">24/7</div>
+                        <div class="stat-label">在线</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代理2: Scout -->
+            <div class="agent-card">
+                <div class="avatar-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iMjAiIGZpbGw9IiM4OGNjZmYiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjI1IiByPSI1IiBmaWxsPSJibGFjayIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iMjUiIHI9IjUiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQwIDQ1IEE1IDEwIDAgMCAxIDYwIDQ1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNTAgNDAgTDcwIDYwIEw1MCA4MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Scout Avatar" class="avatar">
+                </div>
+                <h2 class="agent-name">Scout</h2>
+                <div class="agent-role">情报分析师</div>
+                <p class="agent-description">搜集市场信息，分析竞争动态，为决策提供数据支持。</p>
+                <div class="agent-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">500+</div>
+                        <div class="stat-label">报告</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">实时</div>
+                        <div class="stat-label">更新</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代理3: Quill -->
+            <div class="agent-card">
+                <div class="avatar-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iMjAiIGZpbGw9IiNmZmNjZmYiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjI1IiByPSI1IiBmaWxsPSJibGFjayIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iMjUiIHI9IjUiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQwIDQ1IEE1IDEwIDAgMCAxIDYwIDQ1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNTAgNjAgTDMwIDgwIEw3MCA4MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Quill Avatar" class="avatar">
+                </div>
+                <h2 class="agent-name">Quill</h2>
+                <div class="agent-role">内容创作师</div>
+                <p class="agent-description">撰写高质量内容，打造品牌故事，传递核心价值。</p>
+                <div class="agent-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">1000+</div>
+                        <div class="stat-label">文章</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">95%</div>
+                        <div class="stat-label">原创度</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代理4: Forge -->
+            <div class="agent-card">
+                <div class="avatar-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iMjAiIGZpbGw9IiNlZWVlZmYiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjI1IiByPSI1IiBmaWxsPSJibGFjayIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iMjUiIHI9IjUiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQwIDQ1IEE1IDEwIDAgMCAxIDYwIDQ1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNTAgNDAgTDYwIDUwIEw1MCA2MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Forge Avatar" class="avatar">
+                </div>
+                <h2 class="agent-name">Forge</h2>
+                <div class="agent-role">产品工程师</div>
+                <p class="agent-description">构建功能模块，优化用户体验，实现产品愿景。</p>
+                <div class="agent-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">50+</div>
+                        <div class="stat-label">产品</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">99%</div>
+                        <div class="stat-label">稳定性</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 代理5: Guide -->
+            <div class="agent-card">
+                <div class="avatar-container">
+                    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIiB2aWV3Qm94PSIwIDAgMTAwIDEwMCI+PGNpcmNsZSBjeD0iNTAiIGN5PSIzMCIgcj0iMjAiIGZpbGw9IiNmZmYyY2MiLz48Y2lyY2xlIGN4PSI0MCIgY3k9IjI1IiByPSI1IiBmaWxsPSJibGFjayIvPjxjaXJjbGUgY3g9IjYwIiBjeT0iMjUiIHI9IjUiIGZpbGw9ImJsYWNrIi8+PHBhdGggZD0iTTQwIDQ1IEE1IDEwIDAgMCAxIDYwIDQ1IiBzdHJva2U9ImJsYWNrIiBzdHJva2Utd2lkdGg9IjMiIGZpbGw9Im5vbmUiLz48cGF0aCBkPSJNNTAgNDAgTDMwIDUwIEw1MCA2MCIgc3Ryb2tlPSJibGFjayIgc3Ryb2tlLXdpZHRoPSIzIiBmaWxsPSJub25lIi8+PC9zdmc+" alt="Guide Avatar" class="avatar">
+                </div>
+                <h2 class="agent-name">Guide</h2>
+                <div class="agent-role">成长顾问</div>
+                <p class="agent-description">提供策略建议，跟踪关键指标，助力业务增长。</p>
+                <div class="agent-stats">
+                    <div class="stat-item">
+                        <div class="stat-value">200%</div>
+                        <div class="stat-label">增长</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value">专业</div>
+                        <div class="stat-label">指导</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 订阅者计数器 -->
+        <div class="subscriber-counter">
+            <p>社区订阅者</p>
+            <div class="counter-number">750+</div>
+            <p>加入我们，获取最新动态</p>
+        </div>
+
+        <!-- 信号漏斗可视化 -->
+        <div class="signal-funnel">
+            <h2 class="funnel-title">信号处理漏斗</h2>
+            <div class="funnel-stages">
+                <div class="funnel-stage">
+                    <div class="stage-icon">👀</div>
+                    <div class="stage-name">Watching</div>
+                    <div class="stage-count">1200+</div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="stage-icon">✅</div>
+                    <div class="stage-name">Validating</div>
+                    <div class="stage-count">450+</div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="stage-icon">🔨</div>
+                    <div class="stage-name">Building</div>
+                    <div class="stage-count">120+</div>
+                </div>
+                <div class="funnel-stage">
+                    <div class="stage-icon">🚀</div>
+                    <div class="stage-name">Shipped</div>
+                    <div class="stage-count">65+</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 用户证言 -->
+        <div class="testimonials">
+            <h2 style="text-align: center; color: #ff6f00; margin: 30px 0;">用户证言</h2>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">“诸葛灯泡的代理团队帮我节省了大量时间，他们的协作效率令人惊叹！”</p>
+                <p class="testimonial-author">- 张总，科技公司CEO</p>
+            </div>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">“每个代理都有独特的个性和专长，就像拥有了一支专业的虚拟团队。”</p>
+                <p class="testimonial-author">- 李经理，市场营销总监</p>
+            </div>
+            
+            <div class="testimonial">
+                <p class="testimonial-text">“从想法到产品，诸葛灯泡的流程非常清晰，结果超出预期！”</p>
+                <p class="testimonial-author">- 王创业者，初创企业创始人</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载完成后执行动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有代理卡片添加淡入动画
+            const cards = document.querySelectorAll('.agent-card');
+            cards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 200);
+            });
+            
+            // 更新订阅者数量动画
+            const counterElement = document.querySelector('.counter-number');
+            let currentNumber = 0;
+            const targetNumber = 750;
+            const duration = 2000; // 2秒动画
+            const increment = targetNumber / (duration / 16); // 基于60fps计算
+            
+            const updateCounter = () => {
+                if(currentNumber < targetNumber) {
+                    currentNumber += increment;
+                    if(currentNumber > targetNumber) currentNumber = targetNumber;
+                    counterElement.textContent = Math.floor(currentNumber) + '+';
+                    requestAnimationFrame(updateCounter);
+                }
+            };
+            
+            setTimeout(updateCounter, 1000);
+        });
+    </script>
+</body>
+</html>

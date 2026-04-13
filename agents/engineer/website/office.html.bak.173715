@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>办公室 | 诸葛灯泡 HQ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Inter:wght@400;500;600;700&family=Press+Start+2P&family=VT323&display=swap');
+    *{margin:0;padding:0;box-sizing:border-box;}
+    :root{
+  --bg: #F5E6D3;
+  --bg-dot: #E6DFC5;
+  --surface: #FFFFFF;
+  --border: #4A2508;
+  --text: #1A1A1A;
+  --muted: #6B5B4B;
+  --accent: #E8A87C;
+  --accent-light: #F4C2A1;
+  --green: #38B000;
+  --blue: #0077B6;
+  --purple: #7209B7;
+  --font-hand: "ZCOOL KuaiLe", "Patrick Hand", cursive;
+}
+    body{
+      background-color: var(--bg);
+      background-image: radial-gradient(var(--bg-dot) 1px, transparent 1px);
+      background-size: 20px 20px;
+      color: var(--text);
+      font-family: 'ZCOOL KuaiLe', 'Inter', system-ui;
+      overflow-x: hidden;
+    }
+    .nav{
+      display:flex; justify-content:space-between; align-items:center;
+      padding:14px 28px;
+      border-bottom: 2px dashed var(--border);
+      background:rgba(255,249,230,0.95);
+      backdrop-filter:blur(8px);
+      position:sticky; top:0; z-index:100;
+    }
+    .nb{font-family:'Press Start 2P';font-size:11px;color:var(--accent);text-decoration:none; text-shadow: 2px 2px 0px #000;}
+    .nl{display:flex;gap:16px;}.nl a{font-size:14px;color:var(--muted);text-decoration:none;font-weight:500;}.nl a:hover,.nl a.active{color:var(--text); text-decoration: underline wavy var(--accent);}
+    .hd{padding:24px 28px 16px;}.ht{font-size:28px;font-weight:900;}.hs{font-size:14px;color:var(--muted);margin-top:4px;}
+    .sb{padding:0 28px 12px;display:flex;gap:20px;font-size:13px;color:var(--muted);border-bottom: 2px dashed var(--border);padding-bottom:10px;}
+    .sb span{display:flex;align-items:center;gap:4px;}.sb .v{color:var(--text);font-weight:600;}.sb .dot{width:6px;height:6px;background:#38b000;border-radius:50%; box-shadow: 0 0 8px #38b000; animation: pulse 2s infinite;}
+    @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+    .floor{max-width:1200px;margin:20px auto;padding:0 28px;}
+    .floor-card{
+      background:var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+      padding:24px;
+      box-shadow: 8px 8px 0px var(--border);
+    }
+    canvas{width:100%;height:520px;display:block;border-radius:8px; background: #f8f9fa; border: 1px solid #e2e4e8;}
+    .agents{max-width:1200px;margin:0 auto 24px;padding:0 28px;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;}
+    .acard{
+      background:var(--surface);
+      border: 2px dashed var(--border);
+      border-radius: 15px 225px 15px 255px/255px 15px 225px 15px;
+      padding:16px;
+      transition:all .2s;
+      box-shadow: 4px 4px 0px var(--border);
+    }
+    .acard:hover{transform: translate(-2px, -2px); box-shadow: 6px 6px 0px var(--border);}
+    .acard-h{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+    .acard-emoji{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px; border: 1px solid var(--border);}
+    .acard-name{font-weight:700;font-size:14px;}.acard-zone{font-size:11px;color:var(--muted);}
+    .acard-status{font-size:12px;padding:3px 8px;border-radius:20px;display:inline-block;margin-bottom:8px; border: 1px solid rgba(0,0,0,0.1);}
+    .s-busy{background:#ecfdf5;color:#059669;}.s-think{background:#fef3c7;color:#d97706;}.s-rest{background:#f3f4f6;color:#6b7280;}.s-walk{background:#ede9fe;color:#7c3aed;}.s-chat{background:#fce7f3;color:#db2777;}
+    .acard-thought{font-family:'VT323';font-size:15px;color:#4b5563;line-height:1.4; background: #f8f9fa; padding: 8px; border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;}
+    .tabs{max-width:1200px;margin:0 auto 40px;padding:0 28px;}
+    .tabs-nav{display:flex;gap:0;border-bottom: 2px dashed var(--border);margin-bottom:16px;}
+    .tab-btn{padding:10px 20px;font-size:14px;font-weight:500;color:var(--muted);background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;}.tab-btn.active{color:var(--text);border-bottom-color:var(--accent);}
+    .tab-content{font-size:14px;color:var(--muted);line-height:1.7; background: var(--surface); padding: 16px; border-radius: 12px; border: 1px solid #e2e4e8;}
+    @media(max-width:768px){.floor-card{padding:16px;}canvas{height:360px;}.agents{grid-template-columns:1fr 1fr;}.hd{padding:20px 16px 12px;}.sb{padding:0 16px 8px;}.floor,.agents,.tabs{padding:0 16px;}}
+  
+input:focus, textarea:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px var(--accent-dim) !important;
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+input, textarea {
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  transition: all 0.3s ease;
+}</style>
+</head>
+<body>
+  <nav class="nav"><a href="/index.html" class="nb">💡 诸葛灯泡 HQ</a><div class="nl"><a href="/office.html" class="active">办公室</a><a href="/radar.html">雷达</a><a href="/stage.html">工作台</a></div></nav>
+  <div class="hd"><h1 class="ht">Inside the 诸葛灯泡 office.</h1><p class="hs">全景俯视图：独立办公室布局、实时工位状态、Agent 动态交互。</p></div>
+  <div class="sb"><span><span class="dot"></span> 在线 8/8</span><span>最近更新 <span class="v">刚刚</span></span><span>决策 <span class="v">12</span></span><span>情报 <span class="v">23</span></span><span>部署 <span class="v">8</span></span><span>内容 <span class="v">15</span></span></div>
+  <div class="floor"><div class="floor-card"><canvas id="c"></canvas></div></div>
+  <div class="agents" id="ag"></div>
+  <div class="tabs"><div class="tabs-nav"><button class="tab-btn active">Output</button><button class="tab-btn">Pulse</button><button class="tab-btn">Lab</button></div><div class="tab-content">今日流水线共处理 47 个任务，从探长捕获信号到工程师完成部署，平均耗时 4.2 分钟。CrewAI 参谋部产出 3 份方案，全部通过审批。OpenClaw 工程队完成 2 次热更新。</div></div>
+<script>
+const cv=document.getElementById('c'),cx=cv.getContext('2d');let W,H;
+function rs(){const r=cv.getBoundingClientRect();W=cv.width=r.width*2;H=cv.height=r.height*2;cx.scale(2,2);W=r.width;H=r.height;}rs();window.onresize=rs;
+
+// 房间定义
+const ROOMS = {
+  copaw:    { x: 0.02, y: 0.02, w: 0.48, h: 0.48, l:'CoPaw', c:'#3b82f6' },
+  openclaw: { x: 0.02, y: 0.50, w: 0.48, h: 0.48, l:'OpenClaw', c:'#f97316' },
+  crewai:   { x: 0.50, y: 0.02, w: 0.48, h: 0.48, l:'CrewAI', c:'#10b981' },
+  rest:     { x: 0.50, y: 0.50, w: 0.48, h: 0.48, l:'Rest Zone', c:'#8b5cf6' }
+};
+
+const DOORS = {
+  'copaw-openclaw':  { x1:0.26, y1:0.50, x2:0.26, y2:0.50 },
+  'copaw-crewai':    { x1:0.50, y1:0.26, x2:0.50, y2:0.26 },
+  'openclaw-rest':   { x1:0.50, y1:0.74, x2:0.50, y2:0.74 },
+  'crewai-rest':     { x1:0.74, y1:0.50, x2:0.74, y2:0.50 }
+};
+
+function getDoor(r1, r2) {
+  const k1 = r1+'-'+r2, k2 = r2+'-'+r1;
+  return DOORS[k1] || DOORS[k2] || {x1:0.5,y1:0.5,x2:0.5,y2:0.5};
+}
+
+// Agent 数据 (增加朝向和头像 emoji)
+const A=[
+  {id:'dp',n:'诸葛灯泡',c:'#3b82f6',z:'CoPaw',r:'copaw',sx:0.5,sy:0.4, emoji:'💡', dir:'down'},
+  {id:'xh',n:'小花',c:'#f97316',z:'OpenClaw',r:'openclaw',sx:0.35,sy:0.3, emoji:'🐾', dir:'down'},
+  {id:'gc',n:'工程师',c:'#10b981',z:'OpenClaw',r:'openclaw',sx:0.65,sy:0.3, emoji:'👨‍', dir:'down'},
+  {id:'cz',n:'船长',c:'#f59e0b',z:'CrewAI',r:'crewai',sx:0.25,sy:0.3, emoji:'🧑‍✈️', dir:'right'},
+  {id:'tz',n:'探长',c:'#3b82f6',z:'CrewAI',r:'crewai',sx:0.50,sy:0.3, emoji:'🐕', dir:'down'},
+  {id:'xc',n:'秀才',c:'#a855f7',z:'CrewAI',r:'crewai',sx:0.75,sy:0.3, emoji:'✍️', dir:'left'},
+  {id:'qj',n:'巧匠',c:'#f97316',z:'CrewAI',r:'crewai',sx:0.30,sy:0.7, emoji:'🔨', dir:'up'},
+  {id:'zg',n:'掌柜',c:'#ec4899',z:'CrewAI',r:'crewai',sx:0.70,sy:0.7, emoji:'📊', dir:'up'}
+];
+
+// 初始化
+A.forEach(a=>{
+  const rm=ROOMS[a.r];
+  a.home = {x:rm.x+rm.w*a.sx, y:rm.y+rm.h*a.sy};
+  a.pos = {...a.home};
+  a.state = 'idle';
+  a.path = [];
+  a.pathIdx = 0;
+  a.chatTarget = null;
+  a.bubble = '';
+  a.legPhase = 0;
+  a.trail = []; // 行走轨迹
+});
+
+// 路径规划 (修复：增加过门偏移，防止卡墙角)
+function findPath(agent, target) {
+  let p = [];
+  if (agent.r === target.r) {
+    p.push({x:target.home.x, y:target.home.y - 0.04});
+  } else {
+    const door1 = getDoor(agent.r, target.r);
+    // 1. 到门口
+    p.push({x: door1.x1, y: door1.y1});
+    // 2. 进门 (稍微往里走一点，确保视觉上穿过门洞)
+    p.push({x: door1.x2, y: door1.y2 + 0.03});
+    // 3. 到目标工位旁
+    p.push({x:target.home.x, y:target.home.y - 0.04});
+  }
+  return p;
+}
+
+function triggerMove() {
+  const mover = A.find(a => a.state === 'idle');
+  if (!mover) return;
+  const targets = A.filter(a => a.id !== mover.id && a.state !== 'walking');
+  if (targets.length === 0) return;
+  
+  const target = targets[Math.floor(Math.random() * targets.length)];
+  mover.state = 'walking';
+  mover.path = findPath(mover, target);
+  mover.pathIdx = 0;
+  mover.chatTarget = target;
+  mover.bubble = ["去串个门","聊聊需求","同步下进度","喝口水"][Math.floor(Math.random()*4)];
+  mover.trail = []; // 清空轨迹
+}
+
+function update(t) {
+  A.forEach(a => {
+    if (a.state === 'walking') {
+      if (a.pathIdx < a.path.length) {
+        const dest = a.path[a.pathIdx];
+        const dx = dest.x - a.pos.x;
+        const dy = dest.y - a.pos.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        
+        const speed = 0.003; 
+        if (dist > 0.001) {
+          a.pos.x += (dx/dist) * speed;
+          a.pos.y += (dy/dist) * speed;
+          a.legPhase += 0.3;
+          
+          // 记录轨迹
+          if (t % 10 === 0) {
+            a.trail.push({x: a.pos.x, y: a.pos.y, age: 0});
+          }
+        } else {
+          a.pos.x = dest.x; a.pos.y = dest.y;
+          a.pathIdx++;
+        }
+      } else {
+        a.state = 'chat';
+        a.bubble = `和${a.chatTarget.n} 沟通中`;
+        a.legPhase = 0;
+        setTimeout(() => {
+          a.state = 'walking';
+          a.path = [a.home];
+          a.pathIdx = 0;
+          a.chatTarget = null;
+          a.bubble = "回工位了";
+          a.trail = [];
+        }, 2000 + Math.random() * 1500);
+      }
+    } else if (a.state === 'idle') {
+      a.pos.x = a.home.x + Math.sin(t*0.002 + A.indexOf(a)) * 0.0003;
+      a.legPhase = 0;
+    }
+    
+    // 轨迹老化
+    a.trail.forEach(p => p.age++);
+    a.trail = a.trail.filter(p => p.age < 30);
+  });
+  
+  if (Math.random() < 0.01) triggerMove();
+}
+
+function drawAgent(ctx, a, t) {
+  const x = a.pos.x * W;
+  const y = a.pos.y * H;
+  const s = 3.5;
+  
+  // 绘制行走轨迹
+  a.trail.forEach((p, i) => {
+    const alpha = 1 - p.age / 30;
+    ctx.fillStyle = `rgba(156, 163, 175, ${alpha * 0.3})`;
+    ctx.fillRect(p.x * W - 1, p.y * H - 1, 2, 2);
+  });
+  
+  // 腿 (走路时摆动)
+  const legOffset = a.state === 'walking' ? Math.sin(a.legPhase) * 2.5 : 0;
+  ctx.fillStyle = '#333';
+  ctx.fillRect(x - 1.5*s + legOffset, y + 3*s, 1.2*s, 2*s);
+  ctx.fillRect(x + 0.5*s - legOffset, y + 3*s, 1.2*s, 2*s);
+  
+  // 桌子
+  const hx = a.home.x * W;
+  const hy = a.home.y * H;
+  
+  ctx.fillStyle = '#6b7280';
+  ctx.fillRect(hx - 7*s, hy - 2*s, 1.5*s, 2*s);
+  ctx.fillRect(hx + 5.5*s, hy - 2*s, 1.5*s, 2*s);
+  
+  ctx.fillStyle = '#e5e7eb';
+  ctx.fillRect(hx - 7*s, hy - 8*s, 14*s, 6*s);
+  
+  ctx.fillStyle = '#1f2937';
+  ctx.fillRect(hx - 4*s, hy - 14*s, 8*s, 6*s);
+  ctx.fillStyle = '#3b82f6';
+  ctx.fillRect(hx - 3.5*s, hy - 13.5*s, 7*s, 5*s);
+  ctx.fillStyle = '#6b7280';
+  ctx.fillRect(hx - 1*s, hy - 8*s, 2*s, 1*s);
+  
+  ctx.fillStyle = '#d1d5db';
+  ctx.fillRect(hx - 3*s, hy - 4*s, 6*s, 1.5*s);
+  
+  ctx.fillStyle = '#f59e0b';
+  ctx.fillRect(hx + 3.5*s, hy - 4*s, 2.5*s, 2.5*s);
+  ctx.fillStyle = '#1f2937';
+  ctx.fillRect(hx + 4*s, hy - 3.5*s, 1*s, 1.5*s);
+  
+  // 椅子
+  ctx.fillStyle = '#9ca3af';
+  ctx.fillRect(hx - 4*s, hy + 1*s, 8*s, 2*s);
+  ctx.fillStyle = '#6b7280';
+  ctx.fillRect(hx - 3*s, hy + 3*s, 6*s, 3*s);
+  
+  // 身体 (背影)
+  ctx.fillStyle = a.c;
+  ctx.fillRect(x - 3*s, y - 2*s, 6*s, 5*s);
+  
+  // 头
+  ctx.fillStyle = '#f5d0b0';
+  ctx.fillRect(x - 2.5*s, y - 6.5*s, 5*s, 4.5*s);
+  ctx.fillStyle = '#2d3748';
+  ctx.fillRect(x - 3*s, y - 8*s, 6*s, 3*s);
+  
+  // 圆形头像标识 (参考图风格)
+  ctx.beginPath();
+  ctx.arc(x, y - 12*s, 8*s, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+  ctx.strokeStyle = a.c;
+  ctx.lineWidth = 2;
+  ctx.stroke();
+  
+  // 头像 Emoji
+  ctx.font = '10px serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(a.emoji, x, y - 12*s);
+  
+  // 状态灯
+  const sc = a.state==='chat'?'#f43f5e':a.state==='walking'?'#8b5cf6':'#10b981';
+  ctx.fillStyle = sc; ctx.shadowColor=sc; ctx.shadowBlur=4;
+  ctx.beginPath();
+  ctx.arc(x + 10*s, y - 12*s, 2*s, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  
+  // 名字
+  ctx.fillStyle = '#4b5563'; ctx.font = 'bold 9px Inter'; ctx.textAlign = 'center';
+  ctx.fillText(a.n, x, y + 14*s);
+  
+  // 气泡
+  if (a.bubble && (a.state==='walking'||a.state==='chat')) {
+    const bw = ctx.measureText(a.bubble).width + 20;
+    const bx = x - bw/2;
+    const by = y - 24*s;
+    
+    ctx.shadowColor = 'rgba(0,0,0,0.15)';
+    ctx.shadowBlur = 6;
+    ctx.shadowOffsetY = 3;
+    
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath();
+    ctx.roundRect(bx, by, bw, 22, 8);
+    ctx.fill();
+    
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+    
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.roundRect(bx, by, bw, 22, 8);
+    ctx.stroke();
+    
+    ctx.fillStyle = '#1f2937';
+    ctx.font = 'bold 11px Inter';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(a.bubble, x, by + 11);
+    ctx.textBaseline = 'alphabetic';
+  }
+}
+
+// 绘制环境装饰
+function drawDecor(ctx) {
+  const s = 3.5;
+  
+  // CoPaw 房间：书架
+  const cp = ROOMS.copaw;
+  ctx.fillStyle = '#8b5cf6';
+  ctx.fillRect((cp.x + cp.w * 0.85) * W, (cp.y + cp.h * 0.15) * H, 12 * 4, 16 * 4);
+  ctx.fillStyle = '#f59e0b';
+  for(let i=0; i<3; i++) {
+    ctx.fillRect((cp.x + cp.w * 0.87) * W, (cp.y + cp.h * 0.18 + i*0.08) * H, 10 * 4, 3 * 4);
+  }
+  
+  // OpenClaw 房间：服务器机柜
+  const oc = ROOMS.openclaw;
+  ctx.fillStyle = '#374151';
+  ctx.fillRect((oc.x + oc.w * 0.85) * W, (oc.y + oc.h * 0.6) * H, 10 * 4, 20 * 4);
+  ctx.fillStyle = '#10b981';
+  for(let i=0; i<4; i++) {
+    ctx.fillRect((oc.x + oc.w * 0.87) * W, (oc.y + oc.h * 0.62 + i*0.1) * H, 8 * 4, 2 * 4);
+  }
+  
+  // CrewAI 房间：白板
+  const ca = ROOMS.crewai;
+  ctx.fillStyle = '#fff';
+  ctx.strokeStyle = '#cbd5e1';
+  ctx.lineWidth = 2;
+  ctx.fillRect((ca.x + ca.w * 0.1) * W, (ca.y + ca.h * 0.1) * H, 14 * 4, 10 * 4);
+  ctx.strokeRect((ca.x + ca.w * 0.1) * W, (ca.y + ca.h * 0.1) * H, 14 * 4, 10 * 4);
+  ctx.fillStyle = '#ef4444';
+  ctx.beginPath();
+  ctx.arc((ca.x + ca.w * 0.15) * W, (ca.y + ca.h * 0.15) * H, 3 * 4, 0, Math.PI * 2);
+  ctx.fill();
+  
+  // Rest Zone：沙发 + 咖啡机
+  const rz = ROOMS.rest;
+  ctx.fillStyle = '#7c3aed';
+  ctx.fillRect((rz.x + rz.w * 0.55) * W, (rz.y + rz.h * 0.15) * H, 16 * 4, 8 * 4);
+  ctx.fillStyle = '#f97316';
+  ctx.fillRect((rz.x + rz.w * 0.35) * W, (rz.y + rz.h * 0.3) * H, 6 * 4, 8 * 4);
+  ctx.fillStyle = '#d1d5db';
+  ctx.fillRect((rz.x + rz.w * 0.37) * W, (rz.y + rz.h * 0.32) * H, 4 * 4, 3 * 4);
+}
+
+// 绘制互动连线
+function drawConnections(ctx) {
+  A.forEach(a => {
+    if (a.state === 'chat' && a.chatTarget) {
+      const tx = a.chatTarget.pos.x * W;
+      const ty = a.chatTarget.pos.y * H;
+      const ax = a.pos.x * W;
+      const ay = a.pos.y * H;
+      
+      ctx.strokeStyle = a.c;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath();
+      ctx.moveTo(ax, ay);
+      ctx.lineTo(tx, ty);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+  });
+}
+
+function dr(t){
+  update(t);
+  cx.clearRect(0,0,W,H);
+  cx.fillStyle='#f8f9fa';cx.fillRect(0,0,W,H);
+  
+  // 绘制房间 (移除墙壁，改为半透明区域标识)
+  Object.entries(ROOMS).forEach(([k,r])=>{
+    cx.fillStyle=r.c;cx.globalAlpha=0.03;cx.fillRect(r.x*W,r.y*H,r.w*W,r.h*H);cx.globalAlpha=1;
+    // 绘制区域名称 (更淡，更低调)
+    cx.fillStyle='rgba(0,0,0,0.08)';cx.font='bold 10px Inter';cx.textAlign='left';cx.fillText(r.l,r.x*W+8,r.y*H+16);
+  });
+  
+  // 绘制装饰
+  drawDecor(cx);
+  
+  // 绘制连线
+  drawConnections(cx);
+  
+  // Agent
+  const sortedA = [...A].sort((a,b)=>a.pos.y - b.pos.y);
+  sortedA.forEach(a => drawAgent(cx, a, t));
+  
+  requestAnimationFrame(dr);
+}
+requestAnimationFrame(dr);
+
+// 卡片
+const ag=document.getElementById('ag');
+A.forEach(a=>{
+  ag.innerHTML+=`<div class="acard"><div class="acard-h"><div class="acard-emoji" style="background:${a.c}15">${a.emoji}</div><div><div class="acard-name">${a.n}</div><div class="acard-zone">${a.z}</div></div></div><span class="acard-status s-busy">忙碌中</span><div class="acard-thought">正在处理任务...</div></div>`;
+});
+</script>
+</body>
+</html>

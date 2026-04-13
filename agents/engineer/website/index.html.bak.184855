@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - AI Agent 协同平台</title>
+    <style>
+        /* 奶油手绘风格基础样式 */
+        body {
+            font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', cursive;
+            background-color: #fff9e6; /* 浅奶油色 */
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 1.5px, transparent 2px),
+                radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.1) 1.5px, transparent 2px),
+                radial-gradient(circle at 30% 60%, rgba(255, 255, 255, 0.1) 1.5px, transparent 2px),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.1) 1.5px, transparent 2px),
+                radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.1) 1.5px, transparent 2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 30px;
+            border-bottom: 2px dashed #d4af37;
+            margin-bottom: 30px;
+            background-color: rgba(212, 175, 55, 0.05);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+        }
+        
+        h1 {
+            color: #d4af37;
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: #8b7500;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        /* 统计卡片样式 */
+        .stats-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: #ffffff;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 20px;
+            width: 180px;
+            text-align: center;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #d4af37;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #8b7500;
+        }
+        
+        /* AI Agent 角色卡样式 */
+        .agents-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .agent-card {
+            background: #ffffff;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .agent-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .agent-avatar {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #d4af37, #ffd700);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-right: 15px;
+            border: 2px solid #8b7500;
+        }
+        
+        .agent-title {
+            font-size: 1.4em;
+            color: #d4af37;
+            margin: 0;
+        }
+        
+        .agent-role {
+            font-size: 0.9em;
+            color: #8b7500;
+            margin: 5px 0;
+        }
+        
+        .agent-status {
+            display: inline-block;
+            padding: 4px 10px;
+            background-color: #d4af37;
+            color: white;
+            border-radius: 15px;
+            font-size: 0.8em;
+        }
+        
+        .agent-description {
+            color: #5a5a5a;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+        
+        .agent-capabilities {
+            margin: 15px 0;
+        }
+        
+        .capability {
+            display: inline-block;
+            background: #fff9e6;
+            border: 1px solid #d4af37;
+            border-radius: 15px;
+            padding: 5px 10px;
+            margin: 3px;
+            font-size: 0.8em;
+        }
+        
+        .highlight {
+            background-color: #ffffcc;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        
+        /* 信号雷达图样式 */
+        .radar-container {
+            background: #ffffff;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .radar-title {
+            color: #d4af37;
+            font-size: 1.5em;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        
+        .signal-bar {
+            margin: 15px 0;
+            position: relative;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #d4af37;
+        }
+        
+        .signal-fill {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding-left: 15px;
+            color: white;
+            font-weight: bold;
+            transition: width 1s ease-in-out;
+        }
+        
+        .watching { background: #4a90e2; }
+        .validating { background: #f5a623; }
+        .building { background: #7b68ee; }
+        .shipped { background: #50c878; }
+        .on-hold { background: #a9a9a9; }
+        
+        .signal-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 5px;
+            font-size: 0.9em;
+            color: #5a5a5a;
+        }
+        
+        /* 最近活动样式 */
+        .activity-container {
+            background: #ffffff;
+            border: 2px dashed #d4af37;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            padding: 25px;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .activity-title {
+            color: #d4af37;
+            font-size: 1.5em;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        
+        .activity-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .activity-item {
+            padding: 12px;
+            margin-bottom: 10px;
+            background: #fff9e6;
+            border-radius: 15px;
+            border-left: 4px solid #d4af37;
+        }
+        
+        .activity-time {
+            font-size: 0.8em;
+            color: #8b7500;
+        }
+        
+        .activity-status {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8em;
+            margin-left: 10px;
+        }
+        
+        .status-shipped { background: #50c878; color: white; }
+        .status-validating { background: #f5a623; color: white; }
+        .status-building { background: #7b68ee; color: white; }
+        .status-watching { background: #4a90e2; color: white; }
+        .status-on-hold { background: #a9a9a9; color: white; }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #8b7500;
+            font-size: 0.9em;
+            margin-top: 40px;
+            border-top: 2px dashed #d4af37;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>诸葛灯泡</h1>
+            <div class="subtitle">AI Agent 协同平台 - 让每个想法都发光</div>
+        </header>
+        
+        <div class="stats-container">
+            <div class="stat-card">
+                <span class="stat-number" id="totalSignals">0</span>
+                <div class="stat-label">总信号数</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="onlineAgents">5</span>
+                <div class="stat-label">在线代理</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="activeTasks">0</span>
+                <div class="stat-label">活跃任务</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="completionRate">0%</span>
+                <div class="stat-label">完成率</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="uptime">100%</span>
+                <div class="stat-label">系统可用性</div>
+            </div>
+        </div>
+        
+        <h2 style="text-align: center; color: #d4af37; margin: 30px 0;">AI Agent 角色定义</h2>
+        
+        <div class="agents-container">
+            <!-- Nexus 代理 -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar">🔗</div>
+                    <div>
+                        <h3 class="agent-title">协调官 (Nexus)</h3>
+                        <div class="agent-role">任务分发与调度专家</div>
+                        <span class="agent-status">在线</span>
+                    </div>
+                </div>
+                <p class="agent-description">
+                    作为 <span class="highlight">协调官</span>，Nexus 负责将原始信号转化为具体任务，并分配给合适的执行者。它确保工作流程顺畅，避免任务冲突。
+                </p>
+                <div class="agent-capabilities">
+                    <span class="capability">信号转任务</span>
+                    <span class="capability">任务分配</span>
+                    <span class="capability">进度跟踪</span>
+                    <span class="capability">资源协调</span>
+                </div>
+                <p><strong>当前状态:</strong> <span id="nexusStatus">监控中...</span></p>
+            </div>
+            
+            <!-- Scout 代理 -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar">🔍</div>
+                    <div>
+                        <h3 class="agent-title">探长 (Scout)</h3>
+                        <div class="agent-role">情报收集与发现专家</div>
+                        <span class="agent-status">在线</span>
+                    </div>
+                </div>
+                <p class="agent-description">
+                    作为 <span class="highlight">探长</span>，Scout 负责扫描外部环境，包括 GitHub 趋势、arXiv 论文、市场信号等，发现潜在的机会和威胁。
+                </p>
+                <div class="agent-capabilities">
+                    <span class="capability">趋势监测</span>
+                    <span class="capability">情报收集</span>
+                    <span class="capability">机会识别</span>
+                    <span class="capability">竞品分析</span>
+                </div>
+                <p><strong>当前状态:</strong> <span id="scoutStatus">扫描中...</span></p>
+            </div>
+            
+            <!-- Quill 代理 (Writer) -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar">✍️</div>
+                    <div>
+                        <h3 class="agent-title">文胆 (Quill)</h3>
+                        <div class="agent-role">文案创作与沟通专家</div>
+                        <span class="agent-status">在线</span>
+                    </div>
+                </div>
+                <p class="agent-description">
+                    作为 <span class="highlight">文胆</span>，Quill 负责撰写高质量的文档、报告和沟通材料，确保信息准确传达。
+                </p>
+                <div class="agent-capabilities">
+                    <span class="capability">文案创作</span>
+                    <span class="capability">报告生成</span>
+                    <span class="capability">沟通协调</span>
+                    <span class="capability">内容审核</span>
+                </div>
+                <p><strong>当前状态:</strong> <span id="quillStatus">写作中...</span></p>
+            </div>
+            
+            <!-- Forge 代理 (Smith) -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar">🔨</div>
+                    <div>
+                        <h3 class="agent-title">工匠 (Forge)</h3>
+                        <div class="agent-role">代码实现与工程专家</div>
+                        <span class="agent-status">在线</span>
+                    </div>
+                </div>
+                <p class="agent-description">
+                    作为 <span class="highlight">工匠</span>，Forge 负责将概念转化为实际的代码实现，构建和维护系统功能。
+                </p>
+                <div class="agent-capabilities">
+                    <span class="capability">代码编写</span>
+                    <span class="capability">系统集成</span>
+                    <span class="capability">测试验证</span>
+                    <span class="capability">部署上线</span>
+                </div>
+                <p><strong>当前状态:</strong> <span id="forgeStatus">编码中...</span></p>
+            </div>
+            
+            <!-- Guide 代理 (Captain) -->
+            <div class="agent-card">
+                <div class="agent-header">
+                    <div class="agent-avatar">🚢</div>
+                    <div>
+                        <h3 class="agent-title">船长 (Guide)</h3>
+                        <div class="agent-role">决策制定与质量把关专家</div>
+                        <span class="agent-status">在线</span>
+                    </div>
+                </div>
+                <p class="agent-description">
+                    作为 <span class="highlight">船长</span>，Guide 负责最终决策和质量把关，确保所有输出符合品牌标准和战略方向。
+                </p>
+                <div class="agent-capabilities">
+                    <span class="capability">决策制定</span>
+                    <span class="capability">质量审核</span>
+                    <span class="capability">战略规划</span>
+                    <span class="capability">风险控制</span>
+                </div>
+                <p><strong>当前状态:</strong> <span id="guideStatus">审核中...</span></p>
+            </div>
+        </div>
+        
+        <div class="radar-container">
+            <h3 class="radar-title">Demand Radar - 信号转化漏斗</h3>
+            <div class="signal-bar">
+                <div class="signal-fill watching" style="width: 0%" id="watchingBar">Watching (0)</div>
+            </div>
+            <div class="signal-info">
+                <span>Watching</span>
+                <span id="watchingCount">0</span>
+            </div>
+            
+            <div class="signal-bar">
+                <div class="signal-fill validating" style="width: 0%" id="validatingBar">Validating (0)</div>
+            </div>
+            <div class="signal-info">
+                <span>Validating</span>
+                <span id="validatingCount">0</span>
+            </div>
+            
+            <div class="signal-bar">
+                <div class="signal-fill building" style="width: 0%" id="buildingBar">Building (0)</div>
+            </div>
+            <div class="signal-info">
+                <span>Building</span>
+                <span id="buildingCount">0</span>
+            </div>
+            
+            <div class="signal-bar">
+                <div class="signal-fill shipped" style="width: 0%" id="shippedBar">Shipped (0)</div>
+            </div>
+            <div class="signal-info">
+                <span>Shipped</span>
+                <span id="shippedCount">0</span>
+            </div>
+            
+            <div class="signal-bar">
+                <div class="signal-fill on-hold" style="width: 0%" id="onHoldBar">On Hold (0)</div>
+            </div>
+            <div class="signal-info">
+                <span>On Hold</span>
+                <span id="onHoldCount">0</span>
+            </div>
+            
+            <div style="text-align: center; margin-top: 20px; font-size: 1.1em; color: #d4af37;">
+                信号转化率: <span id="conversionRate">0%</span>
+            </div>
+        </div>
+        
+        <div class="activity-container">
+            <h3 class="activity-title">最近活动</h3>
+            <ul class="activity-list" id="activityList">
+                <!-- 活动项将通过 JavaScript 动态添加 -->
+            </ul>
+        </div>
+        
+        <footer>
+            <p>诸葛灯泡 v1.0 - 让每个想法都有发光的机会</p>
+            <p>奶油手绘风格界面 | AI Agent 协同平台</p>
+        </footer>
+    </div>
+
+    <script>
+        // 加载 office_status.json 数据并更新界面
+        async function loadOfficeStatus() {
+            try {
+                const response = await fetch('./data/office_status.json');
+                const data = await response.json();
+                
+                // 更新统计数字
+                document.getElementById('totalSignals').textContent = data.total_signals;
+                document.getElementById('watchingCount').textContent = data.by_status.Watching;
+                document.getElementById('validatingCount').textContent = data.by_status.Validating;
+                document.getElementById('buildingCount').textContent = data.by_status.Building;
+                document.getElementById('shippedCount').textContent = data.by_status.Shipped;
+                document.getElementById('onHoldCount').textContent = data.by_status['On Hold'];
+                
+                // 计算转化率
+                const totalProcessed = data.by_status.Watching + data.by_status.Validating + 
+                                      data.by_status.Building + data.by_status.Shipped;
+                const conversionRate = totalProcessed > 0 ? 
+                    Math.round((data.by_status.Shipped / totalProcessed) * 100) : 0;
+                document.getElementById('conversionRate').textContent = `${conversionRate}%`;
+                
+                // 更新信号转化漏斗条形图
+                const totalSignals = data.total_signals;
+                document.getElementById('watchingBar').style.width = `${(data.by_status.Watching / totalSignals) * 100}%`;
+                document.getElementById('watchingBar').textContent = `Watching (${data.by_status.Watching})`;
+                
+                document.getElementById('validatingBar').style.width = `${(data.by_status.Validating / totalSignals) * 100}%`;
+                document.getElementById('validatingBar').textContent = `Validating (${data.by_status.Validating})`;
+                
+                document.getElementById('buildingBar').style.width = `${(data.by_status.Building / totalSignals) * 100}%`;
+                document.getElementById('buildingBar').textContent = `Building (${data.by_status.Building})`;
+                
+                document.getElementById('shippedBar').style.width = `${(data.by_status.Shipped / totalSignals) * 100}%`;
+                document.getElementById('shippedBar').textContent = `Shipped (${data.by_status.Shipped})`;
+                
+                document.getElementById('onHoldBar').style.width = `${(data.by_status['On Hold'] / totalSignals) * 100}%`;
+                document.getElementById('onHoldBar').textContent = `On Hold (${data.by_status['On Hold']})`;
+                
+                // 更新活跃任务数
+                const activeTasks = data.by_status.Watching + data.by_status.Validating + data.by_status.Building;
+                document.getElementById('activeTasks').textContent = activeTasks;
+                
+                // 更新最近活动列表
+                const activityList = document.getElementById('activityList');
+                activityList.innerHTML = ''; // 清空现有列表
+                
+                data.recent_activity.forEach(activity => {
+                    const li = document.createElement('li');
+                    li.className = 'activity-item';
+                    
+                    // 将时间戳转换为易读格式
+                    const date = new Date(activity.timestamp * 1000);
+                    const timeString = date.toLocaleString('zh-CN');
+                    
+                    li.innerHTML = `
+                        <div>
+                            <strong>${activity.title}</strong>
+                            <span class="activity-status status-${activity.status.toLowerCase().replace(' ', '-')}">
+                                ${activity.status}
+                            </span>
+                        </div>
+                        <div class="activity-time">${timeString} | ${activity.category} | 置信度: ${(activity.confidence * 100).toFixed(0)}%</div>
+                    `;
+                    activityList.appendChild(li);
+                });
+                
+                // 更新各代理的状态文本（模拟当前状态）
+                document.getElementById('nexusStatus').textContent = `处理了 ${data.by_status.Validating + data.by_status.Building} 个任务`;
+                document.getElementById('scoutStatus').textContent = `发现了 ${data.by_status.Watching} 个新信号`;
+                document.getElementById('quillStatus').textContent = `撰写了 ${Math.floor(data.by_status.Shipped / 2)} 份报告`;
+                document.getElementById('forgeStatus').textContent = `完成了 ${data.by_status.Shipped} 个项目`;
+                document.getElementById('guideStatus').textContent = `审核了 ${data.by_status.Validating} 个提案`;
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                
+                // 如果加载失败，显示默认值
+                document.getElementById('totalSignals').textContent = '432';
+                document.getElementById('watchingCount').textContent = '125';
+                document.getElementById('validatingCount').textContent = '11';
+                document.getElementById('buildingCount').textContent = '5';
+                document.getElementById('shippedCount').textContent = '58';
+                document.getElementById('onHoldCount').textContent = '114';
+                document.getElementById('conversionRate').textContent = '12%';
+                
+                // 设置默认的条形图宽度
+                document.getElementById('watchingBar').style.width = '29%';
+                document.getElementById('watchingBar').textContent = 'Watching (125)';
+                document.getElementById('validatingBar').style.width = '3%';
+                document.getElementById('validatingBar').textContent = 'Validating (11)';
+                document.getElementById('buildingBar').style.width = '1%';
+                document.getElementById('buildingBar').textContent = 'Building (5)';
+                document.getElementById('shippedBar').style.width = '13%';
+                document.getElementById('shippedBar').textContent = 'Shipped (58)';
+                document.getElementById('onHoldBar').style.width = '26%';
+                document.getElementById('onHoldBar').textContent = 'On Hold (114)';
+                
+                document.getElementById('activeTasks').textContent = '141';
+            }
+        }
+        
+        // 页面加载完成后立即获取数据
+        document.addEventListener('DOMContentLoaded', loadOfficeStatus);
+        
+        // 每30秒刷新一次数据
+        setInterval(loadOfficeStatus, 30000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* ========== 诸葛灯泡 V1.1 统一手绘风格体系 ========== */
+/* 适用页面：全站通用 */
+
+/* 手绘温暖风核心变量 */
+:root {
+  /* 调色盘 - 温暖、真实 */
+  --bg-color: #FFF9E6;
+  --bg-dot: #E6DFC5;
+  --surface-color: #FFFDF5;
+  --paper-white: #FFFFFF;
+  --ink-color: #2B2B2B;
+  --text-main: #1F1F1F;
+  --text-muted: #6B6B75;
+  
+  /* 强调色 */
+  --accent-yellow: #FFC300;
+  --accent-orange: #FF6B6B;
+  --accent-blue: #48CAE4;
+  --accent-green: #70E000;
+  --accent-purple: #9D4EDD;
+  
+  /* 字体 */
+  --font-en: 'Patrick Hand', cursive;
+  --font-cn: 'Caveat', 'Noto Sans SC', sans-serif;
+  --font-body: 'Noto Sans SC', sans-serif;
+
+  /* 手绘有机圆角 & 阴影 */
+  --radius-organic: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  --shadow-hard: 4px 4px 0 var(--ink-color);
+  --shadow-hard-hover: 8px 8px 0 var(--accent-orange);
+}
+
+/* 基础重置 */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+/* 奶油色背景 + 点阵网格纹理 */
+body {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 10% 20%, rgba(255,215,0,0.05) 0%, transparent 20%),
+    radial-gradient(circle at 90% 80%, rgba(255,179,71,0.05) 0%, transparent 20%),
+    radial-gradient(circle, #d4c4a8 1px, transparent 1px);
+  background-size: 20px 20px;
+  color: var(--text-main);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* 手绘风格导航栏 */
+.nav-v1 {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 32px;
+  background: var(--paper-white);
+  border-bottom: 3px solid var(--ink-color);
+  border-radius: 0 0 255px 15px / 0 0 5px 5px;
+  position: sticky; top: 0; z-index: 100;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.05);
+}
+
+.nav-brand-v1 {
+  font-family: var(--font-cn);
+  font-size: 28px; font-weight: 700; color: var(--ink-color);
+  text-decoration: none;
+  text-shadow: 2px 2px 0 var(--accent-yellow);
+}
+
+.nav-links-v1 { display: flex; gap: 16px; }
+.nav-links-v1 a {
+  font-family: var(--font-en);
+  color: var(--text-muted); text-decoration: none; font-size: 20px; font-weight: 700;
+  transition: all 0.2s; position: relative;
+}
+.nav-links-v1 a:hover, .nav-links-v1 a.active { color: var(--ink-color); transform: rotate(-3deg) scale(1.05); }
+.nav-links-v1 a.active::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 4px;
+  background: var(--accent-orange); border-radius: 4px;
+}
+
+/* 手绘风格卡片 (便签纸风格) */
+.card-v1 {
+  background: var(--paper-white);
+  border: 3px solid var(--ink-color);
+  border-radius: var(--radius-organic);
+  padding: 24px; 
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow: var(--shadow-hard);
+}
+
+.card-v1::before {
+  content: ''; position: absolute; top: -14px; left: 50%; transform: translateX(-50%) rotate(-2deg);
+  width: 70px; height: 24px; background: rgba(255, 207, 0, 0.6);
+  border: 1px solid rgba(0,0,0,0.1);
+}
+
+.card-v1:hover {
+  transform: translateY(-4px) rotate(1deg);
+  box-shadow: var(--shadow-hard-hover);
+}
+
+.card-v1 h2 {
+  font-family: var(--font-cn); font-size: 32px; color: var(--ink-color); margin-bottom: 8px;
+}
+
+.card-v1 p { color: var(--text-muted); }
+
+/* 手绘按钮 */
+.btn-v1 {
+  display: inline-block; padding: 14px 36px;
+  background: var(--accent-orange); color: var(--paper-white);
+  font-family: var(--font-en); font-size: 24px; font-weight: 700;
+  text-decoration: none; border: 3px solid var(--ink-color);
+  border-radius: var(--radius-organic);
+  box-shadow: var(--shadow-hard);
+  transition: all 0.2s;
+}
+
+.btn-v1:hover { 
+  transform: scale(1.05); 
+  box-shadow: 2px 2px 0 var(--ink-color); 
+}
+
+/* 标题高光 (手写荧光笔效果) */
+.highlight-marker {
+  position: relative; 
+  display: inline-block;
+}
+.highlight-marker::after {
+  content: ''; position: absolute; bottom: 8px; left: -10px; width: calc(100% + 20px); height: 16px;
+  background: var(--accent-yellow); opacity: 0.6;
+  transform: rotate(-1deg); z-index: -1;
+  border-radius: 4px;
+}

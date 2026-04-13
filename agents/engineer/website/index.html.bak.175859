@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>诸葛灯泡 - Agent 控制台</title>
+    <style>
+        /* 奶油手绘风格基础样式 */
+        body {
+            background-color: #fff9e6;
+            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(128, 128, 128, 0.05) 1.5px, transparent 2px),
+                radial-gradient(circle at 20% 40%, rgba(128, 128, 128, 0.05) 1.5px, transparent 2px),
+                radial-gradient(circle at 30% 60%, rgba(128, 128, 128, 0.05) 1.5px, transparent 2px),
+                radial-gradient(circle at 40% 80%, rgba(128, 128, 128, 0.05) 1.5px, transparent 2px),
+                radial-gradient(circle at 50% 100%, rgba(128, 128, 128, 0.05) 1.5px, transparent 2px);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* 头部样式 */
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 2px dashed #d4af37;
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            color: #333;
+            font-size: 2.5em;
+            margin: 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            color: #666;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        
+        /* 统计面板样式 */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4af37;
+            text-align: center;
+            box-shadow: 4px 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #d4af37;
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        /* Agent 网格布局 */
+        .agents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        /* Agent 卡片样式 */
+        .agent-card {
+            background: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #d4af37;
+            padding: 25px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 6px 6px 12px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .agent-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* 头像容器 */
+        .avatar-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #d4af37;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+        }
+        
+        .avatar {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+        }
+        
+        /* Agent 角色标题 */
+        .agent-role {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            margin: 0 0 10px 0;
+        }
+        
+        .agent-name {
+            font-size: 1.1em;
+            color: #666;
+            text-align: center;
+            margin: 0 0 15px 0;
+        }
+        
+        /* 详细信息区域 */
+        .agent-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .detail-item {
+            margin-bottom: 8px;
+            padding: 5px 0;
+        }
+        
+        .detail-label {
+            font-weight: bold;
+            color: #555;
+            display: inline-block;
+            width: 100px;
+        }
+        
+        .detail-value {
+            color: #333;
+        }
+        
+        /* 状态指示器 */
+        .status-indicator {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .status-Watching {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+        
+        .status-Shipped {
+            background-color: #e8f5e9;
+            color: #388e3c;
+        }
+        
+        .status-Building {
+            background-color: #fff3e0;
+            color: #f57c00;
+        }
+        
+        .status-Validating {
+            background-color: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .status-On\ Hold {
+            background-color: #ffebee;
+            color: #d32f2f;
+        }
+        
+        /* 底部信息 */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            border-top: 2px dashed #d4af37;
+            margin-top: 30px;
+            color: #666;
+            font-size: 0.9em;
+        }
+        
+        /* 事件计数器 */
+        .event-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #d4af37;
+            color: white;
+            border-radius: 15px;
+            padding: 5px 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        /* 工作职责区域 */
+        .desk-duties {
+            background-color: #fffde7;
+            border-left: 3px solid #d4af37;
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+        
+        .metrics-section {
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            padding: 10px;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+        
+        .metric-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>诸葛灯泡</h1>
+            <div class="subtitle">智能 Agent 控制台 - 实时监控与管理</div>
+        </header>
+        
+        <!-- 统计面板 -->
+        <div class="stats-panel" id="statsPanel">
+            <div class="stat-card">
+                <div class="stat-value" id="totalSignals">0</div>
+                <div class="stat-label">总信号数</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="watchingCount">0</div>
+                <div class="stat-label">监控中</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="onHoldCount">0</div>
+                <div class="stat-label">暂停中</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="shippedCount">0</div>
+                <div class="stat-label">已完成</div>
+            </div>
+        </div>
+        
+        <!-- Agent 网格 -->
+        <div class="agents-grid" id="agentsGrid">
+            <!-- Agent 卡片将通过 JavaScript 动态生成 -->
+        </div>
+        
+        <footer>
+            <div>诸葛灯泡团队 - 实时 Agent 监控系统</div>
+            <div id="lastUpdated"></div>
+        </footer>
+    </div>
+
+    <script>
+        // Agent 详细配置数据
+        const agentConfigs = {
+            "chuanzhang": {
+                name: "船长",
+                role: "总指挥",
+                inputs: ["探长的信号报告", "秀才的内容草案", "巧匠的代码方案"],
+                outputs: ["审批决策", "任务指派", "资源分配"],
+                definitionOfDone: "所有关键决策均已签字确认，任务已分配至具体执行者",
+                hardBans: ["未经审批直接执行", "跨权操作其他部门事务"],
+                escalation: "当多个部门出现冲突时，由船长最终裁决",
+                metrics: ["决策准确率", "任务完成率", "团队满意度"],
+                deskDuties: ["统筹全局，签发决策，审批内容，确保团队方向正确", "审批探长的信号报告，筛选高价值情报", "审批秀才的文章/内容，决定发布时机和渠道", "审批巧匠的代码方案，确认技术方向"],
+                todayEventCount: 12,
+                realEventCount: 45,
+                lastActivityAt: "刚刚活动",
+                workStyle: "严谨果断，数据驱动决策",
+                idleMessage: "等待各部门汇报最新进展...",
+                celebrateMsg: "又一个项目顺利推进！",
+                status: "Watching"
+            },
+            "tanzhang": {
+                name: "探长",
+                role: "首席情报官",
+                inputs: ["GitHub趋势", "arXiv论文", "市场信号", "竞品分析"],
+                outputs: ["信号报告", "数据分析", "机会评估"],
+                definitionOfDone: "提交完整的信号分析报告，包含数据支撑和行动建议",
+                hardBans: ["发布未经验证的数据", "忽略负面信号"],
+                escalation: "当发现重大威胁时，直接上报船长",
+                metrics: ["信号发现率", "准确率", "响应时间"],
+                deskDuties: ["7×24扫描全网信号，发现被忽视的AI机会", "监控GitHub AI趋势，分析热门项目", "跟踪arXiv论文，识别可落地新技术", "分析竞品动态，保持竞争优势"],
+                todayEventCount: 28,
+                realEventCount: 120,
+                lastActivityAt: "2分钟前",
+                workStyle: "敏锐高效，数据导向",
+                idleMessage: "持续扫描中，寻找下一个机会...",
+                celebrateMsg: "发现高价值信号！",
+                status: "Validating"
+            },
+            "xiucai": {
+                name: "秀才",
+                role: "首席内容官",
+                inputs: ["探长的信号数据", "船长的指导方针", "市场需求反馈"],
+                outputs: ["技术博客", "社交媒体内容", "品牌故事", "产品文案"],
+                definitionOfDone: "内容已发布并获得预期传播效果",
+                hardBans: ["发布虚假信息", "偏离品牌调性"],
+                escalation: "当内容引发争议时，立即上报船长",
+                metrics: ["内容阅读量", "互动率", "品牌曝光度"],
+                deskDuties: ["将数据和信号转化为能传播的爆款内容", "撰写技术博客和教程", "制作社交媒体内容", "构建品牌故事和产品文案"],
+                todayEventCount: 8,
+                realEventCount: 32,
+                lastActivityAt: "5分钟前",
+                workStyle: "生动有趣，贴近用户",
+                idleMessage: "构思下一个爆款内容...",
+                celebrateMsg: "文章阅读量破万！",
+                status: "Building"
+            },
+            "qiaojiang": {
+                name: "巧匠",
+                role: "首席技术官",
+                inputs: ["船长的技术决策", "探长的需求分析", "秀才的用户反馈"],
+                outputs: ["完整代码方案", "前端设计", "自动化脚本"],
+                definitionOfDone: "交付完整、可运行的代码方案，符合设计规范",
+                hardBans: ["提交无法运行的代码", "忽略安全漏洞"],
+                escalation: "当遇到技术瓶颈时，寻求外部专家支持",
+                metrics: ["代码质量", "功能完成度", "系统稳定性"],
+                deskDuties: ["负责前端页面、Python脚本、自动化工作流、API集成", "输出完整、可落地的代码方案和前端设计", "维护系统稳定性和性能优化"],
+                todayEventCount: 5,
+                realEventCount: 23,
+                lastActivityAt: "刚刚活动",
+                workStyle: "精益求精，追求完美",
+                idleMessage: "优化代码中，提升用户体验...",
+                celebrateMsg: "功能完美实现！",
+                status: "Shipped"
+            },
+            "zhanggui": {
+                name: "掌柜",
+                role: "首席运营官",
+                inputs: ["各部门工作日志", "成本数据", "任务进度"],
+                outputs: ["运营报告", "质量评估", "优化建议"],
+                definitionOfDone: "完成每日运营日志和质量评估报告",
+                hardBans: ["隐瞒质量问题", "伪造运营数据"],
+                escalation: "当发现严重质量问题时，立即通知船长",
+                metrics: ["运营效率", "质量评分", "成本控制"],
+                deskDuties: ["维护团队运营日志，生成前端看板数据", "执行Evaluator-Optimizer闭环评估", "记录任务交接和创意存档"],
+                todayEventCount: 15,
+                realEventCount: 67,
+                lastActivityAt: "1分钟前",
+                workStyle: "细致入微，精打细算",
+                idleMessage: "整理运营数据，准备日报...",
+                celebrateMsg: "今日运营指标优秀！",
+                status: "Watching"
+            }
+        };
+
+        // 生成头像的函数
+        function generateAvatar(agentKey) {
+            // 创建一个Canvas来生成头像
+            const canvas = document.createElement('canvas');
+            canvas.width = 100;
+            canvas.height = 100;
+            const ctx = canvas.getContext('2d');
+            
+            // 随机颜色
+            const colors = [
+                '#FF6B6B', '#4ECDC4', '#45B7D1', '#FFBE0B', '#FB5607', 
+                '#8338EC', '#3A86FF', '#38B000', '#9EF01A', '#FF006E'
+            ];
+            const bgColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // 绘制背景
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // 获取首字母
+            const firstChar = agentConfigs[agentKey].name.charAt(0);
+            
+            // 绘制文字
+            ctx.font = 'bold 40px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillStyle = 'white';
+            ctx.fillText(firstChar, canvas.width/2, canvas.height/2);
+            
+            return canvas.toDataURL();
+        }
+
+        // 渲染统计面板
+        function renderStats(data) {
+            document.getElementById('totalSignals').textContent = data.total_signals || 0;
+            document.getElementById('watchingCount').textContent = data.by_status?.Watching || 0;
+            document.getElementById('onHoldCount').textContent = data.by_status?.['On Hold'] || 0;
+            document.getElementById('shippedCount').textContent = data.by_status?.Shipped || 0;
+        }
+
+        // 渲染 Agent 卡片
+        function renderAgents() {
+            const agentsGrid = document.getElementById('agentsGrid');
+            agentsGrid.innerHTML = '';
+            
+            Object.keys(agentConfigs).forEach(key => {
+                const agent = agentConfigs[key];
+                
+                const card = document.createElement('div');
+                card.className = 'agent-card';
+                
+                // 生成头像
+                const avatarUrl = generateAvatar(key);
+                
+                card.innerHTML = `
+                    <div class="event-counter">
+                        ${agent.todayEventCount} 事件/天
+                    </div>
+                    <div class="avatar-container">
+                        <img src="${avatarUrl}" alt="${agent.name}" class="avatar" />
+                    </div>
+                    <div class="agent-role">${agent.role}</div>
+                    <div class="agent-name">${agent.name}</div>
+                    <div class="agent-status">
+                        状态: <span class="status-indicator status-${agent.status}">${agent.status}</span>
+                    </div>
+                    
+                    <div class="desk-duties">
+                        <strong>工作职责:</strong><br>
+                        ${agent.deskDuties.slice(0, 2).map(duty => `• ${duty}`).join('<br>')}
+                    </div>
+                    
+                    <div class="agent-details">
+                        <div class="detail-item">
+                            <span class="detail-label">今日事件:</span>
+                            <span class="detail-value">${agent.todayEventCount}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">累计事件:</span>
+                            <span class="detail-value">${agent.realEventCount}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">最后活动:</span>
+                            <span class="detail-value">${agent.lastActivityAt}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">工作风格:</span>
+                            <span class="detail-value">${agent.workStyle}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">空闲消息:</span>
+                            <span class="detail-value">${agent.idleMessage}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">庆祝消息:</span>
+                            <span class="detail-value">${agent.celebrateMsg}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="metrics-section">
+                        <strong>量化指标:</strong><br>
+                        <div class="metric-item">
+                            <span>输入:</span>
+                            <span>${agent.inputs.length}项</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>输出:</span>
+                            <span>${agent.outputs.length}项</span>
+                        </div>
+                        <div class="metric-item">
+                            <span>度量:</span>
+                            <span>${agent.metrics.length}项</span>
+                        </div>
+                    </div>
+                `;
+                
+                agentsGrid.appendChild(card);
+            });
+        }
+
+        // 加载数据并渲染
+        async function loadData() {
+            try {
+                // 从本地加载 office_status.json
+                const response = await fetch('./data/office_status.json');
+                const data = await response.json();
+                
+                renderStats(data);
+                renderAgents();
+                
+                // 更新最后更新时间
+                document.getElementById('lastUpdated').textContent = 
+                    `最后更新: ${new Date().toLocaleString('zh-CN')}`;
+                
+            } catch (error) {
+                console.error('加载数据失败:', error);
+                
+                // 如果加载失败，仍然渲染带有默认数据的界面
+                renderAgents();
+                document.getElementById('lastUpdated').textContent = 
+                    `最后更新: ${new Date().toLocaleString('zh-CN')} (数据加载失败)`;
+            }
+        }
+
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', loadData);
+        
+        // 每30秒自动刷新一次数据
+        setInterval(loadData, 30000);
+    </script>
+</body>
+</html>

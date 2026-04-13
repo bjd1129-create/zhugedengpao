@@ -1,299 +1,355 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>价格说明 💰 — 老庄与小花</title>
-  <meta name="description" content="💰 透明定价。小花团队提供AI建站、内容创作、技术服务。按需付费，没有套路。">
-  <meta name="keywords" content="AI建站价格,AI服务报价,AI内容创作价格,透明定价,AI按需付费">
-  <meta property="og:title" content="价格说明 💰 — 老庄与小花">
-  <meta property="og:description" content="💰 透明定价。小花团队提供AI建站、内容创作、技术服务。按需付费，没有套路。">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://dengpao.pages.dev/pricing">
-  <meta property="og:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta name="twitter:card" content="summary_large_image">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>定价 | 诸葛灯泡 HQ</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Inter:wght@400;500;600;700&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="价格说明 💰 — 老庄与小花">
-  <meta name="twitter:description" content="💰 透明定价。小花团队提供AI建站、内容创作、技术服务。按需付费，没有套路。">
-  <meta name="twitter:image" content="https://dengpao.pages.dev/images/xiaohua_banner.jpg">
-  <meta name="canonical" content="https://dengpao.pages.dev/pricing">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="icon" href="images/xiaohua.jpg">
-  <style>
-    body { padding-top: var(--nav-h); }
-    .page-hero {
-      padding: 72px 0 56px;
-      border-bottom: 1.5px solid var(--border);
-      text-align: center;
-    }
-    .page-hero h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 4vw, 2.6rem);
-      color: var(--text);
-    }
-    .page-hero p { color: var(--muted); margin-top: 12px; font-size: 1rem; }
-    .pricing-grid {
-      max-width: 1000px;
-      margin: 60px auto;
-      padding: 0 24px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
-    .pricing-card {
-      background: var(--bg-card);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 32px;
-      text-align: center;
-      transition: all 0.25s ease;
-    }
-    .pricing-card:hover {
-      border-color: var(--red);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.06);
-      transform: translateY(-4px);
-    }
-    .pricing-card.popular {
-      border-color: var(--red);
-      position: relative;
-    }
-    .pricing-card.popular::before {
-      content: '最受欢迎';
-      position: absolute;
-      top: -12px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: var(--red);
-      color: white;
-      padding: 4px 16px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-    }
-    .pricing-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 16px;
-    }
-    .pricing-price {
-      font-family: var(--font-serif);
-      font-size: 2.4rem;
-      color: var(--red);
-      margin-bottom: 8px;
-    }
-    .pricing-price span { font-size: 1rem; color: var(--muted); }
-    .pricing-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-    .pricing-features {
-      list-style: none;
-      text-align: left;
-      margin-bottom: 28px;
-    }
-    .pricing-features li {
-      font-size: 0.85rem;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-    }
-    .pricing-features li::before { content: '✓ '; color: var(--red); font-weight: 600; }
-    .pricing-btn {
-      display: block;
-      width: 100%;
-      padding: 12px 24px;
-      background: var(--red);
-      color: white;
-      font-weight: 600;
-      border-radius: 8px;
-      text-decoration: none;
-      text-align: center;
-    }
-    .pricing-btn:hover { opacity: 0.9; }
-    .faq-section {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 60px 24px;
-    }
-    .faq-section h2 {
-      font-family: var(--font-serif);
-      font-size: 1.6rem;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .faq-item {
-      margin-bottom: 24px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
-    }
-    .faq-q {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 8px;
-      color: var(--text);
-    }
-    .faq-a {
-      font-size: 0.9rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-  </style>
+        body {
+            font-family: 'ZCOOL KuaiLe', 'Inter', system-ui;
+            background-color: #F5E6D3;
+            background-image: radial-gradient(#E6DFC5 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #1A1A1A;
+            line-height: 1.6;
+            padding: 20px;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 30px;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border: 2px dashed #ffcc00;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff6600;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 0px #ffe08a;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #ffd700, #ffd700);
+            background-repeat: no-repeat;
+            background-size: 100% 40%;
+            background-position: 0 85%;
+            padding: 0 5px;
+        }
+
+        .pricing-section {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .pricing-card {
+            width: 300px;
+            padding: 30px;
+            background-color: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffcc00;
+            text-align: center;
+            position: relative;
+            box-shadow: 8px 8px 0px rgba(255, 204, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .pricing-card.popular::before {
+            content: "推荐";
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background-color: #ff6600;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            transform: rotate(15deg);
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            color: #ff6600;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ff6600;
+            margin-bottom: 20px;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: #999;
+        }
+
+        .features {
+            list-style-type: none;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .features li {
+            padding: 8px 0;
+            border-bottom: 1px dotted #eee;
+        }
+
+        .features li::before {
+            content: "✓ ";
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #ff6600;
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            border: 2px solid #ff8c00;
+            transition: all 0.3s ease;
+            box-shadow: 4px 4px 0px rgba(255, 140, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #ff8c00;
+            transform: scale(1.05);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background-color: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            overflow: hidden;
+            border: 2px dashed #ffcc00;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #eee;
+        }
+
+        .comparison-table th {
+            background-color: #ffebcc;
+            color: #ff6600;
+            font-weight: bold;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background-color: #fff9e6;
+        }
+
+        .benefits-section {
+            text-align: center;
+            margin: 60px 0;
+            padding: 40px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffcc00;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .benefit-item {
+            padding: 20px;
+            background-color: white;
+            border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+            border: 2px dashed #ffcc00;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .pricing-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <img src="images/xiaohua.jpg" alt="小花" style="width:32px;height:32px;border-radius:50%;">
-      <span>老庄与小花</span>
-    </a>
-    <button class="nav-toggle" aria-label="打开菜单" onclick="this.classList.toggle('active');document.querySelector('.nav-links').classList.toggle('open')">
-      <span></span><span></span><span></span>
-    </button>
-    <ul class="nav-links">
-      <li><a href="index.html">首页</a></li>
-      <li></li>
-      <li></li>
-      <li><a href="diary.html">日记</a></li>
-      <li><a href="openclaw-install.html">⚡安装</a></li>
-      <li><a href="office.html">团队</a></li>
-      <li><a href="pricing.html" class="active">价格</a></li>
-      <li><a href="bagua.html">🎯 八卦</a></li>
-      <li><a href="trading.html">📈 操盘</a></li>
-    </ul>
-  </nav>
+    <nav style="display:flex;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto 20px;padding:20px;">
+        <a href="/index.html" style="font-size:1.5rem;font-weight:bold;color:#4A2508;text-decoration:none;">💡 诸葛灯泡 HQ</a>
+        <div>
+            <a href="/index.html" style="margin-left:20px;text-decoration:none;color:#6B5B4B;">首页</a>
+            <a href="/office.html" style="margin-left:20px;text-decoration:none;color:#6B5B4B;">办公室</a>
+            <a href="/radar.html" style="margin-left:20px;text-decoration:none;color:#6B5B4B;">雷达</a>
+            <a href="/pricing.html" style="margin-left:20px;text-decoration:none;color:#4A2508;border-bottom:2px dashed #4A2508;">定价</a>
+        </div>
+    </nav>
+    <div class="container">
+        <header>
+            <h1>诸葛灯泡</h1>
+            <p class="subtitle">专业信号追踪与市场情报分析平台</p>
+            <p class="subtitle">基于 <span class="highlight">432 个市场信号</span> 的智能分析系统</p>
+        </header>
 
-  <section class="page-hero">
-    <h1>价格说明 💰</h1>
-    <p>透明定价，按需付费，没有套路</p>
-  </section>
+        <section class="pricing-section">
+            <div class="pricing-card">
+                <h2 class="card-title">Starter</h2>
+                <div class="price">$79<span>/月</span></div>
+                <ul class="features">
+                    <li>每日 50 个市场信号追踪</li>
+                    <li>基础趋势分析报告</li>
+                    <li>邮件通知服务</li>
+                    <li>基础数据导出</li>
+                    <li>社区支持</li>
+                </ul>
+                <a href="#" class="cta-button">开始免费试用</a>
+            </div>
 
-  <section class="pricing-grid">
-    <div class="pricing-card">
-      <div class="pricing-title">🌱 AI龙虾养成</div>
-      <div class="pricing-price">¥5,000<span>/起</span></div>
-      <p class="pricing-desc">帮你建立自己的AI团队</p>
-      <ul class="pricing-features">
-        <li>AI团队搭建</li>
-        <li>工具选型配置</li>
-        <li>基础培训（2小时）</li>
-        <li>30天技术支持</li>
-        <li>团队工作规范建立</li>
-      </ul>
-      
+            <div class="pricing-card popular">
+                <h2 class="card-title">Pro</h2>
+                <div class="price">$199<span>/月</span></div>
+                <ul class="features">
+                    <li>每日 200 个市场信号追踪</li>
+                    <li>深度趋势分析报告</li>
+                    <li>实时推送通知</li>
+                    <li>高级数据导出</li>
+                    <li>优先技术支持</li>
+                    <li>自定义分析仪表板</li>
+                </ul>
+                <a href="#" class="cta-button">获取 Pro 版</a>
+            </div>
+
+            <div class="pricing-card">
+                <h2 class="card-title">Enterprise</h2>
+                <div class="price">定制报价</div>
+                <ul class="features">
+                    <li>无限制信号追踪</li>
+                    <li>专属分析模型</li>
+                    <li>专属客户经理</li>
+                    <li>API 接入权限</li>
+                    <li>定制集成方案</li>
+                    <li>SLA 保障</li>
+                </ul>
+                <a href="#" class="cta-button">联系销售</a>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <h2>为什么选择诸葛灯泡？</h2>
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <h3>智能信号发现</h3>
+                    <p>从 GitHub、arXiv、科技新闻等多渠道自动发现市场机会</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>实时监控</h3>
+                    <p>持续跟踪 432+ 个关键指标，不错过任何变化</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>精准预测</h3>
+                    <p>基于历史数据和机器学习算法的趋势预测</p>
+                </div>
+                <div class="benefit-item">
+                    <h3>决策支持</h3>
+                    <p>为您的业务战略提供数据驱动的洞察</p>
+                </div>
+            </div>
+        </section>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>功能</th>
+                    <th>Starter</th>
+                    <th>Pro</th>
+                    <th>Enterprise</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>每日信号追踪数量</td>
+                    <td>50</td>
+                    <td>200</td>
+                    <td>无限制</td>
+                </tr>
+                <tr>
+                    <td>分析报告深度</td>
+                    <td>基础</td>
+                    <td>深度</td>
+                    <td>专属定制</td>
+                </tr>
+                <td>通知方式</td>
+                <td>邮件</td>
+                <td>实时推送</td>
+                <td>多种方式</td>
+                </tr>
+                <tr>
+                    <td>技术支持</td>
+                    <td>社区</td>
+                    <td>优先</td>
+                    <td>专属</td>
+                </tr>
+                <tr>
+                    <td>数据导出</td>
+                    <td>基础</td>
+                    <td>高级</td>
+                    <td>API 接入</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <footer>
+            <p>© 2026 诸葛灯泡 - 基于数据的智能商业洞察平台</p>
+            <p>联系我们获取更多信息 | sales@dengpao.com</p>
+        </footer>
     </div>
-
-    <div class="pricing-card popular">
-      <div class="pricing-title">🚀 AI建站服务</div>
-      <div class="pricing-price">¥8,000<span>/起</span></div>
-      <p class="pricing-desc">快速上线你的官网</p>
-      <ul class="pricing-features">
-        <li>官网设计与开发</li>
-        <li>移动端适配</li>
-        <li>基础SEO优化</li>
-        <li>内容策划支持</li>
-        <li>30天免费维护</li>
-      </ul>
-      
-    </div>
-
-    <div class="pricing-card">
-      <div class="pricing-title">✍️ 内容创作</div>
-      <div class="pricing-price">¥500<span>/篇</span></div>
-      <p class="pricing-desc">高质量文章代写</p>
-      <ul class="pricing-features">
-        <li>原创文章撰写</li>
-        <li>专业配图</li>
-        <li>多平台适配</li>
-        <li>SEO优化</li>
-        <li>无限修改直到满意</li>
-      </ul>
-      
-    </div>
-
-    <div class="pricing-card">
-      <div class="pricing-title">📊 月度服务</div>
-      <div class="pricing-price">¥15,000<span>/月</span></div>
-      <p class="pricing-desc">全方位AI团队支持</p>
-      <ul class="pricing-features">
-        <li>不限次数内容创作</li>
-        <li>不限次数技术咨询</li>
-        <li>每周进度汇报</li>
-        <li>优先响应</li>
-        <li>专属客服</li>
-      </ul>
-      
-    </div>
-  </section>
-
-  <section class="faq-section">
-    <h2>常见问题</h2>
-    
-    <div class="faq-item">
-      <div class="faq-q">Q: 价格能便宜吗？</div>
-      <div class="faq-a">A: 我们已经用AI把成本压到最低了。比起传统团队，价格是他们的1/3都不到。质量问题我们保证。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Q: 需要多长时间？</div>
-      <div class="faq-a">A: 简单项目1-2周，复杂项目1个月起。具体看需求复杂度。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Q: 能开发票吗？</div>
-      <div class="faq-a">A: 可以。技术服务费、咨询费都可以开。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Q: 不满意怎么办？</div>
-      <div class="faq-a">A: 我们承诺无限修改直到满意。如果实在无法达成共识，可以退款（扣除已完成部分成本）。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">Q: 怎么开始？</div>
-      <div class="faq-a">A: 先联系我们，说清楚你的需求。我们评估后给你方案和报价，你觉得OK再开始。</div>
-    </div>
-  </section>
-
-  
-<div style="text-align:center;padding:48px 24px;background:var(--bg);border-top:1.5px solid var(--border);margin-top:48px;">
-  <p style="font-size:0.8rem;color:var(--red);font-family:var(--font-mono);letter-spacing:0.1em;margin-bottom:12px;">现在就出发</p>
-  <h2 style="font-family:var(--font-serif);font-size:1.6rem;color:var(--text);margin-bottom:12px;">按需付费，没有套路</h2>
-  <p style="color:var(--muted);font-size:0.95rem;max-width:48ch;margin:0 auto 28px;">先聊需求，再给报价。透明合理，欢迎货比三家。</p>
-  
-</div>
-
-
-<!-- RELATED PAGES -->
-<style>
-.page-nav { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin:48px 0 0; }
-.page-nav a { display:flex; flex-direction:column; padding:20px 24px; background:var(--bg-card); border:1.5px solid var(--border); border-radius:var(--radius); text-decoration:none; transition:all 0.2s; }
-.page-nav a:hover { border-color:var(--red); transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.08); }
-.page-nav__label { font-size:0.75rem; color:var(--muted); margin-bottom:4px; font-family:var(--font-mono); }
-.page-nav__title { font-weight:600; color:var(--text); font-size:0.95rem; }
-.page-nav--single { grid-template-columns:1fr; }
-.page-nav--empty { display:none; }
-</style>
-<div class="page-nav-wrapper" style="max-width:1100px;margin:0 auto;padding:0 24px;">
-<div class="page-nav__label" style="font-size:0.75rem;color:var(--muted);margin-bottom:16px;font-family:var(--font-mono);letter-spacing:0.05em;">相关页面</div>
-<div class="page-nav">
-  <a href="insights.html" class="page-nav__prev">
-    <span class="page-nav__label">← 上一步</span>
-    <span class="page-nav__title">洞察</span>
-  </a>
-  <a href="radar.html" class="page-nav__next" style="text-align:right;">
-    <span class="page-nav__label">下一步 →</span>
-    <span class="page-nav__title">AI雷达</span>
-  </a>
-</div>
-</div>
-
-<footer style="text-align:center;padding:40px 24px;border-top:1.5px solid var(--border);color:var(--muted);font-size:0.85rem;">
-    © 2026 老庄与小花 · 温暖真实的AI实验 🦞
-  </footer>
 </body>
 </html>
